@@ -5,8 +5,8 @@
 // Declare action TYPES at the top of the file
 import axios from 'axios';
 
-export const FETCH_HEADMASTER_SCHOOL = 'FETCH_HEADMASTER_SCHOOL';
+import * as actionTypes from './actionTypes';
 
 export const fetchHeadmasterSchool = () => dispatch => {
-  dispatch({ type: FETCH_HEADMASTER_SCHOOL });
+  dispatch({ type: actionTypes.FETCH_HEADMASTER_SCHOOL });
 };
