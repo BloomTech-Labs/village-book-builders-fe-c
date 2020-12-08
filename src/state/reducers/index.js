@@ -2,7 +2,7 @@
 // This allows for the simplification of flow when importing reducers into your actions throughout your app.
 
 import { combineReducers } from 'redux';
-import * as headmasterReducer from './headmasterReducer';
+import headmasterReducer from './headmasterReducer.js';
 
 export default combineReducers({
   headmasterReducer,

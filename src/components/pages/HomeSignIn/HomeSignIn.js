@@ -12,6 +12,7 @@ export class HomeSignIn extends Component {
       response
     );
   };
+
   validateGoogle = response => {
     this.props.onGauth(response.accessToken);
     this.props.history.push('/');
