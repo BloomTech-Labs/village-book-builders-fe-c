@@ -1,37 +1,37 @@
-// import React from "react"
-// import { render, cleanup } from "@testing-library/react"
+import React from 'react';
+import { render, cleanup } from '@testing-library/react';
 
-// // import RenderExampleListPage from '../components/pages/ExampleList/RenderExampleListPage';
+// import RenderExampleListPage from '../components/pages/ExampleList/RenderExampleListPage';
 
-// afterEach(() => {
-// 	cleanup()
-// 	jest.restoreAllMocks()
-// 	jest.clearAllMocks()
-// })
+afterEach(() => {
+  cleanup();
+  jest.restoreAllMocks();
+  jest.clearAllMocks();
+});
 
-// const mockData = [
-// 	{
-// 		id: 1,
-// 		albumId: 1,
-// 		title: "accusamus beatae ad facilis cum similique qui sunt",
-// 		url: "https://via.placeholder.com/600/92c952",
-// 		thumbnailUrl: "https://via.placeholder.com/150/92c952"
-// 	},
-// 	{
-// 		id: 2,
-// 		albumId: 1,
-// 		title: "reprehenderit est deserunt velit ipsam",
-// 		url: "https://via.placeholder.com/600/771796",
-// 		thumbnailUrl: "https://via.placeholder.com/150/771796"
-// 	},
-// 	{
-// 		id: 3,
-// 		albumId: 1,
-// 		title: "officia porro iure quia iusto qui ipsa ut modi",
-// 		url: "https://via.placeholder.com/600/24f355",
-// 		thumbnailUrl: "https://via.placeholder.com/150/24f355"
-// 	}
-// ]
+const mockData = [
+  {
+    id: 1,
+    albumId: 1,
+    title: 'accusamus beatae ad facilis cum similique qui sunt',
+    url: 'https://via.placeholder.com/600/92c952',
+    thumbnailUrl: 'https://via.placeholder.com/150/92c952',
+  },
+  {
+    id: 2,
+    albumId: 1,
+    title: 'reprehenderit est deserunt velit ipsam',
+    url: 'https://via.placeholder.com/600/771796',
+    thumbnailUrl: 'https://via.placeholder.com/150/771796',
+  },
+  {
+    id: 3,
+    albumId: 1,
+    title: 'officia porro iure quia iusto qui ipsa ut modi',
+    url: 'https://via.placeholder.com/600/24f355',
+    thumbnailUrl: 'https://via.placeholder.com/150/24f355',
+  },
+];
 
 // describe("<RenderExampleList /> test suite", () => {
 // 	test("items container is rendered when passed empty 'data' array", () => {
@@ -72,3 +72,10 @@
 // 		expect(container.firstChild.children).toHaveLength(3)
 // 	})
 // })
+
+describe('Says Hello', () => {
+  test('it should say hello', () => {
+    const h1 = 'Hello';
+    expect(h1).toBe('Hello');
+  });
+});

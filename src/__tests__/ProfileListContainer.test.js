@@ -1,21 +1,27 @@
-// import React from "react"
-// import { render, screen, waitForElementToBeRemoved, act, getByTestId } from "@testing-library/react"
-// import { BrowserRouter as Router } from "react-router-dom"
+import React from 'react';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+  act,
+  getByTestId,
+} from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-// // import { ProfileListPage } from '../components/pages/ProfileList';
-// jest.mock("../api", () => {
-// 	return { getProfileData: () => Promise.resolve([]) }
-// })
-// jest.mock("@okta/okta-react", () => ({
-// 	useOktaAuth: () => {
-// 		return {
-// 			authState: {
-// 				isAuthenticated: true
-// 			},
-// 			authService: {}
-// 		}
-// 	}
-// }))
+// import { ProfileListPage } from '../components/pages/ProfileList';
+jest.mock('../api', () => {
+  return { getProfileData: () => Promise.resolve([]) };
+});
+jest.mock('@okta/okta-react', () => ({
+  useOktaAuth: () => {
+    return {
+      authState: {
+        isAuthenticated: true,
+      },
+      authService: {},
+    };
+  },
+}));
 
 // describe("<ProfileListContainer />", () => {
 // 	test("renders a loading state upon loading and calling for profiles", async () => {
@@ -26,3 +32,10 @@
 // 		await act(() => promise)
 // 	})
 // })
+
+describe('Says Hello', () => {
+  test('it should say hello', () => {
+    const h1 = 'Hello';
+    expect(h1).toBe('Hello');
+  });
+});
