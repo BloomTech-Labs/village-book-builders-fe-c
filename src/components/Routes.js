@@ -6,7 +6,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import MasterForm from './pages/Registration/MasterForm';
 import HomeSignIn from './pages/HomeSignIn/HomeSignIn';
 import SessionDetails from './pages/SessionDetails/SessionDetails';
-import adminDashboard from './pages/AdminDashboard/AdminDashboard';
+import adminDashboard from './pages/Admin/AdminDashboard';
+import adminLibraries from './pages/Admin/AdminLibraries';
 // import Donation from "./registration/Donation"
 
 function Routes() {
@@ -15,6 +16,7 @@ function Routes() {
       <PrivateRoute exact path="/" component={Dashboard} />
       <PrivateRoute exact path="/booking/" component={Booking} />
       <PrivateRoute exact path="/admin/" component={adminDashboard} />
+      <PrivateRoute exact path="/admin/libraries" component={adminLibraries} />
       <Route exact path="/signin/" component={HomeSignIn} />
       <Route exact path="/signup/" component={MasterForm} />
       <Route
