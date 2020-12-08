@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 
+import { MainContainer, VillageProfile, Label } from './Village.styles';
+
 const dummyData = {
   id: 123,
   headmaster: 'John Doe',
@@ -14,22 +16,23 @@ const dummyData = {
 
 const Village = () => {
   return (
-    <div>
-      <h3>Village Component</h3>
-      <p>Headmaster: {dummyData.headmaster}</p>
-      <p>Village Contact: {dummyData.villageContact}</p>
-      <p>Village Contact Phone: {dummyData.villagePhone}</p>
-      <div className="educationInfo">
-        <p>Education Contact:</p>
-        <p>{dummyData.educationContact}</p>
-        <p>{dummyData.educationPhone}</p>
-        <p>{dummyData.educationEmail}</p>
-        <p>Notes: {dummyData.notes}</p>
-      </div>
+    <VillageProfile>
+      <Label>Headmaster:</Label>
+      <p>{dummyData.headmaster}</p>
+      <Label>Village Contact:</Label>
+      <p>{dummyData.villageContact}</p>
+      <Label>Village Contact Phone:</Label>
+      <p>{dummyData.villagePhone}</p>
+
+      <Label>Education Contact:</Label>
+      <p>{dummyData.educationContact}</p>
+      <p>{dummyData.educationPhone}</p>
+      <p>{dummyData.educationEmail}</p>
+      <p>Notes: {dummyData.notes}</p>
       <div className="villageButtons">
         <Link to="/village/edit">Edit</Link>
       </div>
-    </div>
+    </VillageProfile>
   );
 };
 
