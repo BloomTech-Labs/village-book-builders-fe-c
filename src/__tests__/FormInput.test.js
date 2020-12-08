@@ -23,3 +23,10 @@ describe('<FormInput /> test suite', () => {
     expect(input.placeholder).toBe('User Email');
   });
 });
+
+describe('Says Hello', () => {
+  test('it should say hello', () => {
+    const h1 = 'Hello';
+    expect(h1).toBe('Hello');
+  });
+});
