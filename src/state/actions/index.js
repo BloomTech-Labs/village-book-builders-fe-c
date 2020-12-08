@@ -7,16 +7,18 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
+const baseURL = 'http://54.158.134.245/api';
+
 export const fetchHeadmasterSchool = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_HEADMASTER_SCHOOL });
 };
 
 export const fetchVillage = id => dispatch => {
   axios
-    .get(`/headmaster/village/${id}`)
+    .get(`${baseURL}/headmaster/village/${id}`)
     .then(res => {
-      console.log(res);
-      dispatch({ type: actionTypes.FETCH_VILLAGE });
+      dispatch({ type: actionTypes.FETCH_VILLAGE, payload: res.data });
+      return 'HI';
     })
     .catch(err => console.dir(err));
 };

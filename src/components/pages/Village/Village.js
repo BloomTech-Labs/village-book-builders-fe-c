@@ -1,39 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { fetchVillage } from '../../../state/actions/index';
 
 import { MainContainer, VillageProfile, Label } from './Village.styles';
 
-const dummyData = {
-  id: 123,
-  headmaster: 'John Doe',
-  villageContact: 'Jane Doe',
-  villagePhone: '123-234-3456',
-  educationContact: 'James Doe',
-  educationPhone: '444-234-2342',
-  educationEmail: 'email@example.com',
-  notes: 'Lorem ipsum dolor sit am',
-};
-
-const Village = () => {
+const Village = props => {
+  const { villageData, fetchVillage } = props;
+  useEffect(() => {
+    fetchVillage(1); // !This headmaster ID is being hardcoded right now
+  }, []);
+  console.log(villageData);
   return (
     <VillageProfile>
       <Label>Headmaster:</Label>
-      <p>{dummyData.headmaster}</p>
+      <p>Mr Headmaster</p>
       <Label>Village Contact:</Label>
-      <p>{dummyData.villageContact}</p>
+      <p>{villageData.village_contact_name}</p>
       <Label>Village Contact Phone:</Label>
-      <p>{dummyData.villagePhone}</p>
+      <p>{villageData.village_contact_phone}</p>
 
       <Label>Education Contact:</Label>
-      <p>{dummyData.educationContact}</p>
-      <p>{dummyData.educationPhone}</p>
-      <p>{dummyData.educationEmail}</p>
-      <p>Notes: {dummyData.notes}</p>
+      <p>{villageData.education_contact.name}</p>
+      <p>{villageData.education_contact.phone}</p>
+      <p>{villageData.education_contact.email}</p>
+      <p>Notes: {villageData.notes}</p>
       <div className="villageButtons">
-        <Link to="/village/edit">Edit</Link>
+        <Link to={`/village/edit/${villageData.id}`}>Edit Village Profile</Link>
       </div>
     </VillageProfile>
   );
 };
 
-export default Village;
+const mapStateToProps = state => {
+  return {
+    villageData: state.headmasterReducer.villageData,
+  };
+};
+
+export default connect(mapStateToProps, { fetchVillage })(Village);

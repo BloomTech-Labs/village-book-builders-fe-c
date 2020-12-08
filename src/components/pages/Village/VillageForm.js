@@ -1,31 +1,41 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import axios from 'axios';
+
+import { fetchVillage } from '../../../state/actions/index';
+
+const baseURL = 'http://54.158.134.245/api';
 
 const initialState = {
-  headmaster: '',
-  villageContact: '',
-  villagePhone: '',
-  educationContact: '',
-  educationPhone: '',
-  educationEmail: '',
+  headmaster: 'Mr Headmaster',
+  village_contact_name: '',
+  village_contact_phone: '',
+  education_contact: {
+    name: '',
+    phone: '',
+    email: '',
+  },
   notes: '',
 };
 
-const dummyData = {
-  id: 123,
-  headmaster: 'John Doe',
-  villageContact: 'Jane Doe',
-  villagePhone: '123-234-3456',
-  educationContact: 'James Doe',
-  educationPhone: '444-234-2342',
-  educationEmail: 'email@example.com',
-  notes: 'Lorem ipsum dolor sit am',
-};
-
-const VillageForm = () => {
-  const [form, setForm] = useState(dummyData);
+const VillageForm = props => {
+  const { fetchVillage } = props;
+  const [form, setForm] = useState(initialState);
   const history = useHistory();
+  const params = useParams().villageId;
 
+  useEffect(() => {
+    axios
+      .get(`${baseURL}/headmaster/village/${params}`)
+      .then(res => {
+        console.log('VillageForm', res.data);
+        setForm({ ...res.data });
+      })
+      .catch(err => console.dir(err));
+  }, []);
+
+  console.log(form);
   const handleSubmit = e => {
     e.preventDefault();
     console.log('Village Edit form submitted');
@@ -43,37 +53,37 @@ const VillageForm = () => {
       <input
         type="text"
         name="headmaster"
-        value={form.headmaster}
+        value={'Mr Headmaster'}
         onChange={e => handleChange(e)}
       />
       <input
         type="text"
         name="villageContact"
-        value={form.villageContact}
+        value={form.village_contact_name}
         onChange={e => handleChange(e)}
       />
       <input
         type="text"
         name="villagePhone"
-        value={form.villagePhone}
+        value={form.village_contact_phone}
         onChange={e => handleChange(e)}
       />
       <input
         type="text"
         name="educationContact"
-        value={form.educationContact}
+        value={form.education_contact.name}
         onChange={e => handleChange(e)}
       />
       <input
         type="text"
         name="educationPhone"
-        value={form.educationPhone}
+        value={form.education_contact.phone}
         onChange={e => handleChange(e)}
       />
       <input
         type="email"
         name="educationEmail"
-        value={form.educationEmail}
+        value={form.education_contact.email}
         onChange={e => handleChange(e)}
       />
       <textarea
@@ -86,4 +96,4 @@ const VillageForm = () => {
   );
 };
 
-export default VillageForm;
+export default connect(null, { fetchVillage })(VillageForm);

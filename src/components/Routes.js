@@ -24,7 +24,7 @@ function Routes() {
       />
       {/* <Route exact path="/donate/" component={Donation} /> */}
       <Route exact path="/village" component={Village} />
-      <Route exact path="/village/edit" component={VillageForm} />
+      <Route exact path="/village/edit/:villageId" component={VillageForm} />
     </div>
   );
 }
