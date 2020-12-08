@@ -10,3 +10,13 @@ import * as actionTypes from './actionTypes';
 export const fetchHeadmasterSchool = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_HEADMASTER_SCHOOL });
 };
+
+export const fetchVillage = id => dispatch => {
+  axios
+    .get(`/headmaster/village/${id}`)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: actionTypes.FETCH_VILLAGE });
+    })
+    .catch(err => console.dir(err));
+};
