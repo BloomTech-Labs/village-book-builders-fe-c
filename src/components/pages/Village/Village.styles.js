@@ -17,3 +17,5 @@ export const Label = styled.h4`
   font-size: 1rem;
   width: fit-content;
 `;
+
+export const Form = styled.form``;

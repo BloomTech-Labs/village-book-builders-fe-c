@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import { fetchVillage } from '../../../state/actions/index';
+import { Form, Input, Button } from 'antd';
 
 const baseURL = 'http://54.158.134.245/api';
 
@@ -19,81 +19,112 @@ const initialState = {
   notes: '',
 };
 
-const VillageForm = props => {
-  const { fetchVillage } = props;
-  const [form, setForm] = useState(initialState);
+const VillageForm = () => {
+  const [formData, setFormData] = useState(initialState);
+
   const history = useHistory();
   const params = useParams().villageId;
+
+  const [form] = Form.useForm();
 
   useEffect(() => {
     axios
       .get(`${baseURL}/headmaster/village/${params}`)
       .then(res => {
         console.log('VillageForm', res.data);
-        setForm({ ...res.data });
+        form.setFieldsValue({
+          ...res.data,
+          education_contact_name: res.data.education_contact.name,
+          education_contact_phone: res.data.education_contact.phone,
+          education_contact_email: res.data.education_contact.email,
+        });
+        setFormData({
+          ...res.data,
+        });
       })
       .catch(err => console.dir(err));
   }, []);
 
-  console.log(form);
   const handleSubmit = e => {
-    e.preventDefault();
-    console.log('Village Edit form submitted');
-    setForm(initialState);
+    // e.preventDefault()
+    console.log('Village Edit form submitted', formData);
+    setFormData(initialState);
     history.push('/village');
   };
 
   const handleChange = e => {
-    console.log('Village Edit --> ', form);
-    setForm({ ...form, [e.target.name]: e.target.value });
+    console.log('Village Edit --> ', formData);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="headmaster"
-        value={'Mr Headmaster'}
-        onChange={e => handleChange(e)}
-      />
-      <input
-        type="text"
-        name="villageContact"
-        value={form.village_contact_name}
-        onChange={e => handleChange(e)}
-      />
-      <input
-        type="text"
-        name="villagePhone"
-        value={form.village_contact_phone}
-        onChange={e => handleChange(e)}
-      />
-      <input
-        type="text"
-        name="educationContact"
-        value={form.education_contact.name}
-        onChange={e => handleChange(e)}
-      />
-      <input
-        type="text"
-        name="educationPhone"
-        value={form.education_contact.phone}
-        onChange={e => handleChange(e)}
-      />
-      <input
-        type="email"
-        name="educationEmail"
-        value={form.education_contact.email}
-        onChange={e => handleChange(e)}
-      />
-      <textarea
-        name="notes"
-        value={form.notes}
-        onChange={e => handleChange(e)}
-      />
-      <input type="submit" value="Submit" />
-    </form>
+    <Form onFinish={handleSubmit} initialvalue={formData} form={form}>
+      <Form.Item label="Headmaster" name="headmaster">
+        <Input
+          type="text"
+          // id="headmaster"
+          name="headmaster"
+          // defaultValue="Mr Headmaster"
+          value={formData.headmaster}
+          onChange={e => handleChange(e)}
+        />
+      </Form.Item>
+
+      <Form.Item label="Village Contact Name" name="village_contact_name">
+        <Input
+          type="text"
+          // id="village_contact_name"
+          name="village_contact_name"
+          value={formData.village_contact_name.value}
+          onChange={e => handleChange(e)}
+        />
+      </Form.Item>
+
+      <Form.Item label="Village Contact Phone" name="village_contact_phone">
+        <Input
+          type="text"
+          // name="village_contact_phone"
+          value={formData.village_contact_phone}
+          onChange={e => handleChange(e)}
+        />
+      </Form.Item>
+
+      <Form.Item label="Education Contact Name" name="education_contact_name">
+        <Input
+          type="text"
+          // name="education_contact.name"
+          value={formData.education_contact.name}
+          onChange={e => handleChange(e)}
+        />
+      </Form.Item>
+
+      <Form.Item label="Education Contact Phone" name="education_contact_phone">
+        <Input
+          type="text"
+          // name="education_contact.phone"
+          value={formData.education_contact.phone}
+          onChange={e => handleChange(e)}
+        />
+      </Form.Item>
+
+      <Form.Item label="Education Contact Email" name="education_contact_email">
+        <Input
+          type="email"
+          // name="education_contact.email"
+          value={formData.education_contact.email}
+          onChange={e => handleChange(e)}
+        />
+      </Form.Item>
+      <Form.Item label="Notes" name="notes">
+        <Input.TextArea
+          name="notes"
+          value={formData.notes}
+          onChange={e => handleChange(e)}
+        />
+      </Form.Item>
+      <input type="submit" value="Submit Edit" />
+    </Form>
   );
 };
 
-export default connect(null, { fetchVillage })(VillageForm);
+export default connect(null, {})(VillageForm);
