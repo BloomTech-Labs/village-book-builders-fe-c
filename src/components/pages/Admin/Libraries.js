@@ -1,9 +1,10 @@
+// * ? Should this be reorganized into a common component?
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Divider, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 
-export default function AdminLibraries() {
+export default function Libraries() {
   // const mockSampleLibraries = [
   //   {
   //     id: 1,
