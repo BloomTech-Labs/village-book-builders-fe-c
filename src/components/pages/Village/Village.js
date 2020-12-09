@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchVillage } from '../../../state/actions/index';
 
-import { MainContainer, VillageProfile, Label } from './Village.styles';
+import { VillageProfile, Label } from './Village.styles';
 
 const Village = props => {
   const { villageData, fetchVillage } = props;
