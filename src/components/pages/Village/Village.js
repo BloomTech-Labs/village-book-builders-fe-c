@@ -11,7 +11,6 @@ const Village = props => {
   useEffect(() => {
     fetchVillage(1); // !This headmaster ID is being hardcoded right now
   }, []);
-  console.log(villageData);
   return (
     <VillageProfile>
       <Label>Headmaster:</Label>

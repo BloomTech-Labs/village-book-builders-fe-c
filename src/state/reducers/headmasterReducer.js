@@ -19,6 +19,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         villageData: action.payload,
       };
+
     default:
       return state;
   }

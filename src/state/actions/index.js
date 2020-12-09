@@ -18,7 +18,15 @@ export const fetchVillage = id => dispatch => {
     .get(`${baseURL}/headmaster/village/${id}`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_VILLAGE, payload: res.data });
-      return 'HI';
+    })
+    .catch(err => console.dir(err));
+};
+
+export const editVillage = (id, data) => () => {
+  axios
+    .put(`${baseURL}/headmaster/village/${id}`, data)
+    .then(() => {
+      window.location.replace('/village/');
     })
     .catch(err => console.dir(err));
 };
