@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import MasterForm from './pages/Registration/MasterForm';
 import HomeSignIn from './pages/HomeSignIn/HomeSignIn';
 import SessionDetails from './pages/SessionDetails/SessionDetails';
-import Village from './pages/Village/Village';
+import Village from './pages/Village/Village.component';
 import VillageForm from './pages/Village/VillageForm';
 // import Donation from "./registration/Donation"
 
