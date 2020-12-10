@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Form, Input, Button } from 'antd';
 
 import { editVillage } from '../../../state/actions';
-import { layout, FormContainer, tailLayout } from './Village.styles';
+import { layout, FormContainer, tailLayout, Required } from './Village.styles';
 
 const baseURL = 'http://54.158.134.245/api';
 
@@ -65,7 +65,7 @@ const VillageForm = props => {
   return (
     <FormContainer>
       <Form onFinish={handleSubmit} form={form} {...layout}>
-        <Form.Item label="Headmaster" name="headmaster">
+        <Form.Item label="Headmaster" name="headmaster" required>
           <Input
             type="text"
             name="headmaster"
@@ -75,7 +75,11 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Village Contact Name" name="village_contact_name">
+        <Form.Item
+          label="Village Contact Name"
+          name="village_contact_name"
+          required
+        >
           <Input
             type="text"
             name="village_contact_name"
@@ -92,7 +96,11 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Education Contact Name" name="education_contact_name">
+        <Form.Item
+          label="Education Contact Name"
+          name="education_contact_name"
+          required
+        >
           <Input
             type="text"
             name="education_contact_name"
@@ -122,6 +130,7 @@ const VillageForm = props => {
             // name="education_contact.email"
             value={formData.education_contact.email}
             onChange={e => handleChange(e)}
+            required
           />
         </Form.Item>
         <Form.Item label="Notes" name="notes">
@@ -132,7 +141,10 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
+        <Form.Item {...tailLayout} style={{ textAlign: 'right' }}>
+          <Required id="requiredMsg">
+            Fields with <span id="required">&#42;</span> are required.
+          </Required>
           <Button type="primary" htmlType="submit">
             Submit Village Edit
           </Button>

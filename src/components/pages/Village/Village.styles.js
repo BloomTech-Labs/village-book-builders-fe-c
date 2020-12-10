@@ -31,6 +31,7 @@ export const tailLayout = {
 
 export const FormContainer = styled.div`
   padding: 1rem;
+  position: relative;
 
   .ant-col {
     align-self: center;
@@ -43,5 +44,16 @@ export const FormContainer = styled.div`
 
   .ant-col-16 {
     max-width: 50%;
+  }
+`;
+
+export const Required = styled.p`
+  position: relative;
+  display: inline;
+  font-size: 0.9rem;
+  margin-right: 1rem;
+  span#required {
+    color: red;
+    font-size: 0.9rem;
   }
 `;
