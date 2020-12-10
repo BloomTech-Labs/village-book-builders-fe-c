@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Form, Input, Button } from 'antd';
 
 import { editVillage } from '../../../state/actions';
-import { layout, FormContainer } from './Village.styles';
+import { layout, FormContainer, tailLayout } from './Village.styles';
 
 const baseURL = 'http://54.158.134.245/api';
 
@@ -131,7 +131,12 @@ const VillageForm = props => {
             onChange={e => handleChange(e)}
           />
         </Form.Item>
-        <input type="submit" value="Submit Edit" />
+
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit">
+            Submit Village Edit
+          </Button>
+        </Form.Item>
       </Form>
     </FormContainer>
   );
