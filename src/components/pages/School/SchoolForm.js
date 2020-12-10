@@ -28,10 +28,10 @@ const initialState = {
   notes: '',
 };
 
-const VillageForm = props => {
+const SchoolForm = props => {
   const [formData, setFormData] = useState(initialState);
   const pathname = useHistory().location.pathname;
-  const params = useParams().villageId;
+  const params = useParams().schoolId;
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -40,12 +40,7 @@ const VillageForm = props => {
       axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
         .get(`${baseURL}/headmaster/village/${params}`)
         .then(res => {
-          const data = {
-            ...res.data,
-            education_contact_name: res.data.education_contact.name,
-            education_contact_phone: res.data.education_contact.phone,
-            education_contact_email: res.data.education_contact.email,
-          };
+          const data = res.data;
           form.setFieldsValue(data);
           setFormData(data);
         })
@@ -54,14 +49,7 @@ const VillageForm = props => {
   }, []);
 
   const handleSubmit = async () => {
-    props.editVillage(params, {
-      ...formData,
-      education_contact: {
-        name: formData.education_contact_name,
-        email: formData.education_contact_email,
-        phone: formData.education_contact_phone,
-      },
-    });
+    props.editSchool(params, formData);
   };
 
   const handleChange = e => {
@@ -71,7 +59,7 @@ const VillageForm = props => {
   return (
     <FormContainer>
       <Form.Item {...tailLayout}>
-        <Link to="/village">Go Back to Village Profile</Link>
+        <Link to="/school">Go Back to School Profile</Link>
       </Form.Item>
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item label="Headmaster" name="headmaster" required>
@@ -105,43 +93,6 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item
-          label="Education Contact Name"
-          name="education_contact_name"
-          required
-        >
-          <Input
-            type="text"
-            name="education_contact_name"
-            value={formData.education_contact.name}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Education Contact Phone"
-          name="education_contact_phone"
-        >
-          <Input
-            type="text"
-            // name="education_contact.phone"
-            value={formData.education_contact.phone}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Education Contact Email"
-          name="education_contact_email"
-        >
-          <Input
-            type="email"
-            // name="education_contact.email"
-            value={formData.education_contact.email}
-            onChange={e => handleChange(e)}
-            required
-          />
-        </Form.Item>
         <Form.Item label="Notes" name="notes">
           <Input.TextArea
             name="notes"
@@ -152,7 +103,7 @@ const VillageForm = props => {
 
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
-            Submit Village Edit
+            Submit School Edit
           </Button>
           <Required id="requiredMsg">
             Fields with <span id="required">&#42;</span> are required.
@@ -163,4 +114,4 @@ const VillageForm = props => {
   );
 };
 
-export default connect(null, { editVillage })(VillageForm);
+export default connect(null, {})(SchoolForm);

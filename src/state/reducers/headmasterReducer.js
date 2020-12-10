@@ -8,6 +8,7 @@ const initialState = {
       name: '',
     },
   },
+  schoolData: {},
 };
 // Fetch school data for headmaster
 const reducer = (state = initialState, action) => {

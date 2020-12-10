@@ -8,6 +8,8 @@ import HomeSignIn from './pages/HomeSignIn/HomeSignIn';
 import SessionDetails from './pages/SessionDetails/SessionDetails';
 import Village from './pages/Village/Village.component';
 import VillageForm from './pages/Village/VillageForm';
+import School from './pages/School/School.component';
+import SchoolForm from './pages/School/SchoolForm';
 // import Donation from "./registration/Donation"
 
 function Routes() {
@@ -25,6 +27,8 @@ function Routes() {
       {/* <Route exact path="/donate/" component={Donation} /> */}
       <Route exact path="/village" component={Village} />
       <Route exact path="/village/edit/:villageId" component={VillageForm} />
+      <Route exact path="/school" component={School} />
+      <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
     </div>
   );
 }

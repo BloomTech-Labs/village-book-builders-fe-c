@@ -30,3 +30,15 @@ export const editVillage = (id, data) => () => {
     })
     .catch(err => console.dir(err));
 };
+
+export const fetchSchool = id => dispatch => {
+  console.log('fetchSchool action (needs school endpoint) ');
+};
+
+export const editSchool = (id, data) => dispatch => {
+  console.log(
+    'editSchool action ID and Data (needs school endpoint)--> ',
+    id,
+    data
+  );
+};
