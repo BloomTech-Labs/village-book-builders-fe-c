@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { fetchVillage } from '../../../state/actions/index';
 
-import { VillageProfile, Label } from './Village.styles';
+import { Profile, Label } from '../../common/ProfileStyle';
 
 const Village = props => {
   const { villageData, fetchVillage } = props;
@@ -12,7 +12,7 @@ const Village = props => {
     fetchVillage(1); // !This headmaster ID is being hardcoded right now
   }, []);
   return (
-    <VillageProfile>
+    <Profile>
       <Label>Headmaster:</Label>
       <p>Mr Headmaster</p>
       <Label>Village Contact:</Label>
@@ -28,7 +28,7 @@ const Village = props => {
       <div className="villageButtons">
         <Link to={`/village/edit/${villageData.id}`}>Edit Village Profile</Link>
       </div>
-    </VillageProfile>
+    </Profile>
   );
 };
 
