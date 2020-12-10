@@ -19,3 +19,25 @@ export const Label = styled.h4`
 `;
 
 export const Form = styled.form``;
+
+export const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+
+export const FormContainer = styled.div`
+  padding: 1rem;
+
+  .ant-col {
+    align-self: center;
+  }
+
+  .ant-col-8 {
+    max-width: 33%;
+    min-width: 15rem;
+  }
+
+  .ant-col-16 {
+    max-width: 50%;
+  }
+`;
