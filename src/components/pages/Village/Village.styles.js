@@ -51,7 +51,12 @@ export const Required = styled.p`
   position: relative;
   display: inline;
   font-size: 0.9rem;
-  margin-right: 1rem;
+  margin-left: -2rem;
+  @media screen and (max-width: 800px) {
+    display: block;
+    margin-left: -3.2rem;
+    margin-top: 0.4rem;
+  }
   span#required {
     color: red;
     font-size: 0.9rem;

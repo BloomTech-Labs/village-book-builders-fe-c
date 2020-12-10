@@ -6,7 +6,13 @@ import axios from 'axios';
 import { Form, Input, Button } from 'antd';
 
 import { editVillage } from '../../../state/actions';
-import { layout, FormContainer, tailLayout, Required } from './Village.styles';
+import {
+  layout,
+  FormContainer,
+  tailLayout,
+  Required,
+  ButtonMessage,
+} from './Village.styles';
 
 const baseURL = 'http://54.158.134.245/api';
 
@@ -141,13 +147,13 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item {...tailLayout} style={{ textAlign: 'right' }}>
-          <Required id="requiredMsg">
-            Fields with <span id="required">&#42;</span> are required.
-          </Required>
+        <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             Submit Village Edit
           </Button>
+          <Required id="requiredMsg">
+            Fields with <span id="required">&#42;</span> are required.
+          </Required>
         </Form.Item>
       </Form>
     </FormContainer>
