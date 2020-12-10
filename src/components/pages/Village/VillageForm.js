@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { Form, Input, Button } from 'antd';
@@ -70,6 +70,9 @@ const VillageForm = props => {
 
   return (
     <FormContainer>
+      <Form.Item {...tailLayout}>
+        <Link to="/village">Go Back to Village Profile</Link>
+      </Form.Item>
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item label="Headmaster" name="headmaster" required>
           <Input
