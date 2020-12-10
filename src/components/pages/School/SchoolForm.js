@@ -5,13 +5,12 @@ import axios from 'axios';
 
 import { Form, Input, Button } from 'antd';
 
-import { editVillage } from '../../../state/actions';
+import { editSchool } from '../../../state/actions';
 import {
   layout,
   FormContainer,
   tailLayout,
   Required,
-  ButtonMessage,
 } from '../../common/FormStyle';
 
 const baseURL = 'http://54.158.134.245/api';
@@ -114,4 +113,4 @@ const SchoolForm = props => {
   );
 };
 
-export default connect(null, {})(SchoolForm);
+export default connect(null, { editSchool })(SchoolForm);
