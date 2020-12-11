@@ -5,13 +5,17 @@ import { connect } from 'react-redux';
 import * as actions from '../../../state/actions/auth';
 import fullLogo from '../../../assets/images/vbb-full-logo.png';
 import miniLogo from '../../../assets/images/vbb-picture-logo.png';
+import './Landing.css';
 
 export { default as LandingPage } from './LandingContainer';
 
 class Layout extends React.Component {
   render() {
     return (
-      <div id="page-container">
+      <div
+        id="page-container"
+        style={{ margin: '12pt 0 12pt 0', position: 'relative' }}
+      >
         <nav
           className="navbar sticky-top  navbar-expand-lg navbar-light"
           id="vbb-full-bar"
@@ -101,7 +105,9 @@ class Layout extends React.Component {
           {this.props.children}
         </div>
 
-        <footer>&copy; Village Book Builders | All Rights Reserved</footer>
+        <footer style={{ margin: '12pt 0 12pt 0', position: 'relative' }}>
+          &copy; Village Book Builders | All Rights Reserved
+        </footer>
       </div>
     );
   }
