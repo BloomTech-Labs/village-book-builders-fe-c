@@ -40,20 +40,20 @@ class Layout extends React.Component {
           >
             <img src={miniLogo} alt="Logo" style={{ width: '45px' }} />
           </a>
-          <a href="/" id="bar-header-link">
-            <h1 id="bar-header" style={{ marginBottom: '-25px' }}>
-              Vbb Portal
-              <span className="badge badge-secondary">NEW</span>
-            </h1>
-          </a>
-          <button
+          {/* <a href="/" id="bar-header-link">
+						<h1 id="bar-header" style={{ marginBottom: "-25px" }}>
+							Vbb Portal
+							<span className="badge badge-secondary">NEW</span>
+						</h1>
+					</a> */}
+          {/* <button
             className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarTogglerDemo02"
           >
             <span className="navbar-toggler-icon" />
-          </button>
+          </button> */}
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             {this.props.isAuthenticated ? (
