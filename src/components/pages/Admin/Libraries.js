@@ -1,8 +1,9 @@
 // * ? Should this be reorganized into a common component?
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Divider, Modal } from 'antd';
+import { Button, Divider, Input, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
+import './libraries.css';
 
 export default function Libraries() {
   // const mockSampleLibraries = [
@@ -61,19 +62,25 @@ export default function Libraries() {
   }
 
   return (
-    <>
+    <div className="libraries-container">
       <h1>Libraries, Admin View.</h1>
+
+      <Button style={{ width: '50%', marginBottom: '10pt' }} align="center">
+        Create New Library
+      </Button>
+      <Input.Search placeholder="Search by Name" style={{ width: '50%' }} />
       <Divider />
-      <Button>Add New Library</Button>
       {libraries
         ? libraries.map(library => {
             return (
-              <div key={library.id}>
+              <div className="individual-library-container" key={library.id}>
                 {/* TODO: make this a card instead & remove dividers or will that slow it down on low-end mobile devices?*/}
                 <h2>{library.name}</h2>
                 <p>{library.description}</p>
+                {/* <div className="button-container"> */}
                 <Button onClick={() => setShowModal(true)}> More Info </Button>
                 <Button onClick={() => handleEdit(library.id)}> Edit </Button>
+                {/* </div> */}
                 <Modal
                   visible={showModal}
                   title={library.name}
@@ -103,6 +110,6 @@ export default function Libraries() {
             );
           })
         : null}
-    </>
+    </div>
   );
 }
