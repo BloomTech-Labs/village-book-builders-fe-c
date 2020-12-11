@@ -7,7 +7,7 @@ import MasterForm from './pages/Registration/MasterForm';
 import HomeSignIn from './pages/HomeSignIn/HomeSignIn';
 import SessionDetails from './pages/SessionDetails/SessionDetails';
 import adminDashboard from './pages/Admin/AdminDashboard';
-import EditLibrary from './pages/Admin/EditLibrary';
+import EditLibraryForm from './pages/Admin/EditLibrary';
 import Libraries from './pages/Admin/Libraries';
 // import Donation from "./registration/Donation"
 
@@ -19,7 +19,10 @@ function Routes() {
       {/* Name of role (admin) is first in route to distinguish that it should be restricted to that role of users. Feel free to rename after setting up role auth. */}
       <PrivateRoute exact path="/admin/" component={adminDashboard} />
       <PrivateRoute exact path="/admin/libraries" component={Libraries} />
-      <PrivateRoute path="/admin/library/edit/" component={EditLibrary} />
+      <PrivateRoute
+        path="/admin/library/edit/:id"
+        component={EditLibraryForm}
+      />
       <Route exact path="/signin/" component={HomeSignIn} />
       <Route exact path="/signup/" component={MasterForm} />
       <Route
