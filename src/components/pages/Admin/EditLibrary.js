@@ -24,14 +24,14 @@ const initialState = {
 function EditLibraryForm(props) {
   const [formData, setFormData] = useState(initialState);
 
-  // ? Why the .libraryID?
   const params = useParams().id;
   // console.log(params); //Why is this console logging 4 times
 
   const [form] = Form.useForm();
 
   useEffect(() => {
-    axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+    // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+    axios
       .get(`${baseURL}/admin/library/${params}`)
       .then(res => {
         // const data = {
@@ -69,47 +69,53 @@ function EditLibraryForm(props) {
       <Form.Item label="Library Name" name="name">
         <Input
           type="text"
-          name="name"
+          // name="name"
           // defaultValue={formData.name}
           value={formData.name.value}
           onChange={e => handleChange(e)}
         />
       </Form.Item>
 
-      {/* <Form.Item label="Village Contact Name" name="village_contact_name">
+      <Form.Item label="Description" name="description">
         <Input
           type="text"
-          name="village_contact_name"
-          value={formData.village_contact_name.value}
+          // name="description"
+          value={formData.description.value}
           onChange={e => handleChange(e)}
         />
-      </Form.Item> */}
+      </Form.Item>
 
-      {/* <Form.Item label="Village Contact Phone" name="village_contact_phone">
+      <Form.Item label="Usage" name="library_usage">
         <Input
           type="text"
-          value={formData.village_contact_phone}
+          // ? .value or not???
+          value={formData.library_usage}
           onChange={e => handleChange(e)}
         />
-      </Form.Item> */}
+      </Form.Item>
 
-      {/* <Form.Item label="Education Contact Name" name="education_contact_name">
+      <Form.Item label="Notes" name="notes">
         <Input
           type="text"
-          name="education_contact_name"
-          value={formData.education_contact.name}
+          // name="notes"
+          value={formData.notes}
           onChange={e => handleChange(e)}
         />
-      </Form.Item> */}
+      </Form.Item>
 
-      {/* <Form.Item label="Education Contact Phone" name="education_contact_phone">
+      <Form.Item label="Image Url" name="image">
         <Input
           type="text"
-          // name="education_contact.phone"
-          value={formData.education_contact.phone}
+          // name="image"
+          value={formData.image}
           onChange={e => handleChange(e)}
         />
-      </Form.Item> */}
+      </Form.Item>
+      {formData.image ? (
+        <img src={formData.image} alt="Library" />
+      ) : (
+        <p>Previous Image URL broken or not provided</p>
+      )}
 
       {/* <Form.Item label="Education Contact Email" name="education_contact_email">
         <Input
