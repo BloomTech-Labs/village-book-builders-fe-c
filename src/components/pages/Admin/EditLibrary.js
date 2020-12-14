@@ -108,11 +108,14 @@ function EditLibraryForm({ editLibrary }) {
           onChange={e => handleChange(e)}
         />
       </Form.Item>
-      {formData.image ? (
+
+      {/* TODO: When this image renders, it removes the buttons off the page. Not covers them, but completely removes them. Not useful. */}
+      {/* {formData.image ? (
         <img src={formData.image} alt="Library" />
       ) : (
         <p>Previous Image URL broken or not provided</p>
-      )}
+      )} */}
+
       <Form.Item>
         {/* <input type="submit" value="Submit Edit" /> */}
         <Button htmlType="button" onClick={handleSubmit}>

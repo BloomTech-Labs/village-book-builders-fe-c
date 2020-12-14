@@ -93,6 +93,11 @@ export default function Libraries() {
                     </Button>,
                   ]}
                 >
+                  {library.image ? (
+                    <img src={library.image} alt="Library" />
+                  ) : (
+                    <p>Previous Image URL broken or not provided</p>
+                  )}
                   <p>Description: {library.description}</p>
                   <p>Library Usage: {library.library_usage}</p>
                   <p>Notes: {library.notes}</p>
