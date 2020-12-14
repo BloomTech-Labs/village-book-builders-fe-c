@@ -3,4 +3,7 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
+export const FETCH_LIBRARIES = 'FETCH_LIBRARIES';
+export const EDIT_LIBRARY = 'EDIT_LIBRARY';
+
 export const FETCH_HEADMASTER_SCHOOL = 'FETCH_HEADMASTER_SCHOOL';

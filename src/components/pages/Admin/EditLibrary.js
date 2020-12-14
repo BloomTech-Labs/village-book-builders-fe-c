@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import { Form, Input, Button } from 'antd';
-// import { editLibrary } from '../../../state/actions';
+import { Form, Input, Button, Divider } from 'antd';
+import { editLibrary } from '../../../state/actions';
 
 //? would it be faster on base-model cellphones to store library data on redux when the edit button is pushed, and then pull from the store to here, or to have the simple secondary axios request pull that specific library data.
 //* I think it'll be best to store all libraries into redux store, then pull the specific one from the store when this page loads
@@ -21,7 +21,7 @@ const initialState = {
   image: '',
 };
 
-function EditLibraryForm(props) {
+function EditLibraryForm({ editLibrary }) {
   const [formData, setFormData] = useState(initialState);
 
   const { push } = useHistory();
@@ -54,8 +54,8 @@ function EditLibraryForm(props) {
   }, []);
 
   const handleSubmit = async () => {
-    console.log('formData', formData);
-
+    // console.log('formData', formData);
+    editLibrary(params, formData);
     // props.editVillage(params, {
     //   ...formData,
     //   education_contact: {
@@ -126,18 +126,25 @@ function EditLibraryForm(props) {
       ) : (
         <p>Previous Image URL broken or not provided</p>
       )}
-
-      <input type="submit" value="Submit Edit" />
-      <Button htmlType="button" onClick={() => getData()}>
-        Reset changes
-      </Button>
-      {/* ? why is this concatonating the url instead of replacing it??? It' working right in Libraries.js... */}
-      {/* <Button htmlType="link" onClick={() => handleCancel()}>
-            Cancel
-      </Button> */}
+      <Form.Item>
+        {/* <input type="submit" value="Submit Edit" /> */}
+        <Button htmlType="button" onClick={handleSubmit}>
+          Save Changes
+        </Button>
+        <Button htmlType="button" onClick={() => getData()}>
+          Reset changes
+        </Button>
+        {/* ? why are these concatonating the url instead of replacing it??? It' working right in Libraries.js... */}
+        {/* <Button htmlType="link" onClick={handleCancel}>
+          Cancel
+        </Button> */}
+        {/* <Button htmlType="link" onClick={() => handleCancel()}>
+              Cancel
+        </Button> */}
+      </Form.Item>
     </Form>
   );
 }
 
-export default EditLibraryForm;
-// export default connect(null, { editVillage })(EditLibraryForm);
+// export default EditLibraryForm;
+export default connect(null, { editLibrary })(EditLibraryForm);
