@@ -3,9 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../state/actions/auth';
 
-import Landing from './pages/Landing/Landing';
-import Routes from './Routes';
+// import Landing from './pages/Landing/Landing';
+// import Routes from './Routes';
 import '../style.css';
+import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 
 class App extends Component {
   componentDidMount() {
@@ -16,9 +17,10 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter {...this.props}>
-          <Landing {...this.props}>
+          <HeadmasterDashboard />
+          {/* <Landing {...this.props}>
             <Routes />
-          </Landing>
+          </Landing> */}
         </BrowserRouter>
       </div>
     );

@@ -6,12 +6,14 @@ import * as actions from '../../../state/actions/auth';
 import fullLogo from '../../../assets/images/vbb-full-logo.png';
 import miniLogo from '../../../assets/images/vbb-picture-logo.png';
 
+import HeadmasterDashboard from '../Headmaster/HeadmasterDashboard';
 export { default as LandingPage } from './LandingContainer';
 
 class Layout extends React.Component {
   render() {
     return (
       <div id="page-container">
+        {/* <HeadmasterDashboard /> */}
         <nav
           className="navbar sticky-top  navbar-expand-lg navbar-light"
           id="vbb-full-bar"
