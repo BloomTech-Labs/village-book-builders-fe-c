@@ -27,11 +27,13 @@ function EditLibraryForm({ editLibrary }) {
   const { push } = useHistory();
 
   const params = useParams().id;
-  // console.log(params); //Why is this console logging 4 times
+  // ? Why is this console logging 4 times? It's running too much.
+  // console.log(params);
 
   const [form] = Form.useForm();
 
   const getData = () => {
+    // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
     axios
       .get(`${baseURL}/admin/library/${params}`)
       .then(res => {
@@ -42,32 +44,17 @@ function EditLibraryForm({ editLibrary }) {
   };
 
   useEffect(() => {
-    // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
-    // axios
-    //   .get(`${baseURL}/admin/library/${params}`)
-    //   .then(res => {
-    //     form.setFieldsValue(res.data);
-    //     setFormData(res.data);
-    //   })
-    //   .catch(err => console.dir(err));
     getData();
   }, []);
 
   const handleSubmit = async () => {
     // console.log('formData', formData);
     editLibrary(params, formData);
-    // props.editVillage(params, {
-    //   ...formData,
-    //   education_contact: {
-    //     name: formData.education_contact_name,
-    //     email: formData.education_contact_email,
-    //     phone: formData.education_contact_phone,
-    //   },
-    // });
   };
 
   const handleCancel = () => {
-    push('admin/libraries');
+    // push('admin/libraries');
+    window.location.replace('/admin/libraries');
   };
 
   const handleChange = e => {
@@ -134,13 +121,9 @@ function EditLibraryForm({ editLibrary }) {
         <Button htmlType="button" onClick={() => getData()}>
           Reset changes
         </Button>
-        {/* ? why are these concatonating the url instead of replacing it??? It' working right in Libraries.js... */}
-        {/* <Button htmlType="link" onClick={handleCancel}>
+        <Button htmlType="link" onClick={handleCancel}>
           Cancel
-        </Button> */}
-        {/* <Button htmlType="link" onClick={() => handleCancel()}>
-              Cancel
-        </Button> */}
+        </Button>
       </Form.Item>
     </Form>
   );
