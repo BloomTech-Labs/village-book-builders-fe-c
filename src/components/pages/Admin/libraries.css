@@ -1,0 +1,18 @@
+.libraries-container {
+  margin: 0 12pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.individual-library-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* .button-container {
+  display: flex;
+  justify-content: space-evenly;
+} */

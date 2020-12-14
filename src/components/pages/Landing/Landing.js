@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../state/actions/auth';
 import fullLogo from '../../../assets/images/vbb-full-logo.png';
 import miniLogo from '../../../assets/images/vbb-picture-logo.png';
+import './Landing.css';
 
 import HeadmasterDashboard from '../Headmaster/HeadmasterDashboard';
 export { default as LandingPage } from './LandingContainer';
@@ -38,20 +39,20 @@ class Layout extends React.Component {
           >
             <img src={miniLogo} alt="Logo" style={{ width: '45px' }} />
           </a>
-          <a href="/" id="bar-header-link">
-            <h1 id="bar-header" style={{ marginBottom: '-25px' }}>
-              Vbb Portal
-              <span className="badge badge-secondary">NEW</span>
-            </h1>
-          </a>
-          <button
+          {/* <a href="/" id="bar-header-link">
+						<h1 id="bar-header" style={{ marginBottom: "-25px" }}>
+							Vbb Portal
+							<span className="badge badge-secondary">NEW</span>
+						</h1>
+					</a> */}
+          {/* <button
             className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarTogglerDemo02"
           >
             <span className="navbar-toggler-icon" />
-          </button>
+          </button> */}
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             {this.props.isAuthenticated ? (
@@ -103,7 +104,9 @@ class Layout extends React.Component {
           {this.props.children}
         </div>
 
-        <footer>&copy; Village Book Builders | All Rights Reserved</footer>
+        <footer style={{ margin: '12pt 0 12pt 0', position: 'relative' }}>
+          &copy; Village Book Builders | All Rights Reserved
+        </footer>
       </div>
     );
   }
