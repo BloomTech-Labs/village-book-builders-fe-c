@@ -31,8 +31,23 @@ export const editVillage = (id, data) => () => {
     .catch(err => console.dir(err));
 };
 
+export const fetchSchools = () => dispatch => {
+  axios
+    .get(`${baseURL}/headmaster/schools`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_HEADMASTER_SCHOOLS,
+        payload: res.data,
+      });
+    })
+    .catch(err => console.dir(err));
+};
+
 export const fetchSchool = id => dispatch => {
-  console.log('fetchSchool action (needs school endpoint) ');
+  axios
+    .get(`${baseURL}/headmaster/school/1`)
+    .then(res => console.log(res.data))
+    .catch(err => console.dir(err));
 };
 
 export const editSchool = (id, data) => dispatch => {

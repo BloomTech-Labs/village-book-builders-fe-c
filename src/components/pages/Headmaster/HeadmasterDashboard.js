@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import Village from '../Village/Village.component.js';
 import VillageForm from '../Village/VillageForm.js';
-import School from '../School/School.component.js';
+import Schools from '../School/Schools.component.js';
 import SchoolForm from '../School/SchoolForm.js';
 // import HeadmasterNav from './Drawer';
 import TestComponent from './TestComponent';
@@ -71,7 +71,7 @@ function HeadmasterDashboard() {
           <Route path="/mentor-advisor" />
           <Route path="/school-village">
             <Village />
-            <School />
+            <Schools />
           </Route>
           <Route
             exact

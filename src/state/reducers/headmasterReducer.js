@@ -1,6 +1,9 @@
 // Reducer file for Headmaster
 
-import { FETCH_HEADMASTER_SCHOOL, FETCH_VILLAGE } from '../actions/actionTypes';
+import {
+  FETCH_HEADMASTER_SCHOOLS,
+  FETCH_VILLAGE,
+} from '../actions/actionTypes';
 
 const initialState = {
   villageData: {
@@ -8,13 +11,13 @@ const initialState = {
       name: '',
     },
   },
-  schoolData: {},
+  schoolData: [],
 };
 // Fetch school data for headmaster
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_HEADMASTER_SCHOOL:
-      return state;
+    case FETCH_HEADMASTER_SCHOOLS:
+      return { ...state, schoolData: action.payload };
     case FETCH_VILLAGE:
       return {
         ...state,
