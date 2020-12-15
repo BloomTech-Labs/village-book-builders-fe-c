@@ -26,7 +26,9 @@ const Village = props => {
       <p>{villageData.education_contact.email}</p>
       <p>Notes: {villageData.notes}</p>
       <div className="villageButtons">
-        <Link to={`/village/edit/${villageData.id}`}>Edit Village Profile</Link>
+        <Link to={`/headmaster/village/edit/${villageData.id}`}>
+          Edit Village Profile
+        </Link>
       </div>
     </Profile>
   );

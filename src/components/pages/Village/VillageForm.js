@@ -72,7 +72,7 @@ const VillageForm = props => {
   return (
     <FormContainer>
       <Form.Item {...tailLayout}>
-        <Link to="/school-village">Go Back to Village Profile</Link>
+        <Link to="/headmaster/school-village">Go Back to Village Profile</Link>
       </Form.Item>
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item label="Headmaster" name="headmaster" required>
