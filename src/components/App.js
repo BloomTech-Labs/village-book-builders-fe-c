@@ -17,10 +17,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/dashboard" component={HeadmasterDashboard} />
-        </Switch>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/headmaster/*">
+          <HeadmasterDashboard />
+        </Route>
         {/* <Landing {...this.props}>
             <Routes />
           </Landing> */}

@@ -67,19 +67,23 @@ function HeadmasterDashboard() {
       <div className={desktop ? 'headmasterDashboard' : null}>
         <h1>Hello, Headmaster!</h1>
         <Switch>
-          <Route path="/mentor-pairings" component={TestComponent} />
-          <Route path="/mentor-advisor" />
-          <Route path="/school-village">
+          <Route path="/headmaster/mentor-pairings" component={TestComponent} />
+          <Route path="/headmaster/mentor-advisor" />
+          <Route path="/headmaster/school-village">
             <Village />
             <Schools />
           </Route>
           <Route
             exact
-            path="/village/edit/:villageId"
+            path="/headmaster/village/edit/:villageId"
             component={VillageForm}
           />
-          <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
-          <Route path="/library" />
+          <Route
+            exact
+            path="/headmaster/school/edit/:schoolId"
+            component={SchoolForm}
+          />
+          <Route path="/headmaster/library" />
         </Switch>
       </div>
       {desktop ? null : (
@@ -108,16 +112,25 @@ function HeadmasterDashboard() {
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
           </NavLink>
-          <NavLink to="/mentor-pairings" onClick={() => setVisible(true)}>
+          <NavLink
+            to="/headmaster/mentor-pairings"
+            onClick={() => setVisible(true)}
+          >
             <button className="btn l2-btn menuLinks">Mentor Pairings</button>
           </NavLink>
-          <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
+          <NavLink
+            to="/headmaster/mentor-advisor"
+            onClick={() => setVisible(true)}
+          >
             <button className="btn l2-btn menuLinks">Mentor Advisor</button>
           </NavLink>
-          <NavLink to="/school-village" onClick={() => setVisible(true)}>
+          <NavLink
+            to="/headmaster/school-village"
+            onClick={() => setVisible(true)}
+          >
             <button className="btn l2-btn menuLinks">School/Village</button>
           </NavLink>
-          <NavLink to="/library" onClick={() => setVisible(true)}>
+          <NavLink to="/headmaster/library" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Library</button>
           </NavLink>
         </Drawer>
