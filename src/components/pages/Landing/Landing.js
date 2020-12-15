@@ -7,15 +7,14 @@ import fullLogo from '../../../assets/images/vbb-full-logo.png';
 import miniLogo from '../../../assets/images/vbb-picture-logo.png';
 import './Landing.css';
 
+import HeadmasterDashboard from '../Headmaster/HeadmasterDashboard';
 export { default as LandingPage } from './LandingContainer';
 
 class Layout extends React.Component {
   render() {
     return (
-      <div
-        id="page-container"
-        style={{ margin: '12pt 0 12pt 0', position: 'relative' }}
-      >
+      <div id="page-container">
+        {/* <HeadmasterDashboard /> */}
         <nav
           className="navbar sticky-top  navbar-expand-lg navbar-light"
           id="vbb-full-bar"
