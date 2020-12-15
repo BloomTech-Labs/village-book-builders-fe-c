@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../state/actions/auth';
 
@@ -7,6 +7,7 @@ import * as actions from '../state/actions/auth';
 // import Routes from './Routes';
 import '../style.css';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
+import Login from './pages/Login/Login';
 
 class App extends Component {
   componentDidMount() {
@@ -16,12 +17,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter {...this.props}>
-          <HeadmasterDashboard />
-          {/* <Landing {...this.props}>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/dashboard" component={HeadmasterDashboard} />
+        </Switch>
+        {/* <Landing {...this.props}>
             <Routes />
           </Landing> */}
-        </BrowserRouter>
       </div>
     );
   }

@@ -9,6 +9,13 @@ import * as actionTypes from './actionTypes';
 
 const baseURL = 'http://54.158.134.245/api'; // ! Temporary backend URL -- waiting on Stakeholder's backend to work
 
+export const login = data => dispatch => {
+  axios
+    .post(`${baseURL}/login`)
+    .then(res => console.log('LOGIN ACTION --> ', res))
+    .catch(err => console.dir(err));
+};
+
 export const fetchHeadmasterSchool = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_HEADMASTER_SCHOOL });
 };

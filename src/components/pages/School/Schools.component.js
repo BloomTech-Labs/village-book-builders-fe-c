@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchSchools } from '../../../state/actions/index';
+import { StyledSchools } from './School.styles';
 import School from './School.component';
 
 const Schools = props => {
@@ -10,12 +11,12 @@ const Schools = props => {
     props.fetchSchools(); // ! This doesn't work yet. we don't have a school endpoint
   }, []);
   return (
-    <div>
+    <StyledSchools>
       <h1>Schools</h1>
       {props.schools.map(s => (
         <School school={s} />
       ))}
-    </div>
+    </StyledSchools>
   );
 };
 
