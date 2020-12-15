@@ -57,7 +57,7 @@ const Login = props => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button buttonText="Submit" type="submit" />
+          <Button buttonText="Log In" type="submit" />
         </Form.Item>
       </Form>
     </FormContainer>
