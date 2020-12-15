@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import { Form, Input, Button } from 'antd';
-// import { editVillage } from '../../../state/actions';
+import { Form, Input, Button, Divider } from 'antd';
+import { editLibrary } from '../../../state/actions';
 
 //? would it be faster on base-model cellphones to store library data on redux when the edit button is pushed, and then pull from the store to here, or to have the simple secondary axios request pull that specific library data.
 //* I think it'll be best to store all libraries into redux store, then pull the specific one from the store when this page loads
@@ -21,47 +21,45 @@ const initialState = {
   image: '',
 };
 
-function EditLibraryForm(props) {
+function EditLibraryForm({ editLibrary }) {
   const [formData, setFormData] = useState(initialState);
 
-  // ? Why the .libraryID?
+  const { push } = useHistory();
+
   const params = useParams().id;
-  // console.log(params); //Why is this console logging 4 times
+  // ? Why is this console logging 4 times? It's running too much.
+  // console.log(params);
 
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+  const getData = () => {
+    // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+    axios
       .get(`${baseURL}/admin/library/${params}`)
       .then(res => {
-        // const data = {
-        //   ...res.data,
-        //   education_contact_name: res.data.education_contact.name,
-        //   education_contact_phone: res.data.education_contact.phone,
-        //   education_contact_email: res.data.education_contact.email,
-        // };
-        // form.setFieldsValue(data);
-        // setFormData(data);
         form.setFieldsValue(res.data);
         setFormData(res.data);
       })
       .catch(err => console.dir(err));
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
   const handleSubmit = async () => {
-    console.log('handleSubmit');
-    // props.editVillage(params, {
-    //   ...formData,
-    //   education_contact: {
-    //     name: formData.education_contact_name,
-    //     email: formData.education_contact_email,
-    //     phone: formData.education_contact_phone,
-    //   },
-    // });
+    // console.log('formData', formData);
+    editLibrary(params, formData);
+  };
+
+  const handleCancel = () => {
+    // push('admin/libraries');
+    window.location.replace('/admin/libraries');
   };
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData);
   };
 
   return (
@@ -70,68 +68,69 @@ function EditLibraryForm(props) {
         <Input
           type="text"
           name="name"
-          // defaultValue={formData.name}
           value={formData.name.value}
           onChange={e => handleChange(e)}
         />
       </Form.Item>
 
-      {/* <Form.Item label="Village Contact Name" name="village_contact_name">
+      <Form.Item label="Description" name="description">
         <Input
           type="text"
-          name="village_contact_name"
-          value={formData.village_contact_name.value}
+          name="description"
+          value={formData.description.value}
           onChange={e => handleChange(e)}
         />
-      </Form.Item> */}
+      </Form.Item>
 
-      {/* <Form.Item label="Village Contact Phone" name="village_contact_phone">
+      <Form.Item label="Usage" name="library_usage">
         <Input
           type="text"
-          value={formData.village_contact_phone}
+          name="library_usage"
+          value={formData.library_usage}
           onChange={e => handleChange(e)}
         />
-      </Form.Item> */}
+      </Form.Item>
 
-      {/* <Form.Item label="Education Contact Name" name="education_contact_name">
+      <Form.Item label="Notes" name="notes">
         <Input
           type="text"
-          name="education_contact_name"
-          value={formData.education_contact.name}
-          onChange={e => handleChange(e)}
-        />
-      </Form.Item> */}
-
-      {/* <Form.Item label="Education Contact Phone" name="education_contact_phone">
-        <Input
-          type="text"
-          // name="education_contact.phone"
-          value={formData.education_contact.phone}
-          onChange={e => handleChange(e)}
-        />
-      </Form.Item> */}
-
-      {/* <Form.Item label="Education Contact Email" name="education_contact_email">
-        <Input
-          type="email"
-          // name="education_contact.email"
-          value={formData.education_contact.email}
-          onChange={e => handleChange(e)}
-        />
-      </Form.Item> */}
-
-      {/* <Form.Item label="Notes" name="notes">
-        <Input.TextArea
           name="notes"
           value={formData.notes}
           onChange={e => handleChange(e)}
         />
-      </Form.Item> */}
+      </Form.Item>
 
-      <input type="submit" value="Submit Edit" />
+      <Form.Item label="Image Url" name="image">
+        <Input
+          type="text"
+          name="image"
+          value={formData.image}
+          onChange={e => handleChange(e)}
+        />
+      </Form.Item>
+
+      {/* TODO: When this image renders, it removes the buttons off the page. Not covers them, but completely removes them. Not useful. */}
+      {/* {formData.image ? (
+        <img src={formData.image} alt="Library" />
+      ) : (
+        <p>Previous Image URL broken or not provided</p>
+      )} */}
+
+      <Form.Item>
+        {/* <input type="submit" value="Submit Edit" /> */}
+        <Button htmlType="button" onClick={handleSubmit}>
+          Save Changes
+        </Button>
+        <Button htmlType="button" onClick={() => getData()}>
+          Reset changes
+        </Button>
+        <Button htmlType="link" onClick={handleCancel}>
+          Cancel
+        </Button>
+      </Form.Item>
     </Form>
   );
 }
 
-export default EditLibraryForm;
-// export default connect(null, { editVillage })(EditLibraryForm);
+// export default EditLibraryForm;
+export default connect(null, { editLibrary })(EditLibraryForm);

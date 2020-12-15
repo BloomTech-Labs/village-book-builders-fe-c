@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 
-import { Form, Input, Button } from 'antd';
+import { Form, Input } from 'antd';
 
 import { editSchool } from '../../../state/actions';
 import {
@@ -12,6 +12,7 @@ import {
   tailLayout,
   Required,
 } from '../../common/FormStyle';
+import Button from '../../common/Button';
 
 const baseURL = 'http://54.158.134.245/api';
 
@@ -58,7 +59,7 @@ const SchoolForm = props => {
   return (
     <FormContainer>
       <Form.Item {...tailLayout}>
-        <Link to="/school">Go Back to School Profile</Link>
+        <Link to="/school-village">Go Back to School Profile</Link>
       </Form.Item>
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item label="Headmaster" name="headmaster" required>
@@ -101,9 +102,11 @@ const SchoolForm = props => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            Submit School Edit
-          </Button>
+          <Button
+            className="l2-btn btn"
+            htmlType="submit"
+            buttonText="Submit School Edit"
+          />
           <Required id="requiredMsg">
             Fields with <span id="required">&#42;</span> are required.
           </Required>

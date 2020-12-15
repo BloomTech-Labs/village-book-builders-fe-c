@@ -18,11 +18,8 @@ import Libraries from './pages/Admin/Libraries';
 function Routes() {
   return (
     <div>
-      {/* <PrivateRoute exact path="/" component={Dashboard} /> */}
-      {/* <PrivateRoute exact path="/booking/" component={Booking} /> */}
       <PrivateRoute exact path="/" component={Dashboard} />
       <PrivateRoute exact path="/booking/" component={Booking} />
-      {/* Name of role (admin) is first in route to distinguish that it should be restricted to that role of users. Feel free to rename after setting up role auth. */}
       <PrivateRoute exact path="/admin/" component={adminDashboard} />
       <PrivateRoute exact path="/admin/libraries" component={Libraries} />
       <PrivateRoute
@@ -37,9 +34,13 @@ function Routes() {
         component={SessionDetails}
       />
       {/* <Route exact path="/donate/" component={Donation} /> */}
-      <Route exact path="/village" component={Village} />
+      {/* <Route exact path="/village" component={Village} /> */}
+      <Route exact path="/school-village">
+        <Village />
+        {/* <School /> */}
+      </Route>
       <Route exact path="/village/edit/:villageId" component={VillageForm} />
-      <Route exact path="/school" component={School} />
+      {/* <Route exact path="/school" component={School} /> */}
       <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
     </div>
   );

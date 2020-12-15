@@ -4,21 +4,18 @@ import { Link } from 'react-router-dom';
 import { fetchSchool } from '../../../state/actions/index';
 
 const School = props => {
-  useEffect(() => {
-    props.fetchSchool(1); // ! This doesn't work yet. we don't have a school endpoint
-  }, []);
+  console.log('School Component --> ', props);
+  const { school } = props;
+  useEffect(() => {}, []);
   return (
     <div>
-      <h1>School Component</h1>
-      <Link to="/school/edit/1">Edit School</Link>
+      <h1>School</h1>
+      <p>Description: {school.school_description}</p>
+      <p>Goals: {school.school_goals_description}</p>
+      <p>Needs: {school.school_needs_description}</p>
+      <Link to={`/school/edit/${school.schoolId}`}>Edit School</Link>
     </div>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    state: state.headmasterReducer.schoolData,
-  };
-};
-
-export default connect(mapStateToProps, { fetchSchool })(School);
+export default connect(null, {})(School);
