@@ -54,7 +54,7 @@ function HeadmasterDashboard() {
   };
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth <= 500) {
+    if (window.innerWidth <= 800) {
       setDesktop(false);
       setVisible(false);
     } else {
@@ -109,7 +109,7 @@ function HeadmasterDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <NavLink to="/dashboard" onClick={() => setVisible(true)}>
+          <NavLink to="/headmaster/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
           </NavLink>
           <NavLink
