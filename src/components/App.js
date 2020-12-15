@@ -8,6 +8,7 @@ import * as actions from '../state/actions/auth';
 import '../style.css';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import Login from './pages/Login/Login';
+import AdminDashboard from './pages/Admin/AdminDashboard';
 
 class App extends Component {
   componentDidMount() {
@@ -18,6 +19,9 @@ class App extends Component {
     return (
       <div className="App">
         <Route exact path="/login" component={Login} />
+        <Route path="/admin">
+          <AdminDashboard />
+        </Route>
         <Route exact path="/headmaster/*">
           <HeadmasterDashboard />
         </Route>

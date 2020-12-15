@@ -64,3 +64,21 @@ export const editSchool = (id, data) => dispatch => {
     data
   );
 };
+//TODO Finish converting this to redux
+// export const fetchLibraries = () => dispatch => {
+//   axios // ! This needs to change to axiosWithAuth once we figure out GoogleAuth with a working backend
+//     .get(`${baseURL}/api/admin/library`)
+//     .then(res => {
+//       // dispatch({ type: actionTypes.FETCH_VILLAGE, payload: res.data });
+//     })
+//     .catch(err => console.dir(err));
+// };
+
+export const editLibrary = (id, data) => dispatch => {
+  axios // ! This needs to change to axiosWithAuth once we figure out GoogleAuth with a working backend
+    .put(`${baseURL}/admin/library/${id}`, data)
+    .then(() => {
+      window.location.replace('/admin/libraries');
+    })
+    .catch(err => console.dir(err));
+};

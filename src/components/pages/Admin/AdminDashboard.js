@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link, Route, Switch } from 'react-router-dom';
+import Libraries from './Libraries';
 import './AdminDashboard.css';
 
 export default function AdminDashboard() {
@@ -10,9 +11,17 @@ export default function AdminDashboard() {
     <div className="admin-dashboard-container">
       <h1>Welcome Administrator to your personal dashboard</h1>
       {/* TODO: pushing to a new route works for mobile first, but may need to be modified for better browser designs */}
-      <Button onClick={() => push('admin/libraries')}> Libraries </Button>
+      <Link to="/admin/libraries">
+        <Button>Libraries </Button>
+      </Link>
       <Button> Schools </Button>
       <Button> xxxxxx </Button>
+
+      <Switch>
+        <Route path="/admin/libraries">
+          <Libraries />
+        </Route>
+      </Switch>
     </div>
   );
 }
