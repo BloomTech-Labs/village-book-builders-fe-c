@@ -35,6 +35,9 @@ const Login = props => {
   return (
     <FormContainer>
       <Form onFinish={handleSubmit} form={form} {...layout}>
+        <Form.Item {...tailLayout}>
+          <h1>Log In</h1>
+        </Form.Item>
         <Form.Item label="Username" name="username" required>
           <Input
             type="text"
@@ -53,10 +56,8 @@ const Login = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Submit">
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
+        <Form.Item {...tailLayout}>
+          <Button buttonText="Submit" type="submit" />
         </Form.Item>
       </Form>
     </FormContainer>
