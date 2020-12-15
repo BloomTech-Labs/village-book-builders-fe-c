@@ -34,9 +34,13 @@ function Routes() {
         component={SessionDetails}
       />
       {/* <Route exact path="/donate/" component={Donation} /> */}
-      <Route exact path="/village" component={Village} />
+      {/* <Route exact path="/village" component={Village} /> */}
+      <Route exact path="/school-village">
+        <Village />
+        {/* <School /> */}
+      </Route>
       <Route exact path="/village/edit/:villageId" component={VillageForm} />
-      <Route exact path="/school" component={School} />
+      {/* <Route exact path="/school" component={School} /> */}
       <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
     </div>
   );

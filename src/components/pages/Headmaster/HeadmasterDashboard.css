@@ -1,41 +1,39 @@
-
 #components-layout-demo-top-side .logo {
-    float: left;
-    width: 120px;
-    height: 31px;
-    margin: 16px 24px 16px 0;
-    background: rgba(255, 255, 255, 0.3);
-  }
-  
-  .ant-row-rtl #components-layout-demo-top-side .logo {
-    float: right;
-    margin: 16px 0 16px 24px;
-  }
-  
-  .site-layout-background {
-    background: #fff;
-  }
+	float: left;
+	width: 120px;
+	height: 31px;
+	margin: 16px 24px 16px 0;
+	background: rgba(255, 255, 255, 0.3);
+}
 
-  .menuLinks {
-    /* display: none */
-    color: white;
-    margin-bottom: 2rem;
-    width: 100%;
-    border: none;
-  }
+.ant-row-rtl #components-layout-demo-top-side .logo {
+	float: right;
+	margin: 16px 0 16px 24px;
+}
 
-  .menuLinks a {
-    color: white;
-  }
+.site-layout-background {
+	background: #fff;
+}
 
-  .menuLinks:hover {
-    transition: all 200ms linear;
-  }
+.menuLinks {
+	color: white;
+	margin-bottom: 2rem;
+	width: 100%;
+	border: none;
+}
 
-  .menuLinks a:hover {
-    color: white;
-  }
+.menuLinks a {
+	color: white;
+}
 
-  .headmasterDashboard {
-    margin-left: 340px;
-  }
+.menuLinks:hover {
+	transition: all 200ms linear;
+}
+
+.menuLinks a:hover {
+	color: white;
+}
+
+.headmasterDashboard {
+	margin-left: 340px;
+}

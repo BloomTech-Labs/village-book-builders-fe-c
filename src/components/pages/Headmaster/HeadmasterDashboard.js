@@ -1,31 +1,20 @@
 import React, { useState, useEffect } from 'react';
 // import PrivateRoute from '../utils/PrivateRoute';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import TestComponent from './TestComponent';
+import {
+  NavLink,
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
+import Village from '../Village/Village.component.js';
+import VillageForm from '../Village/VillageForm.js';
+import School from '../School/School.component.js';
+import SchoolForm from '../School/SchoolForm.js';
 // import HeadmasterNav from './Drawer';
+import TestComponent from './TestComponent';
 import { Drawer, Button } from 'antd';
-import { NavLink } from 'react-router-dom';
 import { MenuOutlined } from '@ant-design/icons';
 import './HeadmasterDashboard.css';
-
-const animate = {
-  paddingLeft: '20rem',
-  transition: 'all 200ms linear',
-};
-
-const closeAnimate = {
-  paddingLeft: '2rem',
-  transition: 'all 200ms linear',
-};
-
-// const menuLinks = {
-//     border: '1px solid #ff914d',
-//     // backgroundColor: "#ff914d",
-//     // height: '3rem',
-//     width: '100%',
-//     color: "white"
-//     // textAlign: "center",
-// }
 
 const menuIcon = {
   position: 'fixed',
@@ -49,9 +38,6 @@ const menuButton = {
 };
 
 function HeadmasterDashboard() {
-  // add calendar here
-  // change routes to privateRoutes
-
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
 
@@ -83,7 +69,16 @@ function HeadmasterDashboard() {
         <Switch>
           <Route path="/mentor-pairings" component={TestComponent} />
           <Route path="/mentor-advisor" />
-          <Route path="/school-village" />
+          <Route path="/school-village">
+            <Village />
+            <School />
+          </Route>
+          <Route
+            exact
+            path="/village/edit/:villageId"
+            component={VillageForm}
+          />
+          <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
           <Route path="/library" />
         </Switch>
       </div>
@@ -101,40 +96,30 @@ function HeadmasterDashboard() {
       )}
       <div>
         <Drawer
-          title="Menu"
+          // title="Menu"
           placement={desktop ? 'left' : 'bottom'}
-          closable={desktop ? false : true}
+          closable={false}
           onClose={onClose}
           visible={visible}
           mask={false}
           width={desktop ? 300 : 500}
           height={500}
         >
-          <button className="btn l2-btn menuLinks">
-            <NavLink to="/" onClick={() => setVisible(true)}>
-              Home
-            </NavLink>
-          </button>
-          <button className="btn l2-btn menuLinks">
-            <NavLink to="/mentor-pairings" onClick={() => setVisible(true)}>
-              Mentor Pairings
-            </NavLink>
-          </button>
-          <button className="btn l2-btn menuLinks">
-            <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
-              Mentor Advisor
-            </NavLink>
-          </button>
-          <button className="btn l2-btn menuLinks">
-            <NavLink to="/school-village" onClick={() => setVisible(true)}>
-              School/Village
-            </NavLink>
-          </button>
-          <button className="btn l2-btn menuLinks">
-            <NavLink to="/library" onClick={() => setVisible(true)}>
-              Library
-            </NavLink>
-          </button>
+          <NavLink to="/" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">Home</button>
+          </NavLink>
+          <NavLink to="/mentor-pairings" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">Mentor Pairings</button>
+          </NavLink>
+          <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">Mentor Advisor</button>
+          </NavLink>
+          <NavLink to="/school-village" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">School/Village</button>
+          </NavLink>
+          <NavLink to="/library" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">Library</button>
+          </NavLink>
         </Drawer>
 
         {/* <HeadmasterNav /> */}
