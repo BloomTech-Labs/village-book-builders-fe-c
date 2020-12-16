@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchVillage } from '../../../state/actions/index';
 
 import { Profile, Label } from '../../common/ProfileStyle';
-import Button from '../../common/Button';
+import { Button } from '../../common/';
 import { ThemeProvider } from 'styled-components';
 import { ComponentTitle } from '../../common';
 
