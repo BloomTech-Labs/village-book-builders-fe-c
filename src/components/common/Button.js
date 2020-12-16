@@ -27,8 +27,9 @@ const Btn = styled.button`
 
 Btn.defaultProps = {
   theme: {
-    color: '#ff914d',
-    // green: "#6ac66b"
+    color: '#ff914d', // orange
+    // green: "#6ac66b",
+    // blue: "#549bea"
   },
 };
 
