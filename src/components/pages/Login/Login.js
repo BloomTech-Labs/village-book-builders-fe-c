@@ -12,10 +12,8 @@ import {
 } from '../../common/FormStyle';
 import Button from '../../common/Button';
 
-// const baseURL = "http://54.158.134.245/api"
-
 const initialState = {
-  username: '',
+  email: '',
   password: '',
 };
 
@@ -39,14 +37,14 @@ const Login = props => {
           <h1>Log In</h1>
         </Form.Item>
         <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: 'Username is required.' }]}
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: 'Email is required.' }]}
         >
           <Input
             type="text"
-            name="username"
-            value={formData.username}
+            name="email"
+            value={formData.email}
             onChange={e => handleChange(e)}
           />
         </Form.Item>

@@ -4,8 +4,10 @@ import axios from 'axios';
 import { Button, Divider, Input, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './libraries.css';
+import env from 'react-dotenv';
 
 export default function Libraries() {
+  console.log(env);
   // const mockSampleLibraries = [
   //   {
   //     id: 1,
@@ -41,7 +43,7 @@ export default function Libraries() {
   const getLibraries = () => {
     axios
       //TODO: move base url to approrpriate file
-      .get(`http://54.158.134.245/api/admin/library`)
+      .get(`${env.BASE_URL}/library`)
       .then(libraries => {
         setLibraries(libraries.data);
       })
