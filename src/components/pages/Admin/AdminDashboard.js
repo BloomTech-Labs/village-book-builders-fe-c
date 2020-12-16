@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { useHistory, Link, Route, Switch } from 'react-router-dom';
 import Libraries from './Libraries';
+import EditLibrary from './EditLibrary';
 import './AdminDashboard.css';
 
 export default function AdminDashboard() {
@@ -20,6 +21,9 @@ export default function AdminDashboard() {
       <Switch>
         <Route path="/admin/libraries">
           <Libraries />
+        </Route>
+        <Route path="/admin/library/edit/:id">
+          <EditLibrary />
         </Route>
       </Switch>
     </div>
