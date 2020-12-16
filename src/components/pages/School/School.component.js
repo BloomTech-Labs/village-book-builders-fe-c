@@ -1,23 +1,36 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchSchool } from '../../../state/actions/index';
+import EditButton from '../../common/EditButton';
+import { Profile, Label } from '../../common/ProfileStyle';
+import { Divider } from './School.styles';
 
 const School = props => {
-  console.log('School Component --> ', props);
   const { school } = props;
-  useEffect(() => {}, []);
   return (
-    <div>
-      <h1>School</h1>
-      <p>Description: {school.school_description}</p>
-      <p>Goals: {school.school_goals_description}</p>
-      <p>Needs: {school.school_needs_description}</p>
-      <p>Student Count: {school.count_students_currently_enrolled}</p>
-      <p>Teacher Count: {school.count_teachers}</p>
-      <p>Notes: {school.notes}</p>
-      <Link to={`/headmaster/school/edit/${school.id}`}>Edit School</Link>
-    </div>
+    <Profile>
+      <Label>Description</Label>
+      <p>{school.school_description}</p>
+      <Label>Goals:</Label>
+      <p>{school.school_goals_description}</p>
+
+      <Label>Needs:</Label>
+      <p>{school.school_needs_description}</p>
+
+      <Label>Student Count:</Label>
+      <p>{school.count_students_currently_enrolled}</p>
+
+      <Label>Teacher Count:</Label>
+      <p>{school.count_teachers}</p>
+
+      <Label>Notes:</Label>
+      <p>{school.notes}</p>
+
+      <Link to={`/headmaster/school/edit/${school.id}`}>
+        <EditButton buttonText="Edit School Profile" />
+      </Link>
+      <Divider />
+    </Profile>
   );
 };
 

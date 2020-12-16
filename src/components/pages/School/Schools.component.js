@@ -6,9 +6,8 @@ import { StyledSchools } from './School.styles';
 import School from './School.component';
 
 const Schools = props => {
-  console.log('Schools Component --> ', props.schools);
   useEffect(() => {
-    props.fetchSchools(); // ! This doesn't work yet. we don't have a school endpoint
+    props.fetchSchools();
   }, []);
   return (
     <StyledSchools>
