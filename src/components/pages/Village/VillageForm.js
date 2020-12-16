@@ -14,7 +14,7 @@ import {
 } from '../../common/FormStyle';
 import Button from '../../common/Button';
 
-const baseURL = 'http://54.158.134.245/api';
+const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
 const initialState = {
   headmaster: 'Mr Headmaster',
