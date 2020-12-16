@@ -14,7 +14,7 @@ import {
 } from '../../common/FormStyle';
 import Button from '../../common/Button';
 
-const baseURL = 'http://54.158.134.245/api';
+const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
 const initialState = {
   headmaster: 'Mr Headmaster',
@@ -59,7 +59,7 @@ const VillageForm = props => {
   return (
     <FormContainer>
       <Form.Item {...tailLayout}>
-        <Link to="/headmaster/school-village">Go Back to Village Profile</Link>
+        <Link to="/school-village">Go Back to Village Profile</Link>
       </Form.Item>
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item

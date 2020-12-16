@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
-const baseURL = 'http://54.158.134.245/api'; // ! Temporary backend URL -- waiting on Stakeholder's backend to work
+const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api'; // ! Temporary backend URL -- waiting on Stakeholder's backend to work
 
 export const login = data => dispatch => {
   axios
