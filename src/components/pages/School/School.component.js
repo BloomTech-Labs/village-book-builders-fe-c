@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import Button from '../../common/Button';
+import { Button } from '../../common/';
 import { Profile, Label } from '../../common/ProfileStyle';
 import { Divider } from './School.styles';
 
