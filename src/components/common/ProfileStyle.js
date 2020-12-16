@@ -8,6 +8,7 @@ export const Profile = styled.div`
   margin: auto;
   width: fit-content;
   letter-spacing: 0.05rem;
+  width: 100%;
 `;
 
 export const Label = styled.h4`

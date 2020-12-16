@@ -4,14 +4,14 @@ import styled from 'styled-components';
 
 const Btn = styled.button`
   border: none;
-  background-color: #549bea;
+  /* background-color: #549bea; */
   &:hover {
     transition: all 200ms linear;
   }
 `;
 
 const Button = props => {
-  return <Btn className="l1-btn btn">{props.buttonText}</Btn>;
+  return <Btn className="l8-btn btn">{props.buttonText}</Btn>;
 };
 
 export default Button;
