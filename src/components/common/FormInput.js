@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FormInput = props => {
   return (
-    <>
+    <div>
       <label htmlFor={props.labelId}>{props.labelId}</label>
       <input
         type="text"
@@ -11,7 +11,7 @@ const FormInput = props => {
         name={props.name}
         placeholder={props.placeholder}
       />
-    </>
+    </div>
   );
 };
 

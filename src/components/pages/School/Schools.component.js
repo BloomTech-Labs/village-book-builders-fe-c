@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import { fetchSchools } from '../../../state/actions/index';
 import { StyledSchools } from './School.styles';
 import School from './School.component';
+import { ComponentTitle } from '../../common';
 
 const Schools = props => {
-  console.log('Schools Component --> ', props.schools);
   useEffect(() => {
-    props.fetchSchools(); // ! This doesn't work yet. we don't have a school endpoint
+    props.fetchSchools();
   }, []);
   return (
     <StyledSchools>
-      <h1>Schools</h1>
+      <ComponentTitle titleText="Schools" />
       {props.schools.map(s => (
         <School school={s} />
       ))}

@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { fetchVillage } from '../../../state/actions/index';
 
 import { Profile, Label } from '../../common/ProfileStyle';
+import { Button } from '../../common/';
+import { ThemeProvider } from 'styled-components';
+import { ComponentTitle } from '../../common';
 
 const Village = props => {
   const { villageData, fetchVillage } = props;
@@ -13,21 +16,24 @@ const Village = props => {
   }, []);
   return (
     <Profile>
+      <ComponentTitle titleText="Village" />
       <Label>Headmaster:</Label>
       <p>Mr Headmaster</p>
       <Label>Village Contact:</Label>
-      <p>{villageData.village_contact_name}</p>
+      <p>{villageData.villageContactName}</p>
       <Label>Village Contact Phone:</Label>
-      <p>{villageData.village_contact_phone}</p>
+      <p>{villageData.villageContactPhone}</p>
 
       <Label>Education Contact:</Label>
-      <p>{villageData.education_contact.name}</p>
-      <p>{villageData.education_contact.phone}</p>
-      <p>{villageData.education_contact.email}</p>
+      <p>{villageData.educationContactName}</p>
+      <p>{villageData.educationContactEmail}</p>
+      <p>{villageData.educationContactPhone}</p>
       <p>Notes: {villageData.notes}</p>
       <div className="villageButtons">
-        <Link to={`/headmaster/village/edit/${villageData.id}`}>
-          Edit Village Profile
+        <Link to={`/village/edit/${villageData.id}`}>
+          <ThemeProvider theme={{ color: '#6ac66b' }}>
+            <Button buttonText="Edit Village Profile" />
+          </ThemeProvider>
         </Link>
       </div>
     </Profile>
