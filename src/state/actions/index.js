@@ -33,7 +33,7 @@ export const editVillage = (id, data) => () => {
   axios // ! This needs to change to axiosWithAuth once we figure out GoogleAuth with a working backend
     .put(`${baseURL}/headmaster/village/${id}`, data)
     .then(() => {
-      window.location.replace('/village/');
+      window.location.replace('/headmaster/school-village/');
     })
     .catch(err => console.dir(err));
 };

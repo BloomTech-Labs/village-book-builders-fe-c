@@ -16,14 +16,14 @@ const Village = props => {
       <Label>Headmaster:</Label>
       <p>Mr Headmaster</p>
       <Label>Village Contact:</Label>
-      <p>{villageData.village_contact_name}</p>
+      <p>{villageData.villageContactName}</p>
       <Label>Village Contact Phone:</Label>
-      <p>{villageData.village_contact_phone}</p>
+      <p>{villageData.villageContactPhone}</p>
 
       <Label>Education Contact:</Label>
-      <p>{villageData.education_contact.name}</p>
-      <p>{villageData.education_contact.phone}</p>
-      <p>{villageData.education_contact.email}</p>
+      <p>{villageData.educationContactName}</p>
+      <p>{villageData.educationContactEmail}</p>
+      <p>{villageData.educationContactPhone}</p>
       <p>Notes: {villageData.notes}</p>
       <div className="villageButtons">
         <Link to={`/headmaster/village/edit/${villageData.id}`}>

@@ -19,13 +19,12 @@ const baseURL = 'http://54.158.134.245/api';
 
 const initialState = {
   headmaster: 'Mr Headmaster',
-  village_contact_name: '',
-  village_contact_phone: '',
-  education_contact: {
-    name: '',
-    phone: '',
-    email: '',
-  },
+  villageContactName: '',
+  villageContactPhone: '',
+  villageContactEmail: '',
+  educationContactName: '',
+  educationContactEmail: '',
+  educationContactPhone: '',
   notes: '',
 };
 
@@ -41,28 +40,17 @@ const VillageForm = props => {
       axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
         .get(`${baseURL}/headmaster/village/${params}`)
         .then(res => {
-          const data = {
-            ...res.data,
-            education_contact_name: res.data.education_contact.name,
-            education_contact_phone: res.data.education_contact.phone,
-            education_contact_email: res.data.education_contact.email,
-          };
-          form.setFieldsValue(data);
-          setFormData(data);
+          console.log(res);
+          form.setFieldsValue(res.data);
+          setFormData(res.data);
         })
         .catch(err => console.dir(err));
     }
   }, []);
 
   const handleSubmit = async () => {
-    props.editVillage(params, {
-      ...formData,
-      education_contact: {
-        name: formData.education_contact_name,
-        email: formData.education_contact_email,
-        phone: formData.education_contact_phone,
-      },
-    });
+    console.log(formData);
+    props.editVillage(params, formData);
   };
 
   const handleChange = e => {
@@ -87,58 +75,53 @@ const VillageForm = props => {
 
         <Form.Item
           label="Village Contact Name"
-          name="village_contact_name"
+          name="villageContactName"
           required
         >
           <Input
             type="text"
-            name="village_contact_name"
-            value={formData.village_contact_name.value}
+            name="villageContactName"
+            value={formData.villageContactName}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
-        <Form.Item label="Village Contact Phone" name="village_contact_phone">
+        <Form.Item label="Village Contact Phone" name="villageContactPhone">
           <Input
             type="text"
-            value={formData.village_contact_phone}
+            name="villageContactPhone"
+            value={formData.villageContactPhone}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
         <Form.Item
           label="Education Contact Name"
-          name="education_contact_name"
+          name="educationContactName"
           required
         >
           <Input
             type="text"
-            name="education_contact_name"
-            value={formData.education_contact.name}
+            name="educationContactName"
+            value={formData.educationContactName}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
-        <Form.Item
-          label="Education Contact Phone"
-          name="education_contact_phone"
-        >
+        <Form.Item label="Education Contact Phone" name="educationContactPhone">
           <Input
             type="text"
-            // name="education_contact.phone"
-            value={formData.education_contact.phone}
+            name="educationContactPhone"
+            value={formData.educationContactPhone}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
-        <Form.Item
-          label="Education Contact Email"
-          name="education_contact_email"
-        >
+        <Form.Item label="Education Contact Email" name="educationContactEmail">
           <Input
             type="email"
-            // name="education_contact.email"
-            value={formData.education_contact.email}
+            name="educationContactEmail"
+            value={formData.educationContactEmail}
             onChange={e => handleChange(e)}
             required
           />
