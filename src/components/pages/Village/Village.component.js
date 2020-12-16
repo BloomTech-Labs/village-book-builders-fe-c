@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { fetchVillage } from '../../../state/actions/index';
 
 import { Profile, Label } from '../../common/ProfileStyle';
-import EditButton from '../../common/EditButton';
+import Button from '../../common/Button';
+import { ThemeProvider } from 'styled-components';
 
 const Village = props => {
   const { villageData, fetchVillage } = props;
@@ -28,7 +29,9 @@ const Village = props => {
       <p>Notes: {villageData.notes}</p>
       <div className="villageButtons">
         <Link to={`/headmaster/village/edit/${villageData.id}`}>
-          <EditButton buttonText="Edit Village Profile" />
+          <ThemeProvider theme={{ color: '#6ac66b' }}>
+            <Button buttonText="Edit Village Profile" />
+          </ThemeProvider>
         </Link>
       </div>
     </Profile>
