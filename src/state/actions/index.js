@@ -52,17 +52,18 @@ export const fetchSchools = () => dispatch => {
 
 export const fetchSchool = id => dispatch => {
   axios
-    .get(`${baseURL}/headmaster/school/1`)
+    .get(`${baseURL}/headmaster/schools/${id}`)
     .then(res => console.log(res.data))
     .catch(err => console.dir(err));
 };
 
 export const editSchool = (id, data) => dispatch => {
-  console.log(
-    'editSchool action ID and Data (needs school endpoint)--> ',
-    id,
-    data
-  );
+  axios
+    .put(`${baseURL}/headmaster/schools/${id}`, data)
+    .then(res => {
+      window.location.replace('/headmaster/school-village/');
+    })
+    .catch(err => console.dir(err));
 };
 //TODO Finish converting this to redux
 // export const fetchLibraries = () => dispatch => {

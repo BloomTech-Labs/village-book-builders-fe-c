@@ -17,15 +17,14 @@ import Button from '../../common/Button';
 const baseURL = 'http://54.158.134.245/api';
 
 const initialState = {
-  headmaster: 'Mr Headmaster',
-  village_contact_name: '',
-  village_contact_phone: '',
-  education_contact: {
-    name: '',
-    phone: '',
-    email: '',
-  },
+  count_students_currently_enrolled: '',
+  count_teachers: '',
+  id: '',
   notes: '',
+  other_dynamic_questions: [],
+  school_description: '',
+  school_goals_description: '',
+  school_needs_description: '',
 };
 
 const SchoolForm = props => {
@@ -38,8 +37,9 @@ const SchoolForm = props => {
     // Form will populate only if the URL includes "edit"
     if (pathname.includes('edit')) {
       axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
-        .get(`${baseURL}/headmaster/village/${params}`)
+        .get(`${baseURL}/headmaster/schools/${params}`)
         .then(res => {
+          console.log(res);
           const data = res.data;
           form.setFieldsValue(data);
           setFormData(data);
@@ -59,8 +59,9 @@ const SchoolForm = props => {
   return (
     <FormContainer>
       <Form.Item {...tailLayout}>
-        <Link to="/school-village">Go Back to School Profile</Link>
+        <Link to="/headmaster/school-village">Go Back to School Profile</Link>
       </Form.Item>
+
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item label="Headmaster" name="headmaster" required>
           <Input
@@ -73,22 +74,59 @@ const SchoolForm = props => {
         </Form.Item>
 
         <Form.Item
-          label="Village Contact Name"
-          name="village_contact_name"
+          label="School Description"
+          name="school_description"
           required
         >
           <Input
             type="text"
-            name="village_contact_name"
-            value={formData.village_contact_name.value}
+            name="school_description"
+            value={formData.school_goals_description}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
-        <Form.Item label="Village Contact Phone" name="village_contact_phone">
+        <Form.Item
+          label="School Goals Description"
+          name="school_goals_description"
+        >
           <Input
             type="text"
-            value={formData.village_contact_phone}
+            name="school_goals_description"
+            value={formData.school_goals_description}
+            onChange={e => handleChange(e)}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="School Needs Description"
+          name="school_needs_description"
+        >
+          <Input
+            type="text"
+            name="school_needs_description"
+            value={formData.school_needs_description}
+            onChange={e => handleChange(e)}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Students Currently Enrolled"
+          name="count_students_currently_enrolled"
+        >
+          <Input
+            type="text"
+            name="count_students_currently_enrolled"
+            value={formData.count_students_currently_enrolled}
+            onChange={e => handleChange(e)}
+          />
+        </Form.Item>
+
+        <Form.Item label="Teachers Currently Teaching" name="count_teachers">
+          <Input
+            type="text"
+            name="count_teachers"
+            value={formData.count_teachers}
             onChange={e => handleChange(e)}
           />
         </Form.Item>

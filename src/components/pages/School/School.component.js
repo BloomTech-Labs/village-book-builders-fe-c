@@ -13,7 +13,10 @@ const School = props => {
       <p>Description: {school.school_description}</p>
       <p>Goals: {school.school_goals_description}</p>
       <p>Needs: {school.school_needs_description}</p>
-      <Link to={`/school/edit/${school.schoolId}`}>Edit School</Link>
+      <p>Student Count: {school.count_students_currently_enrolled}</p>
+      <p>Teacher Count: {school.count_teachers}</p>
+      <p>Notes: {school.notes}</p>
+      <Link to={`/headmaster/school/edit/${school.id}`}>Edit School</Link>
     </div>
   );
 };
