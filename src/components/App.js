@@ -9,7 +9,6 @@ import '../style.css';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import Login from './pages/Login/Login';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-
 class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();

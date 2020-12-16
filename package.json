@@ -11,12 +11,14 @@
     "antd": "^4.4.3",
     "axios": "^0.19.2",
     "craco-less": "^1.17.0",
+    "json-web-token": "3.2.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
     "plotly.js": "^1.54.6",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
+    "react-dotenv": "0.1.2",
     "react-google-login": "^5.1.25",
     "react-plotly.js": "^2.4.0",
     "react-redux": "^7.2.2",
@@ -27,8 +29,9 @@
     "styled-components": "^5.2.1"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "react-dotenv && craco start",
+    "build": "react-dotenv && craco build",
+    "serve": "react-dotenv && serve craco build",
     "test": "craco test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "prettier": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
@@ -71,6 +74,11 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "react-dotenv": {
+    "whitelist": [
+      "BASE_URL", "PORT"
     ]
   },
   "devDependencies": {
