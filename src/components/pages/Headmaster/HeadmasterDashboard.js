@@ -65,7 +65,6 @@ function HeadmasterDashboard() {
   return (
     <div>
       <div className={desktop ? 'headmasterDashboard' : null}>
-        <h1>Hello, Headmaster!</h1>
         <Switch>
           <Route path="/headmaster/mentor-pairings" component={TestComponent} />
           <Route path="/headmaster/mentor-advisor" />
@@ -109,9 +108,11 @@ function HeadmasterDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <NavLink to="/headmaster/dashboard" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Home</button>
-          </NavLink>
+          <h2>Hello, Headmaster!</h2>
+
+          {/* <NavLink to="/headmaster/dashboard" onClick={() => setVisible(true)}>
+						<button className="btn l2-btn menuLinks">Home</button>
+					</NavLink> */}
           <NavLink
             to="/headmaster/mentor-pairings"
             onClick={() => setVisible(true)}

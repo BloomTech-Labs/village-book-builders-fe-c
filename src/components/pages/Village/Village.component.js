@@ -7,6 +7,7 @@ import { fetchVillage } from '../../../state/actions/index';
 import { Profile, Label } from '../../common/ProfileStyle';
 import Button from '../../common/Button';
 import { ThemeProvider } from 'styled-components';
+import { ComponentTitle } from '../../common';
 
 const Village = props => {
   const { villageData, fetchVillage } = props;
@@ -15,6 +16,7 @@ const Village = props => {
   }, []);
   return (
     <Profile>
+      <ComponentTitle titleText="Village" />
       <Label>Headmaster:</Label>
       <p>Mr Headmaster</p>
       <Label>Village Contact:</Label>
