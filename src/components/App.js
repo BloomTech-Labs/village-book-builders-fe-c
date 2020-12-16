@@ -18,13 +18,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/login" component={Login} />
-        <Route path="/admin">
-          <AdminDashboard />
-        </Route>
-        <Route exact path="/headmaster/*">
-          <HeadmasterDashboard />
-        </Route>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route path="/admin">
+            <AdminDashboard />
+          </Route>
+          <Route exact path="/*">
+            <HeadmasterDashboard />
+          </Route>
+        </Switch>
         {/* <Landing {...this.props}>
             <Routes />
           </Landing> */}
