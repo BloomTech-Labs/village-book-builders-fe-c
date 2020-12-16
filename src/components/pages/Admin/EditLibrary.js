@@ -10,7 +10,7 @@ import { editLibrary } from '../../../state/actions';
 //* I think it'll be best to store all libraries into redux store, then pull the specific one from the store when this page loads
 //TODO: refactor to use redux.
 
-const baseURL = 'http://54.158.134.245/api';
+const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
 const initialState = {
   // id: "",
