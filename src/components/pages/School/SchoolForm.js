@@ -63,7 +63,11 @@ const SchoolForm = props => {
       </Form.Item>
 
       <Form onFinish={handleSubmit} form={form} {...layout}>
-        <Form.Item label="Headmaster" name="headmaster" required>
+        <Form.Item
+          label="Headmaster"
+          name="headmaster"
+          rules={[{ required: true, message: 'Headmaster name is required.' }]}
+        >
           <Input
             type="text"
             name="headmaster"
@@ -76,7 +80,9 @@ const SchoolForm = props => {
         <Form.Item
           label="School Description"
           name="school_description"
-          required
+          rules={[
+            { required: true, message: 'School description is required.' },
+          ]}
         >
           <Input
             type="text"
@@ -113,6 +119,7 @@ const SchoolForm = props => {
         <Form.Item
           label="Students Currently Enrolled"
           name="count_students_currently_enrolled"
+          rules={[{ required: true, message: 'Student count is required.' }]}
         >
           <Input
             type="text"
@@ -122,7 +129,11 @@ const SchoolForm = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Teachers Currently Teaching" name="count_teachers">
+        <Form.Item
+          label="Teachers Currently Teaching"
+          name="count_teachers"
+          rules={[{ required: true, message: 'Teacher count is required.' }]}
+        >
           <Input
             type="text"
             name="count_teachers"

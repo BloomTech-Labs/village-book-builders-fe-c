@@ -63,7 +63,11 @@ const VillageForm = props => {
         <Link to="/headmaster/school-village">Go Back to Village Profile</Link>
       </Form.Item>
       <Form onFinish={handleSubmit} form={form} {...layout}>
-        <Form.Item label="Headmaster" name="headmaster" required>
+        <Form.Item
+          label="Headmaster"
+          name="headmaster"
+          rules={[{ required: true, message: 'Headmaster name is required.' }]}
+        >
           <Input
             type="text"
             name="headmaster"
@@ -76,7 +80,9 @@ const VillageForm = props => {
         <Form.Item
           label="Village Contact Name"
           name="villageContactName"
-          required
+          rules={[
+            { required: true, message: ' Village Contact Name is required.' },
+          ]}
         >
           <Input
             type="text"
@@ -86,7 +92,13 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Village Contact Phone" name="villageContactPhone">
+        <Form.Item
+          label="Village Contact Phone"
+          name="villageContactPhone"
+          rules={[
+            { required: true, message: 'Village Contact Phone is required.' },
+          ]}
+        >
           <Input
             type="text"
             name="villageContactPhone"
@@ -98,7 +110,9 @@ const VillageForm = props => {
         <Form.Item
           label="Education Contact Name"
           name="educationContactName"
-          required
+          rules={[
+            { required: true, message: 'Education Contact Name is required.' },
+          ]}
         >
           <Input
             type="text"
@@ -108,7 +122,13 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Education Contact Phone" name="educationContactPhone">
+        <Form.Item
+          label="Education Contact Phone"
+          name="educationContactPhone"
+          rules={[
+            { required: true, message: 'Education Contact Phone is required.' },
+          ]}
+        >
           <Input
             type="text"
             name="educationContactPhone"
@@ -117,7 +137,11 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Education Contact Email" name="educationContactEmail">
+        <Form.Item
+          label="Education Contact Email"
+          name="educationContactEmail"
+          rules={[{ required: true, message: 'Education Email is required.' }]}
+        >
           <Input
             type="email"
             name="educationContactEmail"
