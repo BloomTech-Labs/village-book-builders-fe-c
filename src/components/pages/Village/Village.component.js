@@ -30,7 +30,7 @@ const Village = props => {
       <p>{villageData.educationContactPhone}</p>
       <p>Notes: {villageData.notes}</p>
       <div className="villageButtons">
-        <Link to={`/headmaster/village/edit/${villageData.id}`}>
+        <Link to={`/village/edit/${villageData.id}`}>
           <ThemeProvider theme={{ color: '#6ac66b' }}>
             <Button buttonText="Edit Village Profile" />
           </ThemeProvider>

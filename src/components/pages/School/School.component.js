@@ -28,7 +28,7 @@ const School = props => {
       <Label>Notes:</Label>
       <p>{school.notes}</p>
 
-      <Link to={`/headmaster/school/edit/${school.id}`}>
+      <Link to={`/school/edit/${school.id}`}>
         <ThemeProvider theme={theme}>
           <Button buttonText="Edit School Profile" />
         </ThemeProvider>
