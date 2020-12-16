@@ -11,7 +11,6 @@ import {
   FormContainer,
   tailLayout,
   Required,
-  ButtonMessage,
 } from '../../common/FormStyle';
 import Button from '../../common/Button';
 

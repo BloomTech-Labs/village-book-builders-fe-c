@@ -6,6 +6,9 @@ export const Divider = styled.div`
 `;
 
 export const StyledSchools = styled.div`
+  h1 {
+    text-align: center;
+  }
   & > * {
     background: white;
   }

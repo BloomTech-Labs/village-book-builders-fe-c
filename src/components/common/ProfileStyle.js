@@ -6,9 +6,8 @@ export const Profile = styled.div`
   justify-content: center;
   padding: 2rem;
   margin: auto;
-  width: fit-content;
+  width: 66%;
   letter-spacing: 0.05rem;
-  width: 100%;
 `;
 
 export const Label = styled.h4`
