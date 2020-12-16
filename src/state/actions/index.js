@@ -12,7 +12,10 @@ const baseURL = 'http://54.158.134.245/api'; // ! Temporary backend URL -- waiti
 export const login = data => dispatch => {
   axios
     .post(`${baseURL}/login`)
-    .then(res => console.log('LOGIN ACTION --> ', res))
+    .then(res => {
+      console.log('LOGIN ACTION --> ', res);
+      window.location.replace('/dashboard/');
+    })
     .catch(err => console.dir(err));
 };
 
@@ -33,7 +36,7 @@ export const editVillage = (id, data) => () => {
   axios // ! This needs to change to axiosWithAuth once we figure out GoogleAuth with a working backend
     .put(`${baseURL}/headmaster/village/${id}`, data)
     .then(() => {
-      window.location.replace('/headmaster/school-village/');
+      window.location.replace('/school-village/');
     })
     .catch(err => console.dir(err));
 };
@@ -61,7 +64,7 @@ export const editSchool = (id, data) => dispatch => {
   axios
     .put(`${baseURL}/headmaster/schools/${id}`, data)
     .then(res => {
-      window.location.replace('/headmaster/school-village/');
+      window.location.replace('/school-village/');
     })
     .catch(err => console.dir(err));
 };

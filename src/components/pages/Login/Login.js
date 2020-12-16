@@ -38,7 +38,11 @@ const Login = props => {
         <Form.Item {...tailLayout}>
           <h1>Log In</h1>
         </Form.Item>
-        <Form.Item label="Username" name="username" required>
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: 'Username is required.' }]}
+        >
           <Input
             type="text"
             name="username"
@@ -47,7 +51,11 @@ const Login = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Password" name="password" required>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: 'Password is required.' }]}
+        >
           <Input
             type="password"
             name="password"
