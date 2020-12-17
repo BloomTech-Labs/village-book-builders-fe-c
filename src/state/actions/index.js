@@ -29,7 +29,7 @@ export const login = data => dispatch => {
       // push('/dashboard');
     })
     .catch(err => {
-      console.log('LOGIN ACTION FAILURE--> data:', data);
+      console.log('LOGIN ACTION FAILURE--> with this data:', data);
       console.dir(err);
     });
 };

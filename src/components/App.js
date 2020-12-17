@@ -9,44 +9,39 @@ import '../style.css';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import Login from './pages/Login/Login';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-class App extends Component {
-  componentDidMount() {
-    this.props.onTryAutoSignup();
-  }
 
-  render() {
-    return (
-      <div className="App">
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/admin">
-            <AdminDashboard />
-          </Route>
-          <Route exact path="/*">
-            <HeadmasterDashboard />
-          </Route>
-        </Switch>
-        {/* <Landing {...this.props}>
-            <Routes />
-          </Landing> */}
-      </div>
-    );
-  }
-}
+const App = ({ loggedIn, userId, role }) => {
+  return (
+    <div className="App">
+      {/* <Switch>
+        <Route exact path="/" component={Login} />
+        <Route path="/admin">
+          <AdminDashboard />
+        </Route>
+        <Route exact path="/*">
+          <HeadmasterDashboard />
+        </Route>
+      </Switch> */}
+      <Route path="/">
+        {console.log('loggedin:', loggedIn)}
+        {!loggedIn ? (
+          <Login />
+        ) : (
+          //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly
+          <HeadmasterDashboard />
+        )}
+      </Route>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.token !== null,
-    isLoading: state.loading,
-    error: state.error,
-    message: state.message,
+    loggedIn: state.loginReducer.loggedIn,
+    userId: state.loginReducer.userId,
+    role: state.loginReducer.role,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, {})(App);
+// export default App;
