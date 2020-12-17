@@ -46,6 +46,7 @@ export default function Libraries() {
       //TODO: move base url to approrpriate file
       .get(`${env.BASE_URL}/library`)
       .then(libraries => {
+        console.log('libraries from new server', libraries);
         setLibraries(libraries.data);
       })
       .catch(err => {

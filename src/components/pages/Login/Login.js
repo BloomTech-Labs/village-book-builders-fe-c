@@ -23,7 +23,7 @@ const Login = props => {
 
   const handleSubmit = async () => {
     console.log('LOGIN COMPONENT handleSubmit --> ', formData);
-    props.login();
+    props.login(formData);
   };
 
   const handleChange = e => {

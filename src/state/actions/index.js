@@ -4,19 +4,29 @@
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
 import axios from 'axios';
+import env from 'react-dotenv';
 
 import * as actionTypes from './actionTypes';
+import { react } from 'plotly.js';
 
-const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api'; // ! Temporary backend URL -- waiting on Stakeholder's backend to work
+// const baseURL = env.BASE_URL;
+// console.log("env: ", env);
+// console.log("baseurl: ", baseURL);
+// const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api'; // ! Temporary backend URL -- waiting on Stakeholder's backend to work
+const baseURL = 'https://vbb-backend-team-a.herokuapp.com';
 
 export const login = data => dispatch => {
   axios
-    .post(`${baseURL}/login`)
+    // .post(`${baseURL}/auth/login`)
+    .post('https://vbb-backend-team-a.herokuapp.com/auth/login', data)
     .then(res => {
       console.log('LOGIN ACTION --> ', res);
       window.location.replace('/dashboard/');
     })
-    .catch(err => console.dir(err));
+    .catch(err => {
+      console.log('failed to post, data:', data);
+      console.dir(err);
+    });
 };
 
 export const fetchHeadmasterSchool = () => dispatch => {

@@ -78,7 +78,8 @@
   },
   "react-dotenv": {
     "whitelist": [
-      "BASE_URL", "PORT"
+      "BASE_URL",
+      "PORT"
     ]
   },
   "devDependencies": {
