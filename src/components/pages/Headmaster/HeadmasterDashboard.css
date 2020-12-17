@@ -37,3 +37,30 @@
 .headmasterDashboard {
 	margin-left: 340px;
 }
+
+.menuIcon {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	transition: 'bottom 200ms linear';
+}
+
+.menuMove {
+	position: fixed;
+	bottom: 500px;
+	width: 100%;
+	transition: 'bottom 200ms linear';
+}
+
+.menuButton {
+	width: 100%;
+	background: #549bea;
+	border: 1px solid #549bea;
+	height: 3rem;
+}
+
+@media screen and (max-width: 800px) {
+	.headmasterDashboard {
+		margin-left: 0;
+	}
+}

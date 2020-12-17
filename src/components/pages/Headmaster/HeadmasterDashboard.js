@@ -15,35 +15,21 @@ import TestComponent from './TestComponent';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import './HeadmasterDashboard.css';
-
-const menuIcon = {
-  position: 'fixed',
-  bottom: '0px',
-  width: '100%',
-  transition: 'all 200ms linear',
-};
-
-const menuMove = {
-  position: 'fixed',
-  bottom: '500px',
-  width: '100%',
-  transition: 'all 200ms linear',
-};
-
-const menuButton = {
-  width: '100%',
-  backgroundColor: '#549bea',
-  border: '1px solid #549bea',
-  height: '3rem',
-};
+import {
+  menuButton,
+  menuIcon,
+  menuMove,
+  Dashboard,
+} from './HeadmasterDashboard.style';
 
 function HeadmasterDashboard() {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
 
   useEffect(() => {
-    if (window.innerWidth <= 500) {
+    if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
       setDesktop(false);
+      setVisible(false);
     } else {
       setDesktop(true);
     }
@@ -54,7 +40,7 @@ function HeadmasterDashboard() {
   };
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth <= 800) {
+    if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
       setDesktop(false);
       setVisible(false);
     } else {
@@ -62,9 +48,14 @@ function HeadmasterDashboard() {
       setVisible(true);
     }
   });
+
+  window.addEventListener('scroll', () => {
+    setVisible(false);
+  });
+
   return (
     <div>
-      <div className={desktop ? 'headmasterDashboard' : null}>
+      <Dashboard>
         <Switch>
           <Route path="/mentor-pairings" component={TestComponent} />
           <Route path="/mentor-advisor" />
@@ -80,12 +71,14 @@ function HeadmasterDashboard() {
           <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
           <Route path="/library" />
         </Switch>
-      </div>
+      </Dashboard>
+
       {desktop ? null : (
+        // inline style to force animation
         <div style={visible ? menuMove : menuIcon}>
           <Button
             type="primary"
-            style={menuButton}
+            style={menuButton} // inline style to override Ant Design
             onClick={() => setVisible(!visible)}
             icon={<MenuOutlined />}
           >
@@ -95,7 +88,6 @@ function HeadmasterDashboard() {
       )}
       <div>
         <Drawer
-          // title="Menu"
           placement={desktop ? 'left' : 'bottom'}
           closable={false}
           onClose={onClose}
