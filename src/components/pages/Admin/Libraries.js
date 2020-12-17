@@ -4,46 +4,17 @@ import axios from 'axios';
 import { Button, Divider, Input, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './libraries.css';
-import env from 'react-dotenv';
+import { BASE_URL } from '../../../environmentVariables';
 
 export default function Libraries() {
-  console.log(env);
-  // const mockSampleLibraries = [
-  //   {
-  //     id: 1,
-  //     name: 'Okanoke Library',
-  //     description: 'really tall building on the left',
-  //     library_usage: 'this will be a paragraph',
-  //     notes: 'another optiona paragraph',
-  //     image: 'Url link here',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Merry Moving Library',
-  //     description: 'cute, pink bus',
-  //     library_usage: 'this will be a paragraph',
-  //     notes: 'another optiona paragraph',
-  //     image: 'Url link here',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'First Fallon Library',
-  //     description: 'Metal bunker at edge of town',
-  //     library_usage: 'this will be a paragraph',
-  //     notes: 'another optiona paragraph',
-  //     image: 'Url link here',
-  //   },
-  // ];
   const [libraries, setLibraries] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  // const [loading, setLoading] = useState(false);
 
   const { push } = useHistory();
 
   const getLibraries = () => {
     axios
-      //TODO: move base url to approrpriate file
-      .get(`${env.BASE_URL}/library`)
+      .get(`${BASE_URL}/library`)
       .then(libraries => {
         setLibraries(libraries.data);
       })
