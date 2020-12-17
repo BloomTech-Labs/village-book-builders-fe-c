@@ -20,10 +20,7 @@ export const login = data => dispatch => {
     .post(`${baseURL}/auth/login`, data)
     .then(res => {
       console.log('LOGIN ACTION SUCCESS --> ', res.data);
-      //save token to headers for future axios calls
       window.localStorage.setItem('token', res.data.access_token);
-      //decrypt the jwt for role & id in the reducer??
-      //send role & id in token to dispatch
       dispatch({
         type: actionTypes.AUTH_SUCCESS,
         payload: res.data.access_token,

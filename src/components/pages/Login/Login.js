@@ -22,7 +22,7 @@ const Login = props => {
   const [form] = Form.useForm();
 
   const handleSubmit = async () => {
-    console.log('LOGIN COMPONENT handleSubmit --> ', formData);
+    // console.log('LOGIN COMPONENT handleSubmit --> ', formData);
     props.login(formData);
   };
 
