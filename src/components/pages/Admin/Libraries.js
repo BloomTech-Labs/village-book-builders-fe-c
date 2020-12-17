@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Button, Divider, Input, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './libraries.css';
-import { BASE_URL } from '../../../environmentVariables';
 
 export default function Libraries() {
   const [libraries, setLibraries] = useState(false);
@@ -14,7 +13,7 @@ export default function Libraries() {
 
   const getLibraries = () => {
     axios
-      .get(`${BASE_URL}/library`)
+      .get(`${process.env.REACT_APP_BASE_URL}/library`)
       .then(libraries => {
         setLibraries(libraries.data);
       })

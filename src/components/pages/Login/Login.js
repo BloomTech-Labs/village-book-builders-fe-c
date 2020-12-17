@@ -24,7 +24,14 @@ const Login = props => {
 
   const handleSubmit = async () => {
     console.log('LOGIN COMPONENT handleSubmit --> ', formData);
-    props.login();
+    Axios.post(`${process.env.REACT_APP_BASE_URL}/library`, formData)
+      .then(libraries => {
+        props.login();
+      })
+      .catch(err => {
+        //TODO: make this .catch more useful
+        console.log(err);
+      });
   };
 
   const handleChange = e => {
