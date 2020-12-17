@@ -7,6 +7,7 @@ import axios from 'axios';
 // import env from 'react-dotenv';
 
 import * as actionTypes from './actionTypes';
+import { useHistory } from 'react-router-dom';
 import { react } from 'plotly.js';
 
 const baseURL = process.env.REACT_APP_BASEURL;
@@ -14,14 +15,24 @@ const baseURL = process.env.REACT_APP_BASEURL;
 // const baseURL = 'https://vbb-backend-team-a.herokuapp.com';
 
 export const login = data => dispatch => {
+  // const { push } = useHistory();
   axios
     .post(`${baseURL}/auth/login`, data)
     .then(res => {
-      console.log('LOGIN ACTION --> ', res);
-      window.location.replace('/dashboard/');
+      console.log('LOGIN ACTION SUCCESS --> ', res.data);
+      //save token to headers for future axios calls
+      window.localStorage.setItem('token', res.data.access_token);
+      //decrypt the jwt for role & id in the reducer??
+      //send role & id in token to dispatch
+      dispatch({
+        type: actionTypes.AUTH_SUCCESS,
+        payload: res.data.access_token,
+      });
+      // window.location.replace('/dashboard/');
+      // push('/dashboard');
     })
     .catch(err => {
-      console.log('failed to post, data:', data);
+      console.log('LOGIN ACTION FAILURE--> data:', data);
       console.dir(err);
     });
 };
