@@ -11,11 +11,18 @@ const App = ({ loggedIn, userId, role }) => {
   return (
     <div className="App">
       <Switch>
+        {/*// ! temporary. This will eventually be tied into the reusable dashboard by passing in the admin role in props. Then this will be removed from here. */}
         <Route path="/admin">
           <AdminDashboard />
         </Route>
+
         <Route path="/">
           {console.log('loggedin:', loggedIn)}
+          {/*//! this needs to be changed to if there is an unexpired token
+              //! currently must login every page refresh
+              //! if it's driving you crazy to resign in until that's fixed,
+              //!comment out lines 27, 29, & 31. This will lock login above dashboard
+          */}
           {!loggedIn ? (
             <Login />
           ) : (
@@ -23,7 +30,6 @@ const App = ({ loggedIn, userId, role }) => {
             <HeadmasterDashboard />
           )}
         </Route>
-        {/* ! temporary. This will eventually be tied into the reusable dashboard by passing in the admin role in props. Then this will be removed from here. */}
       </Switch>
     </div>
   );

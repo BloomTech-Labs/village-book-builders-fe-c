@@ -5,15 +5,11 @@
 // Declare action TYPES at the top of the file
 import axios from 'axios';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
-// import env from 'react-dotenv';
 
 import * as actionTypes from './actionTypes';
 import { useHistory } from 'react-router-dom';
-// import { react } from 'plotly.js';
 
 const baseURL = process.env.REACT_APP_BASEURL;
-// const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api'; // ! Temporary backend URL -- waiting on Stakeholder's backend to work
-// const baseURL = 'https://vbb-backend-team-a.herokuapp.com';
 
 export const login = data => dispatch => {
   // const { push } = useHistory();
@@ -26,8 +22,6 @@ export const login = data => dispatch => {
         type: actionTypes.AUTH_SUCCESS,
         payload: res.data.access_token,
       });
-      // window.location.replace('/dashboard/');
-      // push('/dashboard');
     })
     .catch(err => {
       console.log('LOGIN ACTION FAILURE--> with this data:', data);
@@ -52,7 +46,6 @@ export const fetchVillage = id => dispatch => {
     .catch(err => console.dir(err));
 };
 
-//! this one hasn't been checked yet for functionality
 export const editVillage = (id, data) => () => {
   axiosWithAuth()
     .put(`/village/${id}`, data)
@@ -79,29 +72,20 @@ export const fetchSchools = () => dispatch => {
 };
 
 export const fetchSchool = id => dispatch => {
-  axios
-    .get(`${baseURL}/headmaster/schools/${id}`)
+  axiosWithAuth()
+    .get(`school/${id}`)
     .then(res => console.log(res.data))
     .catch(err => console.dir(err));
 };
 
 export const editSchool = (id, data) => dispatch => {
-  axios
-    .put(`${baseURL}/headmaster/schools/${id}`, data)
+  axiosWithAuth()
+    .put(`school/${id}`, data)
     .then(res => {
       window.location.replace('/school-village/');
     })
     .catch(err => console.dir(err));
 };
-//TODO Finish converting this to redux
-// export const fetchLibraries = () => dispatch => {
-//   axios // ! This needs to change to axiosWithAuth once we figure out GoogleAuth with a working backend
-//     .get(`${baseURL}/api/admin/library`)
-//     .then(res => {
-//       // dispatch({ type: actionTypes.FETCH_VILLAGE, payload: res.data });
-//     })
-//     .catch(err => console.dir(err));
-// };
 
 export const editLibrary = (id, data) => dispatch => {
   axiosWithAuth()
