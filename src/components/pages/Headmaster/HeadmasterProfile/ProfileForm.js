@@ -47,7 +47,7 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 const ProfileForm = props => {
   const [formData, setFormData] = useState(initialState);
-
+  const [value, setValue] = useState(1);
   const pathname = useHistory().location.pathname;
   const params = useParams().id;
   const [form] = Form.useForm();
@@ -61,6 +61,11 @@ const ProfileForm = props => {
       })
       .catch(err => console.dir(err));
   }, []);
+
+  const onChange = e => {
+    console.log('radio checked', e.target.value);
+    setValue(e.target.value);
+  };
 
   const handleSubmit = async () => {
     console.log(formData);
@@ -138,11 +143,11 @@ const ProfileForm = props => {
         </Form.Item>
 
         <Form.Item label="Gender" name="gender">
-          {/* <Radio.Group onChange={onChange} value={value} >
+          <Radio.Group onChange={onChange} value={value}>
             <Radio value={1}>Male</Radio>
             <Radio value={2}>Female</Radio>
             <Radio value={3}>Other</Radio>
-          </Radio.Group> */}
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item
