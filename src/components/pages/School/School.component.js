@@ -11,13 +11,16 @@ const School = props => {
   const theme = { color: '#6ac66b' };
   return (
     <Profile>
+      <Label>School</Label>
+      <p>{school.name}</p>
+
       <Label>Description</Label>
       <p>{school.school_description}</p>
       <Label>Goals:</Label>
-      <p>{school.school_goals_description}</p>
+      <p>{school.school_goals}</p>
 
       <Label>Needs:</Label>
-      <p>{school.school_needs_description}</p>
+      <p>{school.school_needs}</p>
 
       <Label>Student Count:</Label>
       <p>{school.count_students_currently_enrolled}</p>

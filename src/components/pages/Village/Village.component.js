@@ -9,28 +9,30 @@ import { Button } from '../../common/';
 import { ThemeProvider } from 'styled-components';
 import { ComponentTitle } from '../../common';
 
-const Village = props => {
-  const { villageData, fetchVillage } = props;
+const Village = ({ villageData, userId, fetchVillage }) => {
+  // const { villageData, fetchVillage } = props;
   useEffect(() => {
-    console.log('village component useEffect', villageData);
-    fetchVillage(0); // !This headmaster ID is being hardcoded right now
+    // console.log("village component useEffect", villageData);
+    fetchVillage(userId); // !This headmaster ID is being hardcoded right now
   }, []);
-  console.log('village component, villageData', villageData);
+  // console.log("village component, villageData", villageData);
   return (
     <Profile>
       <ComponentTitle titleText="Village" />
       <Label>Headmaster:</Label>
       <p>Mr Headmaster</p>
       <Label>Village Contact:</Label>
-      <p>{villageData.villageContactName}</p>
+      <p>{villageData.village_contact_name}</p>
       <Label>Village Contact Phone:</Label>
-      <p>{villageData.villageContactPhone}</p>
+      <p>{villageData.village_contact_phone}</p>
 
       <Label>Education Contact:</Label>
+      {/* //! These are not in the data from server atm */}
       <p>{villageData.educationContactName}</p>
       <p>{villageData.educationContactEmail}</p>
       <p>{villageData.educationContactPhone}</p>
-      <p>Notes: {villageData.notes}</p>
+      <Label>Notes: </Label>
+      <p>{villageData.notes}</p>
       <div className="villageButtons">
         <Link to={`/village/edit/${villageData.id}`}>
           <ThemeProvider theme={{ color: '#6ac66b' }}>
@@ -45,6 +47,7 @@ const Village = props => {
 const mapStateToProps = state => {
   return {
     villageData: state.headmasterReducer.villageData,
+    userId: state.loginReducer.userId,
   };
 };
 

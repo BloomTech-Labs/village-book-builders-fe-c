@@ -39,13 +39,14 @@ export const fetchHeadmasterSchool = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_HEADMASTER_SCHOOL });
 };
 
+//!Make sure that the actual server sends village data back that's related to the headmaster's id
 export const fetchVillage = id => dispatch => {
   // console.log("ACTIONSindexFetchVillage --> test", process.env.REACT_APP_BASEURL)
   axiosWithAuth()
     // .get(`${baseURL}/headmaster/village/${id}`)
     .get(`/village/${id}`)
     .then(res => {
-      console.log('IndexActionFetchVillage -> res:', res);
+      // console.log('IndexActionFetchVillage -> res:', res);
       dispatch({ type: actionTypes.FETCH_VILLAGE, payload: res.data });
     })
     .catch(err => console.dir(err));
@@ -62,14 +63,18 @@ export const editVillage = (id, data) => () => {
 
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
-    .get(`/schools`)
+    .get(`/school`)
     .then(res => {
+      // console.log("FETCH SCHOOLS:", res.data);
       dispatch({
         type: actionTypes.FETCH_HEADMASTER_SCHOOLS,
         payload: res.data,
       });
     })
-    .catch(err => console.dir(err));
+    .catch(err => {
+      // console.log("FETCHSCHOOLS Failed")
+      console.dir(err);
+    });
 };
 
 export const fetchSchool = id => dispatch => {
