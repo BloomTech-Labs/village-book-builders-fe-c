@@ -52,9 +52,10 @@ export const fetchVillage = id => dispatch => {
     .catch(err => console.dir(err));
 };
 
+//! this one hasn't been checked yet for functionality
 export const editVillage = (id, data) => () => {
-  axios // ! This needs to change to axiosWithAuth once we figure out GoogleAuth with a working backend
-    .put(`${baseURL}/headmaster/village/${id}`, data)
+  axiosWithAuth()
+    .put(`/village/${id}`, data)
     .then(() => {
       window.location.replace('/school-village/');
     })
