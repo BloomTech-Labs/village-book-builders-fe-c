@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 
-import { Form, Input, DatePicker, Space, Checkbox } from 'antd';
+import { Form, Input, DatePicker, Space, Radio } from 'antd';
 import moment from 'moment';
 
 import { editHeadmasterProfile } from '../../../../state/actions';
@@ -42,16 +42,12 @@ const initialState = {
   villageId: '',
 };
 
-function onChange(checkedValues) {
-  console.log('checked = ', checkedValues);
-}
-const genderOptions = ['Male', 'Female', 'Other'];
-
 const dateFormat = 'MM/DD/YYYY';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 const ProfileForm = props => {
   const [formData, setFormData] = useState(initialState);
+
   const pathname = useHistory().location.pathname;
   const params = useParams().id;
   const [form] = Form.useForm();
@@ -141,12 +137,12 @@ const ProfileForm = props => {
           />
         </Form.Item>
 
-        <Form.Item label="Gender" name="gender" value={formData.gender}>
-          <Checkbox.Group
-            options={genderOptions}
-            defaultValue={[]}
-            onChange={onChange}
-          />
+        <Form.Item label="Gender" name="gender">
+          {/* <Radio.Group onChange={onChange} value={value} >
+            <Radio value={1}>Male</Radio>
+            <Radio value={2}>Female</Radio>
+            <Radio value={3}>Other</Radio>
+          </Radio.Group> */}
         </Form.Item>
 
         <Form.Item

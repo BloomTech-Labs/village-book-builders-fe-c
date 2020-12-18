@@ -19,6 +19,28 @@ export const login = data => dispatch => {
     .catch(err => console.dir(err));
 };
 
+export const editHeadmasterProfile = (id, data) => dispatch => {
+  axios
+    .put(`${baseURL}/headmaster/${id}`, data)
+    .then(res => {
+      window.location.replace('/profile/');
+    })
+    .catch(err => console.dir(err));
+};
+
+export const fetchHeadmasterProfile = id => dispatch => {
+  axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+    .get(`${baseURL}/headmaster/${id}`) // change this later
+    .then(res => {
+      console.log('fetchHeadmasterProfile action --> ', res.data);
+      dispatch({
+        type: actionTypes.FETCH_HEADMASTER_PROFILE,
+        payload: res.data,
+      });
+    })
+    .catch(err => console.dir(err));
+};
+
 export const fetchHeadmasterSchool = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_HEADMASTER_SCHOOL });
 };
