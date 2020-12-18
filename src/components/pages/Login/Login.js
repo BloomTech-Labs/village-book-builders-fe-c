@@ -35,6 +35,7 @@ const Login = props => {
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item {...tailLayout}>
           <h1>Log In</h1>
+          {/* //! REMOVE THESE temp logins for stakehol */}
         </Form.Item>
         <Form.Item
           label="Email"

@@ -12,8 +12,10 @@ import { ComponentTitle } from '../../common';
 const Village = props => {
   const { villageData, fetchVillage } = props;
   useEffect(() => {
-    fetchVillage(1); // !This headmaster ID is being hardcoded right now
+    console.log('village component useEffect', villageData);
+    fetchVillage(0); // !This headmaster ID is being hardcoded right now
   }, []);
+  console.log('village component, villageData', villageData);
   return (
     <Profile>
       <ComponentTitle titleText="Village" />

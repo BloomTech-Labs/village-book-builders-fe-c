@@ -4,11 +4,12 @@
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
 import axios from 'axios';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 // import env from 'react-dotenv';
 
 import * as actionTypes from './actionTypes';
 import { useHistory } from 'react-router-dom';
-import { react } from 'plotly.js';
+// import { react } from 'plotly.js';
 
 const baseURL = process.env.REACT_APP_BASEURL;
 // const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api'; // ! Temporary backend URL -- waiting on Stakeholder's backend to work
@@ -19,7 +20,7 @@ export const login = data => dispatch => {
   axios
     .post(`${baseURL}/auth/login`, data)
     .then(res => {
-      console.log('LOGIN ACTION SUCCESS --> ', res.data);
+      // console.log('LOGIN ACTION SUCCESS --> ', res.data);
       window.localStorage.setItem('token', res.data.access_token);
       dispatch({
         type: actionTypes.AUTH_SUCCESS,
@@ -39,9 +40,12 @@ export const fetchHeadmasterSchool = () => dispatch => {
 };
 
 export const fetchVillage = id => dispatch => {
-  axios // ! This needs to change to axiosWithAuth once we figure out GoogleAuth with a working backend
-    .get(`${baseURL}/headmaster/village/${id}`)
+  // console.log("ACTIONSindexFetchVillage --> test", process.env.REACT_APP_BASEURL)
+  axiosWithAuth()
+    // .get(`${baseURL}/headmaster/village/${id}`)
+    .get(`/village/${id}`)
     .then(res => {
+      console.log('IndexActionFetchVillage -> res:', res);
       dispatch({ type: actionTypes.FETCH_VILLAGE, payload: res.data });
     })
     .catch(err => console.dir(err));
@@ -57,8 +61,8 @@ export const editVillage = (id, data) => () => {
 };
 
 export const fetchSchools = () => dispatch => {
-  axios
-    .get(`${baseURL}/headmaster/schools`)
+  axiosWithAuth()
+    .get(`/schools`)
     .then(res => {
       dispatch({
         type: actionTypes.FETCH_HEADMASTER_SCHOOLS,

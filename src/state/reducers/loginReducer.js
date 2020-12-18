@@ -34,9 +34,10 @@ const loginReducer = (state = initialState, action) => {
   // console.log("loginReducer --> action.payload:", action.payload);
   //??? This is inside of an iff statement bc otherwise it's running as soon as page loads, before login has actually happened. What did I wire up wrong???
   let decoded = {};
-  if (action.payload) {
+  if (action.type == AUTH_SUCCESS) {
+    // console.log("loginReducer, is this the undefined error??:", action.payload)
     decoded = parseJwt(String(action.payload));
-    console.log('loginReducer --> token decoded:', decoded);
+    // console.log('loginReducer --> token decoded:', decoded);
   }
 
   switch (action.type) {

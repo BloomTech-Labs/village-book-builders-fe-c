@@ -7,14 +7,15 @@ import {
 
 const initialState = {
   villageData: {
-    education_contact: {
-      name: '',
-    },
+    // education_contact: {
+    //   name: '',
+    // },
   },
   schoolData: [],
 };
 // Fetch school data for headmaster
 const reducer = (state = initialState, action) => {
+  // console.log("HMreducer, action.payload:", action.payload);
   switch (action.type) {
     case FETCH_HEADMASTER_SCHOOLS:
       return { ...state, schoolData: action.payload };
