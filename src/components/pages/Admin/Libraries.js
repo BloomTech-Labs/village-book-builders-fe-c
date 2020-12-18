@@ -33,6 +33,11 @@ export default function Libraries() {
     push(`/admin/library/edit/${libraryId}`);
   }
 
+  function handleModal(library) {
+    setModal(library);
+    setShowModal(true);
+  }
+
   return (
     <div className="libraries-container">
       <h1>Libraries, Admin View.</h1>
@@ -42,51 +47,58 @@ export default function Libraries() {
       </Button>
       <Input.Search placeholder="Search by Name" style={{ width: '50%' }} />
       <Divider />
-      {libraries
-        ? libraries.map(library => {
-            return (
-              <div className="individual-library-container" key={library.id}>
-                {/* TODO: make this a card instead & remove dividers or will that slow it down on low-end mobile devices?*/}
-                <h2>{library.name}</h2>
-                <p>{library.description}</p>
-                {/* <div className="button-container"> */}
-                <Button onClick={() => setShowModal(true)}> More Info </Button>
-                <Button onClick={() => handleEdit(library.id)}> Edit </Button>
-                {/* </div> */}
-                <Modal
-                  visible={showModal}
-                  title={library.name}
-                  onOk={() => handleEdit(library.Id)}
-                  onCancel={() => setShowModal(false)}
-                  footer={[
-                    <Button key="back" onClick={() => setShowModal(false)}>
-                      Done
-                    </Button>,
-                    <Button
-                      key="submit"
-                      type="primary"
-                      // loading={loading}
-                      onClick={() => handleEdit(library.id)}
-                    >
-                      Edit
-                    </Button>,
-                  ]}
-                >
-                  {library.image ? (
-                    <img src={library.image} alt="Library" />
-                  ) : (
-                    <p>Previous Image URL broken or not provided</p>
-                  )}
-                  <p>Description: {library.description}</p>
-                  <p>Library Usage: {library.library_usage}</p>
-                  <p>Notes: {library.notes}</p>
-                  <p>Image: {library.image}</p>
-                </Modal>
-                <Divider />
-              </div>
-            );
-          })
-        : null}
+      {libraries ? (
+        libraries.map(library => {
+          return (
+            <div className="individual-library-container" key={library.id}>
+              {/* TODO: make this a card instead & remove dividers or will that slow it down on low-end mobile devices?*/}
+              <h2>{library.name}</h2>
+              <p>{library.description}</p>
+              {/* <div className="button-container"> */}
+              <Button onClick={() => handleModal(library)}> More Info </Button>
+              <Button onClick={() => handleEdit(library.id)}> Edit </Button>
+              {/* </div> */}
+              <Divider />
+            </div>
+          );
+        })
+      ) : (
+        <p>
+          Either there are no libraries, or there has been a problem with the
+          server
+        </p>
+      )}
+      {showModal && (
+        <Modal
+          visible={showModal}
+          title={modal.name}
+          onOk={() => handleEdit(modal.Id)}
+          onCancel={() => setShowModal(false)}
+          footer={[
+            <Button key="back" onClick={() => setShowModal(false)}>
+              Done
+            </Button>,
+            <Button
+              key="submit"
+              type="primary"
+              // loading={loading}
+              onClick={() => handleEdit(modal.id)}
+            >
+              Edit
+            </Button>,
+          ]}
+        >
+          {modal.image ? (
+            <img src={modal.image} alt="Library" />
+          ) : (
+            <p>Previous Image URL broken or not provided</p>
+          )}
+          <p>Description: {modal.description}</p>
+          <p>Library Usage: {modal.library_usage}</p>
+          <p>Notes: {modal.notes}</p>
+          <p>Image: {modal.image}</p>
+        </Modal>
+      )}
     </div>
   );
 }
