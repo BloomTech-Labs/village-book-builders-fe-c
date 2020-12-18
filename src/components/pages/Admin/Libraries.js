@@ -7,36 +7,9 @@ import { useHistory } from 'react-router-dom';
 import './libraries.css';
 
 export default function Libraries() {
-  // const mockSampleLibraries = [
-  //   {
-  //     id: 1,
-  //     name: 'Okanoke Library',
-  //     description: 'really tall building on the left',
-  //     library_usage: 'this will be a paragraph',
-  //     notes: 'another optiona paragraph',
-  //     image: 'Url link here',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Merry Moving Library',
-  //     description: 'cute, pink bus',
-  //     library_usage: 'this will be a paragraph',
-  //     notes: 'another optiona paragraph',
-  //     image: 'Url link here',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'First Fallon Library',
-  //     description: 'Metal bunker at edge of town',
-  //     library_usage: 'this will be a paragraph',
-  //     notes: 'another optiona paragraph',
-  //     image: 'Url link here',
-  //   },
-  // ];
   const [libraries, setLibraries] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [modal, setModal] = useState();
-  // const [loading, setLoading] = useState(false);
+  const [libraryModal, setLibraryModal] = useState(false);
 
   const { push } = useHistory();
 
@@ -64,7 +37,7 @@ export default function Libraries() {
   }
 
   function handleModal(library) {
-    setModal(library);
+    setLibraryModal(library);
     setShowModal(true);
   }
 
@@ -81,7 +54,6 @@ export default function Libraries() {
         libraries.map(library => {
           return (
             <div className="individual-library-container" key={library.id}>
-              {/* TODO: make this a card instead & remove dividers or will that slow it down on low-end mobile devices?*/}
               <h2>{library.name}</h2>
               <p>{library.description}</p>
               {/* <div className="button-container"> */}
@@ -101,8 +73,8 @@ export default function Libraries() {
       {showModal && (
         <Modal
           visible={showModal}
-          title={modal.name}
-          onOk={() => handleEdit(modal.Id)}
+          title={libraryModal.name}
+          onOk={() => handleEdit(libraryModal.Id)}
           onCancel={() => setShowModal(false)}
           footer={[
             <Button key="back" onClick={() => setShowModal(false)}>
@@ -112,21 +84,21 @@ export default function Libraries() {
               key="submit"
               type="primary"
               // loading={loading}
-              onClick={() => handleEdit(modal.id)}
+              onClick={() => handleEdit(libraryModal.id)}
             >
               Edit
             </Button>,
           ]}
         >
-          {modal.image ? (
-            <img src={modal.image} alt="Library" />
+          {libraryModal.image ? (
+            <img src={libraryModal.image} alt="Library" />
           ) : (
             <p>Previous Image URL broken or not provided</p>
           )}
-          <p>Description: {modal.description}</p>
-          <p>Library Usage: {modal.library_usage}</p>
-          <p>Notes: {modal.notes}</p>
-          <p>Image: {modal.image}</p>
+          <p>Description: {libraryModal.description}</p>
+          <p>Library Usage: {libraryModal.library_usage}</p>
+          <p>Notes: {libraryModal.notes}</p>
+          <p>Image: {libraryModal.image}</p>
         </Modal>
       )}
     </div>
