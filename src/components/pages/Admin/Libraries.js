@@ -1,13 +1,12 @@
 // * ? Should this be reorganized into a common component?
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 import { Button, Divider, Input, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './libraries.css';
-import env from 'react-dotenv';
 
 export default function Libraries() {
-  console.log(env);
   // const mockSampleLibraries = [
   //   {
   //     id: 1,
@@ -42,9 +41,8 @@ export default function Libraries() {
   const { push } = useHistory();
 
   const getLibraries = () => {
-    axios
-      //TODO: move base url to approrpriate file
-      .get(`${env.BASE_URL}/library`)
+    axiosWithAuth()
+      .get(`/library`)
       .then(libraries => {
         console.log('libraries from new server', libraries);
         setLibraries(libraries.data);

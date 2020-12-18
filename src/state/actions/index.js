@@ -104,8 +104,8 @@ export const editSchool = (id, data) => dispatch => {
 // };
 
 export const editLibrary = (id, data) => dispatch => {
-  axios // ! This needs to change to axiosWithAuth once we figure out GoogleAuth with a working backend
-    .put(`${baseURL}/admin/library/${id}`, data)
+  axiosWithAuth()
+    .put(`library/${id}`, data)
     .then(() => {
       window.location.replace('/admin/libraries');
     })
