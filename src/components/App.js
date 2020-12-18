@@ -17,7 +17,7 @@ const App = ({ loggedIn, userId, role }) => {
         </Route>
 
         <Route path="/">
-          {console.log('loggedin:', loggedIn)}
+          {/* {console.log('loggedin:', loggedIn)} */}
           {/*//! this needs to be changed to if there is an unexpired token
               //! currently must login every page refresh
               //! if it's driving you crazy to resign in until that's fixed,

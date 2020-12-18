@@ -43,7 +43,7 @@ const VillageForm = props => {
       axiosWithAuth()
         .get(`village/${params}`)
         .then(res => {
-          console.log(res);
+          // console.log(res);
           form.setFieldsValue(res.data);
           setFormData(res.data);
         })
@@ -52,7 +52,7 @@ const VillageForm = props => {
   }, []);
 
   const handleSubmit = async () => {
-    console.log(formData);
+    // console.log(formData);
     props.editVillage(params, formData);
   };
 

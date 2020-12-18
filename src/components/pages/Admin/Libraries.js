@@ -17,7 +17,7 @@ export default function Libraries() {
     axiosWithAuth()
       .get(`/library`)
       .then(libraries => {
-        console.log('libraries from new server', libraries);
+        // console.log('libraries from new server', libraries);
         setLibraries(libraries.data);
       })
       .catch(err => {
@@ -31,7 +31,7 @@ export default function Libraries() {
   }, []);
 
   function handleEdit(libraryId) {
-    console.log('handle edit');
+    // console.log('handle edit');
     // TODO: better to pass the libary data here than do a second axios call at new page. Or set it to redux store here, so I can pull it out at new page. Decisions...
     push(`/admin/library/edit/${libraryId}`);
   }

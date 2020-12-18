@@ -74,7 +74,9 @@ export const fetchSchools = () => dispatch => {
 export const fetchSchool = id => dispatch => {
   axiosWithAuth()
     .get(`school/${id}`)
-    .then(res => console.log(res.data))
+    .then(res => {
+      // console.log(res.data);
+    })
     .catch(err => console.dir(err));
 };
 
