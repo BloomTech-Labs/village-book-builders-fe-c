@@ -1,52 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from '../state/actions/auth';
 
-// import Landing from './pages/Landing/Landing';
-// import Routes from './Routes';
 import '../style.css';
-import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import Login from './pages/Login/Login';
+import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-class App extends Component {
-  componentDidMount() {
-    this.props.onTryAutoSignup();
-  }
 
-  render() {
-    return (
-      <div className="App">
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/admin">
-            <AdminDashboard />
-          </Route>
-          <Route exact path="/*">
+const App = ({ loggedIn, userId, role }) => {
+  return (
+    <div className="App">
+      <Switch>
+        {/*// ! temporary. This will eventually be tied into the reusable dashboard by passing in the admin role in props. Then this will be removed from here. */}
+        <Route path="/admin">
+          <AdminDashboard />
+        </Route>
+
+        <Route path="/">
+          {/* {console.log('loggedin:', loggedIn)} */}
+          {/*//! this needs to be changed to if there is an unexpired token
+              //! currently must login every page refresh
+              //! if it's driving you crazy to resign in until that's fixed,
+              //!comment out lines 27, 29, & 31. This will lock login above dashboard
+          */}
+          {!loggedIn ? (
+            <Login />
+          ) : (
+            //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly
             <HeadmasterDashboard />
-          </Route>
-        </Switch>
-        {/* <Landing {...this.props}>
-            <Routes />
-          </Landing> */}
-      </div>
-    );
-  }
-}
+          )}
+        </Route>
+      </Switch>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.token !== null,
-    isLoading: state.loading,
-    error: state.error,
-    message: state.message,
+    loggedIn: state.loginReducer.loggedIn,
+    userId: state.loginReducer.userId,
+    role: state.loginReducer.role,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, {})(App);

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
+import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
 import { Form, Input } from 'antd';
 
@@ -16,10 +17,13 @@ import Button from '../../common/Button';
 
 const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
+//! use real name when full server is developed
 const initialState = {
   headmaster: 'Mr Headmaster',
-  villageContactName: '',
-  villageContactPhone: '',
+  headmasters: [],
+  schools: [],
+  village_contact_name: '',
+  village_contact_phone: '',
   villageContactEmail: '',
   educationContactName: '',
   educationContactEmail: '',
@@ -36,10 +40,10 @@ const VillageForm = props => {
   useEffect(() => {
     // Form will populate only if the URL includes "edit"
     if (pathname.includes('edit')) {
-      axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
-        .get(`${baseURL}/headmaster/village/${params}`)
+      axiosWithAuth()
+        .get(`village/${params}`)
         .then(res => {
-          console.log(res);
+          // console.log(res);
           form.setFieldsValue(res.data);
           setFormData(res.data);
         })
@@ -48,7 +52,7 @@ const VillageForm = props => {
   }, []);
 
   const handleSubmit = async () => {
-    console.log(formData);
+    // console.log(formData);
     props.editVillage(params, formData);
   };
 
@@ -78,30 +82,30 @@ const VillageForm = props => {
 
         <Form.Item
           label="Village Contact Name"
-          name="villageContactName"
+          name="village_contact_name"
           rules={[
             { required: true, message: ' Village Contact Name is required.' },
           ]}
         >
           <Input
             type="text"
-            name="villageContactName"
-            value={formData.villageContactName}
+            name="village_contact_name"
+            value={formData.village_contact_name}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
         <Form.Item
           label="Village Contact Phone"
-          name="villageContactPhone"
+          name="village_contact_phone"
           rules={[
             { required: true, message: 'Village Contact Phone is required.' },
           ]}
         >
           <Input
             type="text"
-            name="villageContactPhone"
-            value={formData.villageContactPhone}
+            name="village_contact_phone"
+            value={formData.village_contact_phone}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
