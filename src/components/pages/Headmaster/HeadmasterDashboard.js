@@ -10,6 +10,8 @@ import Village from '../Village/Village.component.js';
 import VillageForm from '../Village/VillageForm.js';
 import Schools from '../School/Schools.component.js';
 import SchoolForm from '../School/SchoolForm.js';
+import HeadmasterProfile from './HeadmasterProfile/Profile.js';
+import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 // import HeadmasterNav from './Drawer';
 import TestComponent from './TestComponent';
 import { Drawer, Button } from 'antd';
@@ -49,15 +51,13 @@ function HeadmasterDashboard() {
     }
   });
 
-  window.addEventListener('scroll', () => {
-    setVisible(false);
-  });
-
   return (
     <div>
       <Dashboard>
         <Switch>
           <Route path="/mentor-pairings" component={TestComponent} />
+          <Route exact path="/profile" component={HeadmasterProfile} />
+          <Route path="/profile/edit/:id" component={ProfileForm} />
           <Route path="/mentor-advisor" />
           <Route path="/school-village">
             <Village />
@@ -100,6 +100,9 @@ function HeadmasterDashboard() {
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
+          </NavLink>
+          <NavLink to="/profile" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">Profile</button>
           </NavLink>
           <NavLink to="/mentor-pairings" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Mentor Pairings</button>
