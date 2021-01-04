@@ -3,7 +3,9 @@
 
 import { combineReducers } from 'redux';
 import headmasterReducer from './headmasterReducer.js';
+import loginReducer from './loginReducer';
 
 export default combineReducers({
   headmasterReducer,
+  loginReducer,
 });

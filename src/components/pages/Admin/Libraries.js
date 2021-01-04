@@ -1,6 +1,7 @@
 // * ? Should this be reorganized into a common component?
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 import { Button, Divider, Input, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './libraries.css';
@@ -8,13 +9,15 @@ import './libraries.css';
 export default function Libraries() {
   const [libraries, setLibraries] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [libraryModal, setLibraryModal] = useState(false);
 
   const { push } = useHistory();
 
   const getLibraries = () => {
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}/library`)
+    axiosWithAuth()
+      .get(`/library`)
       .then(libraries => {
+        // console.log('libraries from new server', libraries);
         setLibraries(libraries.data);
       })
       .catch(err => {
@@ -28,13 +31,13 @@ export default function Libraries() {
   }, []);
 
   function handleEdit(libraryId) {
-    console.log('handle edit');
+    // console.log('handle edit');
     // TODO: better to pass the libary data here than do a second axios call at new page. Or set it to redux store here, so I can pull it out at new page. Decisions...
     push(`/admin/library/edit/${libraryId}`);
   }
 
   function handleModal(library) {
-    setModal(library);
+    setLibraryModal(library);
     setShowModal(true);
   }
 
@@ -51,7 +54,6 @@ export default function Libraries() {
         libraries.map(library => {
           return (
             <div className="individual-library-container" key={library.id}>
-              {/* TODO: make this a card instead & remove dividers or will that slow it down on low-end mobile devices?*/}
               <h2>{library.name}</h2>
               <p>{library.description}</p>
               {/* <div className="button-container"> */}
@@ -71,8 +73,8 @@ export default function Libraries() {
       {showModal && (
         <Modal
           visible={showModal}
-          title={modal.name}
-          onOk={() => handleEdit(modal.Id)}
+          title={libraryModal.name}
+          onOk={() => handleEdit(libraryModal.Id)}
           onCancel={() => setShowModal(false)}
           footer={[
             <Button key="back" onClick={() => setShowModal(false)}>
@@ -82,21 +84,21 @@ export default function Libraries() {
               key="submit"
               type="primary"
               // loading={loading}
-              onClick={() => handleEdit(modal.id)}
+              onClick={() => handleEdit(libraryModal.id)}
             >
               Edit
             </Button>,
           ]}
         >
-          {modal.image ? (
-            <img src={modal.image} alt="Library" />
+          {libraryModal.image ? (
+            <img src={libraryModal.image} alt="Library" />
           ) : (
             <p>Previous Image URL broken or not provided</p>
           )}
-          <p>Description: {modal.description}</p>
-          <p>Library Usage: {modal.library_usage}</p>
-          <p>Notes: {modal.notes}</p>
-          <p>Image: {modal.image}</p>
+          <p>Description: {libraryModal.description}</p>
+          <p>Library Usage: {libraryModal.library_usage}</p>
+          <p>Notes: {libraryModal.notes}</p>
+          <p>Image: {libraryModal.image}</p>
         </Modal>
       )}
     </div>
