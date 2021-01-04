@@ -9,7 +9,7 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import * as actionTypes from './actionTypes';
 import { useHistory } from 'react-router-dom';
 
-const baseURL = process.env.REACT_APP_BASEURL;
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 export const login = data => dispatch => {
   // const { push } = useHistory();
@@ -24,7 +24,7 @@ export const login = data => dispatch => {
       });
     })
     .catch(err => {
-      console.log('LOGIN ACTION FAILURE--> with this data:', data);
+      console.log('LOGIN ACTION FAILURE--> with this data:', data, baseURL);
       console.dir(err);
     });
 };
