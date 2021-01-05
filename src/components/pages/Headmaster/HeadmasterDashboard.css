@@ -59,6 +59,10 @@
 	height: 3rem;
 }
 
+#menteeTittle {
+	text-align: center;
+}
+
 @media screen and (max-width: 800px) {
 	.headmasterDashboard {
 		margin-left: 0;
