@@ -16,7 +16,7 @@ export const login = data => dispatch => {
   axios
     .post(`${baseURL}/auth/login`, data)
     .then(res => {
-      // console.log('LOGIN ACTION SUCCESS --> ', res.data);
+      console.log('LOGIN ACTION SUCCESS --> token', res.data);
       window.localStorage.setItem('token', res.data.access_token);
       dispatch({
         type: actionTypes.AUTH_SUCCESS,
@@ -24,9 +24,18 @@ export const login = data => dispatch => {
       });
     })
     .catch(err => {
-      console.log('LOGIN ACTION FAILURE--> with this data:', data, baseURL);
+      console.log(
+        'LOGIN ACTION FAILURE--> with this data & baseURL:',
+        data,
+        baseURL
+      );
       console.dir(err);
     });
+};
+
+export const logout = () => dispatch => {
+  dispatch({ type: actionTypes.AUTH_LOGOUT });
+  window.localStorage.removeItem('token');
 };
 
 export const editHeadmasterProfile = (id, data) => dispatch => {

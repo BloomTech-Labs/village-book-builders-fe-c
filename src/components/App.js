@@ -37,9 +37,9 @@ const App = ({ loggedIn, userId, role }) => {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loginReducer.loggedIn,
-    userId: state.loginReducer.userId,
-    role: state.loginReducer.role,
+    loggedIn: state.authReducer.loggedIn,
+    userId: state.authReducer.userId,
+    role: state.authReducer.role,
   };
 };
 

@@ -3,9 +3,9 @@
 
 import { combineReducers } from 'redux';
 import headmasterReducer from './headmasterReducer.js';
-import loginReducer from './loginReducer';
+import authReducer from './authReducer';
 
 export default combineReducers({
   headmasterReducer,
-  loginReducer,
+  authReducer,
 });

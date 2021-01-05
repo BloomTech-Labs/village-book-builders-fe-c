@@ -47,7 +47,7 @@ const Village = ({ villageData, userId, fetchVillage }) => {
 const mapStateToProps = state => {
   return {
     villageData: state.headmasterReducer.villageData,
-    userId: state.loginReducer.userId,
+    userId: state.authReducer.userId,
   };
 };
 

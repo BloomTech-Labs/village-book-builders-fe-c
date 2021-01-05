@@ -30,8 +30,8 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-const loginReducer = (state = initialState, action) => {
-  // console.log("loginReducer --> action.payload:", action.payload);
+const authReducer = (state = initialState, action) => {
+  // console.log("authReducer --> action.payload:", action.payload);
 
   switch (action.type) {
     case AUTH_SUCCESS:
@@ -49,4 +49,4 @@ const loginReducer = (state = initialState, action) => {
   }
 };
 
-export default loginReducer;
+export default authReducer;
