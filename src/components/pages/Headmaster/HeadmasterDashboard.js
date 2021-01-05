@@ -41,6 +41,7 @@ function HeadmasterDashboard() {
     setVisible(false);
   };
 
+  // Todo: this needs to be converted to a mediaquery and removed from here
   window.addEventListener('resize', () => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
       setDesktop(false);
