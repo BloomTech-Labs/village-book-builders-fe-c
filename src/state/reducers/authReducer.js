@@ -9,8 +9,8 @@ import {
 
 const initialState = {
   loggedIn: false,
-  userId: '',
-  role: '',
+  userId: 'blank',
+  role: 'blank',
 };
 
 //! Temporarily decoding JWT here on behalf of the backend. Lets us work with mock-backend and test out private routing.

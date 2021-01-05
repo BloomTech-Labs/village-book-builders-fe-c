@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 
 import '../style.css';
 // import PrivateRoute from "../utils/PrivateRoute";
+import { checkToken } from '../state/actions/index';
 import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 
-const App = ({ loggedIn, userId, role }) => {
+const App = ({ loggedIn, userId, role, checkToken }) => {
   return (
     <div className="App">
       <Switch>
@@ -25,19 +26,17 @@ const App = ({ loggedIn, userId, role }) => {
           {/*//! this needs to be changed to if there is an unexpired token
            */}
           {/* //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly. */}
-          {/* {role = "headmaster"} */}
-          <br />
           {console.log('role & loggedIn: ', role, loggedIn)}
-          role = {role}
+          {/* role in state = {role}
           <br />
-          token = {localStorage.getItem('token')}
+          token in local storage = {localStorage.getItem('token')} */}
           {localStorage.getItem('token') ? (
-            // console.log("yay")
-            <HeadmasterDashboard />
+            <>
+              {checkToken()}
+              {role === 'headmaster' && <HeadmasterDashboard />}
+              {role === 'admin' && <AdminDashboard />}
+            </>
           ) : (
-            // role === "headmaster" && <HeadmasterDashboard />,
-            // role === "admin" && <AdminDashboard />
-
             <Redirect to="/login" />
           )}
         </Route>
@@ -54,4 +53,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, { checkToken })(App);

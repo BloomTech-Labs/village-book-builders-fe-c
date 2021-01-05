@@ -11,6 +11,13 @@ import { useHistory } from 'react-router-dom';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
+export const checkToken = data => dispatch => {
+  dispatch({
+    type: actionTypes.AUTH_SUCCESS,
+    payload: window.localStorage.getItem('token'),
+  });
+};
+
 export const login = data => dispatch => {
   // const { push } = useHistory();
   axios
@@ -42,6 +49,7 @@ export const editHeadmasterProfile = (id, data) => dispatch => {
   axios
     .put(`${baseURL}/headmaster/${id}`, data)
     .then(res => {
+      // ? refactor so this doesn't force a refresh. see how login does it for example.
       window.location.replace('/profile/');
     })
     .catch(err => console.dir(err));
