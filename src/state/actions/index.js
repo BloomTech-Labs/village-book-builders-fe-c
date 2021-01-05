@@ -8,13 +8,17 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 import * as actionTypes from './actionTypes';
 import { useHistory } from 'react-router-dom';
-
-const baseURL = process.env.REACT_APP_BASE_URL;
-
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------AUTHORIZATION-------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------------------------
 export const login = data => dispatch => {
   // const { push } = useHistory();
-  axios
-    .post(`${baseURL}/auth/login`, data)
+  axiosWithAuth()
+    .post(`/auth/login`, data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> ', res.data);
       window.localStorage.setItem('token', res.data.access_token);
@@ -24,7 +28,7 @@ export const login = data => dispatch => {
       });
     })
     .catch(err => {
-      console.log('LOGIN ACTION FAILURE--> with this data:', data, baseURL);
+      console.log('LOGIN ACTION FAILURE--> with this data:', data);
       console.dir(err);
     });
 };
@@ -35,18 +39,22 @@ export const checkToken = data => dispatch => {
     payload: window.localStorage.getItem('token'),
   });
 };
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------HEAD MASTER------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+
 export const editHeadmasterProfile = (id, data) => dispatch => {
-  axios
-    .put(`${baseURL}/headmaster/${id}`, data)
+  axiosWithAuth()
+    .put(`/headmaster/${id}`, data)
     .then(res => {
       window.location.replace('/profile/');
     })
     .catch(err => console.dir(err));
 };
-
 export const fetchHeadmasterProfile = id => dispatch => {
-  axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
-    .get(`${baseURL}/headmaster/${id}`) // change this later
+  axiosWithAuth() // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+    .get(`/headmaster/${id}`) // change this later
     .then(res => {
       console.log('fetchHeadmasterProfile action --> ', res.data);
       dispatch({
@@ -82,6 +90,9 @@ export const editVillage = (id, data) => () => {
     })
     .catch(err => console.dir(err));
 };
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------ADMIN---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------------------------
 
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
