@@ -29,6 +29,12 @@ export const login = data => dispatch => {
     });
 };
 
+export const checkToken = data => dispatch => {
+  dispatch({
+    type: actionTypes.AUTH_SUCCESS,
+    payload: window.localStorage.getItem('token'),
+  });
+};
 export const editHeadmasterProfile = (id, data) => dispatch => {
   axios
     .put(`${baseURL}/headmaster/${id}`, data)

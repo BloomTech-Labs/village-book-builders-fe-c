@@ -36,6 +36,7 @@ const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_SUCCESS:
       let decoded = parseJwt(String(action.payload));
+      console.log(decoded);
       return {
         ...state,
         loggedIn: true,
