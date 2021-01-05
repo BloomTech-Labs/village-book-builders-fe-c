@@ -8,6 +8,8 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 import * as actionTypes from './actionTypes';
 import { useHistory } from 'react-router-dom';
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 // -----------------------------------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -17,8 +19,8 @@ import { useHistory } from 'react-router-dom';
 // -----------------------------------------------------------------------------------------------------------------------------------------------
 export const login = data => dispatch => {
   // const { push } = useHistory();
-  axiosWithAuth()
-    .post(`/auth/login`, data)
+  axios
+    .post(`${baseURL}/auth/login`, data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> ', res.data);
       window.localStorage.setItem('token', res.data.access_token);

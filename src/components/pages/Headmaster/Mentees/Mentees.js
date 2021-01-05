@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { axiosWithAuth } from '../../../../utils/axiosWithAuth';
-const MentorParings = () => {
+const Mentees = () => {
   useEffect(() => {
     axiosWithAuth()
-      .get('student')
+      .get('mentee')
       .then(res => console.log(res));
     // console.log(axiosWithAuth);
   }, []);
@@ -15,4 +15,4 @@ const MentorParings = () => {
   );
 };
 
-export default MentorParings;
+export default Mentees;
