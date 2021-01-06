@@ -10,6 +10,7 @@ export default function Libraries() {
   const [libraries, setLibraries] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [libraryModal, setLibraryModal] = useState(false);
+  const [search, setSearch] = useState('');
 
   const { push } = useHistory();
 
@@ -17,7 +18,7 @@ export default function Libraries() {
     axiosWithAuth()
       .get(`/library`)
       .then(libraries => {
-        // console.log('libraries from new server', libraries);
+        console.log('libraries from new server', libraries);
         setLibraries(libraries.data);
       })
       .catch(err => {
@@ -29,6 +30,8 @@ export default function Libraries() {
   useEffect(() => {
     getLibraries();
   }, []);
+
+  const searchHandler = e => setSearch(e.target.value);
 
   function handleEdit(libraryId) {
     // console.log('handle edit');
@@ -48,22 +51,34 @@ export default function Libraries() {
       <Button style={{ width: '50%', marginBottom: '10pt' }} align="center">
         Create New Library
       </Button>
-      <Input.Search placeholder="Search by Name" style={{ width: '50%' }} />
+      <Input.Search
+        onChange={searchHandler}
+        value={search}
+        placeholder="Search by Name"
+        style={{ width: '50%' }}
+      />
       <Divider />
       {libraries ? (
-        libraries.map(library => {
-          return (
-            <div className="individual-library-container" key={library.id}>
-              <h2>{library.name}</h2>
-              <p>{library.description}</p>
-              {/* <div className="button-container"> */}
-              <Button onClick={() => handleModal(library)}> More Info </Button>
-              <Button onClick={() => handleEdit(library.id)}> Edit </Button>
-              {/* </div> */}
-              <Divider />
-            </div>
-          );
-        })
+        libraries
+          .filter(item =>
+            item.name.toLowerCase().includes(search.toLowerCase())
+          )
+          .map(library => {
+            return (
+              <div className="individual-library-container" key={library.id}>
+                <h2>{library.name}</h2>
+                <p>{library.description}</p>
+                {/* <div className="button-container"> */}
+                <Button onClick={() => handleModal(library)}>
+                  {' '}
+                  More Info{' '}
+                </Button>
+                <Button onClick={() => handleEdit(library.id)}> Edit </Button>
+                {/* </div> */}
+                <Divider />
+              </div>
+            );
+          })
       ) : (
         <p>
           Either there are no libraries, or there has been a problem with the
