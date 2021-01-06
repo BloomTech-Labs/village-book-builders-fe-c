@@ -44,7 +44,7 @@ const authReducer = (state = initialState, action) => {
         role: decoded.role,
       };
     case AUTH_LOGOUT:
-      return { ...state, initialState };
+      return { initialState };
     default:
       return state;
   }

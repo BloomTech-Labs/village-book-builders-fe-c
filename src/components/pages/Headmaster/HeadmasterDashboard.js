@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// import PrivateRoute from '../utils/PrivateRoute';
+import { connect } from 'react-redux';
 import {
+  Link,
   NavLink,
+  Redirect,
   BrowserRouter as Router,
   Route,
   Switch,
@@ -23,11 +25,14 @@ import {
   menuMove,
   Dashboard,
 } from './HeadmasterDashboard.style';
+import Logout from '../../Logout.js';
+import { logout } from '../../../state/actions/index.js';
 
-function HeadmasterDashboard() {
+function HeadmasterDashboard({ logout, loggedIn }) {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
 
+  console.log(Logout);
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
       setDesktop(false);
@@ -71,6 +76,7 @@ function HeadmasterDashboard() {
           />
           <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
           <Route path="/library" />
+          <Route path="/logout" component={Logout} />
         </Switch>
       </Dashboard>
 
@@ -117,6 +123,9 @@ function HeadmasterDashboard() {
           <NavLink to="/library" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Library</button>
           </NavLink>
+          <Link to="/logout" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">Logout</button>
+          </Link>
         </Drawer>
 
         {/* <HeadmasterNav /> */}
@@ -125,4 +134,12 @@ function HeadmasterDashboard() {
   );
 }
 
-export default HeadmasterDashboard;
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.authReducer.loggedIn,
+    // userId: state.authReducer.userId,
+    // role: state.authReducer.role,
+  };
+};
+
+export default connect(mapStateToProps, { logout })(HeadmasterDashboard);
