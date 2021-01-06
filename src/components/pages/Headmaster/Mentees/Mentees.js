@@ -1,21 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../../../utils/axiosWithAuth';
-import { List, Avatar } from 'antd';
+import { Button, Divider, Input, Modal, List, Avatar } from 'antd';
 import { connect } from 'react-redux';
 import { checkToken, fetchMentees } from '../../../../state/actions/index';
 const Mentees = props => {
-  // const [mentees, setMentees] = useState([...props.mentees])
-  let menteesSelection = props.mentees;
+  let menteesSelection = [...props.mentees];
+  const [search, setSearch] = useState('');
+
+  const searchHandler = e => {
+    setSearch(e.target.value);
+    // console.log(e.target.value);
+  };
+  if (Array.isArray(menteesSelection)) {
+    menteesSelection = menteesSelection.filter(
+      item =>
+        item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+        item.last_name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+
   useEffect(() => {
     props.fetchMentees();
-    // setMentees(mentees)
-    // console.log(props.mentees);
   }, []);
 
   return (
     <div className="menteeContainer">
       <h1 id="menteeTittle">Mentee Management</h1>
       <div className="exploreWrapper">
+        <Button
+          style={{ width: '80%', marginBottom: '10pt', alignSelf: 'center' }}
+          align="center"
+        >
+          Create New Library
+        </Button>
+        <Input.Search
+          value={search}
+          placeholder="Search by Name"
+          style={{ width: '80%', alignSelf: 'center' }}
+          onChange={searchHandler}
+        />
+        <Divider />
         <List
           itemLayout="horizontal"
           dataSource={menteesSelection}
@@ -41,14 +65,6 @@ const Mentees = props => {
 
 const mapStateToProps = state => {
   console.log(state.headmasterReducer.mentees);
-  // let f20Mentees = [];
-  // if (state.headmasterReducer.mentees.length < 1) {
-  //   for (let index = 0; index < 2; index++) {
-  //     f20Mentees.push(state.headmasterReducer.mentees[index]);
-  //   }
-  // } else {
-  //   f20Mentees = state.headmasterReducer.mentees;
-  // }
 
   return {
     mentees: state.headmasterReducer.mentees,
