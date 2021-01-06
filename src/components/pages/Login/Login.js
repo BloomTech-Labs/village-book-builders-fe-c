@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Form, Input } from 'antd';
 
-import { login } from '../../../state/actions';
+import { login, checkToken } from '../../../state/actions';
 import {
   layout,
   FormContainer,
@@ -12,6 +12,7 @@ import {
 } from '../../common/FormStyle';
 import Button from '../../common/Button';
 import Axios from 'axios';
+import { useEffect } from 'react';
 
 const initialState = {
   email: '',
@@ -30,6 +31,12 @@ const Login = props => {
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (window.localStorage.getItem('token')) {
+      props.checkToken();
+    }
+  }, []);
 
   return (
     <FormContainer>
@@ -92,4 +99,4 @@ const Login = props => {
   );
 };
 
-export default connect(null, { login })(Login);
+export default connect(null, { login, checkToken })(Login);
