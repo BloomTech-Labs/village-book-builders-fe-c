@@ -11,7 +11,6 @@ import {
   Required,
 } from '../../common/FormStyle';
 import Button from '../../common/Button';
-import Axios from 'axios';
 
 const initialState = {
   email: '',

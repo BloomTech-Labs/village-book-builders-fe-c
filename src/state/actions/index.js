@@ -8,7 +8,6 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 import * as actionTypes from './actionTypes';
 import { useHistory } from 'react-router-dom';
-
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 export const checkToken = data => dispatch => {
@@ -18,6 +17,9 @@ export const checkToken = data => dispatch => {
   });
 };
 
+// -------------------------
+// AUTHORIZATION
+// -------------------------
 export const login = data => dispatch => {
   // const { push } = useHistory();
   axios
@@ -45,19 +47,22 @@ export const logout = () => dispatch => {
   window.localStorage.removeItem('token');
 };
 
+// -----------------------
+// HEAD MASTER
+// -----------------------
+
 export const editHeadmasterProfile = (id, data) => dispatch => {
-  axios
-    .put(`${baseURL}/headmaster/${id}`, data)
+  axiosWithAuth()
+    .put(`/headmaster/${id}`, data)
     .then(res => {
       // ? refactor so this doesn't force a refresh. see how login does it for example.
       window.location.replace('/profile/');
     })
     .catch(err => console.dir(err));
 };
-
 export const fetchHeadmasterProfile = id => dispatch => {
-  axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
-    .get(`${baseURL}/headmaster/${id}`) // change this later
+  axiosWithAuth() // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+    .get(`/headmaster/${id}`) // change this later
     .then(res => {
       console.log('fetchHeadmasterProfile action --> ', res.data);
       dispatch({
@@ -93,6 +98,21 @@ export const editVillage = (id, data) => () => {
     })
     .catch(err => console.dir(err));
 };
+
+export const fetchMentees = () => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_START });
+  axiosWithAuth()
+    .get('/mentee/')
+    .then(res => {
+      dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
+    );
+};
+// ----------------
+// ADMIN
+// ----------------
 
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()

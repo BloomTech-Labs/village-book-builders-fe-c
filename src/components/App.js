@@ -13,10 +13,6 @@ const App = ({ role, checkToken }) => {
   return (
     <div className="App">
       <Switch>
-        {/*// ! temporary. This will eventually be tied into the reusable dashboard by passing in the admin role in props. Then this will be removed from here. */}
-        {/* <Route path="/admin">
-          <AdminDashboard />
-        </Route> */}
         <Route path="/login">
           <Login />
         </Route>
