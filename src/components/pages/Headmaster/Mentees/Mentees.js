@@ -3,6 +3,7 @@ import { axiosWithAuth } from '../../../../utils/axiosWithAuth';
 import { Button, Divider, Input, Modal, List, Avatar } from 'antd';
 import { connect } from 'react-redux';
 import { checkToken, fetchMentees } from '../../../../state/actions/index';
+
 const Mentees = props => {
   let menteesSelection = [...props.mentees];
   const [search, setSearch] = useState('');
@@ -25,7 +26,7 @@ const Mentees = props => {
 
   return (
     <div className="menteeContainer">
-      <h1 id="menteeTittle">Mentee Management</h1>
+      <h1 id="menteeTitle">Mentee Management</h1>
       <div className="exploreWrapper">
         <Button
           style={{ width: '80%', marginBottom: '10pt', alignSelf: 'center' }}
@@ -68,8 +69,8 @@ const mapStateToProps = state => {
 
   return {
     mentees: state.headmasterReducer.mentees,
-    userId: state.loginReducer.userId,
-    role: state.loginReducer.role,
+    // userId: state.loginReducer.userId,
+    // role: state.loginReducer.role,
   };
 };
 

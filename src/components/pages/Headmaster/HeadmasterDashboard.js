@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import {
   Link,
   NavLink,
-  Redirect,
-  BrowserRouter as Router,
+  // Redirect,
+  // BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -15,7 +15,7 @@ import SchoolForm from '../School/SchoolForm.js';
 import HeadmasterProfile from './HeadmasterProfile/Profile.js';
 import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 // import HeadmasterNav from './Drawer';
-import TestComponent from './TestComponent';
+// import TestComponent from './TestComponent';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import './HeadmasterDashboard.css';
@@ -26,7 +26,7 @@ import {
   Dashboard,
 } from './HeadmasterDashboard.style';
 import Logout from '../../Logout.js';
-import MentorParings from './Mentees/Mentees.js';
+// import MentorPairings from './Mentees/Mentees.js';
 import Mentees from './Mentees/Mentees.js';
 
 function HeadmasterDashboard() {

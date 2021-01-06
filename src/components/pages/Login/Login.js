@@ -8,7 +8,7 @@ import {
   layout,
   FormContainer,
   tailLayout,
-  Required,
+  // Required,
 } from '../../common/FormStyle';
 import Button from '../../common/Button';
 
