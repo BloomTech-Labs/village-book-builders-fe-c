@@ -36,6 +36,7 @@ export const login = data => dispatch => {
 };
 
 export const checkToken = data => dispatch => {
+  console.log('Checktoken -- Done');
   dispatch({
     type: actionTypes.AUTH_SUCCESS,
     payload: window.localStorage.getItem('token'),
@@ -91,6 +92,18 @@ export const editVillage = (id, data) => () => {
       window.location.replace('/school-village/');
     })
     .catch(err => console.dir(err));
+};
+
+export const fetchMentees = () => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_START });
+  axiosWithAuth()
+    .get('/mentee/')
+    .then(res => {
+      dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
+    );
 };
 // -----------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------ADMIN---------------------------------------------------------------------------
