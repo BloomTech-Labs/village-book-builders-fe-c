@@ -9,8 +9,8 @@ import {
 
 const initialState = {
   loggedIn: false,
-  userId: '',
-  role: '',
+  userId: 'blank',
+  role: 'blank',
 };
 
 //! Temporarily decoding JWT here on behalf of the backend. Lets us work with mock-backend and test out private routing.
@@ -30,13 +30,13 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-const loginReducer = (state = initialState, action) => {
-  // console.log("loginReducer --> action.payload:", action.payload);
+const authReducer = (state = initialState, action) => {
+  // console.log("authReducer --> action.payload:", action.payload);
 
   switch (action.type) {
     case AUTH_SUCCESS:
       let decoded = parseJwt(String(action.payload));
-      console.log(decoded);
+      // console.log('decoded.id & decoded.role: ', decoded.id, decoded.role);
       return {
         ...state,
         loggedIn: true,
@@ -44,10 +44,10 @@ const loginReducer = (state = initialState, action) => {
         role: decoded.role,
       };
     case AUTH_LOGOUT:
-      return { ...state, initialState };
+      return initialState;
     default:
       return state;
   }
 };
 
-export default loginReducer;
+export default authReducer;

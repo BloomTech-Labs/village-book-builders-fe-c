@@ -4,6 +4,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import Libraries from './Libraries';
 import EditLibrary from './EditLibrary';
 import './AdminDashboard.css';
+import Logout from '../../Logout.js';
 
 export default function AdminDashboard() {
   return (
@@ -13,7 +14,9 @@ export default function AdminDashboard() {
         <Button>Libraries </Button>
       </Link>
       <Button> Schools (Future release) </Button>
-      <Button> xxxxxx </Button>
+      <Link to="/logout">
+        <button className="btn l2-btn menuLinks">Logout</button>
+      </Link>
 
       <Switch>
         <Route path="/admin/libraries">
@@ -22,6 +25,7 @@ export default function AdminDashboard() {
         <Route path="/admin/library/edit/:id">
           <EditLibrary />
         </Route>
+        <Route path="/logout" component={Logout} />
       </Switch>
     </div>
   );

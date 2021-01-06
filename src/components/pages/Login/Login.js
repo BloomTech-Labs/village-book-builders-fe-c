@@ -1,44 +1,38 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { Form, Input } from 'antd';
-
-import { login, checkToken } from '../../../state/actions';
+import { login } from '../../../state/actions';
 import {
   layout,
   FormContainer,
   tailLayout,
-  Required,
+  // Required,
 } from '../../common/FormStyle';
 import Button from '../../common/Button';
-import Axios from 'axios';
-import { useEffect } from 'react';
 
 const initialState = {
   email: '',
   password: '',
 };
 
-const Login = props => {
+const Login = ({ login, loggedIn }) => {
   const [formData, setFormData] = useState(initialState);
   const [form] = Form.useForm();
 
   const handleSubmit = async () => {
     // console.log('LOGIN COMPONENT handleSubmit --> ', formData);
-    props.login(formData);
+    login(formData);
   };
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    if (window.localStorage.getItem('token')) {
-      props.checkToken();
-    }
-  }, []);
-
-  return (
+  return loggedIn ? (
+    <Redirect to="/" />
+  ) : (
     <FormContainer>
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item {...tailLayout}>
@@ -79,24 +73,27 @@ const Login = props => {
       <p>Account info for testing:</p>
       <p>"admin@admin.com" - "password"</p>
       <p>"headmaster@headmaster.com" - "password"</p>
-      <p>more from server will be added soon</p>
       <p>
-        Note to dev's: highly recommended to save these in your browser
-        autocomplete for sanity, until token validation is added to app.js
+        more from server should be added later to show different data from
+        different headmasters (for example)
       </p>
+
       <p>
-        Note to dev's2: need to remove all page refreshes in code. Currently
-        causes user to require logging in again.
-      </p>
-      <h2>Temporary admin dashboard access:</h2>
-      <p>Instead of logging in, Add "/admin" after url.</p>
-      <p>
-        This will be wrapped into the login authorization once some refactoring
-        is done, and will match the headmaster dashboard/sidebar design. It's
-        seperate in the meantime for functionality testing.{' '}
+        Note to dev's: need to remove all page refreshes in code.
+        `window.location.replace()` refreshes the page, clears out the redux
+        store, and slows down functionality. `history.push` and `Redirect` are
+        better for react SPA's
       </p>
     </FormContainer>
   );
 };
 
-export default connect(null, { login, checkToken })(Login);
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.authReducer.loggedIn,
+    // userId: state.authReducer.userId,
+    // role: state.authReducer.role,
+  };
+};
+
+export default connect(mapStateToProps, { login })(Login);

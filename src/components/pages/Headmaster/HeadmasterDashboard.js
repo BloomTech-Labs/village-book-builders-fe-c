@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// import PrivateRoute from '../utils/PrivateRoute';
+// import { connect } from 'react-redux';
 import {
+  Link,
   NavLink,
-  BrowserRouter as Router,
+  // Redirect,
+  // BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -13,7 +15,7 @@ import SchoolForm from '../School/SchoolForm.js';
 import HeadmasterProfile from './HeadmasterProfile/Profile.js';
 import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 // import HeadmasterNav from './Drawer';
-import TestComponent from './TestComponent';
+// import TestComponent from './TestComponent';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import './HeadmasterDashboard.css';
@@ -23,7 +25,8 @@ import {
   menuMove,
   Dashboard,
 } from './HeadmasterDashboard.style';
-import MentorParings from './Mentees/Mentees.js';
+import Logout from '../../Logout.js';
+// import MentorPairings from './Mentees/Mentees.js';
 import Mentees from './Mentees/Mentees.js';
 
 function HeadmasterDashboard() {
@@ -43,6 +46,7 @@ function HeadmasterDashboard() {
     setVisible(false);
   };
 
+  // Todo: this needs to be converted to a mediaquery and removed from here
   window.addEventListener('resize', () => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
       setDesktop(false);
@@ -72,6 +76,7 @@ function HeadmasterDashboard() {
           />
           <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
           <Route path="/library" />
+          <Route path="/logout" component={Logout} />
         </Switch>
       </Dashboard>
 
@@ -118,6 +123,9 @@ function HeadmasterDashboard() {
           <NavLink to="/library" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Library</button>
           </NavLink>
+          <Link to="/logout" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">Logout</button>
+          </Link>
         </Drawer>
 
         {/* <HeadmasterNav /> */}
@@ -126,4 +134,13 @@ function HeadmasterDashboard() {
   );
 }
 
+// const mapStateToProps = state => {
+//   return {
+//     loggedIn: state.authReducer.loggedIn,
+//     // userId: state.authReducer.userId,
+//     // role: state.authReducer.role,
+//   };
+// };
+
+// export default connect(mapStateToProps, {})(HeadmasterDashboard);
 export default HeadmasterDashboard;

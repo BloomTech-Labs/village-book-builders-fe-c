@@ -10,19 +10,22 @@ import * as actionTypes from './actionTypes';
 import { useHistory } from 'react-router-dom';
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-// -----------------------------------------------------------------------------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------AUTHORIZATION-------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------------------------------
+export const checkToken = data => dispatch => {
+  dispatch({
+    type: actionTypes.AUTH_SUCCESS,
+    payload: window.localStorage.getItem('token'),
+  });
+};
+
+// -------------------------
+// AUTHORIZATION
+// -------------------------
 export const login = data => dispatch => {
   // const { push } = useHistory();
   axios
     .post(`${baseURL}/auth/login`, data)
     .then(res => {
-      // console.log('LOGIN ACTION SUCCESS --> ', res.data);
+      // console.log('LOGIN ACTION SUCCESS --> token', res.data);
       window.localStorage.setItem('token', res.data.access_token);
       dispatch({
         type: actionTypes.AUTH_SUCCESS,
@@ -30,27 +33,29 @@ export const login = data => dispatch => {
       });
     })
     .catch(err => {
-      console.log('LOGIN ACTION FAILURE--> with this data:', data);
+      console.log(
+        'LOGIN ACTION FAILURE--> with this data & baseURL:',
+        data,
+        baseURL
+      );
       console.dir(err);
     });
 };
 
-export const checkToken = data => dispatch => {
-  console.log('Checktoken -- Done');
-  dispatch({
-    type: actionTypes.AUTH_SUCCESS,
-    payload: window.localStorage.getItem('token'),
-  });
+export const logout = () => dispatch => {
+  dispatch({ type: actionTypes.AUTH_LOGOUT });
+  window.localStorage.removeItem('token');
 };
 
-// -----------------------------------------------------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------HEAD MASTER------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------------------------------
+// -----------------------
+// HEAD MASTER
+// -----------------------
 
 export const editHeadmasterProfile = (id, data) => dispatch => {
   axiosWithAuth()
     .put(`/headmaster/${id}`, data)
     .then(res => {
+      // ? refactor so this doesn't force a refresh. see how login does it for example.
       window.location.replace('/profile/');
     })
     .catch(err => console.dir(err));
@@ -105,9 +110,9 @@ export const fetchMentees = () => dispatch => {
       dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
     );
 };
-// -----------------------------------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------ADMIN---------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------------------------------
+// ----------------
+// ADMIN
+// ----------------
 
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()

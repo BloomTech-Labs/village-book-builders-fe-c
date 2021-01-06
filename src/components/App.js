@@ -1,31 +1,34 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import '../style.css';
+// import PrivateRoute from "../utils/PrivateRoute";
+import { checkToken } from '../state/actions/index';
 import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 
-const App = ({ loggedIn, userId, role }) => {
-  console.log(role);
+const App = ({ role, checkToken }) => {
   return (
     <div className="App">
       <Switch>
-        {/*// ! temporary. This will eventually be tied into the reusable dashboard by passing in the admin role in props. Then this will be removed from here. */}
-        <Route path="/admin" component={AdminDashboard} />
+        <Route path="/login">
+          <Login />
+        </Route>
+
         <Route path="/">
-          {/* {console.log('loggedin:', loggedIn)} */}
-          {/*//! this needs to be changed to if there is an unexpired token
-              //! currently must login every page refresh
-              //! if it's driving you crazy to resign in until that's fixed,
-              //!comment out lines 27, 29, & 31. This will lock login above dashboard
-          */}
-          {!loggedIn ? (
-            <Login />
+          {/*//! this needs to be changed to if there is an unexpired token*/}
+          {/* Look for token in case a user refreshes the page & clears redux store, then it repopulates the redux store with userId, role & loggedIn status with checkToken().  */}
+          {localStorage.getItem('token') ? (
+            <>
+              {checkToken()}
+              {/* //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly. */}
+              {role === 'headmaster' && <HeadmasterDashboard />}
+              {role === 'admin' && <AdminDashboard />}
+            </>
           ) : (
-            //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly
-            <HeadmasterDashboard />
+            <Redirect to="/login" />
           )}
         </Route>
       </Switch>
@@ -35,10 +38,10 @@ const App = ({ loggedIn, userId, role }) => {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loginReducer.loggedIn,
-    userId: state.loginReducer.userId,
-    role: state.loginReducer.role,
+    // loggedIn: state.authReducer.loggedIn,
+    // userId: state.authReducer.userId,
+    role: state.authReducer.role,
   };
 };
 
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, { checkToken })(App);
