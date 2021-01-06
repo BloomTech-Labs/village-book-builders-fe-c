@@ -9,7 +9,7 @@ import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 
-const App = ({ loggedIn, userId, role, checkToken }) => {
+const App = ({ role, checkToken }) => {
   return (
     <div className="App">
       <Switch>
@@ -22,17 +22,12 @@ const App = ({ loggedIn, userId, role, checkToken }) => {
         </Route>
 
         <Route path="/">
-          {/* {console.log('loggedin:', loggedIn)} */}
-          {/*//! this needs to be changed to if there is an unexpired token
-           */}
-          {/* //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly. */}
-          {console.log('role & loggedIn: ', role, loggedIn)}
-          {/* role in state = {role}
-          <br />
-          token in local storage = {localStorage.getItem('token')} */}
+          {/*//! this needs to be changed to if there is an unexpired token*/}
+          {/* Look for token in case a user refreshes the page & clears redux store, then it repopulates the redux store with userId, role & loggedIn status with checkToken().  */}
           {localStorage.getItem('token') ? (
             <>
               {checkToken()}
+              {/* //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly. */}
               {role === 'headmaster' && <HeadmasterDashboard />}
               {role === 'admin' && <AdminDashboard />}
             </>
@@ -47,7 +42,7 @@ const App = ({ loggedIn, userId, role, checkToken }) => {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.authReducer.loggedIn,
+    // loggedIn: state.authReducer.loggedIn,
     // userId: state.authReducer.userId,
     role: state.authReducer.role,
   };

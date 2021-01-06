@@ -9,10 +9,11 @@ function Logout({ loggedIn, logout }) {
       logout();
     }
   }, [loggedIn, logout]);
-  // if (!loggedIn) {
-  console.log('logout running, loggedIn:', loggedIn);
-  return <Redirect to="/login" />;
-  // }
+
+  if (!loggedIn) {
+    return <Redirect to="/login" />;
+  }
+
   return null;
 }
 

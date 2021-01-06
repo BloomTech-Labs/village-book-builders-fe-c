@@ -26,13 +26,11 @@ import {
   Dashboard,
 } from './HeadmasterDashboard.style';
 import Logout from '../../Logout.js';
-import { logout } from '../../../state/actions/index.js';
 
-function HeadmasterDashboard({ logout, loggedIn }) {
+function HeadmasterDashboard() {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
 
-  console.log(Logout);
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
       setDesktop(false);
@@ -134,12 +132,13 @@ function HeadmasterDashboard({ logout, loggedIn }) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    loggedIn: state.authReducer.loggedIn,
-    // userId: state.authReducer.userId,
-    // role: state.authReducer.role,
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     loggedIn: state.authReducer.loggedIn,
+//     // userId: state.authReducer.userId,
+//     // role: state.authReducer.role,
+//   };
+// };
 
-export default connect(mapStateToProps, { logout })(HeadmasterDashboard);
+// export default connect(mapStateToProps, {})(HeadmasterDashboard);
+export default HeadmasterDashboard;

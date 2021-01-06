@@ -36,7 +36,7 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_SUCCESS:
       let decoded = parseJwt(String(action.payload));
-      console.log('decoded.id & decoded.role: ', decoded.id, decoded.role);
+      // console.log('decoded.id & decoded.role: ', decoded.id, decoded.role);
       return {
         ...state,
         loggedIn: true,
