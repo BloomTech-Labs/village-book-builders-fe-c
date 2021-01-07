@@ -1,8 +1,13 @@
 import { List, Avatar, Divider, Skeleton, Table, Tag } from 'antd';
+import moment from 'moment';
 import React from 'react';
 import { debugLog } from '../../../../utils/debugMode';
 const MenteeProfile = ({ currentMentee }) => {
-  debugLog('Prop drilled from Mentees.js', currentMentee);
+  debugLog(
+    'Prop drilled from Mentees.js',
+    currentMentee,
+    moment.utc(currentMentee.dob).format('dddd, MMMM Do of YYYY')
+  );
   const columns = [
     {
       title: 'Contact Hours - From',
@@ -58,7 +63,7 @@ const MenteeProfile = ({ currentMentee }) => {
           <Divider plain>Gender</Divider>
           <p>{currentMentee.gender}</p>
           <Divider plain>Date of Birth</Divider>
-          <p>{currentMentee.dob}</p>
+          <p>{moment.utc(currentMentee.dob).format('dddd, MMMM Do of YYYY')}</p>
           <Divider plain>Mentor</Divider>
           <p>
             {currentMentee.mentorId ? currentMentee.mentorId : 'Unassigned'}
@@ -80,6 +85,7 @@ const MenteeProfile = ({ currentMentee }) => {
             tableLayout="fixed"
             dataSource={[currentMentee.availability]}
             columns={columns}
+            key="table"
           />
           <Divider plain>Other Questions</Divider>
           {currentMentee.dynamic_questions.map(question => {

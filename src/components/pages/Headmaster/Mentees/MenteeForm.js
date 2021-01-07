@@ -16,8 +16,6 @@ import {
 import Button from '../../../common/Button';
 import { debugLog } from '../../../../utils/debugMode';
 
-const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
-
 const initialState = {
   first_name: '',
   last_name: '',
@@ -52,23 +50,24 @@ const MenteeForm = props => {
   //   };
 
   const handleSubmit = async () => {
-    console.log(formData);
+    debugLog(formData);
     props.editHeadmasterProfile(params, formData);
   };
 
   const handleChange = e => {
-    debugLog.log(e.target);
-    const name = e.target.name;
-    if (name == 'gender') {
+    // debugLog(e);
+    if (moment.isMoment(e)) {
+      setFormData({ ...formData, dob: moment.utc(e).format() });
+      debugLog(moment.utc(e).format());
+    } else if (e.target.name == 'gender') {
       setFormData({ ...formData, gender: genders[e.target.value] });
-    }
-    if (name == 'dob') {
-      debugLog.log(e.target);
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
-
+  //   const handleChange = e => {
+  //     debugLog(moment.isMoment(e));
+  //   };
   return (
     <FormContainer>
       <Form.Item {...tailLayout}></Form.Item>
@@ -98,16 +97,6 @@ const MenteeForm = props => {
             onChange={e => handleChange(e)}
           />
         </Form.Item>
-
-        {/* <Space direction="vertical" size={12} {...tailLayout}>
-            <label>Date of Birth</label>
-          <DatePicker
-            name='dob'
-            onChange={e => handleChange(e)}
-            defaultValue={moment(`${new Date.now()}`, dateFormatList[0])}
-            format={dateFormat}
-          />
-        </Space> */}
         <Form.Item
           label="Date of Birth"
           name="dob"
