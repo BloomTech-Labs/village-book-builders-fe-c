@@ -20,53 +20,36 @@ const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
 const initialState = {
   first_name: '',
-  gender: {
-    male: false,
-    female: false,
-    other: false,
-  },
-  address: '',
-  bio: '',
-  communication_app: '',
+  last_name: '',
+  gender: '',
+  email: '',
+  primary_language: '',
   dob: '',
-  general_availability: '',
-  goals_mentor_program: '',
-  goals_personal: '',
-  goals_school_community: '',
-  mentor_advisor_point_of_contact: '',
-  phone_number: '',
-  photo_url: '',
-  programId: '',
-  registration_status: '',
-  second_name: '',
-  time_zone: '',
-  villageId: '',
+  mentee_picture: '',
+  english_lvl: '',
+  math_lvl: '',
+  reading_lvl: '',
+  school_lvl: '',
+  academic_description: '',
+  support_needed: '',
 };
 
 const dateFormat = 'MM/DD/YYYY';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+const timeFormat = 'HH:mm';
+const genders = ['Male', 'Female', 'Other'];
 
-const ProfileForm = props => {
+const MenteeForm = props => {
   const [formData, setFormData] = useState(initialState);
-  const [value, setValue] = useState(1);
+  //   const [value, setValue] = useState(1);
   const pathname = useHistory().location.pathname;
   const params = useParams().id;
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
-      .get(`${baseURL}/headmaster/1`)
-      .then(res => {
-        form.setFieldsValue(res.data);
-        setFormData(res.data);
-      })
-      .catch(err => console.dir(err));
-  }, []);
-
-  const onChange = e => {
-    console.log('radio checked', e.target.value);
-    setValue(e.target.value);
-  };
+  //   const onChange = e => {
+  //     console.log('radio checked', e.target.value);
+  //     setValue(e.target.value);
+  //   };
 
   const handleSubmit = async () => {
     console.log(formData);
@@ -74,15 +57,21 @@ const ProfileForm = props => {
   };
 
   const handleChange = e => {
-    debugLog(formData);
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    debugLog.log(e.target);
+    const name = e.target.name;
+    if (name == 'gender') {
+      setFormData({ ...formData, gender: genders[e.target.value] });
+    }
+    if (name == 'dob') {
+      debugLog.log(e.target);
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   return (
     <FormContainer>
-      <Form.Item {...tailLayout}>
-        <Link to="/profile">Go Back to your Profile</Link>
-      </Form.Item>
+      <Form.Item {...tailLayout}></Form.Item>
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item
           label="First Name"
@@ -92,7 +81,6 @@ const ProfileForm = props => {
           <Input
             type="text"
             name="first_name"
-            defaultValue="Mr Headmaster" // Change this
             value={formData.first_name}
             onChange={e => handleChange(e)}
           />
@@ -100,7 +88,7 @@ const ProfileForm = props => {
 
         <Form.Item
           label="Last Name"
-          name="second_name"
+          name="last_name"
           rules={[{ required: true, message: 'Last Name is required.' }]}
         >
           <Input
@@ -111,75 +99,157 @@ const ProfileForm = props => {
           />
         </Form.Item>
 
-        <Space direction="vertical" size={12} {...tailLayout}>
+        {/* <Space direction="vertical" size={12} {...tailLayout}>
+            <label>Date of Birth</label>
           <DatePicker
-            defaultValue={moment(`${formData.dob}`, dateFormatList[0])}
+            name='dob'
+            onChange={e => handleChange(e)}
+            defaultValue={moment(`${new Date.now()}`, dateFormatList[0])}
             format={dateFormat}
           />
-        </Space>
-
+        </Space> */}
         <Form.Item
-          label="Address"
-          name="address"
-          rules={[{ required: true, message: 'Address is required.' }]}
+          label="Date of Birth"
+          name="dob"
+          rules={[{ required: true, message: 'Date of Birth is required.' }]}
+        >
+          <DatePicker name="dob" onChange={e => handleChange(e)} />
+        </Form.Item>
+        <Form.Item
+          label="email"
+          name="email"
+          rules={[{ required: true, message: 'email is required.' }]}
         >
           <Input
             type="text"
-            name="address"
-            value={formData.address}
+            name="email"
+            value={formData.email}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
         <Form.Item
-          label="Phone Number"
-          name="phone_number"
+          label="Primary Language"
+          name="primary_language"
           rules={[{ required: true, message: 'Phone Number is required.' }]}
         >
           <Input
             type="text"
-            name="phone_number"
-            value={formData.phone_number}
+            name="primary_language"
+            value={formData.primary_language}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
         <Form.Item label="Gender" name="gender">
-          <Radio.Group onChange={onChange} value={value}>
-            <Radio value={1}>Male</Radio>
-            <Radio value={2}>Female</Radio>
-            <Radio value={3}>Other</Radio>
+          <Radio.Group
+            name="gender"
+            value={formData.gender}
+            onChange={e => handleChange(e)}
+          >
+            <Radio value={0}>Male</Radio>
+            <Radio value={1}>Female</Radio>
+            <Radio value={2}>Other</Radio>
           </Radio.Group>
         </Form.Item>
 
         <Form.Item
-          label="Bio"
-          name="bio"
+          label="Picture URL"
+          name="mentee_picture"
           rules={[{ required: true, message: 'Bio is required.' }]}
         >
           <Input
             type="text"
-            name="bio"
-            value={formData.bio}
+            name="mentee_picture"
+            value={formData.mentee_picture}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
         <Form.Item
-          label="Communication App"
-          name="communication_app"
-          rules={[
-            { required: true, message: 'Communication app is required.' },
-          ]}
+          label="English Level"
+          name="english_lvl"
+          rules={[{ required: true, message: 'english level is required.' }]}
         >
           <Input
             type="text"
-            name="communication_app"
-            value={formData.communication_app}
+            name="english_lvl"
+            value={formData.english_lvl}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
 
+        <Form.Item
+          label="Math Level"
+          name="math_lvl"
+          rules={[{ required: true, message: 'Math level is required.' }]}
+        >
+          <Input
+            type="text"
+            name="math_lvl"
+            value={formData.math_lvl}
+            onChange={e => handleChange(e)}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Reading Level"
+          name="reading_lvl"
+          rules={[{ required: true, message: 'reading level is required.' }]}
+        >
+          <Input
+            type="text"
+            name="reading_lvl"
+            value={formData.reading_lvl}
+            onChange={e => handleChange(e)}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="school Level"
+          name="school_lvl"
+          rules={[{ required: true, message: 'school level is required.' }]}
+        >
+          <Input
+            type="text"
+            name="school_lvl"
+            value={formData.school_lvl}
+            onChange={e => handleChange(e)}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Academic Description"
+          name="academic_description"
+          rules={[
+            {
+              required: true,
+              message: 'academic description level is required.',
+            },
+          ]}
+        >
+          <Input
+            type="text"
+            name="academic_description"
+            value={formData.academic_description}
+            onChange={e => handleChange(e)}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Support Needed"
+          name="support_needed"
+          rules={[
+            { required: true, message: 'Support needed level is required.' },
+          ]}
+        >
+          <Input
+            type="text"
+            name="support_needed"
+            value={formData.support_needed}
+            onChange={e => handleChange(e)}
+          />
+        </Form.Item>
         <Form.Item
           label="General Availability"
           name="general_availability"
@@ -270,4 +340,4 @@ const ProfileForm = props => {
   );
 };
 
-export default connect(null, { editHeadmasterProfile })(ProfileForm);
+export default connect(null, { editHeadmasterProfile })(MenteeForm);

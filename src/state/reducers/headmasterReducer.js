@@ -9,6 +9,8 @@ import {
   FETCH_MENTEE_START,
 } from '../actions/actionTypes';
 
+import { debugLog } from '../../utils/debugMode.js';
+
 const initialState = {
   villageData: {},
   schoolData: [],
@@ -20,28 +22,28 @@ const reducer = (state = initialState, action) => {
   // console.log('HEADMASTERREDUCER.js, action type & payload:', action.type, action.payload);
   switch (action.type) {
     case FETCH_HEADMASTER_SCHOOLS:
-      console.log(action.type);
+      debugLog(action.type, action.payload);
       return { ...state, schoolData: action.payload };
     case FETCH_HEADMASTER_PROFILE:
-      console.log(action.type);
+      debugLog(action.type, action.payload);
       return { ...state, headmasterProfile: action.payload };
     case FETCH_VILLAGE:
-      console.log(action.type);
+      debugLog(action.type, action.payload);
       return {
         ...state,
         villageData: action.payload,
       };
     case FETCH_MENTEE_SUCCESS:
-      console.log(action.type);
+      debugLog(action.type, action.payload);
       return {
         ...state,
         mentees: action.payload,
       };
     case FETCH_MENTEE_START:
-      console.log(action.type);
+      debugLog(action.type, action.payload);
       return { ...state };
     case FETCH_MENTEE_FAILURE:
-      console.log(action.type);
+      debugLog(action.type, action.payload);
       return { ...state };
     default:
       return state;

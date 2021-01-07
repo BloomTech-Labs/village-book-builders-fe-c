@@ -7,6 +7,7 @@ import {
   AUTH_LOGOUT,
 } from '../actions/actionTypes';
 
+import { debugLog } from '../../utils/debugMode';
 const initialState = {
   loggedIn: false,
   userId: 'blank',
@@ -36,7 +37,7 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_SUCCESS:
       let decoded = parseJwt(String(action.payload));
-      // console.log('decoded.id & decoded.role: ', decoded.id, decoded.role);
+      debugLog(action.type, action.payload);
       return {
         ...state,
         loggedIn: true,
