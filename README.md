@@ -1,27 +1,25 @@
 # Village Book Builders TeamB Portal
 
-You can find the deployed project at [https://main.d364h8tamcqe39.amplifyapp.com/](https://main.d364h8tamcqe39.amplifyapp.com/).
+For steps on how to work with this repository [please see here](https://docs.labs.lambdaschool.com/labs-spa-starter/)
+
+# Village Book Builders
+
+You can find the deployed project at [VBB-Deployment](main.d364h8tamcqe39.amplifyapp.com).
 
 ## Contributors
 
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
-
-|                                                      [Student 1](https://github.com/)                                                       |                                                       [Student 2](https://github.com/)                                                        |                                                      [Student 3](https://github.com/)                                                       |                                                       [Student 4](https://github.com/)                                                        |                                                      [Student 5](https://github.com/)                                                       |
+|                                                      [Josh Glanz](https://github.com/)                                                       |                                                       [Manuel Muratalla](https://github.com/)                                                        |                                                      [Tiffany Arellano](https://github.com/)                                                       |                                                       [Joe Idelson](https://github.com/)                                                        |                                                      [Wilma Rodriguez](https://github.com/)                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
+| [<img src="https://ca.slack-edge.com/ESZCHB482-W016ECL84RW-afefea5a0c53-512" width = "200" />](https://github.com/Jahteo) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RU151V-ffba83afb622-512" width = "200" />](https://github.com/ferror18) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0138D8CX0Q-a7076291a0cf-512" width = "200" />](https://github.com/yirano) | [<img src="https://ca.slack-edge.com/ESZCHB482-W012QNXUFMJ-92e87d69900d-512" width = "200" />](https://github.com/jidelson) | [<img src="https://ca.slack-edge.com/ESZCHB482-W0123RP3C9M-fff2ba750184-512" width = "200" />](https://github.com/kima-92) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Jahteo)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ferror18)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/yirano)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jidelson)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/kima-92)                            |
 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
 
 <br>
 <br>
 
-🚫 Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
 ![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
 
 - Fork and clone the repo to install it as your own remote.
   - **note** please [be sure to set your remote](https://help.github.jp/enterprise/2.11/user/articles/changing-a-remote-s-url/) for this repo to point to your Labs Team Front End Repository.
@@ -32,55 +30,46 @@ You can find the deployed project at [https://main.d364h8tamcqe39.amplifyapp.com
 
 ### Key Features
 
-- feature one
-- feature two
-- feature three
-- feature four
-- feature five
+- Is a mobile-first design.
+- Private routes protect all resources that are not authenticated.
+- Headmaster dashboard and Admin dashboard
+- Headmaster profile and edit.
+- Admin library view, edit, and delete.
+- Headmaster mentee Create, Read, Edit, and Delete.
 
-#### Front end deployed to `🚫insert service here`
+#### Front end deployed to `AWS-Amplify`
 
-#### [Back end](🚫link to back end repo here) built using:
+#### [Back end](https://github.com/ferror18/vbb-backend) built using:
 
-#### 🚫 back end framework goes here
+#### Node.js
 
-- point one
-- point two
-- point three
+- Json Web Server
+- Json Web Token (Authentication)
+- Faker.js
 
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
+#### Fetures
+
+- Mock back-end with realistic data generated by Faker.js.
+- Mock back-end with basic JWT authentication.
 
 # APIs
 
-## Authentication API here
-
-🚫Replace text below with a description of the API
-
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
-
-## Payment API here
-
-🚫Replace text below with a description of the API
-
-This is the way you take out your flustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
-
-## Misc API here
-
-🚫Replace text below with a description of the API
-
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
+- BASEURL/login
+- BASEURL/library
+- BASEURL/village
+- BASEURL/school
+- BASEURL/mentee
+- BASEURL/headmaster
 
 # Installation Instructions
 
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
+1 - `npm install`
+2 - `Create .env file with 'REACT_APP_BASE_URL = YourURL' and 'REACT_APP_PORT = 3000`
+3 - That is all
 
 ## Other Scripts
-
-🚫replace these examples with your own
-
     * build - creates a build of the application
     * start - starts the production server after a build is created
-    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
 
 # Contributing
 
@@ -116,4 +105,4 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 ## Documentation
 
-See [Backend Documentation](🚫*link to your backend API SWAGGER DOCS here*) for details on the backend of our project.
+See [Backend Documentation](https://github.com/ferror18/vbb-backend) for details on the backend of our project.
