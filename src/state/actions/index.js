@@ -102,7 +102,7 @@ export const editVillage = (id, data) => () => {
 export const fetchMentees = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    .get('/mentee/')
+    .get('/mentee')
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
     })

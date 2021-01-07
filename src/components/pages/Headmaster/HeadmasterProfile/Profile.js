@@ -9,19 +9,19 @@ import { Profile, Label } from '../../../common/ProfileStyle';
 import { Button } from '../../../common/';
 import { ComponentTitle } from '../../../common';
 
-const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
+// const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 const HeadmasterProfile = props => {
   const { profile } = props;
   useEffect(() => {
     props.fetchHeadmasterProfile(1); // change this later with login
   }, []);
-
+  console.log(profile);
   return (
     <Profile>
       <ComponentTitle titleText="Village" />
-      <img src={`${profile.photo_url}`} />
+      <img src={`${profile.headmasters_picture}`} />
       <Label>Name:</Label>
-      <p>{`${profile.first_name} ${profile.second_name}`}</p>
+      <p>{`${profile.first_name} ${profile.last_name}`}</p>
 
       <Label>Gender:</Label>
       <p>{profile.gender}</p>
