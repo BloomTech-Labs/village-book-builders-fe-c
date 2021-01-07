@@ -2,15 +2,11 @@
 
 For steps on how to work with this repository [please see here](https://docs.labs.lambdaschool.com/labs-spa-starter/)
 
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your first Pull-Request is merged. This is intended to be a guideline. Feel free to add your own flare to it.
+# Village Book Builders
 
-# Title of project goes here
-
-You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+You can find the deployed project at [VBB-Deployment](main.d364h8tamcqe39.amplifyapp.com).
 
 ## Contributors
-
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
 
 |                                                      [Josh Glanz](https://github.com/)                                                       |                                                       [Manuel Muratalla](https://github.com/)                                                        |                                                      [Tiffany Arellano](https://github.com/)                                                       |                                                       [Joe Idelson](https://github.com/)                                                        |                                                      [Wilma Rodriguez](https://github.com/)                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
@@ -21,13 +17,9 @@ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste
 <br>
 <br>
 
-🚫 Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
 ![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
 
 - Fork and clone the repo to install it as your own remote.
   - **note** please [be sure to set your remote](https://help.github.jp/enterprise/2.11/user/articles/changing-a-remote-s-url/) for this repo to point to your Labs Team Front End Repository.
@@ -72,7 +64,8 @@ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste
 # Installation Instructions
 
 1 - `npm install`
-2 - `Create .env file with 'REACT_APP_BASE_URL = YourURL'`
+2 - `Create .env file with 'REACT_APP_BASE_URL = YourURL' and 'REACT_APP_PORT = 3000`
+3 - That is all
 
 ## Other Scripts
     * build - creates a build of the application
@@ -112,4 +105,4 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 ## Documentation
 
-See [Backend Documentation](🚫*link to your backend API SWAGGER DOCS here*) for details on the backend of our project.
+See [Backend Documentation](https://github.com/ferror18/vbb-backend) for details on the backend of our project.
