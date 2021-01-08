@@ -33,6 +33,10 @@ export default function Libraries() {
 
   const searchHandler = e => setSearch(e.target.value);
 
+  function handleAddLibrary() {
+    push('/admin/library/add');
+  }
+
   function handleEdit(libraryId) {
     // console.log('handle edit');
     // TODO: better to pass the libary data here than do a second axios call at new page. Or set it to redux store here, so I can pull it out at new page. Decisions...
@@ -48,7 +52,11 @@ export default function Libraries() {
     <div className="libraries-container">
       <h1>Libraries, Admin View.</h1>
 
-      <Button style={{ width: '50%', marginBottom: '10pt' }} align="center">
+      <Button
+        onClick={() => handleAddLibrary()}
+        style={{ width: '50%', marginBottom: '10pt' }}
+        align="center"
+      >
         Create New Library
       </Button>
       <Input.Search
