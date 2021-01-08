@@ -156,3 +156,12 @@ export const editLibrary = (id, data) => dispatch => {
     })
     .catch(err => console.dir(err));
 };
+
+export const addLibrary = (id, data) => dispatch => {
+  axiosWithAuth()
+    .post(`/library`, data)
+    .then(() => {
+      window.location.replace('/admin/libraries');
+    })
+    .catch(err => console.dir(err));
+};
