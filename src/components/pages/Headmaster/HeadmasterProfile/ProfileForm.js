@@ -38,7 +38,7 @@ const initialState = {
   photo_url: '',
   programId: '',
   registration_status: '',
-  second_name: '',
+  last_name: '',
   time_zone: '',
   villageId: '',
 };
@@ -100,7 +100,7 @@ const ProfileForm = props => {
 
         <Form.Item
           label="Last Name"
-          name="second_name"
+          name="last_name"
           rules={[{ required: true, message: 'Last Name is required.' }]}
         >
           <Input
