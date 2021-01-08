@@ -7,7 +7,6 @@ import axios from 'axios';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 import * as actionTypes from './actionTypes';
-import { useHistory } from 'react-router-dom';
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 export const checkToken = data => dispatch => {
@@ -21,7 +20,6 @@ export const checkToken = data => dispatch => {
 // AUTHORIZATION
 // -------------------------
 export const login = data => dispatch => {
-  // const { push } = useHistory();
   axios
     .post(`${baseURL}/auth/login`, data)
     .then(res => {
@@ -55,13 +53,13 @@ export const editHeadmasterProfile = (id, data) => dispatch => {
   axiosWithAuth()
     .put(`/headmaster/${id}`, data)
     .then(res => {
-      // ? refactor so this doesn't force a refresh. see how login does it for example.
+      // ? refactor all the window.location.replace's so this doesn't force a refresh. see how login does it for example.
       window.location.replace('/profile/');
     })
     .catch(err => console.dir(err));
 };
 export const fetchHeadmasterProfile = id => dispatch => {
-  axiosWithAuth() // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+  axiosWithAuth()
     .get(`/headmaster/${id}`) // change this later
     .then(res => {
       console.log('fetchHeadmasterProfile action --> ', res.data);
@@ -77,7 +75,6 @@ export const fetchHeadmasterSchool = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_HEADMASTER_SCHOOL });
 };
 
-//!Make sure that the actual server sends village data back that's related to the headmaster's id
 export const fetchVillage = id => dispatch => {
   // console.log("ACTIONSindexFetchVillage --> test", process.env.REACT_APP_BASEURL)
   axiosWithAuth()
@@ -110,9 +107,6 @@ export const fetchMentees = () => dispatch => {
       dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
     );
 };
-// ----------------
-// ADMIN
-// ----------------
 
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
@@ -132,7 +126,7 @@ export const fetchSchools = () => dispatch => {
 
 export const fetchSchool = id => dispatch => {
   axiosWithAuth()
-    .get(`school/${id}`)
+    .get(`/school/${id}`)
     .then(res => {
       // console.log(res.data);
     })
@@ -141,16 +135,20 @@ export const fetchSchool = id => dispatch => {
 
 export const editSchool = (id, data) => dispatch => {
   axiosWithAuth()
-    .put(`school/${id}`, data)
+    .put(`/school/${id}`, data)
     .then(res => {
       window.location.replace('/school-village/');
     })
     .catch(err => console.dir(err));
 };
 
+// ----------------
+// ADMIN
+// ----------------
+
 export const editLibrary = (id, data) => dispatch => {
   axiosWithAuth()
-    .put(`library/${id}`, data)
+    .put(`/library/${id}`, data)
     .then(() => {
       window.location.replace('/admin/libraries');
     })
