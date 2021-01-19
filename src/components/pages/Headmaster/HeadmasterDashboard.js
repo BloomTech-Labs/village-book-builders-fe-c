@@ -65,6 +65,7 @@ function HeadmasterDashboard() {
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
           <Route path="/mentor-advisor" />
+          <Route path="/student-registration" />
           <Route path="/school-village">
             <Village />
             <Schools />
@@ -122,6 +123,11 @@ function HeadmasterDashboard() {
           </NavLink>
           <NavLink to="/library" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Library</button>
+          </NavLink>
+          <NavLink to="/student-registration" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">
+              Student Registration
+            </button>
           </NavLink>
           <Link to="/logout" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Logout</button>
