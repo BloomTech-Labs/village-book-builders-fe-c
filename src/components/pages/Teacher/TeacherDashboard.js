@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 // import TeacherProfile from '';
 // import TeacherProfileForm from '';
-import StudentRegistration from './Student/StudentRegistration';
+import StudentRegistration from '../Headmaster/Student/StudentRegistration';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 // import './TeacherDashboard.css';
