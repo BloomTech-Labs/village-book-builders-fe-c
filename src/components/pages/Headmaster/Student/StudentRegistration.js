@@ -1,20 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchMentees } from '../../../../state/actions/index';
 
 const StudentRegistration = props => {
+  const [search, setSearch] = useState('');
+
   const { fetchMentees } = props;
   useEffect(() => {
     fetchMentees();
   }, [fetchMentees]);
   console.log(props.mentees);
 
+  const filteredStudents = props.mentees.filter(student => {
+    return student.last_name.includes(search);
+  });
+
+  const onSubmit = () => {
+    filteredStudents();
+  };
+
+  const onChange = e => {
+    setSearch(e.target.value);
+  };
   return (
     <div>
-      <form>
+      <form onSubmit={onSubmit}>
         <label>
           Last Name
-          <input type="text" placeholder="Last Name" />
+          <input type="text" placeholder="Last Name" onChange={onChange} />
           <input type="submit" />
         </label>
         <label>
@@ -26,7 +39,7 @@ const StudentRegistration = props => {
       <div>
         {props.isLoading
           ? '...Loading'
-          : props.mentees.map(student => (
+          : filteredStudents.map(student => (
               <div>
                 <h2>{student.mentee_picture}</h2>
                 <h2>
