@@ -25,6 +25,7 @@ const StudentRegistration = props => {
 
   return (
     <div>
+      <h1>Search for a student</h1>
       <form onSubmit={onSubmit}>
         <label>
           Last Name
