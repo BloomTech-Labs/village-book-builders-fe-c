@@ -8,6 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import StudentRegistration from './Student/StudentRegistration';
 import Village from '../Village/Village.component.js';
 import VillageForm from '../Village/VillageForm.js';
 import Schools from '../School/Schools.component.js';
@@ -67,6 +68,8 @@ function HeadmasterDashboard() {
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
           <Route path="/mentor-advisor" component={MentorList} />
+          <Route path="/student-registration" component={StudentRegistration} />
+
           <Route path="/school-village">
             <Village />
             <Schools />
@@ -124,6 +127,11 @@ function HeadmasterDashboard() {
           </NavLink>
           <NavLink to="/library" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Library</button>
+          </NavLink>
+          <NavLink to="/student-registration" onClick={() => setVisible(true)}>
+            <button className="btn l2-btn menuLinks">
+              Student Registration
+            </button>
           </NavLink>
           <Link to="/logout" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Logout</button>

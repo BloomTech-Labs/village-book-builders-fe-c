@@ -16,6 +16,7 @@ const initialState = {
   schoolData: [],
   headmasterProfile: '',
   mentees: [],
+  isLoading: true,
 };
 // Fetch school data for headmaster
 const reducer = (state = initialState, action) => {
@@ -37,14 +38,15 @@ const reducer = (state = initialState, action) => {
       debugLog(action.type, action.payload);
       return {
         ...state,
+        isLoading: false,
         mentees: action.payload,
       };
     case FETCH_MENTEE_START:
       debugLog(action.type, action.payload);
-      return { ...state };
+      return { ...state, isLoading: true };
     case FETCH_MENTEE_FAILURE:
       debugLog(action.type, action.payload);
-      return { ...state };
+      return { ...state, isLoading: false };
     default:
       return state;
   }
