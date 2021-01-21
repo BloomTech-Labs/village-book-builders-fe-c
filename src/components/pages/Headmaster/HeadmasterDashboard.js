@@ -19,13 +19,13 @@ import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 // import TestComponent from './TestComponent';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
-import './HeadmasterDashboard.css';
+import '../../../styles/Dashboard.css';
 import {
   menuButton,
   menuIcon,
   menuMove,
   Dashboard,
-} from './HeadmasterDashboard.style';
+} from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 // import MentorPairings from './Mentees/Mentees.js';
 import Mentees from './Mentees/Mentees.js';

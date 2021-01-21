@@ -13,13 +13,13 @@ import {
 import StudentRegistration from '../Headmaster/Student/StudentRegistration';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
-import './TeacherDashboard.css';
-// import {
-//   menuButton,
-//   menuIcon,
-//   menuMove,
-//   Dashboard,
-// } from './TeacherDashboard.style';
+import '../../../styles/Dashboard.css';
+import {
+  menuButton,
+  menuIcon,
+  menuMove,
+  Dashboard,
+} from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
 function TeacherDashboard() {
@@ -63,11 +63,10 @@ function TeacherDashboard() {
 
       {desktop ? null : (
         // inline style to force animation
-        // include in inline style below: ? menuMove : menuIcon
-        <div style={visible}>
+        <div style={visible ? menuMove : menuIcon}>
           <Button
             type="primary"
-            // style={menuButton} // inline style to override Ant Design
+            style={menuButton} // inline style to override Ant Design
             onClick={() => setVisible(!visible)}
             icon={<MenuOutlined />}
           >
