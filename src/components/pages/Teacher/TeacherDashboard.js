@@ -8,15 +8,9 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import StudentRegistration from './Student/StudentRegistration';
-import Village from '../Village/Village.component.js';
-import VillageForm from '../Village/VillageForm.js';
-import Schools from '../School/Schools.component.js';
-import SchoolForm from '../School/SchoolForm.js';
-import HeadmasterProfile from './HeadmasterProfile/Profile.js';
-import ProfileForm from './HeadmasterProfile/ProfileForm.js';
-// import HeadmasterNav from './Drawer';
-// import TestComponent from './TestComponent';
+// import TeacherProfile from '';
+// import TeacherProfileForm from '';
+import StudentRegistration from '../Headmaster/Student/StudentRegistration';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -27,10 +21,8 @@ import {
   Dashboard,
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
-// import MentorPairings from './Mentees/Mentees.js';
-import Mentees from './Mentees/Mentees.js';
 
-function HeadmasterDashboard() {
+function TeacherDashboard() {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
 
@@ -60,27 +52,14 @@ function HeadmasterDashboard() {
 
   return (
     <div>
-      <Dashboard>
-        <Switch>
-          <Route path="/mentor-pairings" component={Mentees} />
-          <Route exact path="/profile" component={HeadmasterProfile} />
-          <Route path="/profile/edit/:id" component={ProfileForm} />
-          <Route path="/mentor-advisor" />
-          <Route path="/student-registration" component={StudentRegistration} />
-          <Route path="/school-village">
-            <Village />
-            <Schools />
-          </Route>
-          <Route
-            exact
-            path="/village/edit/:villageId"
-            component={VillageForm}
-          />
-          <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
-          <Route path="/library" />
-          <Route path="/logout" component={Logout} />
-        </Switch>
-      </Dashboard>
+      {/* <Dashboard> */}
+      <Switch>
+        {/* <Route exact path="/profile" component={TeacherProfile} />
+          <Route path="/profile/edit/:id" component={TeacherProfileForm} /> */}
+        <Route path="/student-registration" component={StudentRegistration} />
+        <Route path="/logout" component={Logout} />
+      </Switch>
+      {/* </Dashboard> */}
 
       {desktop ? null : (
         // inline style to force animation
@@ -105,26 +84,14 @@ function HeadmasterDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, Headmaster!</h2>
+          <h2>Hello, Teacher!</h2>
 
-          <NavLink to="/dashboard" onClick={() => setVisible(true)}>
+          {/* <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
           </NavLink>
           <NavLink to="/profile" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Profile</button>
-          </NavLink>
-          <NavLink to={'/mentor-pairings'} onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Mentor Pairings</button>
-          </NavLink>
-          <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Mentor Advisor</button>
-          </NavLink>
-          <NavLink to="/school-village" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">School/Village</button>
-          </NavLink>
-          <NavLink to="/library" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Library</button>
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/student-registration" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">
               Student Registration
@@ -134,8 +101,6 @@ function HeadmasterDashboard() {
             <button className="btn l2-btn menuLinks">Logout</button>
           </Link>
         </Drawer>
-
-        {/* <HeadmasterNav /> */}
       </div>
     </div>
   );
@@ -149,5 +114,5 @@ function HeadmasterDashboard() {
 //   };
 // };
 
-// export default connect(mapStateToProps, {})(HeadmasterDashboard);
-export default HeadmasterDashboard;
+// export default connect(mapStateToProps, {})(TeacherDashboard);
+export default TeacherDashboard;
