@@ -8,8 +8,8 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-// import TeacherProfile from '';
-// import TeacherProfileForm from '';
+// import StudentProfile from '';
+// import StudentProfileForm from '';
 import StudentRegistration from '../Headmaster/Student/StudentRegistration';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -22,7 +22,7 @@ import {
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
-function TeacherDashboard() {
+function StudentDashboard() {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
 
@@ -54,9 +54,8 @@ function TeacherDashboard() {
     <div>
       {/* <Dashboard> */}
       <Switch>
-        {/* <Route exact path="/profile" component={TeacherProfile} />
-          <Route path="/profile/edit/:id" component={TeacherProfileForm} /> */}
-        <Route path="/student-registration" component={StudentRegistration} />
+        {/* <Route exact path="/profile" component={StudentProfile} />
+          <Route path="/profile/edit/:id" component={StudentProfileForm} /> */}
         <Route path="/logout" component={Logout} />
       </Switch>
       {/* </Dashboard> */}
@@ -84,7 +83,7 @@ function TeacherDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, Teacher!</h2>
+          <h2>Hello, Student!</h2>
 
           {/* <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
@@ -92,11 +91,6 @@ function TeacherDashboard() {
           <NavLink to="/profile" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Profile</button>
           </NavLink> */}
-          <NavLink to="/student-registration" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">
-              Student Registration
-            </button>
-          </NavLink>
           <Link to="/logout" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Logout</button>
           </Link>
@@ -115,4 +109,4 @@ function TeacherDashboard() {
 // };
 
 // export default connect(mapStateToProps, {})(TeacherDashboard);
-export default TeacherDashboard;
+export default StudentDashboard;
