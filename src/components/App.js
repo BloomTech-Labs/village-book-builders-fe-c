@@ -9,6 +9,7 @@ import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import TeacherDashboard from './pages/Teacher/TeacherDashboard';
+import ProgramDashboard from './pages/Program/ProgramDashboard';
 
 const App = ({ role, checkToken }) => {
   return (
