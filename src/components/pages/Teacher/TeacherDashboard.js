@@ -13,7 +13,7 @@ import {
 import StudentRegistration from '../Headmaster/Student/StudentRegistration';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
-// import './TeacherDashboard.css';
+import './TeacherDashboard.css';
 // import {
 //   menuButton,
 //   menuIcon,
