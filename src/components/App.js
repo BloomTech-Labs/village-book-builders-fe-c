@@ -8,10 +8,16 @@ import { checkToken } from '../state/actions/index';
 import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
+import RegistrationForm from '../components/common/RegisterForm';
 
 const App = ({ role, checkToken }) => {
   return (
     <div className="App">
+      <Switch>
+        <Route exact path="/register">
+          <RegistrationForm />
+        </Route>
+      </Switch>
       <Switch>
         <Route path="/login">
           <Login />
@@ -28,7 +34,7 @@ const App = ({ role, checkToken }) => {
               {role === 'admin' && <AdminDashboard />}
             </>
           ) : (
-            <Redirect to="/login" />
+            <Redirect to="/register" />
           )}
         </Route>
       </Switch>
