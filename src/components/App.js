@@ -8,17 +8,15 @@ import { checkToken } from '../state/actions/index';
 import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-import RegistrationForm from '../components/common/RegisterForm';
+import TeacherRegForm from './common/TeacherRegForm';
 
 const App = ({ role, checkToken }) => {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/register">
-          <RegistrationForm />
+        <Route path="/register">
+          <TeacherRegForm />
         </Route>
-      </Switch>
-      <Switch>
         <Route path="/login">
           <Login />
         </Route>
