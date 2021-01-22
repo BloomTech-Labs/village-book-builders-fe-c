@@ -8,7 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import StudentRegistration from './Student/StudentRegistration';
+import StudentRegistration from '../Student/StudentRegistration';
 import Village from '../Village/Village.component.js';
 import VillageForm from '../Village/VillageForm.js';
 import Schools from '../School/Schools.component.js';
