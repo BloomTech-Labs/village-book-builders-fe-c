@@ -15,7 +15,9 @@ const TeacherProfile = props => {
   return (
     <Profile>
       <ComponentTitle titleText="Profile" />
-      <img src={`${profile.headmasters_picture}`} />
+
+      <img src={`${profile.teachers_picture}`} />
+
       <Label>Name:</Label>
       <p>{`${profile.first_name} ${profile.last_name}`}</p>
 
@@ -25,38 +27,8 @@ const TeacherProfile = props => {
       <Label>Address:</Label>
       <p>{profile.address}</p>
 
-      <Label>Bio:</Label>
-      <p>{profile.bio}</p>
-
-      <Label>Communication App:</Label>
-      <p>{profile.communication_app}</p>
-
-      <Label>DOB:</Label>
-      <p>{profile.dob}</p>
-
-      <Label>General Availability:</Label>
-      <p>{profile.general_availability}</p>
-
-      <Label>Mentor Advisor Point of Contact:</Label>
-      <p>{profile.mentor_advisor_point_of_contact}</p>
-
-      <Label>Mentor Program Goals:</Label>
-      <p>{profile.goals_mentor_program}</p>
-
-      <Label>Personal Goals:</Label>
-      <p>{profile.goals_personal}</p>
-
-      <Label>School Community Goals:</Label>
-      <p>{profile.goals_school_community}</p>
-
-      <Label>Goals Mentor Program:</Label>
-      <p>{profile.goals_mentor_program}</p>
-
-      <Label>Time Zone:</Label>
-      <p>{profile.time_zone}</p>
-
       <div className="villageButtons">
-        <Link to={`/profile/edit/${profile.id}`}>
+        <Link to={`/teacher/${profile.id}`}>
           <ThemeProvider theme={{ color: '#6ac66b' }}>
             <Button buttonText="Edit Your Profile" />
           </ThemeProvider>
