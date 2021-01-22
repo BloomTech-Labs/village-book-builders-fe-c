@@ -184,7 +184,7 @@ export const addLibrary = (id, data) => dispatch => {
 };
 
 // -----------------------
-// HEAD MASTER
+// TEACHER
 // -----------------------
 
 export const editTeacherProfile = (id, data) => dispatch => {
@@ -203,6 +203,32 @@ export const fetchTeacherProfile = id => dispatch => {
       console.log('fetchTeacherProfile action --> ', res.data);
       dispatch({
         type: actionTypes.FETCH_TEACHER_PROFILE,
+        payload: res.data,
+      });
+    })
+    .catch(err => console.dir(err));
+};
+
+// -----------------------
+// PROGRAM
+// -----------------------
+
+export const editProgramProfile = (id, data) => dispatch => {
+  axiosWithAuth()
+    .put(`/program/${id}`, data)
+    .then(res => {
+      // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
+      window.location.replace('/profile/');
+    })
+    .catch(err => console.dir(err));
+};
+export const fetchProgramProfile = id => dispatch => {
+  axiosWithAuth()
+    .get(`/program/${id}`) // change this later
+    .then(res => {
+      console.log('fetchProgramProfile action --> ', res.data);
+      dispatch({
+        type: actionTypes.FETCH_PROGRAM_PROFILE,
         payload: res.data,
       });
     })
