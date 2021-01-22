@@ -1,5 +1,4 @@
 // Reducer file for Teacher
-
 import {
   FETCH_TEACHER_PROFILE,
   FETCH_TEACHER_PROFILE_SUCCESS,
@@ -13,7 +12,7 @@ const initialState = {
   isLoading: true,
 };
 
-// Fetch school data for headmaster
+// Fetch school data for teacher
 const reducer = (state = initialState, action) => {
   // console.log('teacherReducer.js, action type & payload:', action.type, action.payload);
   switch (action.type) {
