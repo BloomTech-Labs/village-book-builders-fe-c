@@ -18,7 +18,7 @@ const HeadmasterProfile = props => {
   console.log(profile);
   return (
     <Profile>
-      <ComponentTitle titleText="Village" />
+      <ComponentTitle titleText="Profile" />
       <img src={`${profile.headmasters_picture}`} />
       <Label>Name:</Label>
       <p>{`${profile.first_name} ${profile.last_name}`}</p>
