@@ -170,16 +170,16 @@ export const addLibrary = (id, data) => dispatch => {
 
 export const editTeacherProfile = (id, data) => dispatch => {
   axiosWithAuth()
-    .put(`/headmaster/${id}`, data)
+    .put(`/teacher/${id}`, data)
     .then(res => {
-      // ? refactor all the window.location.replace's so this doesn't force a refresh. see how login does it for example.
+      // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
       window.location.replace('/profile/');
     })
     .catch(err => console.dir(err));
 };
 export const fetchTeacherProfile = id => dispatch => {
   axiosWithAuth()
-    .get(`/headmaster/${id}`) // change this later
+    .get(`/teacher/${id}`) // change this later
     .then(res => {
       console.log('fetchTeacherProfile action --> ', res.data);
       dispatch({
