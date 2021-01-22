@@ -27,8 +27,8 @@ const App = ({ role, checkToken }) => {
               {checkToken()}
               {/* //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly. */}
               {role === 'headmaster' && <HeadmasterDashboard />}
-              {/* {role === 'teacher' && <TeacherDashboard />}
-              {role === 'program' && <ProgramDashboard />} */}
+              {role === 'teacher' && <TeacherDashboard />}
+              {role === 'program' && <ProgramDashboard />}
               {role === 'admin' && <AdminDashboard />}
             </>
           ) : (
