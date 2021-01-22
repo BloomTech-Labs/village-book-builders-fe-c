@@ -108,6 +108,25 @@ export const fetchMentees = () => dispatch => {
     );
 };
 
+export const fetchMenteesBySearch = search => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_START });
+  axiosWithAuth()
+    .get(`/mentee?last_name=${search}`)
+    .then(res => {
+      console.log('inside the action', res.data);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_FAILURE,
+        payload: err,
+      })
+    );
+};
+
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
     .get(`/school`)
