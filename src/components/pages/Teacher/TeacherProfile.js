@@ -27,7 +27,7 @@ const TeacherProfile = props => {
       <Label>Address:</Label>
       <p>{profile.address}</p>
 
-      <div className="villageButtons">
+      <div>
         <Link to={`/teacher/${profile.id}`}>
           <ThemeProvider theme={{ color: '#6ac66b' }}>
             <Button buttonText="Edit Your Profile" />
