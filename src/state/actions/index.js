@@ -108,6 +108,25 @@ export const fetchMentees = () => dispatch => {
     );
 };
 
+export const fetchMenteesBySearch = search => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_START });
+  axiosWithAuth()
+    .get(`/mentee?last_name=${search}`)
+    .then(res => {
+      console.log('inside the action', res.data);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_FAILURE,
+        payload: err,
+      })
+    );
+};
+
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
     .get(`/school`)
@@ -172,6 +191,32 @@ export const addLibrary = (id, data) => dispatch => {
     .post(`/library`, data)
     .then(() => {
       window.location.replace('/admin/libraries');
+    })
+    .catch(err => console.dir(err));
+};
+
+// -----------------------
+// HEAD MASTER
+// -----------------------
+
+export const editTeacherProfile = (id, data) => dispatch => {
+  axiosWithAuth()
+    .put(`/teacher/${id}`, data)
+    .then(res => {
+      // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
+      window.location.replace('/profile/');
+    })
+    .catch(err => console.dir(err));
+};
+export const fetchTeacherProfile = id => dispatch => {
+  axiosWithAuth()
+    .get(`/teacher/${id}`) // change this later
+    .then(res => {
+      console.log('fetchTeacherProfile action --> ', res.data);
+      dispatch({
+        type: actionTypes.FETCH_TEACHER_PROFILE,
+        payload: res.data,
+      });
     })
     .catch(err => console.dir(err));
 };

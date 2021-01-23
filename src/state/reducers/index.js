@@ -4,8 +4,10 @@
 import { combineReducers } from 'redux';
 import headmasterReducer from './headmasterReducer.js';
 import authReducer from './authReducer';
+import teacherReducer from './teacherReducer';
 
 export default combineReducers({
   headmasterReducer,
   authReducer,
+  teacherReducer,
 });
