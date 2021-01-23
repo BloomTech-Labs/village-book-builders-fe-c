@@ -1,32 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Divider, List, Avatar } from 'antd';
-import axios from 'axios';
+import Moment from 'moment';
+import { fetchMentors } from '../../../state/actions/index';
 
 const MentorList = props => {
-  const [data, setData] = useState([]);
-
-  const axiosWithAuth = () => {
-    const token = window.localStorage.getItem('token');
-    return axios.create({
-      baseURL: process.env.REACT_APP_BASE_URL,
-      headers: {
-        Authorization: token,
-      },
-    });
-  };
-
-  const fetchMentors = () => {
-    axiosWithAuth()
-      .get(`https://vbb-mock-api.herokuapp.com/mentor`)
-      .then(res => {
-        setData(res.data);
-      })
-      .catch(err => {});
-  };
+  const { fetchMentors } = props;
 
   useEffect(() => {
     fetchMentors();
-  }, []);
+  }, [fetchMentors]);
 
   return (
     <div className="menteeContainer">
@@ -35,7 +18,7 @@ const MentorList = props => {
         <Divider />
         <List
           itemLayout="vertical"
-          dataSource={data}
+          dataSource={props.mentors}
           renderItem={item => (
             <List.Item>
               <List.Item.Meta
@@ -68,7 +51,7 @@ const MentorList = props => {
               />
               <List.Item.Meta
                 title={<header>DOB</header>}
-                description={item.dob}
+                description={Moment(item.dob).format('DD-MM-YYYY')}
               />
               <List.Item.Meta
                 title={<header>Primary Language</header>}
@@ -83,4 +66,11 @@ const MentorList = props => {
   );
 };
 
-export default MentorList;
+const mapStateToProps = state => {
+  return {
+    isloading: state.headmasterReducer.isLoading,
+    mentors: state.headmasterReducer.mentors,
+  };
+};
+
+export default connect(mapStateToProps, { fetchMentors })(MentorList);
