@@ -11,6 +11,7 @@ import {
 import ProgramProfile from './ProgramProfile';
 import ProgramProfileForm from './ProgramProfileForm';
 import StudentSearch from '../Student/StudentSearch';
+import { fetchProgramProfile } from '../../../state/actions';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -22,9 +23,15 @@ import {
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
-function ProgramDashboard() {
+const ProgramDashboard = props => {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
+  const { profile } = props;
+
+  useEffect(() => {
+    props.fetchProgramProfile(1); // change this later with login
+  }, []);
+  console.log(profile);
 
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
@@ -84,7 +91,7 @@ function ProgramDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, Program!</h2>
+          <h2>Hello, {`${profile.name}`}!</h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
@@ -104,14 +111,17 @@ function ProgramDashboard() {
       </div>
     </div>
   );
-}
+};
 
 const mapStateToProps = state => {
   return {
     loggedIn: state.authReducer.loggedIn,
     userId: state.authReducer.userId,
     role: state.authReducer.role,
+    profile: state.headmasterReducer.headmasterProfile,
   };
 };
 
-export default connect(mapStateToProps, {})(ProgramDashboard);
+export default connect(mapStateToProps, { fetchProgramProfile })(
+  ProgramDashboard
+);
