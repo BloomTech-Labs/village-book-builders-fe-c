@@ -109,8 +109,8 @@ function TeacherDashboard() {
 const mapStateToProps = state => {
   return {
     loggedIn: state.authReducer.loggedIn,
-    // userId: state.authReducer.userId,
-    // role: state.authReducer.role,
+    userId: state.authReducer.userId,
+    role: state.authReducer.role,
   };
 };
 
