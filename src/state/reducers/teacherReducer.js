@@ -12,7 +12,6 @@ const initialState = {
   isLoading: true,
 };
 
-// Fetch school data for teacher
 const reducer = (state = initialState, action) => {
   // console.log('teacherReducer.js, action type & payload:', action.type, action.payload);
   switch (action.type) {
