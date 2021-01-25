@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Link,
   NavLink,
@@ -8,9 +8,9 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-// import TeacherProfile from '';
-// import TeacherProfileForm from '';
-// import StudentSearch from '../Student/StudentSearch';
+import TeacherProfile from '../Teacher/TeacherProfile';
+import TeacherProfileForm from '../Teacher/TeacherProfileForm';
+import StudentSearch from '../Student/StudentSearch';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -18,6 +18,7 @@ import {
   menuButton,
   menuIcon,
   menuMove,
+  Dashboard,
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
@@ -51,14 +52,14 @@ function TeacherDashboard() {
 
   return (
     <div>
-      {/* <Dashboard> */}
-      <Switch>
-        {/* <Route exact path="/profile" component={TeacherProfile} />
-          <Route path="/profile/edit/:id" component={TeacherProfileForm} /> */}
-        {/* <Route path="/student-search" component={StudentSearch} /> */}
-        <Route path="/logout" component={Logout} />
-      </Switch>
-      {/* </Dashboard> */}
+      <Dashboard>
+        <Switch>
+          <Route exact path="/profile" component={TeacherProfile} />
+          <Route path="/profile/edit/:id" component={TeacherProfileForm} />
+          <Route path="/student-search" component={StudentSearch} />
+          <Route path="/logout" component={Logout} />
+        </Switch>
+      </Dashboard>
 
       {desktop ? null : (
         // inline style to force animation
@@ -85,13 +86,13 @@ function TeacherDashboard() {
         >
           <h2>Hello, Teacher!</h2>
 
-          {/* <NavLink to="/dashboard" onClick={() => setVisible(true)}>
+          <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
           </NavLink>
           <NavLink to="/profile" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Profile</button>
-          </NavLink> */}
-          <NavLink to="/student-registration" onClick={() => setVisible(true)}>
+          </NavLink>
+          <NavLink to="/student-search" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">
               Student Registration
             </button>
@@ -105,13 +106,12 @@ function TeacherDashboard() {
   );
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     loggedIn: state.authReducer.loggedIn,
-//     // userId: state.authReducer.userId,
-//     // role: state.authReducer.role,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.authReducer.loggedIn,
+    // userId: state.authReducer.userId,
+    // role: state.authReducer.role,
+  };
+};
 
-// export default connect(mapStateToProps, {})(TeacherDashboard);
-export default TeacherDashboard;
+export default connect(mapStateToProps, {})(TeacherDashboard);
