@@ -21,7 +21,7 @@ export const checkToken = data => dispatch => {
 // -------------------------
 export const login = data => dispatch => {
   axios
-    .post(`${baseURL}/auth/login`, data)
+    .post('https://vbb-mock-api.herokuapp.com/auth/login', data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> token', res.data);
       window.localStorage.setItem('token', res.data.access_token);
