@@ -73,10 +73,8 @@ const Login = ({ login, loggedIn }) => {
       <p>Account info for testing:</p>
       <p>"admin@admin.com" - "password"</p>
       <p>"headmaster@headmaster.com" - "password"</p>
-      <p>
-        more from server should be added later to show different data from
-        different headmasters (for example)
-      </p>
+      <p>"teacher@teacher.com" - "password"</p>
+      <p>"program@program.com" - "password"</p>
 
       <p>
         Note to dev's: need to remove all page refreshes in code.
