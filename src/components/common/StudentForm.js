@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import { useForm } from 'antd/lib/form/Form';
 
 // This reusable component is strictly for the "Student" input feilds
 const formItemLayout = {
@@ -63,12 +64,25 @@ function StudentForm() {
         <h1>Student Registration Form</h1>
 
         <Form.Item
-          name="name"
-          label="Name"
+          name="firstname"
+          label="First Name"
           rules={[
             {
               required: true,
               message: 'Please input your first & last name',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="lastname"
+          label="Last Name"
+          rules={[
+            {
+              required: true,
+              message: 'Last name required',
             },
           ]}
         >
@@ -151,6 +165,18 @@ function StudentForm() {
               width: '100%',
             }}
           />
+        </Form.Item>
+        <Form.Item
+          label="Confirm Student Registration"
+          name="role"
+          value="student"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input type="checkbox" defaultValue="student" />
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">

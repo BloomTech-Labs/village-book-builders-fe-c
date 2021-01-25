@@ -62,12 +62,7 @@ function TeacherForm() {
       >
         <h1>Teacher Registration Form</h1>
 
-        <Form.Item name="role">
-          <Input id="teacher" className="role__input" />
-        </Form.Item>
-
         <Form.Item
-          value="teacher"
           name="firstname"
           label="First Name"
           rules={[
@@ -173,6 +168,18 @@ function TeacherForm() {
               width: '100%',
             }}
           />
+        </Form.Item>
+        <Form.Item
+          label="Confirm Teacher Registration"
+          name="role"
+          value="teacher"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input type="checkbox" defaultValue="teacher" />
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
