@@ -11,6 +11,7 @@ import {
 import TeacherProfile from '../Teacher/TeacherProfile';
 import TeacherProfileForm from '../Teacher/TeacherProfileForm';
 import StudentSearch from '../Student/StudentSearch';
+import { fetchTeacherProfile } from '../../../state/actions';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -22,9 +23,15 @@ import {
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
-function TeacherDashboard() {
+const TeacherDashboard = props => {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
+  const { profile } = props;
+
+  useEffect(() => {
+    props.fetchTeacherProfile(1); // change this later with login
+  }, []);
+  console.log(profile);
 
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
@@ -84,7 +91,7 @@ function TeacherDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, Teacher!</h2>
+          <h2>Hello, {`${profile.first_name} ${profile.last_name}`}!</h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
@@ -104,14 +111,17 @@ function TeacherDashboard() {
       </div>
     </div>
   );
-}
+};
 
 const mapStateToProps = state => {
   return {
     loggedIn: state.authReducer.loggedIn,
     userId: state.authReducer.userId,
     role: state.authReducer.role,
+    profile: state.teacherReducer.teacherProfile,
   };
 };
 
-export default connect(mapStateToProps, {})(TeacherDashboard);
+export default connect(mapStateToProps, { fetchTeacherProfile })(
+  TeacherDashboard
+);

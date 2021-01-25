@@ -118,7 +118,7 @@ const mapStateToProps = state => {
     loggedIn: state.authReducer.loggedIn,
     userId: state.authReducer.userId,
     role: state.authReducer.role,
-    profile: state.headmasterReducer.headmasterProfile,
+    profile: state.programReducer.programProfile,
   };
 };
 
