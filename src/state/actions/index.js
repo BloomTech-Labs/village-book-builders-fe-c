@@ -99,12 +99,42 @@ export const editVillage = (id, data) => () => {
 export const fetchMentees = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    .get('/mentee')
+    .get('https://vbb-mock-api.herokuapp.com/mentee')
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
     })
     .catch(err =>
       dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
+    );
+};
+
+export const fetchMenteeById = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_BY_ID_START });
+  axiosWithAuth()
+    .get(`https://vbb-mock-api.herokuapp.com/mentee/${id}`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_ID_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_BY_ID_FAILURE, payload: err })
+    );
+};
+
+export const editMenteeProfile = id => dispatch => {
+  dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_START });
+  axiosWithAuth()
+    .put(`https://vbb-mock-api.herokuapp.com/mentee/${id}`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS, payload: err })
     );
 };
 
