@@ -37,7 +37,7 @@ const Login = ({ login, loggedIn }) => {
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item {...tailLayout}>
           <h1>Log In</h1>
-          {/* //! REMOVE THESE temp logins for stakehol */}
+          {/* //! REMOVE THESE temp logins for stakeholder */}
         </Form.Item>
         <Form.Item
           label="Email"
@@ -73,10 +73,8 @@ const Login = ({ login, loggedIn }) => {
       <p>Account info for testing:</p>
       <p>"admin@admin.com" - "password"</p>
       <p>"headmaster@headmaster.com" - "password"</p>
-      <p>
-        more from server should be added later to show different data from
-        different headmasters (for example)
-      </p>
+      <p>"teacher@teacher.com" - "password"</p>
+      <p>"program@program.com" - "password"</p>
 
       <p>
         Note to dev's: need to remove all page refreshes in code.
@@ -91,8 +89,8 @@ const Login = ({ login, loggedIn }) => {
 const mapStateToProps = state => {
   return {
     loggedIn: state.authReducer.loggedIn,
-    // userId: state.authReducer.userId,
-    // role: state.authReducer.role,
+    userId: state.authReducer.userId,
+    role: state.authReducer.role,
   };
 };
 

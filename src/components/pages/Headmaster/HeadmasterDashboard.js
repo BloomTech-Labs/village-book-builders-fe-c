@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Link,
   NavLink,
@@ -8,17 +8,15 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import StudentRegistration from '../Student/StudentRegistration';
+import StudentSearch from '../Student/StudentSearch';
 import Village from '../Village/Village.component.js';
 import VillageForm from '../Village/VillageForm.js';
 import Schools from '../School/Schools.component.js';
 import SchoolForm from '../School/SchoolForm.js';
 import HeadmasterProfile from './HeadmasterProfile/Profile.js';
 import ProfileForm from './HeadmasterProfile/ProfileForm.js';
-import MentorProfile from '../Mentor/MentorProfile.js';
 import MentorList from '../Mentor/MentorList.js';
-// import HeadmasterNav from './Drawer';
-// import TestComponent from './TestComponent';
+import { fetchHeadmasterProfile } from '../../../state/actions';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -29,12 +27,18 @@ import {
   Dashboard,
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
-// import MentorPairings from './Mentees/Mentees.js';
+import MentorPairings from './Mentees/Mentees.js';
 import Mentees from './Mentees/Mentees.js';
 
-function HeadmasterDashboard() {
+const HeadmasterDashboard = props => {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
+  const { profile } = props;
+
+  useEffect(() => {
+    props.fetchHeadmasterProfile(1); // change this later with login
+  }, []);
+  console.log(profile);
 
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
@@ -67,9 +71,9 @@ function HeadmasterDashboard() {
           <Route path="/mentor-pairings" component={Mentees} />
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
+          <Route path="/mentor-advisor" />
+          <Route path="/student-search" component={StudentSearch} />
           <Route path="/mentor-advisor" component={MentorList} />
-          <Route path="/student-registration" component={StudentRegistration} />
-
           <Route path="/school-village">
             <Village />
             <Schools />
@@ -108,7 +112,7 @@ function HeadmasterDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, Headmaster!</h2>
+          <h2>Hello, {`Headmaster ${profile.last_name}`}!</h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
@@ -128,7 +132,7 @@ function HeadmasterDashboard() {
           <NavLink to="/library" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Library</button>
           </NavLink>
-          <NavLink to="/student-registration" onClick={() => setVisible(true)}>
+          <NavLink to="/student-search" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">
               Student Registration
             </button>
@@ -137,20 +141,20 @@ function HeadmasterDashboard() {
             <button className="btn l2-btn menuLinks">Logout</button>
           </Link>
         </Drawer>
-
-        {/* <HeadmasterNav /> */}
       </div>
     </div>
   );
-}
+};
 
-// const mapStateToProps = state => {
-//   return {
-//     loggedIn: state.authReducer.loggedIn,
-//     // userId: state.authReducer.userId,
-//     // role: state.authReducer.role,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.authReducer.loggedIn,
+    userId: state.authReducer.userId,
+    role: state.authReducer.role,
+    profile: state.headmasterReducer.headmasterProfile,
+  };
+};
 
-// export default connect(mapStateToProps, {})(HeadmasterDashboard);
-export default HeadmasterDashboard;
+export default connect(mapStateToProps, { fetchHeadmasterProfile })(
+  HeadmasterDashboard
+);
