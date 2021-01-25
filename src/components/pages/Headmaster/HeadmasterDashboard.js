@@ -16,6 +16,7 @@ import SchoolForm from '../School/SchoolForm.js';
 import HeadmasterProfile from './HeadmasterProfile/Profile.js';
 import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 import MentorList from '../Mentor/MentorList.js';
+import { fetchHeadmasterProfile } from '../../../state/actions';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -29,9 +30,15 @@ import Logout from '../../Logout.js';
 import MentorPairings from './Mentees/Mentees.js';
 import Mentees from './Mentees/Mentees.js';
 
-function HeadmasterDashboard() {
+const HeadmasterDashboard = props => {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
+  const { profile } = props;
+
+  useEffect(() => {
+    props.fetchHeadmasterProfile(1); // change this later with login
+  }, []);
+  console.log(profile);
 
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
@@ -105,7 +112,7 @@ function HeadmasterDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, Headmaster!</h2>
+          <h2>Hello, {`Headmaster ${profile.last_name}`}!</h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
@@ -137,14 +144,17 @@ function HeadmasterDashboard() {
       </div>
     </div>
   );
-}
+};
 
 const mapStateToProps = state => {
   return {
     loggedIn: state.authReducer.loggedIn,
     userId: state.authReducer.userId,
     role: state.authReducer.role,
+    profile: state.headmasterReducer.headmasterProfile,
   };
 };
 
-export default connect(mapStateToProps, {})(HeadmasterDashboard);
+export default connect(mapStateToProps, { fetchHeadmasterProfile })(
+  HeadmasterDashboard
+);
