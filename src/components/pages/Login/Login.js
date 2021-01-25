@@ -37,7 +37,7 @@ const Login = ({ login, loggedIn }) => {
       <Form onFinish={handleSubmit} form={form} {...layout}>
         <Form.Item {...tailLayout}>
           <h1>Log In</h1>
-          {/* //! REMOVE THESE temp logins for stakehol */}
+          {/* //! REMOVE THESE temp logins for stakeholder */}
         </Form.Item>
         <Form.Item
           label="Email"
@@ -91,8 +91,8 @@ const Login = ({ login, loggedIn }) => {
 const mapStateToProps = state => {
   return {
     loggedIn: state.authReducer.loggedIn,
-    // userId: state.authReducer.userId,
-    // role: state.authReducer.role,
+    userId: state.authReducer.userId,
+    role: state.authReducer.role,
   };
 };
 
