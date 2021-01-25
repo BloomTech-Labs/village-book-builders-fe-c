@@ -8,7 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-// import StudentSearch from '../Student/StudentSearch';
+import StudentSearch from '../Student/StudentSearch';
 import Village from '../Village/Village.component.js';
 import VillageForm from '../Village/VillageForm.js';
 import Schools from '../School/Schools.component.js';
@@ -68,7 +68,7 @@ function HeadmasterDashboard() {
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
           <Route path="/mentor-advisor" />
-          {/* <Route path="/student-search" component={StudentSearch} /> */}
+          <Route path="/student-search" component={StudentSearch} />
           <Route path="/mentor-advisor" component={MentorList} />
           <Route path="/school-village">
             <Village />
@@ -128,7 +128,7 @@ function HeadmasterDashboard() {
           <NavLink to="/library" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Library</button>
           </NavLink>
-          <NavLink to="/student-registration" onClick={() => setVisible(true)}>
+          <NavLink to="/student-search" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">
               Student Registration
             </button>
