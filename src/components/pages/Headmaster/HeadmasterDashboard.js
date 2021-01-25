@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Link,
   NavLink,
@@ -144,13 +144,12 @@ function HeadmasterDashboard() {
   );
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     loggedIn: state.authReducer.loggedIn,
-//     // userId: state.authReducer.userId,
-//     // role: state.authReducer.role,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.authReducer.loggedIn,
+    // userId: state.authReducer.userId,
+    // role: state.authReducer.role,
+  };
+};
 
-// export default connect(mapStateToProps, {})(HeadmasterDashboard);
-export default HeadmasterDashboard;
+export default connect(mapStateToProps, {})(HeadmasterDashboard);

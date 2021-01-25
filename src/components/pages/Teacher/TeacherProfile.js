@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { fetchTeacherProfile } from '../../../../state/actions';
+import { fetchTeacherProfile } from '../../../state/actions';
 import { Profile, Label } from '../../common/ProfileStyle';
 import { Button, ComponentTitle } from '../../common';
 
