@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Link,
   NavLink,
@@ -8,9 +8,9 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-// import ProgramProfile from './ProgramProfile';
-// import ProgramProfileForm from './ProgramProfileForm';
-import StudentRegistration from '../Headmaster/Student/StudentRegistration';
+import ProgramProfile from './ProgramProfile';
+import ProgramProfileForm from './ProgramProfileForm';
+import StudentSearch from '../Student/StudentSearch';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -54,9 +54,9 @@ function ProgramDashboard() {
     <div>
       {/* <Dashboard> */}
       <Switch>
-        {/* <Route exact path="/profile" component={ProgramProfile} />
-          <Route path="/profile/edit/:id" component={ProgramProfileForm} /> */}
-        <Route path="/student-registration" component={StudentRegistration} />
+        <Route exact path="/profile" component={ProgramProfile} />
+        <Route path="/profile/edit/:id" component={ProgramProfileForm} />
+        {/* <Route path="/student-registration" component={StudentRegistration} /> */}
         <Route path="/logout" component={Logout} />
       </Switch>
       {/* </Dashboard> */}
@@ -86,12 +86,12 @@ function ProgramDashboard() {
         >
           <h2>Hello, Program!</h2>
 
-          {/* <NavLink to="/dashboard" onClick={() => setVisible(true)}>
+          <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
           </NavLink>
           <NavLink to="/profile" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Profile</button>
-          </NavLink> */}
+          </NavLink>
           <NavLink to="/student-registration" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">
               Student Registration
@@ -106,13 +106,12 @@ function ProgramDashboard() {
   );
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     loggedIn: state.authReducer.loggedIn,
-//     // userId: state.authReducer.userId,
-//     // role: state.authReducer.role,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.authReducer.loggedIn,
+    // userId: state.authReducer.userId,
+    // role: state.authReducer.role,
+  };
+};
 
-// export default connect(mapStateToProps, {})(TeacherDashboard);
-export default ProgramDashboard;
+export default connect(mapStateToProps, {})(ProgramDashboard);
