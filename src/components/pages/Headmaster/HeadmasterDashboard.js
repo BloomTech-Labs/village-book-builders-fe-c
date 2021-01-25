@@ -15,6 +15,8 @@ import Schools from '../School/Schools.component.js';
 import SchoolForm from '../School/SchoolForm.js';
 import HeadmasterProfile from './HeadmasterProfile/Profile.js';
 import ProfileForm from './HeadmasterProfile/ProfileForm.js';
+import MentorProfile from '../Mentor/MentorProfile.js';
+import MentorList from '../Mentor/MentorList.js';
 // import HeadmasterNav from './Drawer';
 // import TestComponent from './TestComponent';
 import { Drawer, Button } from 'antd';
@@ -65,8 +67,9 @@ function HeadmasterDashboard() {
           <Route path="/mentor-pairings" component={Mentees} />
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
-          <Route path="/mentor-advisor" />
+          <Route path="/mentor-advisor" component={MentorList} />
           <Route path="/student-registration" component={StudentRegistration} />
+
           <Route path="/school-village">
             <Village />
             <Schools />
