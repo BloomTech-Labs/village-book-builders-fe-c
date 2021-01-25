@@ -42,8 +42,8 @@ const App = ({ role, checkToken }) => {
 
 const mapStateToProps = state => {
   return {
-    // loggedIn: state.authReducer.loggedIn,
-    // userId: state.authReducer.userId,
+    loggedIn: state.authReducer.loggedIn,
+    userId: state.authReducer.userId,
     role: state.authReducer.role,
   };
 };
