@@ -52,14 +52,14 @@ function ProgramDashboard() {
 
   return (
     <div>
-      {/* <Dashboard> */}
-      <Switch>
-        <Route exact path="/profile" component={ProgramProfile} />
-        <Route path="/profile/edit/:id" component={ProgramProfileForm} />
-        {/* <Route path="/student-registration" component={StudentRegistration} /> */}
-        <Route path="/logout" component={Logout} />
-      </Switch>
-      {/* </Dashboard> */}
+      <Dashboard>
+        <Switch>
+          <Route exact path="/profile" component={ProgramProfile} />
+          <Route path="/profile/edit/:id" component={ProgramProfileForm} />
+          <Route path="/student-search" component={StudentSearch} />
+          <Route path="/logout" component={Logout} />
+        </Switch>
+      </Dashboard>
 
       {desktop ? null : (
         // inline style to force animation
@@ -92,7 +92,7 @@ function ProgramDashboard() {
           <NavLink to="/profile" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Profile</button>
           </NavLink>
-          <NavLink to="/student-registration" onClick={() => setVisible(true)}>
+          <NavLink to="/student-search" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">
               Student Registration
             </button>
