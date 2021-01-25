@@ -26,7 +26,7 @@ import {
   Dashboard,
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
-// import MentorPairings from './Mentees/Mentees.js';
+import MentorPairings from './Mentees/Mentees.js';
 import Mentees from './Mentees/Mentees.js';
 
 function HeadmasterDashboard() {
@@ -64,7 +64,7 @@ function HeadmasterDashboard() {
           <Route path="/mentor-pairings" component={Mentees} />
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
-          {/* <Route path="/mentor-advisor" /> */}
+          <Route path="/mentor-advisor" />
           <Route path="/student-search" component={StudentSearch} />
           <Route path="/mentor-advisor" component={MentorList} />
           <Route path="/school-village">
@@ -116,9 +116,9 @@ function HeadmasterDashboard() {
           <NavLink to={'/mentor-pairings'} onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Mentor Pairings</button>
           </NavLink>
-          {/* <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
+          <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Mentor Advisor</button>
-          </NavLink> */}
+          </NavLink>
           <NavLink to="/school-village" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">School/Village</button>
           </NavLink>
@@ -134,8 +134,6 @@ function HeadmasterDashboard() {
             <button className="btn l2-btn menuLinks">Logout</button>
           </Link>
         </Drawer>
-
-        {/* <HeadmasterNav /> */}
       </div>
     </div>
   );
