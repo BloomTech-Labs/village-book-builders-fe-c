@@ -8,7 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import StudentRegistration from '../Student/StudentRegistration';
+// import StudentSearch from '../Student/StudentSearch';
 import Village from '../Village/Village.component.js';
 import VillageForm from '../Village/VillageForm.js';
 import Schools from '../School/Schools.component.js';
@@ -66,7 +66,7 @@ function HeadmasterDashboard() {
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
           <Route path="/mentor-advisor" />
-          <Route path="/student-registration" component={StudentRegistration} />
+          {/* <Route path="/student-search" component={StudentSearch} /> */}
           <Route path="/school-village">
             <Village />
             <Schools />
