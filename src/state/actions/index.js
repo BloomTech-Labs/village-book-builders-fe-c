@@ -21,6 +21,7 @@ export const checkToken = data => dispatch => {
 // -------------------------
 export const login = data => dispatch => {
   axios
+    // will need to update this to baseURL, there seems to be a link issue with the .env file
     .post('https://vbb-mock-api.herokuapp.com/auth/login', data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> token', res.data);
