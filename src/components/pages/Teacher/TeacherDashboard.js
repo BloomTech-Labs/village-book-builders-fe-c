@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 // import TeacherProfile from '';
 // import TeacherProfileForm from '';
-import StudentRegistration from '../Headmaster/Student/StudentRegistration';
+// import StudentSearch from '../Student/StudentSearch';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -18,7 +18,6 @@ import {
   menuButton,
   menuIcon,
   menuMove,
-  Dashboard,
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
@@ -56,7 +55,7 @@ function TeacherDashboard() {
       <Switch>
         {/* <Route exact path="/profile" component={TeacherProfile} />
           <Route path="/profile/edit/:id" component={TeacherProfileForm} /> */}
-        <Route path="/student-registration" component={StudentRegistration} />
+        {/* <Route path="/student-search" component={StudentSearch} /> */}
         <Route path="/logout" component={Logout} />
       </Switch>
       {/* </Dashboard> */}
