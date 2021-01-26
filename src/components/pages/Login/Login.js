@@ -75,7 +75,7 @@ const Login = ({ login, loggedIn }) => {
       <p>"headmaster@headmaster.com" - "password"</p>
       <p>"teacher@teacher.com" - "password"</p>
       <p>"program@program.com" - "password"</p>
-      <p>"mentee@mentee.com" - "password"</p>
+      <p>"mentees@mentees.com" - "password"</p>
 
       <p>
         Note to dev's: need to remove all page refreshes in code.
