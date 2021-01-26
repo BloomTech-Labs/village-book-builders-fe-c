@@ -31,7 +31,7 @@ const Login = ({ login, loggedIn }) => {
   };
 
   return loggedIn ? (
-    <Redirect to="/" />
+    <Redirect to="/dashboard" />
   ) : (
     <FormContainer>
       <Form onFinish={handleSubmit} form={form} {...layout}>
