@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import StudentProfile from '../Student/StudentProfile';
 import StudentProfileForm from '../Student/StudentProfileForm';
+import { fetchStudentProfile } from '../../../state/actions';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -21,9 +22,15 @@ import {
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
-function StudentDashboard() {
+const StudentDashboard = props => {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
+  const { profile } = props;
+
+  useEffect(() => {
+    props.fetchStudentProfile(1); // change this later with login
+  }, []);
+  console.log(profile);
 
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
@@ -51,13 +58,13 @@ function StudentDashboard() {
 
   return (
     <div>
-      {/* <Dashboard> */}
-      <Switch>
-        {/* <Route exact path="/profile" component={StudentProfile} />
-          <Route path="/profile/edit/:id" component={StudentProfileForm} /> */}
-        <Route path="/logout" component={Logout} />
-      </Switch>
-      {/* </Dashboard> */}
+      <Dashboard>
+        <Switch>
+          <Route exact path="/profile" component={StudentProfile} />
+          <Route path="/profile/edit/:id" component={StudentProfileForm} />
+          <Route path="/logout" component={Logout} />
+        </Switch>
+      </Dashboard>
 
       {desktop ? null : (
         // inline style to force animation
@@ -84,12 +91,12 @@ function StudentDashboard() {
         >
           <h2>Hello, Student!</h2>
 
-          {/* <NavLink to="/dashboard" onClick={() => setVisible(true)}>
+          <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
           </NavLink>
           <NavLink to="/profile" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Profile</button>
-          </NavLink> */}
+          </NavLink>
           <Link to="/logout" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Logout</button>
           </Link>
@@ -97,15 +104,16 @@ function StudentDashboard() {
       </div>
     </div>
   );
-}
+};
 
-// const mapStateToProps = state => {
-//   return {
-//     loggedIn: state.authReducer.loggedIn,
-//     // userId: state.authReducer.userId,
-//     // role: state.authReducer.role,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.authReducer.loggedIn,
+    userId: state.authReducer.userId,
+    role: state.authReducer.role,
+  };
+};
 
-// export default connect(mapStateToProps, {})(TeacherDashboard);
-export default StudentDashboard;
+export default connect(mapStateToProps, { fetchStudentProfile })(
+  StudentDashboard
+);
