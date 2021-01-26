@@ -5,7 +5,7 @@ import { FETCH_MENTEE_PROFILE } from '../actions/actionTypes';
 import { debugLog } from '../../utils/debugMode.js';
 
 const initialState = {
-  menteeProfie: [],
+  menteeProfile: '',
 };
 
 // Fetch mentee data

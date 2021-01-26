@@ -100,7 +100,8 @@ export const editVillage = (id, data) => () => {
 export const fetchMentees = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    .get('/mentee')
+    //hardcoded base url for now, but need to troubleshoot why it's not connecting to baseurl in .env file
+    .get('https://vbb-mock-api.herokuapp.com/mentee')
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
     })
@@ -121,7 +122,8 @@ export const editMenteeProfile = (id, data) => dispatch => {
 
 export const fetchMenteeProfile = id => dispatch => {
   axiosWithAuth()
-    .get(`/mentee/${id}`) // change this later
+    //hardcoded base url for now, but need to troubleshoot why it's not connecting to baseurl in .env file
+    .get('https://vbb-mock-api.herokuapp.com/mentee/${id}')
     .then(res => {
       console.log('fetchMenteeProfile action --> ', res.data);
       dispatch({
