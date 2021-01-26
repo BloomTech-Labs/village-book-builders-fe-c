@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Link,
   NavLink,
@@ -8,9 +8,8 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-// import StudentProfile from '';
-// import StudentProfileForm from '';
-import StudentRegistration from '../Headmaster/Student/StudentRegistration';
+import StudentProfile from '../Student/StudentProfile';
+import StudentProfileForm from '../Student/StudentProfileForm';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
