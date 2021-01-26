@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import StudentProfile from '../Student/StudentProfile';
 import StudentProfileForm from '../Student/StudentProfileForm';
-import { fetchStudentProfile } from '../../../state/actions';
+import { fetchMentees } from '../../../state/actions';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -28,7 +28,7 @@ const StudentDashboard = props => {
   const { profile } = props;
 
   useEffect(() => {
-    props.fetchStudentProfile(1); // change this later with login
+    props.fetchMentees(1); // change this later with login
   }, []);
   console.log(profile);
 
@@ -114,6 +114,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchStudentProfile })(
-  StudentDashboard
-);
+export default connect(mapStateToProps, { fetchMentees })(StudentDashboard);
