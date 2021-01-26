@@ -8,7 +8,12 @@ import { checkToken } from '../state/actions/index';
 import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
+
 import TeacherRegForm from './common/TeacherRegForm';
+
+import TeacherDashboard from './pages/Teacher/TeacherDashboard';
+import ProgramDashboard from './pages/Program/ProgramDashboard';
+
 
 const App = ({ role, checkToken }) => {
   return (
@@ -29,6 +34,8 @@ const App = ({ role, checkToken }) => {
               {checkToken()}
               {/* //once we make a reusable dashboard/sidebar, this is where we would put it, passing in the role as props to fill it out accordingly. */}
               {role === 'headmaster' && <HeadmasterDashboard />}
+              {role === 'teacher' && <TeacherDashboard />}
+              {role === 'program' && <ProgramDashboard />}
               {role === 'admin' && <AdminDashboard />}
             </>
           ) : (
@@ -42,8 +49,8 @@ const App = ({ role, checkToken }) => {
 
 const mapStateToProps = state => {
   return {
-    // loggedIn: state.authReducer.loggedIn,
-    // userId: state.authReducer.userId,
+    loggedIn: state.authReducer.loggedIn,
+    userId: state.authReducer.userId,
     role: state.authReducer.role,
   };
 };

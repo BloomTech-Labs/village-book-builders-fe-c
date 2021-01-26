@@ -21,7 +21,8 @@ export const checkToken = data => dispatch => {
 // -------------------------
 export const login = data => dispatch => {
   axios
-    .post(`${baseURL}/auth/login`, data)
+    // will need to update this to baseURL, there seems to be a link issue with the .env file
+    .post('https://vbb-mock-api.herokuapp.com/auth/login', data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> token', res.data);
       window.localStorage.setItem('token', res.data.access_token);
@@ -108,6 +109,25 @@ export const fetchMentees = () => dispatch => {
     );
 };
 
+export const fetchMenteesBySearch = search => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_START });
+  axiosWithAuth()
+    .get(`/mentee?last_name=${search}`)
+    .then(res => {
+      console.log('inside the action', res.data);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_FAILURE,
+        payload: err,
+      })
+    );
+};
+
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
     .get(`/school`)
@@ -142,6 +162,18 @@ export const editSchool = (id, data) => dispatch => {
     .catch(err => console.dir(err));
 };
 
+export const fetchMentors = () => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTOR_START });
+  axiosWithAuth()
+    .get(`https://vbb-mock-api.herokuapp.com/mentor`)
+    .then(res => {
+      dispatch({ type: actionTypes.FETCH_MENTOR_SUCCESS, payload: res.data });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTOR_FAILURE, payload: err })
+    );
+};
+
 // ----------------
 // ADMIN
 // ----------------
@@ -160,6 +192,58 @@ export const addLibrary = (id, data) => dispatch => {
     .post(`/library`, data)
     .then(() => {
       window.location.replace('/admin/libraries');
+    })
+    .catch(err => console.dir(err));
+};
+
+// -----------------------
+// TEACHER
+// -----------------------
+
+export const editTeacherProfile = (id, data) => dispatch => {
+  axiosWithAuth()
+    .put(`/teacher/${id}`, data)
+    .then(res => {
+      // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
+      window.location.replace('/profile/');
+    })
+    .catch(err => console.dir(err));
+};
+export const fetchTeacherProfile = id => dispatch => {
+  axiosWithAuth()
+    .get(`/teacher/${id}`) // change this later
+    .then(res => {
+      console.log('fetchTeacherProfile action --> ', res.data);
+      dispatch({
+        type: actionTypes.FETCH_TEACHER_PROFILE,
+        payload: res.data,
+      });
+    })
+    .catch(err => console.dir(err));
+};
+
+// -----------------------
+// PROGRAM
+// -----------------------
+
+export const editProgramProfile = (id, data) => dispatch => {
+  axiosWithAuth()
+    .put(`/program/${id}`, data)
+    .then(res => {
+      // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
+      window.location.replace('/profile/');
+    })
+    .catch(err => console.dir(err));
+};
+export const fetchProgramProfile = id => dispatch => {
+  axiosWithAuth()
+    .get(`/program/${id}`) // change this later
+    .then(res => {
+      console.log('fetchProgramProfile action --> ', res.data);
+      dispatch({
+        type: actionTypes.FETCH_PROGRAM_PROFILE,
+        payload: res.data,
+      });
     })
     .catch(err => console.dir(err));
 };
