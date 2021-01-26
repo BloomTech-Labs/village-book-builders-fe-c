@@ -92,11 +92,14 @@ h1,
 
 h2 {
 	font-size: 25px;
+	font-family: "Caveat Brush", cursive;
+
 }
 
 h3 {
 	font-size: 23px;
 	padding-left: 25px;
+	font-family: "Caveat Brush", cursive;
 }
 
 h5 {
@@ -109,7 +112,6 @@ h5 {
 p {
 	font-family: "Nunito", sans-serif;
 	font-size: 18px;
-	padding-left: 50px;
 }
 
 a {
@@ -146,6 +148,31 @@ a {
 	font-family: "Nunito";
 	font-weight: 900;
 	padding-top: 5px;
+}
+
+/* FONT COLORS */
+.color-1 {
+	color: #549BEA;
+}
+
+.color-2 {
+	color: #6AC66B;
+}
+
+.color-3 {
+	color: #FF914D;
+}
+
+.color-4 {
+	color: #FFDE59;
+}
+
+.color-5 {
+	color: #FFBD59;
+}
+
+.color-6 {
+	color: #FFD1DC;
 }
 
 /* BUTTONS */
