@@ -11,7 +11,7 @@ const TeacherHome = props => {
   console.log(profile);
 
   return (
-    <div>
+    <div style={{ padding: '2rem 2rem 2rem 0' }}>
       <h1>
         Hello,{' '}
         <span style={{ color: '#6AC66B' }}>{`${profile.last_name}`}</span>

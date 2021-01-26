@@ -11,7 +11,7 @@ const HeadmasterHome = props => {
   console.log(profile);
 
   return (
-    <div>
+    <div style={{ padding: '2rem 2rem 2rem 0' }}>
       <h1>
         Hello,{' '}
         <span
