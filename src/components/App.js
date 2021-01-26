@@ -8,13 +8,20 @@ import { checkToken } from '../state/actions/index';
 import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
+
+import TeacherRegForm from './common/TeacherRegForm';
+
 import TeacherDashboard from './pages/Teacher/TeacherDashboard';
 import ProgramDashboard from './pages/Program/ProgramDashboard';
+
 
 const App = ({ role, checkToken }) => {
   return (
     <div className="App">
       <Switch>
+        <Route path="/register">
+          <TeacherRegForm />
+        </Route>
         <Route path="/login">
           <Login />
         </Route>
@@ -32,7 +39,7 @@ const App = ({ role, checkToken }) => {
               {role === 'admin' && <AdminDashboard />}
             </>
           ) : (
-            <Redirect to="/login" />
+            <Redirect to="/register" />
           )}
         </Route>
       </Switch>
