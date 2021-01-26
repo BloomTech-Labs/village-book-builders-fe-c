@@ -28,7 +28,7 @@ const StudentDashboard = props => {
   const { profile } = props;
 
   useEffect(() => {
-    props.fetchMenteeProfile(1); // change this later with login
+    props.fetchMenteeProfile(2); // change this later with login
   }, []);
   console.log(profile);
 
@@ -92,9 +92,9 @@ const StudentDashboard = props => {
           <img src="/images/vbb-full-logo.png" alt="VBB logo" width="200"></img>
           <h2 style={{ padding: '2rem 0 1rem 0', fontSize: '1rem' }}>
             Hello,{' '}
-            <span
+            {/* <span
               style={{ color: ' #FF914D' }}
-            >{`${profile.first_name} ${profile.last_name}`}</span>
+            >{`${profile.first_name} ${profile.last_name}`}</span> */}
           </h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
