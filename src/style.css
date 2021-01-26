@@ -1,9 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Caveat&family=Nunito:wght@200&display=swap");
-
 @import url("https://fonts.googleapis.com/css?family=Caveat+Brush");
 
-html {
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body {
 	background-color: #fffff6;
+	font-family: 'Nunito', sans-serif;
+	color: darkgray;
 }
 
 #page-container {
@@ -12,7 +14,6 @@ html {
 }
 
 .content {
-	background-color: #fffff6;
 	width: 100%;
 	min-height: 87vh;
 }
@@ -61,7 +62,6 @@ html {
 
 footer {
 	background-color: #fffff6;
-	font-family: "Nunito";
 	height: 50px;
 	text-align: center;
 	padding-top: 15px;
@@ -82,12 +82,8 @@ footer {
 
 h1,
 .vbb-header {
-	font-family: "Caveat Brush", cursive;
-	font-style: italic;
-	font-variant: small-caps;
 	letter-spacing: 3px;
 	font-size: 3em;
-	color: #4c4c49;
 }
 
 h2 {
@@ -96,20 +92,14 @@ h2 {
 
 h3 {
 	font-size: 23px;
-	padding-left: 25px;
 }
 
 h5 {
-	font-family: "Caveat Brush", cursive;
-	color: #4c4c49;
 	font-size: 40px;
-	padding-top: 30px;
 }
 
 p {
-	font-family: "Nunito", sans-serif;
 	font-size: 18px;
-	padding-left: 50px;
 }
 
 a {
@@ -121,7 +111,6 @@ a {
 	margin-left: 20px;
 	font-size: medium;
 	font-weight: 900;
-	font-family: "Nunito", cursive;
 }
 
 #bar-header {
@@ -143,16 +132,42 @@ a {
 
 #portal-purpose {
 	color: #6ac66b;
-	font-family: "Nunito";
 	font-weight: 900;
 	padding-top: 5px;
 }
 
+/* FONT COLORS */
+.color-1 {
+	color: #549BEA;
+}
+
+.color-2 {
+	color: #6AC66B;
+}
+
+.color-3 {
+	color: #FF914D;
+}
+
+.color-4 {
+	color: #FFDE59;
+}
+
+.color-5 {
+	color: #FFBD59;
+}
+
+.color-6 {
+	color: #FFD1DC;
+}
+
 /* BUTTONS */
 
+button {
+	text-align: left;
+}
+
 .btn {
-	font-family: "Caveat Brush", cursive;
-	font-style: italic;
 	letter-spacing: 2px;
 	font-weight: 400;
 	font-size: 22px;
@@ -172,7 +187,6 @@ a {
 .dashboard-btn {
 	width: 275px;
 	min-width: 260px;
-	font-family: "Nunito", cursive;
 	font-weight: bold;
 	font-size: 20px;
 	color: white;

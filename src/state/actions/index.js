@@ -47,7 +47,7 @@ export const logout = () => dispatch => {
 };
 
 // -----------------------
-// HEAD MASTER
+// HEADMASTER
 // -----------------------
 
 export const editHeadmasterProfile = (id, data) => dispatch => {
@@ -97,16 +97,43 @@ export const editVillage = (id, data) => () => {
     .catch(err => console.dir(err));
 };
 
+// ----------------
+// MENTEE
+// ----------------
+
 export const fetchMentees = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    .get('/mentee')
+    .get(`/mentee`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
     })
     .catch(err =>
       dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
     );
+};
+
+export const editMenteeProfile = (id, data) => dispatch => {
+  axiosWithAuth()
+    .put(`/mentee/${id}`, data)
+    .then(res => {
+      // ? refactor all the window.location.replace's so this doesn't force a refresh. see how login does it for example.
+      window.location.replace('/profile/');
+    })
+    .catch(err => console.dir(err));
+};
+
+export const fetchMenteeProfile = id => dispatch => {
+  axiosWithAuth()
+    .get(`/mentee/${id}`)
+    .then(res => {
+      console.log('fetchMenteeProfile action --> ', res.data);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_PROFILE,
+        payload: res.data,
+      });
+    })
+    .catch(err => console.dir(err));
 };
 
 export const fetchMenteesBySearch = search => dispatch => {

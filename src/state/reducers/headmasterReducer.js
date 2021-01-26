@@ -1,4 +1,4 @@
-// Reducer file for Headmaster
+// Reducer file for Headmaster & Mentee
 
 import {
   FETCH_HEADMASTER_SCHOOLS,

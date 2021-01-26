@@ -8,6 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import TeacherHome from './TeacherHome';
 import TeacherProfile from '../Teacher/TeacherProfile';
 import TeacherProfileForm from '../Teacher/TeacherProfileForm';
 import StudentSearch from '../Student/StudentSearch';
@@ -61,6 +62,7 @@ const TeacherDashboard = props => {
     <div>
       <Dashboard>
         <Switch>
+          <Route exact path="/dashboard" component={TeacherHome} />
           <Route exact path="/profile" component={TeacherProfile} />
           <Route path="/profile/edit/:id" component={TeacherProfileForm} />
           <Route path="/student-search" component={StudentSearch} />
@@ -91,7 +93,13 @@ const TeacherDashboard = props => {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, {`${profile.first_name} ${profile.last_name}`}!</h2>
+          <img src="/images/vbb-full-logo.png" alt="VBB logo" width="200"></img>
+          <h2 style={{ padding: '2rem 0 1rem 0', fontSize: '1rem' }}>
+            Hello,{' '}
+            <span
+              style={{ color: ' #FF914D' }}
+            >{`${profile.first_name} ${profile.last_name}`}</span>
+          </h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
