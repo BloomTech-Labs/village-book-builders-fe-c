@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Profile = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left;
   padding: 2rem;
   margin: auto;
   width: 66%;

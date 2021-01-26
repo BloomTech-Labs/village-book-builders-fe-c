@@ -5,11 +5,10 @@ import styled from 'styled-components';
 const Btn = styled.button`
   border: none;
   background-color: ${props => props.theme.color};
-  font-family: 'Caveat Brush', cursive;
-  font-style: italic;
+  font-family: 'Nunito', sans-serif;
   letter-spacing: 2px;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 15px;
   color: white;
   border-radius: 18px;
   padding: 8px;
@@ -17,7 +16,7 @@ const Btn = styled.button`
   padding-right: 15px;
   -webkit-appearance: none;
   margin: 1rem 0;
-  text-align: right;
+  text-align: left;
   &:hover {
     background-color: #4c4c49;
     color: #b5b5b5;
