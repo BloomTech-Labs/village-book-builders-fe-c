@@ -95,6 +95,7 @@
   flex-direction: column;
   align-items: flex-start;
 }
+
 @media screen and (max-width: 800px) {
   .headmasterDashboard {
     margin-left: 0;

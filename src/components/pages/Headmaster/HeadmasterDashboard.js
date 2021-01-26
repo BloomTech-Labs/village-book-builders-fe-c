@@ -112,6 +112,11 @@ const HeadmasterDashboard = props => {
           width={desktop ? 300 : 500}
           height={500}
         >
+          <img
+            src="/images/vbb-picture-logo.png"
+            alt="VBB logo"
+            width="50"
+          ></img>
           <h2>Hello, {`Headmaster ${profile.last_name}`}!</h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
