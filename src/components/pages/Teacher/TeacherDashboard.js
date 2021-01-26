@@ -93,7 +93,13 @@ const TeacherDashboard = props => {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, {`${profile.first_name} ${profile.last_name}`}!</h2>
+          <img src="/images/vbb-full-logo.png" alt="VBB logo" width="200"></img>
+          <h2 style={{ padding: '2rem 0 1rem 0', fontSize: '1rem' }}>
+            Hello,{' '}
+            <span
+              style={{ color: ' #FF914D' }}
+            >{`Headmaster ${profile.first_name} ${profile.last_name}`}</span>
+          </h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
