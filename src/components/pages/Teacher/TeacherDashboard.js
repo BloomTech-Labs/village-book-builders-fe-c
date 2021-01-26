@@ -98,7 +98,7 @@ const TeacherDashboard = props => {
             Hello,{' '}
             <span
               style={{ color: ' #FF914D' }}
-            >{`Headmaster ${profile.first_name} ${profile.last_name}`}</span>
+            >{`${profile.first_name} ${profile.last_name}`}</span>
           </h2>
 
           <NavLink to="/dashboard" onClick={() => setVisible(true)}>
