@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
-import StudentForm from './StudentForm';
+import StudentForm from '../pages/Student/StudentForm';
 import TeacherForm from './TeacherForm';
 import Login from '../pages/Login/Login';
 

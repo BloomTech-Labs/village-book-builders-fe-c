@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchMenteesBySearch } from '../../../state/actions/index';
 import Moment from 'moment';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
+import StudentForm from './StudentForm';
 
 const StudentSearch = props => {
   const [search, setSearch] = useState('');
-  const history = useHistory();
+  // const history = useHistory();
   const { fetchMenteesBySearch } = props;
 
   const onSubmit = e => {
@@ -21,7 +22,7 @@ const StudentSearch = props => {
 
   return (
     <div>
-      <h1>Search for a student</h1>
+      <h1>Student Search</h1>
       <form onSubmit={onSubmit}>
         <label>
           Last Name
@@ -43,13 +44,7 @@ const StudentSearch = props => {
         {!props.searchedMentee ? (
           <div>
             <h2>This student is not registered.</h2>
-            <button
-              onClick={() => {
-                history.push('');
-              }}
-            >
-              Register Student
-            </button>
+            <button onClick={StudentForm}>Register Student</button>
           </div>
         ) : (
           props.searchedMentee.map(student => (
