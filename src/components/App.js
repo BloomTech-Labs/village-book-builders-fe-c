@@ -10,6 +10,7 @@ import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import TeacherDashboard from './pages/Teacher/TeacherDashboard';
 import ProgramDashboard from './pages/Program/ProgramDashboard';
+import StudentDashboard from './pages/Student/StudentDashboard';
 
 const App = ({ role, checkToken }) => {
   return (
@@ -30,6 +31,7 @@ const App = ({ role, checkToken }) => {
               {role === 'teacher' && <TeacherDashboard />}
               {role === 'program' && <ProgramDashboard />}
               {role === 'admin' && <AdminDashboard />}
+              {role === 'mentee' && <StudentDashboard />}
             </>
           ) : (
             <Redirect to="/login" />
