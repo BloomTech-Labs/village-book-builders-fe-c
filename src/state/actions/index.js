@@ -97,11 +97,14 @@ export const editVillage = (id, data) => () => {
     .catch(err => console.dir(err));
 };
 
+// ----------------
+// MENTEE
+// ----------------
+
 export const fetchMentees = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    //hardcoded base url for now, but need to troubleshoot why it's not connecting to baseurl in .env file
-    .get('https://vbb-mock-api.herokuapp.com/mentee')
+    .get(`/mentee`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
     })
@@ -122,8 +125,7 @@ export const editMenteeProfile = (id, data) => dispatch => {
 
 export const fetchMenteeProfile = id => dispatch => {
   axiosWithAuth()
-    //hardcoded base url for now, but need to troubleshoot why it's not connecting to baseurl in .env file
-    .get('https://vbb-mock-api.herokuapp.com/mentee/${id}')
+    .get(`/mentee/${id}`)
     .then(res => {
       console.log('fetchMenteeProfile action --> ', res.data);
       dispatch({
