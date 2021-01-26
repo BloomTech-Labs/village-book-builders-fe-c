@@ -113,6 +113,7 @@ export const fetchMenteeById = id => dispatch => {
   axiosWithAuth()
     .get(`https://vbb-mock-api.herokuapp.com/mentee/${id}`)
     .then(res => {
+      console.log('res data -->', res.data);
       dispatch({
         type: actionTypes.FETCH_MENTEE_BY_ID_SUCCESS,
         payload: res.data,

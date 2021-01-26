@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { axiosWithAuth } from '../../../../utils/axiosWithAuth';
 import { Button, Divider, Input, Modal, List, Avatar } from 'antd';
 import { connect } from 'react-redux';
 import { checkToken, fetchMentees } from '../../../../state/actions/index';
 import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
+
 const Mentees = props => {
   let menteesSelection = [...props.mentees];
   const [search, setSearch] = useState('');
@@ -12,10 +12,20 @@ const Mentees = props => {
   const [editing, setEditing] = useState(false);
   const [currentMentee, setCurrentMentee] = useState({});
 
-  const editingHandler = e => {
-    setEditing(!editing);
-    console.log(e);
+  const editingHandler = (e, menteeData) => {
+    if (showModal) {
+      // Closing Modal
+      setShowModal(false);
+      setCurrentMentee({});
+      setEditing(false);
+    } else {
+      // Opening Modal
+      setShowModal(true);
+      setCurrentMentee(menteeData);
+      setEditing(true);
+    }
   };
+
   const searchHandler = e => setSearch(e.target.value);
   const moreInfoHandler = (e, menteeData) => {
     if (showModal) {
@@ -27,7 +37,6 @@ const Mentees = props => {
       // Opening Modal
       setShowModal(true);
       setCurrentMentee(menteeData);
-      // console.log(menteeData);
     }
   };
 
@@ -87,10 +96,7 @@ const Mentees = props => {
                     More Info
                   </Button>
                   <Button
-                    onClick={e => {
-                      moreInfoHandler(e, item);
-                      editingHandler();
-                    }}
+                    onClick={e => editingHandler(e, item)}
                     className="listItemButton"
                     danger
                     size="middle"
@@ -134,7 +140,7 @@ const Mentees = props => {
         ]}
       >
         {editing ? (
-          <MenteeForm />
+          <MenteeForm currentMentee={currentMentee} />
         ) : (
           <MenteeProfile currentMentee={currentMentee} />
         )}
