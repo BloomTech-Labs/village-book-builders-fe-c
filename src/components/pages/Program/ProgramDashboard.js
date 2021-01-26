@@ -8,6 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import ProgramHome from './ProgramHome';
 import ProgramProfile from './ProgramProfile';
 import ProgramProfileForm from './ProgramProfileForm';
 import StudentSearch from '../Student/StudentSearch';
@@ -61,6 +62,7 @@ const ProgramDashboard = props => {
     <div>
       <Dashboard>
         <Switch>
+          <Route exact path="/dashboard" component={ProgramHome} />
           <Route exact path="/profile" component={ProgramProfile} />
           <Route path="/profile/edit/:id" component={ProgramProfileForm} />
           <Route path="/student-search" component={StudentSearch} />

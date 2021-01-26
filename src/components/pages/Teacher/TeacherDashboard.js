@@ -8,6 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import TeacherHome from './TeacherHome';
 import TeacherProfile from '../Teacher/TeacherProfile';
 import TeacherProfileForm from '../Teacher/TeacherProfileForm';
 import StudentSearch from '../Student/StudentSearch';
@@ -61,6 +62,7 @@ const TeacherDashboard = props => {
     <div>
       <Dashboard>
         <Switch>
+          <Route exact path="/dashboard" component={TeacherHome} />
           <Route exact path="/profile" component={TeacherProfile} />
           <Route path="/profile/edit/:id" component={TeacherProfileForm} />
           <Route path="/student-search" component={StudentSearch} />
