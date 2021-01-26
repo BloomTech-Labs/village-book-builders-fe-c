@@ -115,7 +115,7 @@ const HeadmasterDashboard = props => {
           height={500}
         >
           <img src="/images/vbb-full-logo.png" alt="VBB logo" width="200"></img>
-          <h2 style={{ padding: '2rem 0 1rem 0', fontSize: '1rem' }}>
+          <h2 style={{ padding: '2rem 0 1rem 0', fontSize: '1.25rem' }}>
             Hello,{' '}
             <span
               style={{ color: ' #FF914D' }}

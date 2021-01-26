@@ -104,7 +104,6 @@ h3 {
 
 h5 {
 	font-family: "Caveat Brush", cursive;
-	color: #4c4c49;
 	font-size: 40px;
 	padding-top: 30px;
 }
@@ -176,6 +175,10 @@ a {
 }
 
 /* BUTTONS */
+
+button {
+	text-align: left;
+}
 
 .btn {
 	font-family: "Caveat Brush", cursive;
