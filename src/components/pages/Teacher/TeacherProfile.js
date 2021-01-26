@@ -9,17 +9,15 @@ const TeacherProfile = ({ fetchTeacherProfile, profile }) => {
   useEffect(() => {
     fetchTeacherProfile(0); // change this later with login
   }, [fetchTeacherProfile]);
+
   console.log('inside the teacher edit form', profile);
   return (
     <Profile>
       <ComponentTitle titleText="Profile" />
-      <img
-        src={`${profile.teachers_picture}`}
-        alt="the teacher of this class"
-      />
+      <img src={profile.teachers_picture} alt="the teacher of this class" />
       <Label>Name:</Label>
       <p>{`${profile.first_name} ${profile.last_name}`}</p>
-      {/* <p>{profile.gender}</p> */}
+      <p>{profile.gender}</p>
       <Label>Address:</Label>
       <p>{profile.address}</p>
       <div>
