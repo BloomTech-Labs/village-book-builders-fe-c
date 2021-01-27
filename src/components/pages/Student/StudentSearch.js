@@ -20,8 +20,11 @@ const StudentSearch = props => {
   };
 
   const onDateSubmit = e => {
+    /*DOB search currently not working due to JSON server having weird format for dates working on resolving 
+    need to find out how to send 
+    the date back in the same format that we received it*/
     e.preventDefault();
-    fetchMenteesByDateSearch(Date.now(dobSearch));
+    fetchMenteesByDateSearch(dobSearch);
     setDobSearch('');
     console.log(dobSearch);
   };
@@ -48,12 +51,8 @@ const StudentSearch = props => {
           />
           <input type="submit" />
         </label>
-        {/* <label>
-          Date Of Birth
-          <input type="date" placeholder="Date Of Birth" />
-          <input type="submit" />
-        </label> */}
       </form>
+      {/*DOB search currently not working due to JSON server having weird format for dates working on resolving */}
       <form onSubmit={onDateSubmit}>
         <label>
           Date Of Birth
@@ -67,7 +66,9 @@ const StudentSearch = props => {
         </label>
       </form>
       <div>
-        {props.searchedMentee.length === 0 ? (
+        {props.isLoading ? (
+          'Search for a student!'
+        ) : props.searchedMentee.length === 0 ? (
           <div>
             <h2>This student is not registered.</h2>
             <button
