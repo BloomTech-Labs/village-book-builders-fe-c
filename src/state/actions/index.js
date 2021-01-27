@@ -113,27 +113,53 @@ export const fetchMentees = () => dispatch => {
     );
 };
 
-export const editMenteeProfile = (id, data) => dispatch => {
+export const fetchMenteesByDateSearch = search => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_BY_DOB_START });
   axiosWithAuth()
-    .put(`/mentee/${id}`, data)
+    .get(`/mentee?dob=${search}`)
     .then(res => {
-      // ? refactor all the window.location.replace's so this doesn't force a refresh. see how login does it for example.
-      window.location.replace('/profile/');
-    })
-    .catch(err => console.dir(err));
-};
-
-export const fetchMenteeProfile = id => dispatch => {
-  axiosWithAuth()
-    .get(`/mentee/${id}`)
-    .then(res => {
-      console.log('fetchMenteeProfile action --> ', res.data);
+      console.log('inside the action', res.data);
       dispatch({
-        type: actionTypes.FETCH_MENTEE_PROFILE,
+        type: actionTypes.FETCH_MENTEE_BY_DOB_SUCCESS,
         payload: res.data,
       });
     })
-    .catch(err => console.dir(err));
+    .catch(err =>
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_DOB_FAILURE,
+        payload: err,
+      })
+    );
+};
+
+export const editMenteeProfile = (id, data) => dispatch => {
+  dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_START });
+  axiosWithAuth()
+    .put(`/mentee/${id}`, data)
+    .then(res => {
+      dispatch({
+        type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_FAILURE, payload: err })
+    );
+};
+
+export const fetchMenteeProfile = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
+  axiosWithAuth()
+    .get(`/mentee/${id}`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_FAILURE, payload: err })
+    );
 };
 
 export const fetchMenteesBySearch = search => dispatch => {

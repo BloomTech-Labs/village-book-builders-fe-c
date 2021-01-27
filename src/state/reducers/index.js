@@ -6,10 +6,12 @@ import headmasterReducer from './headmasterReducer.js';
 import authReducer from './authReducer';
 import teacherReducer from './teacherReducer';
 import programReducer from './programReducer';
+import menteeReducer from './menteeReducer';
 
 export default combineReducers({
   headmasterReducer,
   authReducer,
   teacherReducer,
   programReducer,
+  menteeReducer,
 });
