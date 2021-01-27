@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Link,
   NavLink,
@@ -8,9 +8,9 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-// import StudentProfile from '';
-// import StudentProfileForm from '';
-import StudentRegistration from '../Headmaster/Student/StudentRegistration';
+import StudentProfile from '../Student/StudentProfile';
+import StudentProfileForm from '../Student/StudentProfileForm';
+import { fetchMenteeProfile } from '../../../state/actions';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import '../../../styles/Dashboard.css';
@@ -22,9 +22,15 @@ import {
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
-function StudentDashboard() {
+const StudentDashboard = props => {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
+  const { profile } = props;
+
+  useEffect(() => {
+    props.fetchMenteeProfile(2); // change this later with login
+  }, []);
+  console.log(profile);
 
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
@@ -52,13 +58,13 @@ function StudentDashboard() {
 
   return (
     <div>
-      {/* <Dashboard> */}
-      <Switch>
-        {/* <Route exact path="/profile" component={StudentProfile} />
-          <Route path="/profile/edit/:id" component={StudentProfileForm} /> */}
-        <Route path="/logout" component={Logout} />
-      </Switch>
-      {/* </Dashboard> */}
+      <Dashboard>
+        <Switch>
+          <Route exact path="/profile" component={StudentProfile} />
+          <Route path="/profile/edit/:id" component={StudentProfileForm} />
+          <Route path="/logout" component={Logout} />
+        </Switch>
+      </Dashboard>
 
       {desktop ? null : (
         // inline style to force animation
@@ -83,14 +89,20 @@ function StudentDashboard() {
           width={desktop ? 300 : 500}
           height={500}
         >
-          <h2>Hello, Student!</h2>
+          <img src="/images/vbb-full-logo.png" alt="VBB logo" width="200"></img>
+          <h2 style={{ padding: '2rem 0 1rem 0', fontSize: '1rem' }}>
+            Hello,{' '}
+            {/* <span
+              style={{ color: ' #FF914D' }}
+            >{`${profile.first_name} ${profile.last_name}`}</span> */}
+          </h2>
 
-          {/* <NavLink to="/dashboard" onClick={() => setVisible(true)}>
+          <NavLink to="/dashboard" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Home</button>
           </NavLink>
           <NavLink to="/profile" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Profile</button>
-          </NavLink> */}
+          </NavLink>
           <Link to="/logout" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Logout</button>
           </Link>
@@ -98,15 +110,16 @@ function StudentDashboard() {
       </div>
     </div>
   );
-}
+};
 
-// const mapStateToProps = state => {
-//   return {
-//     loggedIn: state.authReducer.loggedIn,
-//     // userId: state.authReducer.userId,
-//     // role: state.authReducer.role,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.authReducer.loggedIn,
+    userId: state.authReducer.userId,
+    role: state.authReducer.role,
+  };
+};
 
-// export default connect(mapStateToProps, {})(TeacherDashboard);
-export default StudentDashboard;
+export default connect(mapStateToProps, { fetchMenteeProfile })(
+  StudentDashboard
+);

@@ -21,7 +21,8 @@ export const checkToken = data => dispatch => {
 // -------------------------
 export const login = data => dispatch => {
   axios
-    .post(`${baseURL}/auth/login`, data)
+    // will need to update this to baseURL, there seems to be a link issue with the .env file
+    .post('https://vbb-mock-api.herokuapp.com/auth/login', data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> token', res.data);
       window.localStorage.setItem('token', res.data.access_token);
@@ -46,7 +47,7 @@ export const logout = () => dispatch => {
 };
 
 // -----------------------
-// HEAD MASTER
+// HEADMASTER
 // -----------------------
 
 export const editHeadmasterProfile = (id, data) => dispatch => {
@@ -96,6 +97,10 @@ export const editVillage = (id, data) => () => {
     .catch(err => console.dir(err));
 };
 
+// ----------------
+// MENTEE
+// ----------------
+
 export const fetchMentees = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
@@ -137,6 +142,19 @@ export const editMenteeProfile = id => dispatch => {
     .catch(err =>
       dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS, payload: err })
     );
+};
+
+export const fetchMenteeProfile = id => dispatch => {
+  axiosWithAuth()
+    .get(`/mentee/${id}`)
+    .then(res => {
+      console.log('fetchMenteeProfile action --> ', res.data);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_PROFILE,
+        payload: res.data,
+      });
+    })
+    .catch(err => console.dir(err));
 };
 
 export const fetchMenteesBySearch = search => dispatch => {
@@ -227,7 +245,7 @@ export const addLibrary = (id, data) => dispatch => {
 };
 
 // -----------------------
-// HEAD MASTER
+// TEACHER
 // -----------------------
 
 export const editTeacherProfile = (id, data) => dispatch => {
@@ -246,6 +264,33 @@ export const fetchTeacherProfile = id => dispatch => {
       console.log('fetchTeacherProfile action --> ', res.data);
       dispatch({
         type: actionTypes.FETCH_TEACHER_PROFILE,
+        payload: res.data,
+      });
+    })
+    .catch(err => console.dir(err));
+};
+
+// -----------------------
+// PROGRAM
+// -----------------------
+
+export const editProgramProfile = (id, data) => dispatch => {
+  axiosWithAuth()
+    .put(`/program/${id}`, data)
+    .then(res => {
+      // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
+      window.location.replace('/profile/');
+    })
+    .catch(err => console.dir(err));
+};
+
+export const fetchProgramProfile = id => dispatch => {
+  axiosWithAuth()
+    .get(`/program/${id}`) // change this later
+    .then(res => {
+      console.log('fetchProgramProfile action --> ', res.data);
+      dispatch({
+        type: actionTypes.FETCH_PROGRAM_PROFILE,
         payload: res.data,
       });
     })

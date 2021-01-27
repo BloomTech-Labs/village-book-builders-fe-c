@@ -4,7 +4,7 @@ import { fetchMenteesBySearch } from '../../../state/actions/index';
 import Moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
-const StudentRegistration = props => {
+const StudentSearch = props => {
   const [search, setSearch] = useState('');
   const history = useHistory();
   const { fetchMenteesBySearch } = props;
@@ -83,5 +83,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, { fetchMenteesBySearch })(
-  StudentRegistration
+  StudentSearch
 );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Title = styled.h1`
-  text-align: center;
+  text-align: left;
 `;
 
 const ComponentTitle = props => {
