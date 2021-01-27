@@ -125,9 +125,12 @@ const Mentees = props => {
           >
             Return
           </Button>,
-          // <Button key="delete" onClick={() => console.log('delete')}>
-          //   Delete
-          // </Button>,
+          <Button
+            key="back"
+            onClick={editing ? editingHandler : moreInfoHandler}
+          >
+            Submit
+          </Button>,
         ]}
       >
         {editing ? (

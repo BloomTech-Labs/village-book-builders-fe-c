@@ -1,15 +1,142 @@
-import React, { useState } from 'react';
-import { Button, Form, Input, DatePicker, Radio } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Form, Input, DatePicker, Radio, Divider } from 'antd';
 import { editMenteeProfile } from '../../../../state/actions';
-import { Required } from '../../../common/FormStyle';
 import { debugLog } from '../../../../utils/debugMode';
-import MentorDropDownList from '../../Mentor/MentorDropDownList';
+import { fetchMentors } from '../../../../state/actions/index';
 
 const MenteeFormContent = ({ onChange, fields }) => {
-  const handleSubmit = async () => {
-    debugLog(fields);
-    editMenteeProfile(fields);
-  };
+  const [selectionType, setSelectionType] = useState('radio');
+  const columns = [
+    {
+      title: 'First Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Last Name',
+      dataIndex: 'last_name',
+    },
+    {
+      title: 'Languages Spoken',
+      dataIndex: 'primary_language',
+    },
+  ];
+
+  const data = [
+    {
+      key: '1',
+      name: 'John',
+      last_name: 'Smith',
+      primary_language: 'English, French, Hindi',
+    },
+    {
+      key: '2',
+      name: 'James',
+      last_name: 'Roberts',
+      primary_language: 'English, Spanish',
+    },
+    {
+      key: '3',
+      name: 'Regis',
+      last_name: 'Doe',
+      primary_language: 'German, English, Japanese',
+    },
+    {
+      key: '4',
+      name: 'Tonya',
+      last_name: 'Harding',
+      primary_language: 'English',
+    },
+    {
+      key: '5',
+      name: 'Fred',
+      last_name: 'Flintstone',
+      primary_language: 'English, French',
+    },
+    {
+      key: '6',
+      name: 'Wonder',
+      last_name: 'Woman',
+      primary_language: 'Amazonian, English',
+    },
+    {
+      key: '7',
+      name: 'Rick',
+      last_name: 'James',
+      primary_language: 'English',
+    },
+    {
+      key: '8',
+      name: 'Amy',
+      last_name: 'Stone',
+      primary_language: 'Spanish',
+    },
+    {
+      key: '9',
+      name: 'James',
+      last_name: 'Roberts',
+      primary_language: 'English, Spanish',
+    },
+    {
+      key: '10',
+      name: 'James',
+      last_name: 'Roberts',
+      primary_language: 'English, Spanish',
+    },
+    {
+      key: '11',
+      name: 'John',
+      last_name: 'Smith',
+      primary_language: 'English, French, Hindi',
+    },
+    {
+      key: '12',
+      name: 'Tonya',
+      last_name: 'Harding',
+      primary_language: 'English',
+    },
+    {
+      key: '13',
+      name: 'Fred',
+      last_name: 'Flintstone',
+      primary_language: 'English, French',
+    },
+    {
+      key: '14',
+      name: 'Wonder',
+      last_name: 'Woman',
+      primary_language: 'Amazonian, English',
+    },
+    {
+      key: '15',
+      name: 'Rick',
+      last_name: 'James',
+      primary_language: 'English',
+    },
+    {
+      key: '16',
+      name: 'Amy',
+      last_name: 'Stone',
+      primary_language: 'Spanish',
+    },
+    {
+      key: '17',
+      name: 'James',
+      last_name: 'Roberts',
+      primary_language: 'English, Spanish',
+    },
+    {
+      key: '18',
+      name: 'James',
+      last_name: 'Roberts',
+      primary_language: 'English, Spanish',
+    },
+    {
+      key: '19',
+      name: 'John',
+      last_name: 'Smith',
+      primary_language: 'English, French, Hindi',
+    },
+  ];
 
   return (
     <Form
@@ -19,15 +146,13 @@ const MenteeFormContent = ({ onChange, fields }) => {
       onFieldsChange={(_, allFields) => {
         onChange(allFields);
       }}
-      onFinish={handleSubmit}
     >
       <Form.Item
-        id="first_name"
         label="First Name"
         name="first_name"
         rules={[{ required: true, message: 'First Name is required.' }]}
       >
-        <Input id="first_name" type="text" name="first_name" />
+        <Input type="text" />
       </Form.Item>
 
       <Form.Item
@@ -35,7 +160,7 @@ const MenteeFormContent = ({ onChange, fields }) => {
         name="last_name"
         rules={[{ required: true, message: 'Last Name is required.' }]}
       >
-        <Input type="text" name="last_name" />
+        <Input type="text" />
       </Form.Item>
       {/* <Form.Item
           label="Date of Birth"
@@ -47,20 +172,24 @@ const MenteeFormContent = ({ onChange, fields }) => {
       <Form.Item
         label="Email"
         name="email"
-        rules={[{ required: true, message: 'email is required.' }]}
+        rules={[{ required: true, message: 'Email is required.' }]}
       >
-        <Input type="text" name="email" />
+        <Input type="text" />
       </Form.Item>
 
       <Form.Item
         label="Primary Language"
         name="primary_language"
-        rules={[{ required: true, message: 'Phone Number is required.' }]}
+        rules={[{ required: true, message: 'Primary Language is required.' }]}
       >
-        <Input type="text" name="primary_language" />
+        <Input type="text" />
       </Form.Item>
 
-      <Form.Item label="Gender" name="gender">
+      <Form.Item
+        label="Gender"
+        name="gender"
+        rules={[{ required: true, message: 'Gender is required.' }]}
+      >
         <Radio.Group name="gender">
           <Radio value={0}>Male</Radio>
           <Radio value={1}>Female</Radio>
@@ -68,20 +197,16 @@ const MenteeFormContent = ({ onChange, fields }) => {
         </Radio.Group>
       </Form.Item>
 
-      <Form.Item
-        label="Picture URL"
-        name="mentee_picture"
-        rules={[{ required: true, message: 'Bio is required.' }]}
-      >
-        <Input type="text" name="mentee_picture" />
+      <Form.Item label="Picture URL" name="mentee_picture">
+        <Input type="text" />
       </Form.Item>
 
       <Form.Item
         label="English Level"
         name="english_lvl"
-        rules={[{ required: true, message: 'english level is required.' }]}
+        rules={[{ required: true, message: 'English level is required.' }]}
       >
-        <Input type="text" name="english_lvl" />
+        <Input type="text" />
       </Form.Item>
 
       <Form.Item
@@ -103,9 +228,9 @@ const MenteeFormContent = ({ onChange, fields }) => {
       <Form.Item
         label="School Level"
         name="school_lvl"
-        rules={[{ required: true, message: 'school level is required.' }]}
+        rules={[{ required: true, message: 'School level is required.' }]}
       >
-        <Input type="text" name="school_lvl" />
+        <Input type="text" />
       </Form.Item>
 
       <Form.Item
@@ -114,11 +239,11 @@ const MenteeFormContent = ({ onChange, fields }) => {
         rules={[
           {
             required: true,
-            message: 'academic description level is required.',
+            message: 'Academic description is required.',
           },
         ]}
       >
-        <Input type="text" name="academic_description" />
+        <Input type="text" />
       </Form.Item>
 
       <Form.Item
@@ -128,7 +253,7 @@ const MenteeFormContent = ({ onChange, fields }) => {
           { required: true, message: 'Support needed level is required.' },
         ]}
       >
-        <Input type="text" name="support_needed" />
+        <Input type="text" />
       </Form.Item>
       <Form.Item
         label="Contact As Early As: "
@@ -151,53 +276,31 @@ const MenteeFormContent = ({ onChange, fields }) => {
       </Form.Item>
 
       {/* <Form.Item
-          label="Personal Goals"
-          name="goals_personal"
-          rules={[{ required: true, message: 'Personal goals are required.' }]}
-        >
-          <Input
-            type="text"
-   
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="School Community Goals"
-          name="goals_school_community"
-          rules={[
-            {
-              required: true,
-              message: 'Goals for schools community are required.',
-            },
-          ]}
-        >
-          <Input type="text"/>
-        </Form.Item> */}
-
-      <Form.Item
         label="Mentor Advisor"
-        name="mentor_advisor_point_of_contact"
+        name="mentor_advisor"
         rules={[
           {
             required: true,
-            message: 'Mentor advisor point of contact is required.',
+            message: 'Mentor advisor is required.',
           },
         ]}
       >
-        <Input type="text" />
-      </Form.Item>
-      <MentorDropDownList />
-      <Form.Item>
-        <Required id="requiredMsg">
-          Fields with <span id="required">&#42;</span> are required.
-        </Required>
-      </Form.Item>
+        <Input type="text"/>
+      </Form.Item> */}
+      <Divider />
+      <Form.Item label="Choose a Mentor"></Form.Item>
+      <Table
+        rowSelection={{
+          type: selectionType,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
     </Form>
   );
 };
 
-const MenteeForm = ({ currentMentee }) => {
-  console.log('mentee stuff', currentMentee);
+const MenteeForm = ({ currentMentee, mentors }) => {
   const [fields, setFields] = useState([
     {
       name: ['first_name'],
@@ -260,22 +363,27 @@ const MenteeForm = ({ currentMentee }) => {
       value: currentMentee.availability.as_late_as,
     },
     {
-      name: ['goals_personal'],
-      value: currentMentee.goals_personal,
-    },
-    {
-      name: ['goals_school_community'],
-      value: currentMentee.goals_school_community,
-    },
-    {
-      name: ['mentor_advisor_point_of_contact'],
-      value: currentMentee.mentor_advisor_point_of_contact,
+      name: ['mentor_advisor'],
+      value: currentMentee.mentor_advisor,
     },
   ]);
+
+  // const columns = [{
+  //   title: 'Mentor',
+  //   dataIndex: 'name',
+  //   render: text => <a href="#">{text}</a>,
+  // }, {
+  //   title: 'Language Spoken',
+  //   dataIndex: 'primary_language',
+  // },
+  // ];
+
   return (
     <>
       <MenteeFormContent
         fields={fields}
+        // columns={columns}
+        // dataSource={data}
         onChange={newFields => {
           setFields(newFields);
         }}
