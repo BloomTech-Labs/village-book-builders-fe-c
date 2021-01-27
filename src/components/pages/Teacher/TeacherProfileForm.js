@@ -43,13 +43,13 @@ const TeacherProfileForm = ({
       fetchTeacherProfile(0);
       form.setFieldsValue(teacherProfile);
     };
-  }, [fetchTeacherProfile, teacherProfile, form]);
+  }, [fetchTeacherProfile]);
   const onChange = e => {
     console.log('radio checked', e.target.value);
     setValue(e.target.value);
   };
   const handleSubmit = e => {
-    editTeacherProfile(params, formValues);
+    editTeacherProfile(params, { ...formValues, gender: value });
   };
   const handleChange = e => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -109,9 +109,9 @@ const TeacherProfileForm = ({
             </Form.Item>
             <Form.Item label="Gender" name="gender">
               <Radio.Group onChange={onChange} value={true}>
-                <Radio value={1}>Male</Radio>
-                <Radio value={2}>Female</Radio>
-                <Radio value={3}>Other</Radio>
+                <Radio value={'Male'}>Male</Radio>
+                <Radio value={'Female'}>Female</Radio>
+                <Radio value={'Other'}>Other</Radio>
               </Radio.Group>
             </Form.Item>
             <Form.Item {...tailLayout}>

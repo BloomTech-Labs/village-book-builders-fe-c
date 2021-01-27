@@ -24,15 +24,13 @@ import {
 } from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
 
-const ProgramDashboard = props => {
+const ProgramDashboard = ({ profile, fetchProgramProfile }) => {
   const [visible, setVisible] = useState(true);
   const [desktop, setDesktop] = useState(true);
-  const { profile } = props;
 
   useEffect(() => {
-    props.fetchProgramProfile(1); // change this later with login
-  }, []);
-  console.log(profile);
+    fetchProgramProfile(1); // change this later with login
+  }, [fetchProgramProfile]);
 
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
