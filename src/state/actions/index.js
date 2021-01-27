@@ -262,6 +262,7 @@ export const editTeacherProfile = (id, data) => dispatch => {
     })
     .catch(err => console.dir(err));
 };
+
 export const fetchTeacherProfile = id => dispatch => {
   axiosWithAuth()
     .get(`/teacher/${id}`) // change this later
@@ -280,23 +281,35 @@ export const fetchTeacherProfile = id => dispatch => {
 // -----------------------
 
 export const editProgramProfile = (id, data) => dispatch => {
+  dispatch({ type: actionTypes.EDIT_PROGRAM_PROFILE_START });
   axiosWithAuth()
     .put(`/program/${id}`, data)
     .then(res => {
-      // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
-      window.location.replace('/profile/');
+      dispatch({
+        type: actionTypes.EDIT_PROGRAM_PROFILE_SUCCESS,
+        payload: res.data,
+      });
     })
-    .catch(err => console.dir(err));
+    .catch(err =>
+      dispatch({ type: actionTypes.EDIT_PROGRAM_PROFILE_FAILURE, payload: err })
+    );
 };
+
 export const fetchProgramProfile = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_PROGRAM_PROFILE_START });
   axiosWithAuth()
     .get(`/program/${id}`) // change this later
     .then(res => {
       console.log('fetchProgramProfile action --> ', res.data);
       dispatch({
-        type: actionTypes.FETCH_PROGRAM_PROFILE,
+        type: actionTypes.FETCH_PROGRAM_PROFILE_SUCCESS,
         payload: res.data,
       });
     })
-    .catch(err => console.dir(err));
+    .catch(err =>
+      dispatch({
+        type: actionTypes.FETCH_PROGRAM_PROFILE_FAILURE,
+        payload: err,
+      })
+    );
 };

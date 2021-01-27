@@ -6,11 +6,10 @@ import { fetchProgramProfile } from '../../../state/actions';
 import { Profile, Label } from '../../common/ProfileStyle';
 import { Button, ComponentTitle } from '../../common';
 
-const ProgramProfile = props => {
-  const { profile } = props;
+const ProgramProfile = ({ profile, fetchProgramProfile }) => {
   useEffect(() => {
-    props.fetchProgramProfile(1); // change this later with login
-  }, []);
+    fetchProgramProfile(0); // change this later with login
+  }, [fetchProgramProfile]);
   // console.log(profile);
   return (
     <Profile>
@@ -22,8 +21,11 @@ const ProgramProfile = props => {
       <Label>Location:</Label>
       <p>{profile.location}</p>
 
+      <Label>Library ID:</Label>
+      <p>{profile.libraryId}</p>
+
       <div>
-        <Link to={`/program/${profile.id}`}>
+        <Link to={`/profile/edit/${profile.id}`}>
           <ThemeProvider theme={{ color: '#6ac66b' }}>
             <Button buttonText="Edit Your Profile" />
           </ThemeProvider>
