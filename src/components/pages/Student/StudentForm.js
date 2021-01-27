@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 
-// This reusable component is strictly for the "Student" input feilds
+// This reusable component is strictly for the "Student" input fields
 const formItemLayout = {
   labelCol: {
     xs: {

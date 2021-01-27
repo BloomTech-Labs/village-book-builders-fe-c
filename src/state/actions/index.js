@@ -104,7 +104,7 @@ export const editVillage = (id, data) => () => {
 export const fetchMentees = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    .get('https://vbb-mock-api.herokuapp.com/mentee')
+    .get(`/mentee`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
     })
@@ -113,26 +113,29 @@ export const fetchMentees = () => dispatch => {
     );
 };
 
-export const fetchMenteeById = id => dispatch => {
-  dispatch({ type: actionTypes.FETCH_MENTEE_BY_ID_START });
+export const fetchMenteesByDateSearch = search => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_BY_DOB_START });
   axiosWithAuth()
-    .get(`https://vbb-mock-api.herokuapp.com/mentee/${id}`)
+    .get(`/mentee?dob=${search}`)
     .then(res => {
-      console.log('res data -->', res.data);
+      console.log('inside the action', res.data);
       dispatch({
-        type: actionTypes.FETCH_MENTEE_BY_ID_SUCCESS,
+        type: actionTypes.FETCH_MENTEE_BY_DOB_SUCCESS,
         payload: res.data,
       });
     })
     .catch(err =>
-      dispatch({ type: actionTypes.FETCH_MENTEE_BY_ID_FAILURE, payload: err })
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_DOB_FAILURE,
+        payload: err,
+      })
     );
 };
 
-export const editMenteeProfile = id => dispatch => {
+export const editMenteeProfile = (id, data) => dispatch => {
   dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_START });
   axiosWithAuth()
-    .put(`https://vbb-mock-api.herokuapp.com/mentee/${id}`)
+    .put(`/mentee/${id}`, data)
     .then(res => {
       dispatch({
         type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
@@ -140,21 +143,23 @@ export const editMenteeProfile = id => dispatch => {
       });
     })
     .catch(err =>
-      dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS, payload: err })
+      dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_FAILURE, payload: err })
     );
 };
 
 export const fetchMenteeProfile = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
   axiosWithAuth()
     .get(`/mentee/${id}`)
     .then(res => {
-      console.log('fetchMenteeProfile action --> ', res.data);
       dispatch({
-        type: actionTypes.FETCH_MENTEE_PROFILE,
+        type: actionTypes.FETCH_MENTEE_PROFILE_SUCCESS,
         payload: res.data,
       });
     })
-    .catch(err => console.dir(err));
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_FAILURE, payload: err })
+    );
 };
 
 export const fetchMenteesBySearch = search => dispatch => {
@@ -257,6 +262,7 @@ export const editTeacherProfile = (id, data) => dispatch => {
     })
     .catch(err => console.dir(err));
 };
+
 export const fetchTeacherProfile = id => dispatch => {
   axiosWithAuth()
     .get(`/teacher/${id}`) // change this later
@@ -275,24 +281,35 @@ export const fetchTeacherProfile = id => dispatch => {
 // -----------------------
 
 export const editProgramProfile = (id, data) => dispatch => {
+  dispatch({ type: actionTypes.EDIT_PROGRAM_PROFILE_START });
   axiosWithAuth()
     .put(`/program/${id}`, data)
     .then(res => {
-      // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
-      window.location.replace('/profile/');
+      dispatch({
+        type: actionTypes.EDIT_PROGRAM_PROFILE_SUCCESS,
+        payload: res.data,
+      });
     })
-    .catch(err => console.dir(err));
+    .catch(err =>
+      dispatch({ type: actionTypes.EDIT_PROGRAM_PROFILE_FAILURE, payload: err })
+    );
 };
 
 export const fetchProgramProfile = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_PROGRAM_PROFILE_START });
   axiosWithAuth()
     .get(`/program/${id}`) // change this later
     .then(res => {
       console.log('fetchProgramProfile action --> ', res.data);
       dispatch({
-        type: actionTypes.FETCH_PROGRAM_PROFILE,
+        type: actionTypes.FETCH_PROGRAM_PROFILE_SUCCESS,
         payload: res.data,
       });
     })
-    .catch(err => console.dir(err));
+    .catch(err =>
+      dispatch({
+        type: actionTypes.FETCH_PROGRAM_PROFILE_FAILURE,
+        payload: err,
+      })
+    );
 };

@@ -10,15 +10,6 @@ import {
   FETCH_MENTOR_SUCCESS,
   FETCH_MENTOR_FAILURE,
   FETCH_MENTOR_START,
-  FETCH_MENTEE_BY_LAST_NAME_START,
-  FETCH_MENTEE_BY_LAST_NAME_SUCCESS,
-  FETCH_MENTEE_BY_LAST_NAME_FAILURE,
-  FETCH_MENTEE_BY_ID_START,
-  FETCH_MENTEE_BY_ID_SUCCESS,
-  FETCH_MENTEE_BY_ID_FAILURE,
-  EDIT_MENTEE_PROFILE_START,
-  EDIT_MENTEE_PROFILE_SUCCESS,
-  EDIT_MENTEE_PROFILE_FAILURE,
 } from '../actions/actionTypes';
 
 import { debugLog } from '../../utils/debugMode.js'; //
@@ -29,7 +20,6 @@ const initialState = {
   headmasterProfile: '',
   mentees: [],
   isLoading: true,
-  searchedMentee: [],
   mentors: [],
 };
 // Fetch school data for headmaster
@@ -75,38 +65,8 @@ const reducer = (state = initialState, action) => {
     case FETCH_MENTOR_FAILURE:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: false };
-
-    case FETCH_MENTEE_BY_LAST_NAME_START:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: true };
-    case FETCH_MENTEE_BY_LAST_NAME_SUCCESS:
-      debugLog(action.type, action.payload);
-      return { ...state, searchedMentee: action.payload, isLoading: false };
-    case FETCH_MENTEE_BY_LAST_NAME_FAILURE:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
     default:
       return state;
-
-    case FETCH_MENTEE_BY_ID_START:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: true };
-    case FETCH_MENTEE_BY_ID_SUCCESS:
-      debugLog(action.type, action.payload);
-      return { ...state, searchedMentee: action.payload, isLoading: false };
-    case FETCH_MENTEE_BY_ID_FAILURE:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
-
-    case EDIT_MENTEE_PROFILE_START:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: true };
-    case EDIT_MENTEE_PROFILE_SUCCESS:
-      debugLog(action.type, action.payload);
-      return { ...state, searchedMentee: action.payload, isLoading: false };
-    case EDIT_MENTEE_PROFILE_FAILURE:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
   }
 };
 
