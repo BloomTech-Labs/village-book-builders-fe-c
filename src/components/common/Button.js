@@ -33,7 +33,11 @@ Btn.defaultProps = {
 };
 
 const Button = props => {
-  return <Btn className={props.classType}>{props.buttonText}</Btn>;
+  return (
+    <Btn onClick={props.onClick} className={props.classType}>
+      {props.buttonText}
+    </Btn>
+  );
 };
 
 export default Button;
