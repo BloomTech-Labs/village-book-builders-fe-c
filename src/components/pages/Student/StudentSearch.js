@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchMenteesBySearch } from '../../../state/actions/index';
+import {
+  fetchMenteesBySearch,
+  fetchMenteesByDateSearch,
+} from '../../../state/actions/index';
 import Moment from 'moment';
 import { useHistory } from 'react-router-dom';
-
 const StudentSearch = props => {
-  const [search, setSearch] = useState('');
+  const [lastNameSearch, setLastNameSearch] = useState('');
+  const [dobSearch, setDobSearch] = useState('');
   const history = useHistory();
   const { fetchMenteesBySearch } = props;
+  const { fetchMenteesByDateSearch } = props;
 
   const onSubmit = e => {
     e.preventDefault();
-    fetchMenteesBySearch(search);
-    setSearch('');
+    fetchMenteesBySearch(lastNameSearch);
+    setLastNameSearch('');
   };
 
-  const onChange = e => {
-    setSearch(e.target.value);
+  const onDateSubmit = e => {
+    e.preventDefault();
+    fetchMenteesByDateSearch(Date.now(dobSearch));
+    setDobSearch('');
+    console.log(dobSearch);
+  };
+
+  const onLastNameChange = e => {
+    setLastNameSearch(e.target.value);
+  };
+
+  const onDobChange = e => {
+    setDobSearch(e.target.value);
   };
 
   return (
@@ -28,24 +43,36 @@ const StudentSearch = props => {
           <input
             type="text"
             placeholder="Last Name"
-            value={search}
-            onChange={onChange}
+            value={lastNameSearch}
+            onChange={onLastNameChange}
           />
           <input type="submit" />
         </label>
-        <label>
+        {/* <label>
           Date Of Birth
           <input type="date" placeholder="Date Of Birth" />
+          <input type="submit" />
+        </label> */}
+      </form>
+      <form onSubmit={onDateSubmit}>
+        <label>
+          Date Of Birth
+          <input
+            type="date"
+            placeholder="Date Of Birth"
+            value={dobSearch}
+            onChange={onDobChange}
+          />
           <input type="submit" />
         </label>
       </form>
       <div>
-        {!props.searchedMentee ? (
+        {props.searchedMentee.length === 0 ? (
           <div>
             <h2>This student is not registered.</h2>
             <button
               onClick={() => {
-                history.push('');
+                history.push('/register');
               }}
             >
               Register Student
@@ -64,7 +91,7 @@ const StudentSearch = props => {
               <h2>
                 {student.first_name} {student.last_name}
               </h2>
-              <h3>Date Of Birth:{Moment(student.dob).format('DD-MM-YYYY')}</h3>
+              <h3>Date Of Birth:{Moment(student.dob).format('YYYY-MM-DD')}</h3>
               <h3>Gender:{student.gender}</h3>
               <h3>Primary Language:{student.primary_language}</h3>
               <button>Update</button>
@@ -77,11 +104,11 @@ const StudentSearch = props => {
 };
 const mapStateToProps = state => {
   return {
-    searchedMentee: state.headmasterReducer.searchedMentee,
-    isLoading: state.headmasterReducer.isLoading,
+    searchedMentee: state.menteeReducer.searchedMentee,
+    isLoading: state.menteeReducer.isLoading,
   };
 };
-
-export default connect(mapStateToProps, { fetchMenteesBySearch })(
-  StudentSearch
-);
+export default connect(mapStateToProps, {
+  fetchMenteesBySearch,
+  fetchMenteesByDateSearch,
+})(StudentSearch);

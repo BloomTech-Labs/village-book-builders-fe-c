@@ -113,6 +113,25 @@ export const fetchMentees = () => dispatch => {
     );
 };
 
+export const fetchMenteesByDateSearch = search => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_BY_DOB_START });
+  axiosWithAuth()
+    .get(`/mentee?dob=${search}`)
+    .then(res => {
+      console.log('inside the action', res.data);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_DOB_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_BY_DOB_FAILURE,
+        payload: err,
+      })
+    );
+};
+
 export const editMenteeProfile = (id, data) => dispatch => {
   dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_START });
   axiosWithAuth()
