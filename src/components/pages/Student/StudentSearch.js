@@ -5,11 +5,13 @@ import {
   fetchMenteesByDateSearch,
 } from '../../../state/actions/index';
 import Moment from 'moment';
+
 import { useHistory } from 'react-router-dom';
 const StudentSearch = props => {
   const [lastNameSearch, setLastNameSearch] = useState('');
   const [dobSearch, setDobSearch] = useState('');
   const history = useHistory();
+
   const { fetchMenteesBySearch } = props;
   const { fetchMenteesByDateSearch } = props;
 
@@ -39,7 +41,7 @@ const StudentSearch = props => {
 
   return (
     <div>
-      <h1>Search for a student</h1>
+      <h1>Student Search</h1>
       <form onSubmit={onSubmit}>
         <label>
           Last Name
@@ -71,9 +73,10 @@ const StudentSearch = props => {
         ) : props.searchedMentee.length === 0 ? (
           <div>
             <h2>This student is not registered.</h2>
+
             <button
               onClick={() => {
-                history.push('/register');
+                history.push('/studentregistration');
               }}
             >
               Register Student

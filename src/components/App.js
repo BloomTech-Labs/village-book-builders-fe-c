@@ -8,13 +8,12 @@ import { checkToken } from '../state/actions/index';
 import Login from './pages/Login/Login';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-
 import TeacherRegForm from './common/TeacherRegForm';
-
 import TeacherDashboard from './pages/Teacher/TeacherDashboard';
 import ProgramDashboard from './pages/Program/ProgramDashboard';
 import StudentDashboard from './pages/Student/StudentDashboard';
 
+import StudentForm from './pages/Student/StudentForm';
 
 const App = ({ role, checkToken }) => {
   return (
@@ -23,6 +22,11 @@ const App = ({ role, checkToken }) => {
         <Route path="/register">
           <TeacherRegForm />
         </Route>
+
+        <Route path="/studentregistration">
+          <StudentForm />
+        </Route>
+
         <Route path="/login">
           <Login />
         </Route>
@@ -41,7 +45,7 @@ const App = ({ role, checkToken }) => {
               {role === 'mentee' && <StudentDashboard />}
             </>
           ) : (
-            <Redirect to="/register" />
+            <Redirect to="/login" />
           )}
         </Route>
       </Switch>

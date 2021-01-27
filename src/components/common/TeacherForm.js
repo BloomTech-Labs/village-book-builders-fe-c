@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Divider } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 
 // This reusable component is strictly for the "Teacher" input feilds
 const formItemLayout = {
@@ -47,6 +47,10 @@ function TeacherForm() {
 
   const onFinish = values => {
     console.log(values);
+    form.resetFields();
+    message.success(
+      'Thank you for registering, the Headmaster will review your request'
+    );
   };
 
   return (
@@ -55,8 +59,8 @@ function TeacherForm() {
         {...formItemLayout}
         {...layout}
         form={form}
-        name="control-hooks"
         onFinish={onFinish}
+        name="control-hooks"
         name="register"
         scrollToFirstError
       >

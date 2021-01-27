@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 
-// This reusable component is strictly for the "Student" input feilds
+// This reusable component is strictly for the "Student" input fields
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -48,6 +48,8 @@ function StudentForm() {
 
   const onFinish = values => {
     console.log(values);
+    form.resetFields();
+    message.success('Student succesfully registered');
   };
 
   return (
