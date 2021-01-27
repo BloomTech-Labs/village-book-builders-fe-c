@@ -75,12 +75,11 @@ const StudentSearch = props => {
 
             <button
               onClick={() => {
-                history.push('/register');
+                history.push('/studentregistration');
               }}
             >
               Register Student
             </button>
-
           </div>
         ) : (
           props.searchedMentee.map(student => (
