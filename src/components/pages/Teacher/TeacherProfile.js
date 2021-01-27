@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { fetchTeacherProfile } from '../../../state/actions';
 import { Profile, Label } from '../../common/ProfileStyle';
 import { Button, ComponentTitle } from '../../common';
+
 const TeacherProfile = ({ fetchTeacherProfile, profile }) => {
   useEffect(() => {
     fetchTeacherProfile(0); // change this later with login

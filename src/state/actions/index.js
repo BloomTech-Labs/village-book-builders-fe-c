@@ -114,26 +114,33 @@ export const fetchMentees = () => dispatch => {
 };
 
 export const editMenteeProfile = (id, data) => dispatch => {
+  dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_START });
   axiosWithAuth()
     .put(`/mentee/${id}`, data)
     .then(res => {
-      // ? refactor all the window.location.replace's so this doesn't force a refresh. see how login does it for example.
-      window.location.replace('/profile/');
-    })
-    .catch(err => console.dir(err));
-};
-
-export const fetchMenteeProfile = id => dispatch => {
-  axiosWithAuth()
-    .get(`/mentee/${id}`)
-    .then(res => {
-      console.log('fetchMenteeProfile action --> ', res.data);
       dispatch({
-        type: actionTypes.FETCH_MENTEE_PROFILE,
+        type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
         payload: res.data,
       });
     })
-    .catch(err => console.dir(err));
+    .catch(err =>
+      dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_FAILURE, payload: err })
+    );
+};
+
+export const fetchMenteeProfile = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
+  axiosWithAuth()
+    .get(`/mentee/${id}`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_FAILURE, payload: err })
+    );
 };
 
 export const fetchMenteesBySearch = search => dispatch => {
