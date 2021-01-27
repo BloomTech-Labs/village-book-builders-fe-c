@@ -40,13 +40,13 @@ const Mentees = props => {
     }
   };
 
-  if (Array.isArray(menteesSelection)) {
-    menteesSelection = menteesSelection.filter(
-      item =>
-        item.first_name.toLowerCase().includes(search.toLowerCase()) ||
-        item.last_name.toLowerCase().includes(search.toLowerCase())
-    );
-  }
+  // if (Array.isArray(menteesSelection)) {
+  //   menteesSelection = menteesSelection.filter(
+  //     item =>
+  //       item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+  //       item.last_name.toLowerCase().includes(search.toLowerCase())
+  //   );
+  // }
 
   useEffect(() => {
     props.fetchMentees();
@@ -118,6 +118,7 @@ const Mentees = props => {
         onCancel={moreInfoHandler}
         maskClosable
         destroyOnClose
+        okText="Submit"
         footer={[
           <Button
             key="back"
@@ -126,7 +127,7 @@ const Mentees = props => {
             Return
           </Button>,
           <Button
-            key="back"
+            key="submit"
             onClick={editing ? editingHandler : moreInfoHandler}
           >
             Submit

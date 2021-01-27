@@ -1,142 +1,115 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Form, Input, DatePicker, Radio, Divider } from 'antd';
-import { editMenteeProfile } from '../../../../state/actions';
-import { debugLog } from '../../../../utils/debugMode';
+import { editMenteeProfile } from '../../../../state/actions/index.js';
 import { fetchMentors } from '../../../../state/actions/index';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-const MenteeFormContent = ({ onChange, fields }) => {
-  const [selectionType, setSelectionType] = useState('radio');
+const MenteeFormRevised = props => {
+  const { fetchMentors } = props;
+  const history = useHistory();
+
+  useEffect(() => {
+    fetchMentors();
+  }, [fetchMentors]);
+  console.log('props-->', props);
+
+  //Defines data for each column in mentor table
   const columns = [
     {
       title: 'First Name',
-      dataIndex: 'name',
+      dataIndex: 'firstName',
     },
     {
       title: 'Last Name',
-      dataIndex: 'last_name',
+      dataIndex: 'lastName',
     },
     {
       title: 'Languages Spoken',
-      dataIndex: 'primary_language',
+      dataIndex: 'primaryLanguage',
     },
   ];
 
-  const data = [
+  const data = props.mentors.map(mentor => {
+    return {
+      key: mentor.id,
+      firstName: mentor.first_name,
+      lastName: mentor.last_name,
+      primaryLanguage: mentor.primary_language,
+    };
+  });
+
+  const [fields, setFields] = useState([
     {
-      key: '1',
-      name: 'John',
-      last_name: 'Smith',
-      primary_language: 'English, French, Hindi',
+      name: ['first_name'],
+      value: props.currentMentee.first_name,
     },
     {
-      key: '2',
-      name: 'James',
-      last_name: 'Roberts',
-      primary_language: 'English, Spanish',
+      name: ['last_name'],
+      value: props.currentMentee.last_name,
     },
     {
-      key: '3',
-      name: 'Regis',
-      last_name: 'Doe',
-      primary_language: 'German, English, Japanese',
+      name: ['dob'],
+      value: props.currentMentee.dob,
     },
     {
-      key: '4',
-      name: 'Tonya',
-      last_name: 'Harding',
-      primary_language: 'English',
+      name: ['email'],
+      value: props.currentMentee.email,
     },
     {
-      key: '5',
-      name: 'Fred',
-      last_name: 'Flintstone',
-      primary_language: 'English, French',
+      name: ['primary_language'],
+      value: props.currentMentee.primary_language,
     },
     {
-      key: '6',
-      name: 'Wonder',
-      last_name: 'Woman',
-      primary_language: 'Amazonian, English',
+      name: ['gender'],
+      value: props.currentMentee.gender,
     },
     {
-      key: '7',
-      name: 'Rick',
-      last_name: 'James',
-      primary_language: 'English',
+      name: ['mentee_picture'],
+      value: props.currentMentee.mentee_picture,
     },
     {
-      key: '8',
-      name: 'Amy',
-      last_name: 'Stone',
-      primary_language: 'Spanish',
+      name: ['english_lvl'],
+      value: props.currentMentee.english_lvl,
     },
     {
-      key: '9',
-      name: 'James',
-      last_name: 'Roberts',
-      primary_language: 'English, Spanish',
+      name: ['math_lvl'],
+      value: props.currentMentee.math_lvl,
     },
     {
-      key: '10',
-      name: 'James',
-      last_name: 'Roberts',
-      primary_language: 'English, Spanish',
+      name: ['reading_lvl'],
+      value: props.currentMentee.reading_lvl,
     },
     {
-      key: '11',
-      name: 'John',
-      last_name: 'Smith',
-      primary_language: 'English, French, Hindi',
+      name: ['school_lvl'],
+      value: props.currentMentee.school_lvl,
     },
     {
-      key: '12',
-      name: 'Tonya',
-      last_name: 'Harding',
-      primary_language: 'English',
+      name: ['academic_description'],
+      value: props.currentMentee.academic_description,
     },
     {
-      key: '13',
-      name: 'Fred',
-      last_name: 'Flintstone',
-      primary_language: 'English, French',
+      name: ['support_needed'],
+      value: props.currentMentee.support_needed,
     },
     {
-      key: '14',
-      name: 'Wonder',
-      last_name: 'Woman',
-      primary_language: 'Amazonian, English',
+      name: ['as_early_as'],
+      value: props.currentMentee.availability.as_early_as,
     },
     {
-      key: '15',
-      name: 'Rick',
-      last_name: 'James',
-      primary_language: 'English',
+      name: ['as_late_as'],
+      value: props.currentMentee.availability.as_late_as,
     },
     {
-      key: '16',
-      name: 'Amy',
-      last_name: 'Stone',
-      primary_language: 'Spanish',
+      name: ['mentor_advisor'],
+      value: 'John',
     },
-    {
-      key: '17',
-      name: 'James',
-      last_name: 'Roberts',
-      primary_language: 'English, Spanish',
-    },
-    {
-      key: '18',
-      name: 'James',
-      last_name: 'Roberts',
-      primary_language: 'English, Spanish',
-    },
-    {
-      key: '19',
-      name: 'John',
-      last_name: 'Smith',
-      primary_language: 'English, French, Hindi',
-    },
-  ];
+  ]);
+
+  const handleSubmit = e => {
+    editMenteeProfile(fields);
+    history.push('/mentor-pairings');
+  };
 
   return (
     <Form
@@ -144,8 +117,9 @@ const MenteeFormContent = ({ onChange, fields }) => {
       layout="inline"
       fields={fields}
       onFieldsChange={(_, allFields) => {
-        onChange(allFields);
+        setFields(allFields);
       }}
+      onSubmit={handleSubmit}
     >
       <Form.Item
         label="First Name"
@@ -280,7 +254,7 @@ const MenteeFormContent = ({ onChange, fields }) => {
       <Form.Item label="Choose a Mentor"></Form.Item>
       <Table
         rowSelection={{
-          type: selectionType,
+          type: 'radio',
         }}
         columns={columns}
         dataSource={data}
@@ -289,84 +263,27 @@ const MenteeFormContent = ({ onChange, fields }) => {
   );
 };
 
-const MenteeForm = ({ currentMentee, mentors }) => {
-  const [fields, setFields] = useState([
-    {
-      name: ['first_name'],
-      value: currentMentee.first_name,
-    },
-    {
-      name: ['last_name'],
-      value: currentMentee.last_name,
-    },
-    {
-      name: ['dob'],
-      value: currentMentee.dob,
-    },
-    {
-      name: ['email'],
-      value: currentMentee.email,
-    },
-    {
-      name: ['primary_language'],
-      value: currentMentee.primary_language,
-    },
-    {
-      name: ['gender'],
-      value: currentMentee.gender,
-    },
-    {
-      name: ['mentee_picture'],
-      value: currentMentee.mentee_picture,
-    },
-    {
-      name: ['english_lvl'],
-      value: currentMentee.english_lvl,
-    },
-    {
-      name: ['math_lvl'],
-      value: currentMentee.math_lvl,
-    },
-    {
-      name: ['reading_lvl'],
-      value: currentMentee.reading_lvl,
-    },
-    {
-      name: ['school_lvl'],
-      value: currentMentee.school_lvl,
-    },
-    {
-      name: ['academic_description'],
-      value: currentMentee.academic_description,
-    },
-    {
-      name: ['support_needed'],
-      value: currentMentee.support_needed,
-    },
-    {
-      name: ['as_early_as'],
-      value: currentMentee.availability.as_early_as,
-    },
-    {
-      name: ['as_late_as'],
-      value: currentMentee.availability.as_late_as,
-    },
-    {
-      name: ['mentor_advisor'],
-      value: currentMentee.mentor_advisor,
-    },
-  ]);
-
-  return (
-    <>
-      <MenteeFormContent
-        fields={fields}
-        onChange={newFields => {
-          setFields(newFields);
-        }}
-      />
-    </>
-  );
+const mapStateToProps = state => {
+  return {
+    isloading: state.headmasterReducer.isLoading,
+    mentors: state.headmasterReducer.mentors,
+  };
 };
 
-export default MenteeForm;
+export default connect(mapStateToProps, { fetchMentors, editMenteeProfile })(
+  MenteeFormRevised
+);
+
+// const MenteeForm = ({ currentMentee, mentors }) => {
+
+//   return (
+//     <>
+//       <MenteeFormContent
+//         fields={fields}
+//         onChange={newFields => {
+//           setFields(newFields);
+//         }}
+//       />
+//     </>
+//   );
+// };
