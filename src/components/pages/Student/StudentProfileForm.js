@@ -44,6 +44,7 @@ const StudentProfileForm = ({
   const [value, setValue] = useState(1);
   const params = useParams().id;
   const [form] = Form.useForm();
+  const history = useHistory();
 
   useEffect(() => {
     return () => {
@@ -60,6 +61,7 @@ const StudentProfileForm = ({
 
   const handleSubmit = e => {
     editMenteeProfile(params, { ...formValues, gender: value });
+    history.push('/profile');
   };
 
   const handleChange = e => {
