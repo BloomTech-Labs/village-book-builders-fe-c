@@ -45,7 +45,7 @@ const StudentSearch = props => {
             <h2>This student is not registered.</h2>
             <button
               onClick={() => {
-                history.push('');
+                history.push('/studentregistration');
               }}
             >
               Register Student

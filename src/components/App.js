@@ -14,6 +14,7 @@ import TeacherRegForm from './common/TeacherRegForm';
 import TeacherDashboard from './pages/Teacher/TeacherDashboard';
 import ProgramDashboard from './pages/Program/ProgramDashboard';
 import StudentDashboard from './pages/Student/StudentDashboard';
+import StudentForm from './common/StudentForm';
 
 const App = ({ role, checkToken }) => {
   return (
@@ -22,6 +23,11 @@ const App = ({ role, checkToken }) => {
         <Route path="/register">
           <TeacherRegForm />
         </Route>
+
+        <Route path="/studentregistration">
+          <StudentForm />
+        </Route>
+
         <Route path="/login">
           <Login />
         </Route>
