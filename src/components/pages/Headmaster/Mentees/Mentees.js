@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Divider, Input, Modal, List, Avatar } from 'antd';
 import { connect } from 'react-redux';
 import { checkToken, fetchMentees } from '../../../../state/actions/index';
-import MenteeForm from './MenteeForm';
+import MenteeFormRevised from './MenteeFormRevised';
 import MenteeProfile from './MenteeProfile';
 
 const Mentees = props => {
@@ -125,22 +125,13 @@ const Mentees = props => {
           >
             Return
           </Button>,
-          <Button key="delete" onClick={() => console.log('delete')}>
-            Delete
-          </Button>,
-          editing ? (
-            <Button key="submit" type="primary" onClick={moreInfoHandler}>
-              Submit
-            </Button>
-          ) : (
-            <Button key="edit" type="primary" onClick={editingHandler}>
-              Edit
-            </Button>
-          ),
+          // <Button key="delete" onClick={() => console.log('delete')}>
+          //   Delete
+          // </Button>,
         ]}
       >
         {editing ? (
-          <MenteeForm currentMentee={currentMentee} />
+          <MenteeFormRevised currentMentee={currentMentee} />
         ) : (
           <MenteeProfile currentMentee={currentMentee} />
         )}

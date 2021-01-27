@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { Form, Input, DatePicker, Radio } from 'antd';
 import moment from 'moment';
-
-import { editMenteeProfile, fetchMenteeById } from '../../../../state/actions';
 import {
   layout,
   FormContainer,
@@ -13,6 +11,7 @@ import {
 } from '../../../common/FormStyle';
 import Button from '../../../common/Button';
 import { debugLog } from '../../../../utils/debugMode';
+import { editMenteeProfile } from '../../../../state/actions';
 
 const dateFormat = 'MM/DD/YYYY';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
@@ -320,6 +319,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { editMenteeProfile, fetchMenteeById })(
-  MenteeForm
-);
+export default connect(mapStateToProps, { editMenteeProfile })(MenteeForm);
