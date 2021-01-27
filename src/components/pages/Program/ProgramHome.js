@@ -2,12 +2,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchProgramProfile } from '../../../state/actions';
 
-const ProgramHome = props => {
-  const { profile } = props;
-
+const ProgramHome = ({ profile, fetchProgramProfile }) => {
   useEffect(() => {
-    props.fetchProgramProfile(1); // change this later with login
-  }, []);
+    fetchProgramProfile(0); // change this later with login
+  }, [fetchProgramProfile]);
   console.log(profile);
 
   return (
