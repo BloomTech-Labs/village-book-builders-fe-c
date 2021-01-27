@@ -275,19 +275,8 @@ const MenteeFormContent = ({ onChange, fields }) => {
         <Input type="text" />
       </Form.Item>
 
-      {/* <Form.Item
-        label="Mentor Advisor"
-        name="mentor_advisor"
-        rules={[
-          {
-            required: true,
-            message: 'Mentor advisor is required.',
-          },
-        ]}
-      >
-        <Input type="text"/>
-      </Form.Item> */}
       <Divider />
+
       <Form.Item label="Choose a Mentor"></Form.Item>
       <Table
         rowSelection={{
@@ -368,22 +357,10 @@ const MenteeForm = ({ currentMentee, mentors }) => {
     },
   ]);
 
-  // const columns = [{
-  //   title: 'Mentor',
-  //   dataIndex: 'name',
-  //   render: text => <a href="#">{text}</a>,
-  // }, {
-  //   title: 'Language Spoken',
-  //   dataIndex: 'primary_language',
-  // },
-  // ];
-
   return (
     <>
       <MenteeFormContent
         fields={fields}
-        // columns={columns}
-        // dataSource={data}
         onChange={newFields => {
           setFields(newFields);
         }}
