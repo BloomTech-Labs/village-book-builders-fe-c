@@ -93,6 +93,32 @@ function TeacherForm() {
         </Form.Item>
 
         <Form.Item
+          name="gender"
+          label="Gender"
+          rules={[
+            {
+              required: true,
+              message: 'Gender required',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="address"
+          label="Address"
+          rules={[
+            {
+              required: true,
+              message: 'Address required',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        {/* <Form.Item
           name="email"
           label="Email"
           rules={[
@@ -107,9 +133,9 @@ function TeacherForm() {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           name="password"
           label="Password"
           rules={[
@@ -147,17 +173,17 @@ function TeacherForm() {
           ]}
         >
           <Input.Password />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item name="education" label="Education">
+        {/* <Form.Item name="education" label="Education">
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item name="location" label="Location">
+        {/* <Form.Item name="location" label="Location">
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           name="phone"
           label="Phone Number"
           rules={[
@@ -172,8 +198,8 @@ function TeacherForm() {
               width: '100%',
             }}
           />
-        </Form.Item>
-        <Form.Item
+        </Form.Item> */}
+        {/* <Form.Item
           label="Confirm Teacher Registration"
           name="role"
           value="teacher"
@@ -184,7 +210,7 @@ function TeacherForm() {
           ]}
         >
           <Input type="checkbox" defaultValue="teacher" />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
             Register

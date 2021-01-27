@@ -5,6 +5,7 @@
 // Declare action TYPES at the top of the file
 import axios from 'axios';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom';
 
 import * as actionTypes from './actionTypes';
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -272,6 +273,16 @@ export const fetchTeacherProfile = id => dispatch => {
         type: actionTypes.FETCH_TEACHER_PROFILE,
         payload: res.data,
       });
+    })
+    .catch(err => console.dir(err));
+};
+
+export const addTeacher = (id, data) => dispatch => {
+  const history = useHistory();
+  axiosWithAuth()
+    .post(`/teacher`, data)
+    .then(() => {
+      history.push('/');
     })
     .catch(err => console.dir(err));
 };
