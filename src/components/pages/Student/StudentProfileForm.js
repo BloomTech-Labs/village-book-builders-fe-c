@@ -39,6 +39,7 @@ const StudentProfileForm = ({
   editMenteeProfile,
   menteeProfile,
   isLoading,
+  role,
 }) => {
   const [formValues, setFormValues] = useState(initialState);
   const pathname = useHistory().location.pathname;
@@ -62,7 +63,11 @@ const StudentProfileForm = ({
 
   const handleSubmit = e => {
     editMenteeProfile(params, { ...formValues, gender: value });
-    history.push('/profile');
+    if (role === 'headmaster' || role === 'teacher' || role === 'program') {
+      history.push('/student-search');
+    } else {
+      history.push('/profile');
+    }
   };
 
   const handleChange = e => {
@@ -247,6 +252,7 @@ const mapStateToProps = state => {
   return {
     menteeProfile: state.menteeReducer.menteeProfile,
     isLoading: state.menteeReducer.isLoading,
+    role: state.authReducer.role,
   };
 };
 export default connect(mapStateToProps, {

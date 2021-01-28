@@ -98,7 +98,13 @@ const StudentSearch = props => {
               <h3>Date Of Birth:{Moment(student.dob).format('YYYY-MM-DD')}</h3>
               <h3>Gender:{student.gender}</h3>
               <h3>Primary Language:{student.primary_language}</h3>
-              <button>Update</button>
+              <button
+                onClick={() =>
+                  history.push(`/student/profile/edit/${student.id}`)
+                }
+              >
+                Update
+              </button>
             </div>
           ))
         )}
