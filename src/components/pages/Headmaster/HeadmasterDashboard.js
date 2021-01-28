@@ -17,6 +17,7 @@ import SchoolForm from '../School/SchoolForm.js';
 import HeadmasterProfile from './HeadmasterProfile/Profile.js';
 import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 import MentorList from '../Mentor/MentorList.js';
+import MatchingCalendar from './MentorMenteeMatching/MatchingCalendar';
 import { fetchHeadmasterProfile } from '../../../state/actions';
 import { Drawer, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -75,6 +76,7 @@ const HeadmasterDashboard = props => {
           <Route path="/profile/edit/:id" component={ProfileForm} />
           <Route path="/student-search" component={StudentSearch} />
           <Route path="/mentor-advisor" component={MentorList} />
+          <Route path="/mentor-mentee-matching" component={MatchingCalendar} />
           <Route path="/school-village">
             <Village />
             <Schools />
@@ -132,6 +134,14 @@ const HeadmasterDashboard = props => {
           </NavLink>
           <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Mentor List</button>
+          </NavLink>
+          <NavLink
+            to="/mentor-mentee-matching"
+            onClick={() => setVisible(true)}
+          >
+            <button className="btn l2-btn menuLinks">
+              Mentor Mentee Matching
+            </button>
           </NavLink>
           <NavLink to="/school-village" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">School/Village</button>
