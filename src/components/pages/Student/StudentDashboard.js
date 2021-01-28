@@ -28,7 +28,7 @@ const StudentDashboard = props => {
   const { profile } = props;
 
   useEffect(() => {
-    props.fetchMenteeProfile(2); // change this later with login
+    props.fetchMenteeProfile(1); // change this later with login
   }, []);
   console.log(profile);
 

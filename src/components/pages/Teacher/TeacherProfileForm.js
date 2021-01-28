@@ -38,12 +38,16 @@ const TeacherProfileForm = ({
   const [value, setValue] = useState(1);
   const params = useParams().id;
   const [form] = Form.useForm();
+  const pathname = useHistory().location.pathname;
+
   useEffect(() => {
-    return () => {
+    if (pathname.includes('edit')) {
       fetchTeacherProfile(0);
       form.setFieldsValue(teacherProfile);
-    };
+      setFormValues(teacherProfile);
+    }
   }, [fetchTeacherProfile]);
+
   const onChange = e => {
     console.log('radio checked', e.target.value);
     setValue(e.target.value);

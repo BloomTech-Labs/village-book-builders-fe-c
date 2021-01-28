@@ -30,12 +30,14 @@ const ProgramProfileForm = ({
   const params = useParams().id;
   const [form] = Form.useForm();
   const history = useHistory();
+  const pathname = useHistory().location.pathname;
 
   useEffect(() => {
-    return () => {
+    if (pathname.includes('edit')) {
       fetchProgramProfile(0);
       form.setFieldsValue(programProfile);
-    };
+      setFormValues(programProfile);
+    }
   }, [fetchProgramProfile]);
 
   const handleSubmit = e => {

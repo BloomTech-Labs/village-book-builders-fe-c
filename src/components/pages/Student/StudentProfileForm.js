@@ -41,21 +41,22 @@ const StudentProfileForm = ({
   isLoading,
 }) => {
   const [formValues, setFormValues] = useState(initialState);
+  const pathname = useHistory().location.pathname;
   const [value, setValue] = useState(1);
   const params = useParams().id;
   const [form] = Form.useForm();
   const history = useHistory();
 
   useEffect(() => {
-    return () => {
+    if (pathname.includes('edit')) {
       fetchMenteeProfile(1);
       form.setFieldsValue(menteeProfile);
-    };
+      setFormValues(menteeProfile);
+    }
   }, [fetchMenteeProfile]);
   console.log('inside mentee profile edit form', menteeProfile);
 
   const onChange = e => {
-    console.log('radio checked', e.target.value);
     setValue(e.target.value);
   };
 
@@ -86,7 +87,6 @@ const StudentProfileForm = ({
               <Input
                 type="text"
                 name="first_name"
-                defaultValue="Student name" // Change this
                 value={formValues.first_name}
                 onChange={e => handleChange(e)}
               />
