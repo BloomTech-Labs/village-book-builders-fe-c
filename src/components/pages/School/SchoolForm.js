@@ -73,7 +73,6 @@ const SchoolForm = props => {
           <Input
             type="text"
             name="headmaster"
-            defaultValue="Mr Headmaster"
             value={formData.headmaster}
             onChange={e => handleChange(e)}
           />

@@ -119,7 +119,7 @@ const MenteeFormRevised = props => {
       onFieldsChange={(_, allFields) => {
         setFields(allFields);
       }}
-      onSubmit={handleSubmit}
+      handleSubmit={handleSubmit}
     >
       <Form.Item
         label="First Name"
@@ -273,17 +273,3 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, { fetchMentors, editMenteeProfile })(
   MenteeFormRevised
 );
-
-// const MenteeForm = ({ currentMentee, mentors }) => {
-
-//   return (
-//     <>
-//       <MenteeFormContent
-//         fields={fields}
-//         onChange={newFields => {
-//           setFields(newFields);
-//         }}
-//       />
-//     </>
-//   );
-// };

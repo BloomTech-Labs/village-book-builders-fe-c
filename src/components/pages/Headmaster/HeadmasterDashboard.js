@@ -128,7 +128,7 @@ const HeadmasterDashboard = props => {
             <button className="btn l2-btn menuLinks">Profile</button>
           </NavLink>
           <NavLink to={'/mentor-pairings'} onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Mentor Pairings</button>
+            <button className="btn l2-btn menuLinks">Mentees List</button>
           </NavLink>
           <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">Mentor List</button>

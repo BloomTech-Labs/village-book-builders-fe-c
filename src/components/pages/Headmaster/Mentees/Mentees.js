@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Divider, Input, Modal, List, Avatar } from 'antd';
 import { connect } from 'react-redux';
 import { checkToken, fetchMentees } from '../../../../state/actions/index';
-import MenteeFormRevised from './MenteeFormRevised';
+import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
 
 const Mentees = props => {
@@ -135,7 +135,7 @@ const Mentees = props => {
         ]}
       >
         {editing ? (
-          <MenteeFormRevised currentMentee={currentMentee} />
+          <MenteeForm currentMentee={currentMentee} />
         ) : (
           <MenteeProfile currentMentee={currentMentee} />
         )}

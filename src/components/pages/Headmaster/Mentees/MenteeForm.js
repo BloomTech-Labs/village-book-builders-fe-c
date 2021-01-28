@@ -25,10 +25,7 @@ const MenteeForm = ({ currentMentee }) => {
     moment.utc(currentMentee.dob).format('dddd, MMMM Do of YYYY')
   );
 
-  const [formData, setFormData] = useState({
-    name: ['username'],
-    value: currentMentee.first_name,
-  });
+  const [formData, setFormData] = useState('');
   const pathname = useHistory().location.pathname;
   const params = useParams().id;
   const [form] = Form.useForm();
@@ -54,17 +51,14 @@ const MenteeForm = ({ currentMentee }) => {
       <Form.Item {...tailLayout}></Form.Item>
       <Form onFinish={handleSubmit} form={form} {...layout} fields={formData}>
         <Form.Item
-          id="first_name"
           label="First Name"
           name="first_name"
-          fields={formData}
           rules={[{ required: true, message: 'First Name is required.' }]}
         >
           <Input
-            id="first_name"
             type="text"
             name="first_name"
-            fields={formData}
+            fields={formData.first_name}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
