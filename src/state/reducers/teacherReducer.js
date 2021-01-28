@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
       return { ...state, isLoading: false };
     case ADD_TEACHER:
       debugLog(action.type, action.payload);
-      return { isLoading: false };
+      return { ...state, isLoading: false };
 
     default:
       return state;

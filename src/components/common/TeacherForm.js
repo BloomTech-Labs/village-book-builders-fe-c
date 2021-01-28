@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 
 // This reusable component is strictly for the "Teacher" input feilds
@@ -44,6 +44,7 @@ const layout = {
 
 function TeacherForm() {
   const [form] = Form.useForm();
+  const [reg, setReg] = useState();
 
   const onFinish = values => {
     console.log(values);
