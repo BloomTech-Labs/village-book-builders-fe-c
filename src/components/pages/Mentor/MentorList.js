@@ -11,9 +11,11 @@ const MentorList = props => {
     fetchMentors();
   }, [fetchMentors]);
 
+  console.log('props', props);
+
   return (
     <div className="menteeContainer">
-      <h1 id="menteeTittle">Mentor Advisors</h1>
+      <h1 id="menteeTittle">Mentor List</h1>
       <div className="exploreWrapper">
         <Divider />
         <List

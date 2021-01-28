@@ -73,7 +73,6 @@ const HeadmasterDashboard = props => {
           <Route path="/mentor-pairings" component={Mentees} />
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
-          <Route path="/mentor-advisor" />
           <Route path="/student-search" component={StudentSearch} />
           <Route path="/mentor-advisor" component={MentorList} />
           <Route path="/school-village">
@@ -129,10 +128,10 @@ const HeadmasterDashboard = props => {
             <button className="btn l2-btn menuLinks">Profile</button>
           </NavLink>
           <NavLink to={'/mentor-pairings'} onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Mentor Pairings</button>
+            <button className="btn l2-btn menuLinks">Mentees List</button>
           </NavLink>
           <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Mentor Advisor</button>
+            <button className="btn l2-btn menuLinks">Mentor List</button>
           </NavLink>
           <NavLink to="/school-village" onClick={() => setVisible(true)}>
             <button className="btn l2-btn menuLinks">School/Village</button>
