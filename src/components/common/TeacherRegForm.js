@@ -23,30 +23,6 @@ const TeacherRegForm = () => {
         >
           <TeacherForm className="form__teacher" />
         </TabPane>
-
-        <TabPane
-          tab={
-            <span>
-              <UserOutlined />
-              Student
-            </span>
-          }
-          key="2"
-        >
-          <StudentForm className="form__student" />
-        </TabPane>
-
-        <TabPane
-          tab={
-            <span>
-              <UserOutlined />
-              Log in
-            </span>
-          }
-          key="3"
-        >
-          <Login className="form__login" />
-        </TabPane>
       </Tabs>
     </div>
   );

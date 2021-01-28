@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import { Form, Input } from 'antd';
 import { login } from '../../../state/actions';
@@ -20,6 +20,8 @@ const initialState = {
 const Login = ({ login, loggedIn }) => {
   const [formData, setFormData] = useState(initialState);
   const [form] = Form.useForm();
+
+  const history = useHistory();
 
   const handleSubmit = async () => {
     // console.log('LOGIN COMPONENT handleSubmit --> ', formData);
@@ -66,9 +68,17 @@ const Login = ({ login, loggedIn }) => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button buttonText="Log In" type="submit" />
+          <Button buttonText="Log In" type="submit"></Button>
         </Form.Item>
       </Form>
+
+      <Form.Item {...tailLayout}>
+        <Button
+          buttonText="Register"
+          onClick={() => history.push('/register')}
+        ></Button>
+      </Form.Item>
+
       <h2>Temporary logins:</h2>
       <p>Account info for testing:</p>
       <p>"admin@admin.com" - "password"</p>
