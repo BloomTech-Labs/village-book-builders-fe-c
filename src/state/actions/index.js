@@ -277,16 +277,6 @@ export const fetchTeacherProfile = id => dispatch => {
     .catch(err => console.dir(err));
 };
 
-export const addTeacher = (id, data) => dispatch => {
-  const history = useHistory();
-  axiosWithAuth()
-    .post(`/teacher`, data)
-    .then(() => {
-      history.push('/');
-    })
-    .catch(err => console.dir(err));
-};
-
 // -----------------------
 // PROGRAM
 // -----------------------

@@ -25,9 +25,6 @@ const reducer = (state = initialState, action) => {
     case FETCH_TEACHER_PROFILE_FAILURE:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: false };
-    case ADD_TEACHER:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
 
     default:
       return state;

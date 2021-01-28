@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, message } from 'antd';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 // This reusable component is strictly for the "Teacher" input feilds
 const formItemLayout = {
@@ -42,16 +45,38 @@ const layout = {
   },
 };
 
+const initialFormValues = {
+  first_name: '',
+  last_name: '',
+  gender: '',
+  address: '',
+};
+
 function TeacherForm() {
   const [form] = Form.useForm();
-  const [reg, setReg] = useState();
+  const [formValues, setFormValues] = useState(initialFormValues);
+
+  const history = useHistory();
 
   const onFinish = values => {
-    console.log(values);
+    addTeacher(values);
+    console.log(' ON FINISH', values);
     form.resetFields();
     message.success(
       'Thank you for registering, the Headmaster will review your request'
     );
+  };
+
+  const addTeacher = newTeacher => {
+    axios
+      .post('https://vbb-mock-api.herokuapp.com/teacher', newTeacher)
+      .then(response => {
+        history.push('/');
+      })
+      .catch(error => alert(error.message))
+      .finally(() => {});
+    console.log('.FINALLY --->', newTeacher);
+    setFormValues(initialFormValues);
   };
 
   return (
@@ -68,7 +93,7 @@ function TeacherForm() {
         <h1>Teacher Registration Form</h1>
 
         <Form.Item
-          name="firstname"
+          name="first_name"
           label="First Name"
           rules={[
             {
@@ -81,7 +106,7 @@ function TeacherForm() {
         </Form.Item>
 
         <Form.Item
-          name="lastname"
+          name="last_name"
           label="Last Name"
           rules={[
             {
@@ -214,8 +239,12 @@ function TeacherForm() {
         </Form.Item> */}
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
-            Register
+            Submit
           </Button>
+        </Form.Item>
+
+        <Form.Item>
+          <a href="/login">Go Back</a>
         </Form.Item>
       </Form>
     </div>
