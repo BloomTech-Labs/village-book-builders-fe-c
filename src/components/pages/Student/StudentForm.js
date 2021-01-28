@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 // This reusable component is strictly for the "Student" input fields
 const formItemLayout = {
@@ -45,11 +47,27 @@ const layout = {
 
 function StudentForm() {
   const [form] = Form.useForm();
+  const [formValues, setFormValues] = useState();
+
+  const history = useHistory();
 
   const onFinish = values => {
+    addStudent(values);
     console.log(values);
     form.resetFields();
     message.success('Student succesfully registered');
+  };
+
+  const addStudent = newStudent => {
+    axios
+      .post('https://vbb-mock-api.herokuapp.com/mentee', newStudent)
+      .then(response => {
+        history.push('/');
+      })
+      .catch(error => alert(error.message))
+      .finally(() => {});
+    console.log('.FINALLY --->', newStudent);
+    setFormValues();
   };
 
   return (
