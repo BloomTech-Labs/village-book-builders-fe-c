@@ -8,34 +8,42 @@ import { Button, ComponentTitle } from '../../common';
 
 const StudentProfile = ({ fetchMenteeProfile, profile, isLoading }) => {
   useEffect(() => {
-    fetchMenteeProfile(3); // change this later with login
-  }, [fetchMenteeProfile]);
+    fetchMenteeProfile(1); // change this later with login
+  }, []);
   console.log('inside the student profile', profile);
   return (
     <Profile>
-      <ComponentTitle titleText="Profile" />
-      <img src={profile.mentee_picture} alt="student " />
-      <Label>Name:</Label>
-      <p>{`${profile.first_name} ${profile.last_name}`}</p>
-      <p>{profile.gender}</p>
-      <Label>Email:</Label>
-      <p>{profile.email}</p>
       <div>
-        <Label>Academics:</Label>
-        <p>English level: {profile.english_lvl}</p>
-        <p>Math level: {profile.math_lvl}</p>
-        <p>Reading level: {profile.reading_lvl}</p>
-        <p>School level: {profile.school_lvl}</p>
-        <p>{profile.academic_description}</p>
-      </div>
-      <Label>Support Needed</Label>
-      <p>{profile.support_needed}</p>
-      <div>
-        <Link to={`/profile/edit/${profile.id}`}>
-          <ThemeProvider theme={{ color: '#6ac66b' }}>
-            <Button buttonText="Edit Your Profile" />
-          </ThemeProvider>
-        </Link>
+        {isLoading ? (
+          '...loading'
+        ) : (
+          <div>
+            <ComponentTitle titleText="Profile" />
+            <img src={profile.mentee_picture} alt="student " />
+            <Label>Name:</Label>
+            <p>{`${profile.first_name} ${profile.last_name}`}</p>
+            <p>{profile.gender}</p>
+            <Label>Email:</Label>
+            <p>{profile.email}</p>
+            <div>
+              <Label>Academics:</Label>
+              <p>English level: {profile.english_lvl}</p>
+              <p>Math level: {profile.math_lvl}</p>
+              <p>Reading level: {profile.reading_lvl}</p>
+              <p>School level: {profile.school_lvl}</p>
+              <p>{profile.academic_description}</p>
+            </div>
+            <Label>Support Needed</Label>
+            <p>{profile.support_needed}</p>
+            <div>
+              <Link to={`/profile/edit/${profile.id}`}>
+                <ThemeProvider theme={{ color: '#6ac66b' }}>
+                  <Button buttonText="Edit Your Profile" />
+                </ThemeProvider>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </Profile>
   );

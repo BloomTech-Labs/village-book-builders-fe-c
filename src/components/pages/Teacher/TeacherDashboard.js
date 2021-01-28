@@ -30,7 +30,7 @@ const TeacherDashboard = props => {
   const { profile } = props;
 
   useEffect(() => {
-    props.fetchTeacherProfile(1); // change this later with login
+    props.fetchTeacherProfile(0); // change this later with login
   }, []);
   console.log(profile);
 
