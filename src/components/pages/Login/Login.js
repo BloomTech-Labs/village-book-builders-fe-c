@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-
-import { Form, Input } from 'antd';
+import 'antd/dist/antd.css';
+import { Form, Input, Checkbox, Button } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { login } from '../../../state/actions';
-import {
-  layout,
-  FormContainer,
-  tailLayout,
-  // Required,
-} from '../../common/FormStyle';
-import Button from '../../common/Button';
 
 const initialState = {
   email: '',
@@ -35,18 +29,22 @@ const Login = ({ login, loggedIn }) => {
   return loggedIn ? (
     <Redirect to="/dashboard" />
   ) : (
-    <FormContainer>
-      <Form onFinish={handleSubmit} form={form} {...layout}>
-        <Form.Item {...tailLayout}>
-          <h1>Log In</h1>
-          {/* //! REMOVE THESE temp logins for stakeholder */}
-        </Form.Item>
+    <div className="login-page">
+      <Form
+        name="normal_login"
+        className="login-form"
+        initialValues={{ remember: true }}
+        onFinish={handleSubmit}
+        form={form}
+      >
+        <h1>Log In</h1>
         <Form.Item
           label="Email"
           name="email"
           rules={[{ required: true, message: 'Email is required.' }]}
         >
           <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
             type="text"
             name="email"
             value={formData.email}
@@ -60,6 +58,7 @@ const Login = ({ login, loggedIn }) => {
           rules={[{ required: true, message: 'Password is required.' }]}
         >
           <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             name="password"
             value={formData.password}
@@ -67,33 +66,32 @@ const Login = ({ login, loggedIn }) => {
           />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
-          <Button buttonText="Log In" type="submit"></Button>
+        <Form.Item>
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+
+          <a className="login-form-forgot" href="">
+            Forgot password
+          </a>
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+          >
+            Log In
+          </Button>
+        </Form.Item>
+        <Form.Item>
+          <a className="login-form-register" href="/register">
+            Don't have an account?
+          </a>
         </Form.Item>
       </Form>
-
-      <Form.Item {...tailLayout}>
-        <Button
-          buttonText="Register"
-          onClick={() => history.push('/register')}
-        ></Button>
-      </Form.Item>
-
-      <h2>Temporary logins:</h2>
-      <p>Account info for testing:</p>
-      <p>"admin@admin.com" - "password"</p>
-      <p>"headmaster@headmaster.com" - "password"</p>
-      <p>"teacher@teacher.com" - "password"</p>
-      <p>"program@program.com" - "password"</p>
-      <p>"mentees@mentees.com" - "password"</p>
-
-      <p>
-        Note to dev's: need to remove all page refreshes in code.
-        `window.location.replace()` refreshes the page, clears out the redux
-        store, and slows down functionality. `history.push` and `Redirect` are
-        better for react SPA's
-      </p>
-    </FormContainer>
+    </div>
   );
 };
 
