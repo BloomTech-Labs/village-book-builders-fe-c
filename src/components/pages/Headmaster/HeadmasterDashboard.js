@@ -13,7 +13,7 @@ import MentorList from '../Mentor/MentorList.js';
 import { fetchHeadmasterProfile } from '../../../state/actions';
 import Logout from '../../Logout.js';
 import Mentees from './Mentees/Mentees.js';
-import { Layout, Menu, PageHeader, Button } from 'antd';
+import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
 import {
   HomeOutlined,
   UserOutlined,
@@ -32,12 +32,13 @@ const HeadmasterDashboard = props => {
   }, []);
   console.log(profile);
 
-  const { Content, Footer, Sider } = Layout;
+  const { Content, Sider } = Layout;
 
   return (
     <div>
       <Layout>
         <Sider
+          theme="light"
           breakpoint="lg"
           collapsedWidth="0"
           onBreakpoint={broken => {
@@ -47,13 +48,16 @@ const HeadmasterDashboard = props => {
             console.log(collapsed, type);
           }}
         >
-          <Menu style={{ backgroundColor: '#FFFFF6' }}>
-            <div style={{ padding: '1rem' }}>
-              <img
-                src="/images/vbb-full-logo.png"
-                alt="VBB logo"
-                width="150"
-              ></img>
+          <Menu mode="inline" defaultSelectedKeys={['4']}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '2rem 1rem',
+              }}
+            >
+              <Avatar style={{ color: '#FF914D' }} icon={<UserOutlined />} />
+              <div style={{ padding: '1rem' }}>{profile.last_name}</div>
             </div>
             <Menu.Item key="1" icon={<HomeOutlined />}>
               <NavLink to="/dashboard">Home</NavLink>
@@ -77,10 +81,17 @@ const HeadmasterDashboard = props => {
               <Link to="/logout">Logout</Link>
             </Menu.Item>
           </Menu>
+          <div>
+            <img
+              style={{ padding: '2rem 1rem' }}
+              src="/images/vbb-full-logo.png"
+              alt="VBB logo"
+              width="150"
+            ></img>
+          </div>
         </Sider>
         <Layout>
           <PageHeader
-            style={{ backgroundColor: '#FF914D' }}
             title={`Hello, Headmaster ${profile.last_name}`}
             extra={[
               <Button key="1">
@@ -91,7 +102,7 @@ const HeadmasterDashboard = props => {
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ padding: '5rem', backgroundColor: '#FFFFF6' }}>
+          <Content style={{ padding: '5rem', backgroundColor: 'white' }}>
             <Switch>
               <Route path="/dashboard" component={HeadmasterHome} />
               <Route path="/mentor-pairings" component={Mentees} />
@@ -117,13 +128,6 @@ const HeadmasterDashboard = props => {
               <Route path="/logout" component={Logout} />
             </Switch>
           </Content>
-          <Footer style={{ backgroundColor: '#FF914D' }}>
-            <h2
-              style={{ textAlign: 'left', fontSize: '.75rem', color: 'white' }}
-            >
-              Village Book Builders
-            </h2>
-          </Footer>
         </Layout>
       </Layout>
     </div>

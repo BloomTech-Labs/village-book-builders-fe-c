@@ -6,8 +6,8 @@ module.exports = {
   '@error-color': '#f5222d',
   '@font-size-base': '14px',
   '@heading-color': '#4C4C49', //dark gray
-  '@text-color': '#4C4C49',
-  '@text-color-secondary': 'white',
+  '@text-color': '#4C4C49', //dark gray
+  '@text-color-secondary': '#FFBD59', //light orange
   '@disabled-color': 'rgba(0, 0, 0, 0.25)',
   '@border-radius-base': '18px',
   '@border-color-base': '#d9d9d9',
