@@ -25,20 +25,12 @@ const initialState = {
 };
 
 const MatchingCalendar = props => {
+  // useEffect will eventually be used to populate list of mentees & mentors in drop menu
   // const { fetchMentees } = props;
 
   // useEffect(() => {
   //   fetchMentees();
   // }, [fetchMentees]);
-  function PickerWithType({ type, onChange }) {
-    if (type === 'time') return <TimePicker onChange={onChange} />;
-    if (type === 'date') return <DatePicker onChange={onChange} />;
-    return <DatePicker picker={type} onChange={onChange} />;
-  }
-
-  function SwitchablePicker() {
-    const [type, setType] = useState('time');
-  }
 
   //-----------------------start calendar code - https://ant.design/components/calendar/
   function dateCellRender(value) {
@@ -73,7 +65,7 @@ const MatchingCalendar = props => {
   function onPanelChange(value, mode) {
     console.log(value.format('YYYY-MM-DD'), mode);
   }
-  // (Moment(value).format('YYYY-MM-DD'))
+
   function getListData(value) {
     let listData;
     switch (value.date()) {
@@ -99,36 +91,30 @@ const MatchingCalendar = props => {
         break;
       default:
     }
-    // console.log("listData------------>", listData)
+
     return listData || [];
   }
   //-----------------------end calendar code
 
-  //set selection type for drop menu in form
+  //set selection type for standard drop menu in form
   const { Option } = Select;
-
-  // const initialState = {
-  //   date:'',
-  //   type: 'success', <--- sets color of bullet point in list
-  //   content:''
-  // };
 
   const [calValue, setCalValue] = useState(initialState);
 
+  //standard picker handler
   const handleChange = e => {
     setCalValue({ ...calValue, [e.target.name]: e.target.value });
   };
 
-  const onFinish = calValue => {
-    console.log('calendar value on submit', calValue);
-    getListData(calValue);
-  };
-
+  //date picker handler
   function onChange(date, dateString) {
     console.log(date, dateString);
   }
 
-  const [type, setType] = useState('date');
+  const onFinish = calValue => {
+    getListData(calValue);
+  };
+
   return (
     <div>
       <h1>Mentor - Mentee Matching</h1>
@@ -159,13 +145,6 @@ const MatchingCalendar = props => {
             </Form.Item>
           </Input.Group>
         </Form.Item>
-
-        {/* <Space direction="vertical" size={12}>
-          <DatePicker
-            defaultValue={moment(`${formData.dob}`, dateFormatList[0])}
-            format={dateFormat}
-          />
-        </Space> */}
 
         <Form.Item label="Mentee">
           <Input.Group large>
