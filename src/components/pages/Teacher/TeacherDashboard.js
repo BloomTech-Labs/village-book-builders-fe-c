@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, Route, Switch } from 'react-router-dom';
-import TeacherHome from '../Teacher/TeacherHome';
+import TeacherHome from './TeacherHome';
 import StudentSearch from '../Student/StudentSearch';
 import TeacherProfile from './TeacherProfile';
+import TeacherProfileForm from './TeacherProfileForm';
 import { fetchTeacherProfile } from '../../../state/actions';
-import TeacherProfileForm from '../Teacher/TeacherProfileForm';
 import Logout from '../../Logout.js';
-import { Layout, Menu, PageHeader, Button } from 'antd';
+import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
 import {
   HomeOutlined,
   UserOutlined,
@@ -19,16 +19,17 @@ const TeacherDashboard = props => {
   const { profile } = props;
 
   useEffect(() => {
-    props.fetchProgramProfile(1); // change this later with login
+    props.fetchTeacherProfile(1); // change this later with login
   }, []);
   console.log(profile);
 
-  const { Content, Footer, Sider } = Layout;
+  const { Content, Sider } = Layout;
 
   return (
     <div>
       <Layout>
         <Sider
+          theme="light"
           breakpoint="lg"
           collapsedWidth="0"
           onBreakpoint={broken => {
@@ -38,13 +39,16 @@ const TeacherDashboard = props => {
             console.log(collapsed, type);
           }}
         >
-          <Menu style={{ backgroundColor: '#FFFFF6' }}>
-            <div style={{ padding: '1rem' }}>
-              <img
-                src="/images/vbb-full-logo.png"
-                alt="VBB logo"
-                width="150"
-              ></img>
+          <Menu mode="inline" defaultSelectedKeys={['4']}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '2rem 1rem',
+              }}
+            >
+              <Avatar style={{ color: '#FF914D' }} icon={<UserOutlined />} />
+              <div style={{ padding: '1rem' }}>{profile.name}</div>
             </div>
             <Menu.Item key="1" icon={<HomeOutlined />}>
               <NavLink to="/dashboard">Home</NavLink>
@@ -59,11 +63,18 @@ const TeacherDashboard = props => {
               <Link to="/logout">Logout</Link>
             </Menu.Item>
           </Menu>
+          <div>
+            <img
+              style={{ padding: '2rem 1rem' }}
+              src="/images/vbb-full-logo.png"
+              alt="VBB logo"
+              width="150"
+            ></img>
+          </div>
         </Sider>
         <Layout>
           <PageHeader
-            style={{ backgroundColor: '#FF914D' }}
-            title={`Hello, ${profile.name}`}
+            title={`Hello, ${profile.first_name} ${profile.last_name}`}
             extra={[
               <Button key="1">
                 <a href="#">Go Back</a>
@@ -73,7 +84,7 @@ const TeacherDashboard = props => {
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ padding: '5rem', backgroundColor: '#FFFFF6' }}>
+          <Content style={{ padding: '5rem', backgroundColor: 'white' }}>
             <Switch>
               <Route path="/dashboard" component={TeacherHome} />
               <Route exact path="/profile" component={TeacherProfile} />
@@ -82,13 +93,6 @@ const TeacherDashboard = props => {
               <Route path="/logout" component={Logout} />
             </Switch>
           </Content>
-          <Footer style={{ backgroundColor: '#FF914D' }}>
-            <h2
-              style={{ textAlign: 'left', fontSize: '.75rem', color: 'white' }}
-            >
-              Village Book Builders
-            </h2>
-          </Footer>
         </Layout>
       </Layout>
     </div>
@@ -100,7 +104,7 @@ const mapStateToProps = state => {
     loggedIn: state.authReducer.loggedIn,
     userId: state.authReducer.userId,
     role: state.authReducer.role,
-    profile: state.programReducer.programProfile,
+    profile: state.teacherReducer.teacherProfile,
   };
 };
 
