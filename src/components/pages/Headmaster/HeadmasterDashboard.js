@@ -40,7 +40,7 @@ const HeadmasterDashboard = props => {
   useEffect(() => {
     props.fetchHeadmasterProfile(1); // change this later with login
   }, []);
-  console.log(profile);
+  // console.log(profile);
 
   useEffect(() => {
     if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
