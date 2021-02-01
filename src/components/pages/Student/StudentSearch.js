@@ -5,7 +5,7 @@ import {
   fetchMenteesByDateSearch,
 } from '../../../state/actions/index';
 import Moment from 'moment';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Alert } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 const StudentSearch = props => {
@@ -41,41 +41,48 @@ const StudentSearch = props => {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <h1>Find a Student</h1>
       <Form onSubmit={onSubmit}>
-        <label>Last Name: </label>
-        <Input
-          type="text"
-          placeholder="Last Name"
-          value={lastNameSearch}
-          onChange={onLastNameChange}
-        ></Input>
-        <Button htmlType="button" onClick={onSubmit}>
-          Submit
-        </Button>
+        <Form.Item>
+          <label>Last Name: </label>
+          <Input
+            type="text"
+            placeholder="Last Name"
+            value={lastNameSearch}
+            onChange={onLastNameChange}
+          ></Input>
+          <Button htmlType="button" onClick={onSubmit}>
+            Submit
+          </Button>
+        </Form.Item>
       </Form>
       {/*DOB search currently not working due to JSON server having weird format for dates working on resolving */}
-      <Form onSubmit={onDateSubmit}>
-        <label>Date of Birth: </label>
-        <Input
-          type="date"
-          placeholder="Date Of Birth"
-          value={dobSearch}
-          onChange={onDobChange}
-        ></Input>
-        <Button htmlType="button" onClick={onSubmit}>
-          Submit
-        </Button>
-      </Form>
+      {/* <Form onSubmit={onDateSubmit}>
+        <Form.Item>
+          <label>Date of Birth: </label>
+          <Input
+            type="date"
+            placeholder="Date Of Birth"
+            value={dobSearch}
+            onChange={onDobChange}
+          ></Input>
+          <Button htmlType="button" onClick={onSubmit}>
+            Submit
+          </Button>
+        </Form.Item>
+      </Form> */}
       <div>
         {props.isLoading ? (
           ''
         ) : props.searchedMentee.length === 0 ? (
           <div>
             <br></br>
-            <p>This student is not registered.</p>
-
+            <Alert
+              message="This student is not registered."
+              type="error"
+              showIcon
+            />
             <Button
               onClick={() => {
                 history.push('/studentregistration');
