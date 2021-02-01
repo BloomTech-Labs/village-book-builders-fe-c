@@ -249,14 +249,8 @@ const ProfileForm = props => {
         </Form.Item>
 
         <Form.Item>
-          <Button
-            className="l2-btn btn"
-            htmlType="submit"
-            buttonText="Submit Village Edit"
-          />
-          <div>
-            Fields with <span id="required">&#42;</span> are required.
-          </div>
+          <p>Fields with * are required.</p>
+          <Button>Submit</Button>
         </Form.Item>
       </Form>
     </div>
