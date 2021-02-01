@@ -8,6 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import StudentProfileForm from '../../pages/Student/StudentProfileForm';
 import HeadmasterHome from './HeadmasterHome';
 import StudentSearch from '../Student/StudentSearch';
 import Village from '../Village/Village.component.js';
@@ -74,6 +75,10 @@ const HeadmasterDashboard = props => {
           <Route exact path="/profile" component={HeadmasterProfile} />
           <Route path="/profile/edit/:id" component={ProfileForm} />
           <Route path="/student-search" component={StudentSearch} />
+          <Route
+            path="/student/profile/edit/:id"
+            component={StudentProfileForm}
+          />
           <Route path="/mentor-advisor" component={MentorList} />
           <Route path="/school-village">
             <Village />
