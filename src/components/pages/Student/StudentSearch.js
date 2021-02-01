@@ -5,8 +5,9 @@ import {
   fetchMenteesByDateSearch,
 } from '../../../state/actions/index';
 import Moment from 'moment';
-
+import { Form, Input, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
+
 const StudentSearch = props => {
   const [lastNameSearch, setLastNameSearch] = useState('');
   const [dobSearch, setDobSearch] = useState('');
@@ -41,46 +42,47 @@ const StudentSearch = props => {
 
   return (
     <div>
-      <h1>Student Search</h1>
-      <form onSubmit={onSubmit}>
-        <label>
-          Last Name
-          <input
-            type="text"
-            placeholder="Last Name"
-            value={lastNameSearch}
-            onChange={onLastNameChange}
-          />
-          <input type="submit" />
-        </label>
-      </form>
+      <h1>Find a Student</h1>
+      <Form onSubmit={onSubmit}>
+        <label>Last Name: </label>
+        <Input
+          type="text"
+          placeholder="Last Name"
+          value={lastNameSearch}
+          onChange={onLastNameChange}
+        ></Input>
+        <Button htmlType="button" onClick={onSubmit}>
+          Submit
+        </Button>
+      </Form>
       {/*DOB search currently not working due to JSON server having weird format for dates working on resolving */}
-      <form onSubmit={onDateSubmit}>
-        <label>
-          Date Of Birth
-          <input
-            type="date"
-            placeholder="Date Of Birth"
-            value={dobSearch}
-            onChange={onDobChange}
-          />
-          <input type="submit" />
-        </label>
-      </form>
+      <Form onSubmit={onDateSubmit}>
+        <label>Date of Birth: </label>
+        <Input
+          type="date"
+          placeholder="Date Of Birth"
+          value={dobSearch}
+          onChange={onDobChange}
+        ></Input>
+        <Button htmlType="button" onClick={onSubmit}>
+          Submit
+        </Button>
+      </Form>
       <div>
         {props.isLoading ? (
-          'Search for a student!'
+          ''
         ) : props.searchedMentee.length === 0 ? (
           <div>
-            <h2>This student is not registered.</h2>
+            <br></br>
+            <p>This student is not registered.</p>
 
-            <button
+            <Button
               onClick={() => {
                 history.push('/studentregistration');
               }}
             >
               Register Student
-            </button>
+            </Button>
           </div>
         ) : (
           props.searchedMentee.map(student => (
