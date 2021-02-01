@@ -5,18 +5,20 @@ import {
   fetchMenteesByDateSearch,
 } from '../../../state/actions/index';
 import Moment from 'moment';
-import { Input, Button, Alert, Space } from 'antd';
+import { Input, Button, Alert, Space, Card, Avatar } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { EditOutlined } from '@ant-design/icons';
 
 const StudentSearch = props => {
   const [lastNameSearch, setLastNameSearch] = useState('');
   // const [dobSearch, setDobSearch] = useState('');
   const history = useHistory();
 
+  const { Search } = Input;
+  const { Meta } = Card;
+
   const { fetchMenteesBySearch } = props;
   // const { fetchMenteesByDateSearch } = props;
-
-  const { Search } = Input;
 
   const onSubmit = e => {
     fetchMenteesBySearch(lastNameSearch);
@@ -97,20 +99,28 @@ const StudentSearch = props => {
         ) : (
           props.searchedMentee.map(student => (
             <div>
-              {/* this should all be styled in grid for easy viewing and we should consider importing cards as a styled component */}
-              <img
-                src={student.mentee_picture}
-                alt="somethings here"
-                style={{ borderRadius: '50%', width: '200px', height: '200px' }}
-              />{' '}
-              {/* temp styling */}
-              <h2>
-                {student.first_name} {student.last_name}
-              </h2>
-              <h3>Date Of Birth:{Moment(student.dob).format('YYYY-MM-DD')}</h3>
-              <h3>Gender:{student.gender}</h3>
-              <h3>Primary Language:{student.primary_language}</h3>
-              <button>Update</button>
+              <Card
+                style={{ width: 300 }}
+                cover={<img alt="example" src={student.mentee_picture} />}
+                actions={[
+                  <EditOutlined
+                    key="edit"
+                    onClick={() =>
+                      history.push(`/student/profile/edit/${student.id}`)
+                    }
+                  />,
+                ]}
+              >
+                <Meta
+                  avatar={<Avatar src={student.mentee_picture} />}
+                  title={`${student.first_name} ${student.last_name}`}
+                  description={`Date of Birth: ${Moment(student.dob).format(
+                    'YYYY-MM-DD'
+                  )}
+                      Gender: ${student.gender}
+                      Language: ${student.primary_language}`}
+                />
+              </Card>
             </div>
           ))
         )}
@@ -118,12 +128,14 @@ const StudentSearch = props => {
     </div>
   );
 };
+
 const mapStateToProps = state => {
   return {
     searchedMentee: state.menteeReducer.searchedMentee,
     isLoading: state.menteeReducer.isLoading,
   };
 };
+
 export default connect(mapStateToProps, {
   fetchMenteesBySearch,
   fetchMenteesByDateSearch,
