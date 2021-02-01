@@ -1,22 +1,12 @@
-import {
-  Calendar,
-  Badge,
-  Button,
-  Form,
-  Input,
-  DatePicker,
-  Select,
-  Space,
-  TimePicker,
-} from 'antd';
+import { Calendar, Badge, Form, Input, DatePicker, Select, Space } from 'antd';
 import 'antd/dist/antd.css';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 import { fetchMentees } from '../../../../state/actions/index';
-// import Moment from 'moment';
-import moment from 'moment';
+import Moment from 'moment';
+import Button from '../../../common/Button';
 
 const initialState = {
   date: '',
@@ -46,11 +36,7 @@ const MatchingCalendar = props => {
     );
   }
 
-  function getMonthData(value) {
-    if (value.month() === 8) {
-      return 1394;
-    }
-  }
+  function getMonthData(value) {}
 
   function monthCellRender(value) {
     const num = getMonthData(value);
@@ -68,14 +54,143 @@ const MatchingCalendar = props => {
 
   function getListData(value) {
     let listData;
+    console.log('value---->', value.date());
     switch (value.date()) {
-      case 8:
+      case 1:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 2:
         listData = [
           {
             type: 'success',
+            content: 'Mentor Samwise & Mentee Frodo, 2pm',
+          },
+        ];
+        break;
+      case 3:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 4:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 5:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 6:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 7:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 8:
+        listData = [
+          {
+            type: '',
             content: 'Chandler Rosenbaum & Antwan Konopelski, 2pm',
           },
-          { type: 'success', content: 'Marilyne Murazik & Michael Scott, 3pm' },
+          { type: '', content: 'Marilyne Murazik & Michael Scott, 3pm' },
+        ];
+        break;
+      case 9:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 10:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 11:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 12:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 13:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 14:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 15:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 16:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 17:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
         ];
         break;
       case 18:
@@ -89,9 +204,24 @@ const MatchingCalendar = props => {
           { type: 'success', content: 'Marilyne Murazik & Michael Scott, 3pm' },
         ];
         break;
+      case 19:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
+      case 20:
+        listData = [
+          {
+            type: '',
+            content: '',
+          },
+        ];
+        break;
       default:
     }
-
     return listData || [];
   }
   //-----------------------end calendar code
@@ -106,7 +236,7 @@ const MatchingCalendar = props => {
     setCalValue({ ...calValue, [e.target.name]: e.target.value });
   };
 
-  //date picker handler
+  // date picker handler
   function onChange(date, dateString) {
     console.log(date, dateString);
   }
@@ -126,9 +256,10 @@ const MatchingCalendar = props => {
         />
       </div>
       <h3>Please complete all the fields below to fill a time slot.</h3>
-      <Form className="calForm" onFinish={onFinish}>
+
+      <Form onFinish={onFinish}>
         <Form.Item label="Mentor">
-          <Input.Group large>
+          <Input.Group>
             <Form.Item
               name="content"
               noStyle
@@ -147,7 +278,7 @@ const MatchingCalendar = props => {
         </Form.Item>
 
         <Form.Item label="Mentee">
-          <Input.Group large>
+          <Input.Group>
             <Form.Item
               name="mentee"
               noStyle
@@ -161,8 +292,8 @@ const MatchingCalendar = props => {
           </Input.Group>
         </Form.Item>
 
-        <Form.Item label="Time slot">
-          <Input.Group large>
+        <Form.Item id="form_label" label="Time slot">
+          <Input.Group>
             <Form.Item
               name="slot"
               noStyle
@@ -171,6 +302,13 @@ const MatchingCalendar = props => {
               <Select placeholder="Please select a time slot.">
                 <Option value="9am">9am</Option>
                 <Option value="10am">10am</Option>
+                <Option value="11am">11am</Option>
+                <Option value="12pm">12pm</Option>
+                <Option value="1pm">1pm</Option>
+                <Option value="2pm">2pm</Option>
+                <Option value="3pm">3pm</Option>
+                <Option value="4pm">4pm</Option>
+                <Option value="5pm">5pm</Option>
               </Select>
             </Form.Item>
           </Input.Group>
@@ -186,7 +324,7 @@ const MatchingCalendar = props => {
             >
               <Select placeholder="Please select a date."
                 name={calValue.date}>
-                <Option value={Date()}>1</Option>
+                <Option value={Moment.day(2)}>1</Option>
                 <Option value={2021/1/31}>2</Option>
                 <Option value={31}>3</Option>
                 <Option value={1/31/2021}>4</Option>
@@ -196,7 +334,7 @@ const MatchingCalendar = props => {
         </Form.Item>  */}
 
         <Form.Item label="Date">
-          <Input.Group large>
+          <Input.Group>
             <Form.Item
               name="date"
               noStyle
@@ -211,9 +349,11 @@ const MatchingCalendar = props => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
+          <Button
+            className="l2-btn btn"
+            htmlType="submit"
+            buttonText="Create calendar event"
+          />
         </Form.Item>
       </Form>
       <div className="miniListContainer">
