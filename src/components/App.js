@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import '../style.css';
 // import PrivateRoute from "../utils/PrivateRoute";
 import { checkToken } from '../state/actions/index';
-import Login from './pages/Login/Login';
+import LoginHeader from './pages/Login/LoginHeader';
 import HeadmasterDashboard from './pages/Headmaster/HeadmasterDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import TeacherRegForm from './common/TeacherRegForm';
@@ -28,7 +28,7 @@ const App = ({ role, checkToken }) => {
         </Route>
 
         <Route path="/login">
-          <Login />
+          <LoginHeader />
         </Route>
 
         <Route path="/">
