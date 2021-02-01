@@ -5,91 +5,94 @@ import {
   fetchMenteesByDateSearch,
 } from '../../../state/actions/index';
 import Moment from 'moment';
-import { Form, Input, Button, Alert } from 'antd';
+import { Input, Button, Alert, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 const StudentSearch = props => {
   const [lastNameSearch, setLastNameSearch] = useState('');
-  const [dobSearch, setDobSearch] = useState('');
+  // const [dobSearch, setDobSearch] = useState('');
   const history = useHistory();
 
   const { fetchMenteesBySearch } = props;
-  const { fetchMenteesByDateSearch } = props;
+  // const { fetchMenteesByDateSearch } = props;
+
+  const { Search } = Input;
 
   const onSubmit = e => {
-    e.preventDefault();
     fetchMenteesBySearch(lastNameSearch);
     setLastNameSearch('');
   };
 
-  const onDateSubmit = e => {
-    /*DOB search currently not working due to JSON server having weird format for dates working on resolving 
-    need to find out how to send 
-    the date back in the same format that we received it*/
-    e.preventDefault();
-    fetchMenteesByDateSearch(dobSearch);
-    setDobSearch('');
-    console.log(dobSearch);
-  };
+  // const onDateSubmit = e => {
+  //   e.preventDefault();
+  //   fetchMenteesByDateSearch(dobSearch);
+  //   setDobSearch('');
+  // };
+
+  // const onDateSubmit = e => {
+  //   /*DOB search currently not working due to JSON server having weird format for dates working on resolving
+  //   need to find out how to send
+  //   the date back in the same format that we received it*/
+  //   e.preventDefault();
+  //   fetchMenteesByDateSearch(dobSearch);
+  //   setDobSearch('');
+  //   console.log(dobSearch);
+  // };
 
   const onLastNameChange = e => {
     setLastNameSearch(e.target.value);
   };
 
-  const onDobChange = e => {
-    setDobSearch(e.target.value);
-  };
+  // const onDobChange = e => {
+  //   setDobSearch(e.target.value);
+  // };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <h1>Find a Student</h1>
-      <Form onSubmit={onSubmit}>
-        <Form.Item>
-          <label>Last Name: </label>
-          <Input
-            type="text"
-            placeholder="Last Name"
-            value={lastNameSearch}
-            onChange={onLastNameChange}
-          ></Input>
-          <Button htmlType="button" onClick={onSubmit}>
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-      {/*DOB search currently not working due to JSON server having weird format for dates working on resolving */}
-      {/* <Form onSubmit={onDateSubmit}>
-        <Form.Item>
-          <label>Date of Birth: </label>
-          <Input
-            type="date"
-            placeholder="Date Of Birth"
-            value={dobSearch}
+      <Space direction="vertical">
+        <Search
+          style={{ width: 300 }}
+          placeholder="Student Last Name"
+          allowClear
+          enterButton="Search"
+          size="large"
+          onSearch={onSubmit}
+          onChange={onLastNameChange}
+        />
+      </Space>
+      ,
+      {/* DOB search currently not working due to JSON server having weird format for dates working on resolving
+        <Space direction="vertical">
+          <Search
+            style={{ width: 300 }}
+            placeholder="Student Last Name"
+            allowClear
+            enterButton="Search"
+            size="large"
+            onSearch={onDateSubmit}
             onChange={onDobChange}
-          ></Input>
-          <Button htmlType="button" onClick={onSubmit}>
-            Submit
-          </Button>
-        </Form.Item>
-      </Form> */}
+          />
+        </Space>, */}
       <div>
         {props.isLoading ? (
           ''
         ) : props.searchedMentee.length === 0 ? (
           <div>
-            <br></br>
             <Alert
               message="This student is not registered."
               type="error"
               showIcon
             />
-            <Button
-              onClick={() => {
-                history.push('/studentregistration');
-              }}
-            >
-              Register Student
-            </Button>
+            <p style={{ padding: '1rem 0' }}>
+              <Button
+                onClick={() => {
+                  history.push('/studentregistration');
+                }}
+              >
+                Register Student
+              </Button>
+            </p>
           </div>
         ) : (
           props.searchedMentee.map(student => (
