@@ -1,1 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+  .menuIcon {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    transition: 'bottom 200ms linear';
+  }
+  
+  .menuMove {
+    position: fixed;
+    bottom: 500px;
+    width: 100%;
+    transition: 'bottom 200ms linear';
+  }
+  
+  .menuButton {
+    width: 100%;
+    background: #549bea;
+    border: 1px solid #549bea;
+    height: 3rem;
+  }
+  
+  #menteeTitle {
+    text-align: center;
+  }
+  
+  .exploreWrapper {
+    margin: 0 6pt;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  
+  .listItemWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .listItemButtonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin: 6pt 0;
+  }
+  .listItemButton {
+    width: 90px;
+    margin-right: 10px;
+  }
+  
+  .menteeModal {
+    background-color: rgb(236, 166, 73);
+  }
+  
+  .menteeProfileWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }

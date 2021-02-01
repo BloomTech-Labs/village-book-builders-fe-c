@@ -1,14 +1,14 @@
 module.exports = {
   '@primary-color': '#FF914D', //orange
   '@link-color': '#FF914D', //orange
-  '@success-color': '#52c41a',
-  '@warning-color': '#faad14',
-  '@error-color': '#f5222d',
+  '@success-color': '#6AC66B', //green
+  '@warning-color': '#FF914D', //orange
+  '@error-color': '#FF914D', //orange
   '@font-size-base': '14px',
   '@heading-color': '#4C4C49', //dark gray
   '@text-color': '#4C4C49', //dark gray
-  '@text-color-secondary': '#FFBD59', //light orange
-  '@disabled-color': 'rgba(0, 0, 0, 0.25)',
+  '@text-color-secondary': '#4C4C49', //dark gray
+  '@disabled-color': 'rgba(0, 0, 0, 0.25)', //light gray
   '@border-radius-base': '18px',
   '@border-color-base': '#d9d9d9',
   '@box-shadow-base':

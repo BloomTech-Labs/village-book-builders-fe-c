@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { checkToken, fetchMentees } from '../../../../state/actions/index';
 import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
+import '../../../../style.css';
 
 const Mentees = props => {
   let menteesSelection = [...props.mentees];
@@ -54,7 +55,7 @@ const Mentees = props => {
 
   return (
     <div className="menteeContainer">
-      <h1 id="menteeTittle">Mentee Management</h1>
+      <h1 id="menteeTitle">Mentee Management</h1>
       <div className="exploreWrapper">
         <Button
           style={{ width: '80%', marginBottom: '10pt', alignSelf: 'center' }}
