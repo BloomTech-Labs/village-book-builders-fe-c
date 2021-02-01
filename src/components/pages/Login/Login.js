@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Form, Input, Checkbox, Button } from 'antd';
+import { Form, Input, Checkbox, Button, Row, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { login } from '../../../state/actions';
 
@@ -29,7 +29,7 @@ const Login = ({ login, loggedIn }) => {
   return loggedIn ? (
     <Redirect to="/dashboard" />
   ) : (
-    <div className="login-page">
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Form
         name="normal_login"
         className="login-form"
