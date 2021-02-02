@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { axiosWithAuth } from '../../../../utils/axiosWithAuth';
 import { Button, Divider, Input, Modal, List, Avatar } from 'antd';
 import { connect } from 'react-redux';
 import { checkToken, fetchMentees } from '../../../../state/actions/index';
 import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
+import '../../../../style.css';
+
 const Mentees = props => {
   let menteesSelection = [...props.mentees];
   const [search, setSearch] = useState('');
@@ -12,10 +13,20 @@ const Mentees = props => {
   const [editing, setEditing] = useState(false);
   const [currentMentee, setCurrentMentee] = useState({});
 
-  const editingHandler = e => {
-    setEditing(!editing);
-    console.log(e);
+  const editingHandler = (e, menteeData) => {
+    if (showModal) {
+      // Closing Modal
+      setShowModal(false);
+      setCurrentMentee({});
+      setEditing(false);
+    } else {
+      // Opening Modal
+      setShowModal(true);
+      setCurrentMentee(menteeData);
+      setEditing(true);
+    }
   };
+
   const searchHandler = e => setSearch(e.target.value);
   const moreInfoHandler = (e, menteeData) => {
     if (showModal) {
@@ -27,17 +38,16 @@ const Mentees = props => {
       // Opening Modal
       setShowModal(true);
       setCurrentMentee(menteeData);
-      // console.log(menteeData);
     }
   };
 
-  if (Array.isArray(menteesSelection)) {
-    menteesSelection = menteesSelection.filter(
-      item =>
-        item.first_name.toLowerCase().includes(search.toLowerCase()) ||
-        item.last_name.toLowerCase().includes(search.toLowerCase())
-    );
-  }
+  // if (Array.isArray(menteesSelection)) {
+  //   menteesSelection = menteesSelection.filter(
+  //     item =>
+  //       item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+  //       item.last_name.toLowerCase().includes(search.toLowerCase())
+  //   );
+  // }
 
   useEffect(() => {
     props.fetchMentees();
@@ -45,7 +55,7 @@ const Mentees = props => {
 
   return (
     <div className="menteeContainer">
-      <h1 id="menteeTittle">Mentee Management</h1>
+      <h1 id="menteeTitle">Mentee Management</h1>
       <div className="exploreWrapper">
         <Button
           style={{ width: '80%', marginBottom: '10pt', alignSelf: 'center' }}
@@ -87,10 +97,7 @@ const Mentees = props => {
                     More Info
                   </Button>
                   <Button
-                    onClick={e => {
-                      moreInfoHandler(e, item);
-                      editingHandler();
-                    }}
+                    onClick={e => editingHandler(e, item)}
                     className="listItemButton"
                     danger
                     size="middle"
@@ -112,6 +119,7 @@ const Mentees = props => {
         onCancel={moreInfoHandler}
         maskClosable
         destroyOnClose
+        okText="Submit"
         footer={[
           <Button
             key="back"
@@ -119,22 +127,16 @@ const Mentees = props => {
           >
             Return
           </Button>,
-          <Button key="delete" onClick={() => console.log('delete')}>
-            Delete
+          <Button
+            key="submit"
+            onClick={editing ? editingHandler : moreInfoHandler}
+          >
+            Submit
           </Button>,
-          editing ? (
-            <Button key="submit" type="primary" onClick={moreInfoHandler}>
-              Submit
-            </Button>
-          ) : (
-            <Button key="edit" type="primary" onClick={editingHandler}>
-              Edit
-            </Button>
-          ),
         ]}
       >
         {editing ? (
-          <MenteeForm />
+          <MenteeForm currentMentee={currentMentee} />
         ) : (
           <MenteeProfile currentMentee={currentMentee} />
         )}

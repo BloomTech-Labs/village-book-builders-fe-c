@@ -68,7 +68,7 @@ function TeacherForm() {
 
   const addTeacher = newTeacher => {
     axios
-      .post('/teacher', newTeacher)
+      .post('https://vbb-mock-api.herokuapp.com/teacher', newTeacher)
       .then(response => {
         history.push('/');
       })

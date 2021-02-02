@@ -39,29 +39,35 @@ const StudentProfileForm = ({
   editMenteeProfile,
   menteeProfile,
   isLoading,
+  role,
 }) => {
   const [formValues, setFormValues] = useState(initialState);
+  const pathname = useHistory().location.pathname;
   const [value, setValue] = useState(1);
   const params = useParams().id;
   const [form] = Form.useForm();
   const history = useHistory();
 
   useEffect(() => {
-    return () => {
+    if (pathname.includes('edit')) {
       fetchMenteeProfile(1);
       form.setFieldsValue(menteeProfile);
-    };
+      setFormValues(menteeProfile);
+    }
   }, [fetchMenteeProfile]);
   console.log('inside mentee profile edit form', menteeProfile);
 
   const onChange = e => {
-    console.log('radio checked', e.target.value);
     setValue(e.target.value);
   };
 
   const handleSubmit = e => {
     editMenteeProfile(params, { ...formValues, gender: value });
-    history.push('/profile');
+    if (role === 'headmaster' || role === 'teacher' || role === 'program') {
+      history.push('/student-search');
+    } else {
+      history.push('/profile');
+    }
   };
 
   const handleChange = e => {
@@ -73,9 +79,9 @@ const StudentProfileForm = ({
       {isLoading ? (
         '...loading'
       ) : (
-        <FormContainer>
-          <Form.Item {...tailLayout}>
-            <Link to="/profile">Go Back to your Profile</Link>
+        <div>
+          <Form.Item>
+            <Link to="/profile">Go Back</Link>
           </Form.Item>
           <Form onFinish={handleSubmit} form={form} {...layout}>
             <Form.Item
@@ -86,7 +92,6 @@ const StudentProfileForm = ({
               <Input
                 type="text"
                 name="first_name"
-                defaultValue="Student name" // Change this
                 value={formValues.first_name}
                 onChange={e => handleChange(e)}
               />
@@ -214,7 +219,7 @@ const StudentProfileForm = ({
                 onChange={e => handleChange(e)}
               />
             </Form.Item>
-            <Space direction="vertical" size={12} {...tailLayout}>
+            <Space direction="vertical" size={12}>
               <DatePicker
                 defaultValue={Moment(`${formValues.dob}`, dateFormatList[0])}
                 format={dateFormat}
@@ -227,18 +232,12 @@ const StudentProfileForm = ({
                 <Radio value={'Other'}>Other</Radio>
               </Radio.Group>
             </Form.Item>
-            <Form.Item {...tailLayout}>
-              <Button
-                className="l2-btn btn"
-                htmlType="submit"
-                buttonText="Submit Teacher Edit"
-              />
-              <Required id="requiredMsg">
-                Fields with <span id="required">&#42;</span> are required.
-              </Required>
+            <Form.Item>
+              <p>Fields with * are required.</p>
+              <Button>Submit</Button>
             </Form.Item>
           </Form>
-        </FormContainer>
+        </div>
       )}
     </div>
   );
@@ -247,6 +246,7 @@ const mapStateToProps = state => {
   return {
     menteeProfile: state.menteeReducer.menteeProfile,
     isLoading: state.menteeReducer.isLoading,
+    role: state.authReducer.role,
   };
 };
 export default connect(mapStateToProps, {

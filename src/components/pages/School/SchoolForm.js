@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-// import axios from 'axios';
-
-import { Form, Input } from 'antd';
-
+import { Form, Input, Button } from 'antd';
 import { editSchool } from '../../../state/actions';
-import {
-  layout,
-  FormContainer,
-  tailLayout,
-  Required,
-} from '../../common/FormStyle';
-import Button from '../../common/Button';
 import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
 const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
@@ -59,12 +49,12 @@ const SchoolForm = props => {
   };
 
   return (
-    <FormContainer>
-      <Form.Item {...tailLayout}>
+    <div>
+      <Form.Item>
         <Link to="/school-village">Go Back to School Profile</Link>
       </Form.Item>
 
-      <Form onFinish={handleSubmit} form={form} {...layout}>
+      <Form onFinish={handleSubmit} form={form}>
         <Form.Item
           label="Headmaster"
           name="headmaster"
@@ -73,7 +63,6 @@ const SchoolForm = props => {
           <Input
             type="text"
             name="headmaster"
-            defaultValue="Mr Headmaster"
             value={formData.headmaster}
             onChange={e => handleChange(e)}
           />
@@ -146,18 +135,18 @@ const SchoolForm = props => {
           />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
+        <Form.Item>
           <Button
             className="l2-btn btn"
             htmlType="submit"
             buttonText="Submit School Edit"
           />
-          <Required id="requiredMsg">
+          <div>
             Fields with <span id="required">&#42;</span> are required.
-          </Required>
+          </div>
         </Form.Item>
       </Form>
-    </FormContainer>
+    </div>
   );
 };
 

@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useParams, useHistory, Link } from 'react-router-dom';
-import axios from 'axios';
-
-import { Form, Input, DatePicker, Space, Radio } from 'antd';
+import { useParams, useHistory } from 'react-router-dom';
+import { Form, Input, DatePicker, Radio } from 'antd';
 import moment from 'moment';
-
-import { editHeadmasterProfile } from '../../../../state/actions';
 import {
   layout,
   FormContainer,
@@ -15,47 +11,32 @@ import {
 } from '../../../common/FormStyle';
 import Button from '../../../common/Button';
 import { debugLog } from '../../../../utils/debugMode';
-
-const initialState = {
-  first_name: '',
-  last_name: '',
-  gender: '',
-  email: '',
-  primary_language: '',
-  dob: '',
-  mentee_picture: '',
-  english_lvl: '',
-  math_lvl: '',
-  reading_lvl: '',
-  school_lvl: '',
-  academic_description: '',
-  support_needed: '',
-};
+import { editMenteeProfile } from '../../../../state/actions';
+import '../../../../style.css';
 
 const dateFormat = 'MM/DD/YYYY';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 const timeFormat = 'HH:mm';
 const genders = ['Male', 'Female', 'Other'];
 
-const MenteeForm = props => {
-  const [formData, setFormData] = useState(initialState);
-  //   const [value, setValue] = useState(1);
+const MenteeForm = ({ currentMentee }) => {
+  debugLog(
+    'Prop drilled from Mentees.js',
+    currentMentee,
+    moment.utc(currentMentee.dob).format('dddd, MMMM Do of YYYY')
+  );
+
+  const [formData, setFormData] = useState('');
   const pathname = useHistory().location.pathname;
   const params = useParams().id;
   const [form] = Form.useForm();
 
-  //   const onChange = e => {
-  //     console.log('radio checked', e.target.value);
-  //     setValue(e.target.value);
-  //   };
-
   const handleSubmit = async () => {
     debugLog(formData);
-    props.editHeadmasterProfile(params, formData);
+    editMenteeProfile(params, formData);
   };
 
   const handleChange = e => {
-    // debugLog(e);
     if (moment.isMoment(e)) {
       setFormData({ ...formData, dob: moment.utc(e).format() });
       debugLog(moment.utc(e).format());
@@ -65,13 +46,11 @@ const MenteeForm = props => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
-  //   const handleChange = e => {
-  //     debugLog(moment.isMoment(e));
-  //   };
+
   return (
     <FormContainer>
       <Form.Item {...tailLayout}></Form.Item>
-      <Form onFinish={handleSubmit} form={form} {...layout}>
+      <Form onFinish={handleSubmit} form={form} {...layout} fields={formData}>
         <Form.Item
           label="First Name"
           name="first_name"
@@ -80,7 +59,7 @@ const MenteeForm = props => {
           <Input
             type="text"
             name="first_name"
-            value={formData.first_name}
+            fields={formData.first_name}
             onChange={e => handleChange(e)}
           />
         </Form.Item>
@@ -329,4 +308,10 @@ const MenteeForm = props => {
   );
 };
 
-export default connect(null, { editHeadmasterProfile })(MenteeForm);
+const mapStateToProps = state => {
+  return {
+    isloading: state.headmasterReducer.isLoading,
+  };
+};
+
+export default connect(mapStateToProps, { editMenteeProfile })(MenteeForm);
