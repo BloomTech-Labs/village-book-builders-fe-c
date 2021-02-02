@@ -4,45 +4,6 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 // This reusable component is strictly for the "Teacher" input feilds
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
 
 const initialFormValues = {
   first_name: '',
@@ -79,16 +40,10 @@ function TeacherForm() {
   };
 
   return (
-    <div>
-      <Form
-        {...formItemLayout}
-        {...layout}
-        form={form}
-        onFinish={onFinish}
-        name="control-hooks"
-        name="register"
-        scrollToFirstError
-      >
+    <div
+      style={{ display: 'flex', justifyContent: 'center', paddingTop: '2rem' }}
+    >
+      <Form form={form} onFinish={onFinish} name="register" scrollToFirstError>
         <h1>Teacher Registration Form</h1>
 
         <Form.Item
@@ -236,7 +191,7 @@ function TeacherForm() {
         >
           <Input type="checkbox" defaultValue="teacher" />
         </Form.Item> */}
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
