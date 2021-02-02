@@ -32,12 +32,10 @@ function StudentForm() {
   };
 
   return (
-    <div
-      style={{ display: 'flex', justifyContent: 'center', paddingTop: '2rem' }}
-    >
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Form form={form} onFinish={onFinish} name="register" scrollToFirstError>
-        <h1>Student Registration Form</h1>
-
+        <h1 style={{ fontSize: '2.0rem' }}>Student Registration Form</h1>{' '}
+        <br></br>
         <Form.Item
           name="firstname"
           label="First Name"
@@ -50,7 +48,6 @@ function StudentForm() {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           name="lastname"
           label="Last Name"
@@ -63,7 +60,6 @@ function StudentForm() {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           name="email"
           label="Email"
@@ -80,7 +76,6 @@ function StudentForm() {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           name="password"
           label="Password"
@@ -94,7 +89,6 @@ function StudentForm() {
         >
           <Input.Password />
         </Form.Item>
-
         <Form.Item
           name="confirm"
           label="Confirm Password"
@@ -120,11 +114,9 @@ function StudentForm() {
         >
           <Input.Password />
         </Form.Item>
-
         <Form.Item name="location" label="Location">
           <Input />
         </Form.Item>
-
         <Form.Item
           name="phone"
           label="Phone Number"

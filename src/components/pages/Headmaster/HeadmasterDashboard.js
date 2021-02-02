@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import StudentProfileForm from '../../pages/Student/StudentProfileForm';
+import StudentForm from '../Student/StudentForm';
 import HeadmasterHome from './HeadmasterHome';
 import StudentSearch from '../Student/StudentSearch';
 import Village from '../Village/Village.component.js';
@@ -111,6 +112,7 @@ const HeadmasterDashboard = props => {
               <Route path="/profile/edit/:id" component={ProfileForm} />
               <Route path="/student-search" component={StudentSearch} />
               <Route path="/mentor-advisor" component={MentorList} />
+              <Route path="/studentregistration" component={StudentForm} />
               <Route path="/school-village">
                 <Village />
                 <Schools />
