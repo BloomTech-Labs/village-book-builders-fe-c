@@ -4,6 +4,7 @@ import { editMenteeProfile } from '../../../../state/actions/index.js';
 import { fetchMentors } from '../../../../state/actions/index';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import '../../../../style.css';
 
 const MenteeFormRevised = props => {
   const { fetchMentors } = props;

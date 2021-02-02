@@ -2,6 +2,8 @@ import { List, Avatar, Divider, Skeleton, Table, Tag } from 'antd';
 import moment from 'moment';
 import React from 'react';
 import { debugLog } from '../../../../utils/debugMode';
+import '../../../../style.css';
+
 const MenteeProfile = ({ currentMentee }) => {
   debugLog(
     'Prop drilled from Mentees.js',

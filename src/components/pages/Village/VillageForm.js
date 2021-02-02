@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-// import axios from 'axios';
 import { axiosWithAuth } from '../../../utils/axiosWithAuth';
-
 import { Form, Input } from 'antd';
-
 import { editVillage } from '../../../state/actions';
-import {
-  layout,
-  FormContainer,
-  tailLayout,
-  Required,
-} from '../../common/FormStyle';
-import Button from '../../common/Button';
+import { Button } from 'antd';
 
 const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
@@ -61,11 +52,12 @@ const VillageForm = props => {
   };
 
   return (
-    <FormContainer>
-      <Form.Item {...tailLayout}>
+    <div>
+      <Form.Item>
         <Link to="/school-village">Go Back to Village Profile</Link>
       </Form.Item>
-      <Form onFinish={handleSubmit} form={form} {...layout}>
+
+      <Form onFinish={handleSubmit} form={form}>
         <Form.Item
           label="Headmaster"
           name="headmaster"
@@ -161,18 +153,14 @@ const VillageForm = props => {
           />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
-          <Button
-            className="l2-btn btn"
-            htmlType="submit"
-            buttonText="Submit Village Edit"
-          />
-          <Required id="requiredMsg">
+        <Form.Item>
+          <Button htmlType="submit" buttonText="Submit Village Edit" />
+          <div>
             Fields with <span id="required">&#42;</span> are required.
-          </Required>
+          </div>
         </Form.Item>
       </Form>
-    </FormContainer>
+    </div>
   );
 };
 

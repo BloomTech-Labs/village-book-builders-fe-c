@@ -12,6 +12,7 @@ import {
 import Button from '../../../common/Button';
 import { debugLog } from '../../../../utils/debugMode';
 import { editMenteeProfile } from '../../../../state/actions';
+import '../../../../style.css';
 
 const dateFormat = 'MM/DD/YYYY';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
