@@ -5,45 +5,6 @@ import { useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
 // This reusable component is strictly for the "Student" input fields
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
 
 function StudentForm() {
   const [form] = Form.useForm();
@@ -71,16 +32,10 @@ function StudentForm() {
   };
 
   return (
-    <div>
-      <Form
-        {...formItemLayout}
-        {...layout}
-        form={form}
-        name="control-hooks"
-        onFinish={onFinish}
-        name="register"
-        scrollToFirstError
-      >
+    <div
+      style={{ display: 'flex', justifyContent: 'center', paddingTop: '2rem' }}
+    >
+      <Form form={form} onFinish={onFinish} name="register" scrollToFirstError>
         <h1>Student Registration Form</h1>
 
         <Form.Item
@@ -198,7 +153,7 @@ function StudentForm() {
         >
           <Input type="checkbox" defaultValue="student" />
         </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Register
           </Button>
