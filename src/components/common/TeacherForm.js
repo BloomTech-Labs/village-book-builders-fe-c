@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -68,7 +68,7 @@ function TeacherForm() {
 
   const addTeacher = newTeacher => {
     axios
-      .post('https://vbb-mock-api.herokuapp.com/teacher', newTeacher)
+      .post('/teacher', newTeacher)
       .then(response => {
         history.push('/');
       })

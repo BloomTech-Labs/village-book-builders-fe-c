@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
 // This reusable component is strictly for the "Student" input fields
 const formItemLayout = {
@@ -59,7 +59,7 @@ function StudentForm() {
   };
 
   const addStudent = newStudent => {
-    axios
+    axiosWithAuth(addStudent)
       .post('https://vbb-mock-api.herokuapp.com/mentee', newStudent)
       .then(response => {
         history.push('/');
