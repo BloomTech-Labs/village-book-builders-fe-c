@@ -114,11 +114,11 @@ const StudentSearch = props => {
                 <Meta
                   avatar={<Avatar src={student.mentee_picture} />}
                   title={`${student.first_name} ${student.last_name}`}
-                  description={`Date of Birth: ${Moment(student.dob).format(
-                    'YYYY-MM-DD'
-                  )}
-                      Gender: ${student.gender}
-                      Language: ${student.primary_language}`}
+                  description={`
+                    Date of Birth: ${Moment(student.dob).format('YYYY-MM-DD')}
+                    Gender: ${student.gender}
+                    Language: ${student.primary_language}
+                    `}
                 />
               </Card>
             </div>
