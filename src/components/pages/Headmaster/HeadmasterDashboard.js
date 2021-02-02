@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, Route, Switch } from 'react-router-dom';
+import StudentProfileForm from '../../pages/Student/StudentProfileForm';
 import HeadmasterHome from './HeadmasterHome';
 import StudentSearch from '../Student/StudentSearch';
 import Village from '../Village/Village.component.js';
