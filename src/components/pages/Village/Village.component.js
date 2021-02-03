@@ -13,19 +13,31 @@ const Village = ({ villageData, userId, fetchVillage }) => {
   // console.log("village component, villageData", villageData);
 
   return (
-    <div>
-      <div>
-        <Divider orientation="left">Villages</Divider>
-        <p>Village Contact: {villageData.village_contact_name}</p>
-        <p>Village Contact Phone: {villageData.village_contact_phone}</p>
+    <div className="school-village-container">
+      <h1 style={{ textAlign: 'center' }} className="page-title">
+        Schools & Villages
+      </h1>
+      <Divider orientation="left">Villages</Divider>
+      <div className="village-container">
+        <div>
+          <span>Village Contact:</span> {villageData.village_contact_name}
+        </div>
+        <div>
+          <span>Village Contact Phone:</span>{' '}
+          {villageData.village_contact_phone}
+        </div>
         {/* //! These are not in the data from server atm */}
-        <p>Education Contact: {villageData.educationContactName}</p>
-        <p>{villageData.educationContactEmail}</p>
-        <p>{villageData.educationContactPhone}</p>
-        <p>Notes: {villageData.notes}</p>
+        <div>
+          <span>Education Contact:</span> {villageData.educationContactName}
+        </div>
+        <div>{villageData.educationContactEmail}</div>
+        <div>{villageData.educationContactPhone}</div>
+        <div>
+          <span>Notes:</span> {villageData.notes}
+        </div>
         <div>
           <Link to={`/village/edit/${villageData.id}`}>
-            <Button buttonText="Edit Village Profile" />
+            <Button style={{ margin: '.5rem 0' }}>Edit</Button>
           </Link>
         </div>
       </div>

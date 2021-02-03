@@ -52,113 +52,126 @@ const VillageForm = props => {
   };
 
   return (
-    <div>
-      <Form.Item>
-        <Link to="/school-village">Go Back to Village Profile</Link>
-      </Form.Item>
-
-      <Form onFinish={handleSubmit} form={form}>
-        <Form.Item
-          label="Headmaster"
-          name="headmaster"
-          rules={[{ required: true, message: 'Headmaster name is required.' }]}
-        >
-          <Input
-            type="text"
-            name="headmaster"
-            defaultValue="Mr Headmaster"
-            value={formData.headmaster}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Village Contact Name"
-          name="village_contact_name"
-          rules={[
-            { required: true, message: ' Village Contact Name is required.' },
-          ]}
-        >
-          <Input
-            type="text"
-            name="village_contact_name"
-            value={formData.village_contact_name}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Village Contact Phone"
-          name="village_contact_phone"
-          rules={[
-            { required: true, message: 'Village Contact Phone is required.' },
-          ]}
-        >
-          <Input
-            type="text"
-            name="village_contact_phone"
-            value={formData.village_contact_phone}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Education Contact Name"
-          name="educationContactName"
-          rules={[
-            { required: true, message: 'Education Contact Name is required.' },
-          ]}
-        >
-          <Input
-            type="text"
-            name="educationContactName"
-            value={formData.educationContactName}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Education Contact Phone"
-          name="educationContactPhone"
-          rules={[
-            { required: true, message: 'Education Contact Phone is required.' },
-          ]}
-        >
-          <Input
-            type="text"
-            name="educationContactPhone"
-            value={formData.educationContactPhone}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Education Contact Email"
-          name="educationContactEmail"
-          rules={[{ required: true, message: 'Education Email is required.' }]}
-        >
-          <Input
-            type="email"
-            name="educationContactEmail"
-            value={formData.educationContactEmail}
-            onChange={e => handleChange(e)}
-            required
-          />
-        </Form.Item>
-        <Form.Item label="Notes" name="notes">
-          <Input.TextArea
-            name="notes"
-            value={formData.notes}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
-
+    <div className="form-container">
+      <Form>
+        <h1 className="page-title">Edit Village</h1>
         <Form.Item>
-          <Button htmlType="submit" buttonText="Submit Village Edit" />
-          <div>
-            Fields with <span id="required">&#42;</span> are required.
-          </div>
+          <Link to="/school-village">Go Back</Link>
         </Form.Item>
+
+        <Form onFinish={handleSubmit} form={form}>
+          <Form.Item
+            label="Headmaster"
+            name="headmaster"
+            rules={[
+              { required: true, message: 'Headmaster name is required.' },
+            ]}
+          >
+            <Input
+              type="text"
+              name="headmaster"
+              defaultValue="Mr Headmaster"
+              value={formData.headmaster}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Village Contact Name"
+            name="village_contact_name"
+            rules={[
+              { required: true, message: ' Village Contact Name is required.' },
+            ]}
+          >
+            <Input
+              type="text"
+              name="village_contact_name"
+              value={formData.village_contact_name}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Village Contact Phone"
+            name="village_contact_phone"
+            rules={[
+              { required: true, message: 'Village Contact Phone is required.' },
+            ]}
+          >
+            <Input
+              type="text"
+              name="village_contact_phone"
+              value={formData.village_contact_phone}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Education Contact Name"
+            name="educationContactName"
+            rules={[
+              {
+                required: true,
+                message: 'Education Contact Name is required.',
+              },
+            ]}
+          >
+            <Input
+              type="text"
+              name="educationContactName"
+              value={formData.educationContactName}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Education Contact Phone"
+            name="educationContactPhone"
+            rules={[
+              {
+                required: true,
+                message: 'Education Contact Phone is required.',
+              },
+            ]}
+          >
+            <Input
+              type="text"
+              name="educationContactPhone"
+              value={formData.educationContactPhone}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Education Contact Email"
+            name="educationContactEmail"
+            rules={[
+              { required: true, message: 'Education Email is required.' },
+            ]}
+          >
+            <Input
+              type="email"
+              name="educationContactEmail"
+              value={formData.educationContactEmail}
+              onChange={e => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label="Notes" name="notes">
+            <Input.TextArea
+              name="notes"
+              value={formData.notes}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button htmlType="submit" buttonText="Submit Village Edit" />
+            <div>
+              Fields with <span id="required">&#42;</span> are required.
+            </div>
+          </Form.Item>
+        </Form>
       </Form>
     </div>
   );

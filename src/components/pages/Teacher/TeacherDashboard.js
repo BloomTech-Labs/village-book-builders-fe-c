@@ -5,6 +5,7 @@ import TeacherHome from './TeacherHome';
 import StudentSearch from '../Student/StudentSearch';
 import TeacherProfile from './TeacherProfile';
 import TeacherProfileForm from './TeacherProfileForm';
+import StudentProfileForm from '../Student/StudentProfileForm';
 import { fetchTeacherProfile } from '../../../state/actions';
 import Logout from '../../Logout.js';
 import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
@@ -48,7 +49,9 @@ const TeacherDashboard = props => {
               }}
             >
               <Avatar style={{ color: '#FF914D' }} icon={<UserOutlined />} />
-              <div style={{ padding: '1rem' }}>{profile.last_name}</div>
+              <div style={{ fontSize: '.75rem', padding: '1rem' }}>
+                {profile.last_name}
+              </div>
             </div>
             <Menu.Item key="1" icon={<HomeOutlined />}>
               <NavLink to="/dashboard">Home</NavLink>
@@ -76,20 +79,21 @@ const TeacherDashboard = props => {
           <PageHeader
             title={`Hello, ${profile.first_name} ${profile.last_name}`}
             extra={[
-              <Button key="1">
-                <a href="#">Go Back</a>
-              </Button>,
               <Button key="2" type="primary">
                 <a href="/logout">Logout</a>
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ padding: '5rem', backgroundColor: 'white' }}>
+          <Content style={{ padding: '2rem', backgroundColor: 'white' }}>
             <Switch>
               <Route path="/dashboard" component={TeacherHome} />
               <Route exact path="/profile" component={TeacherProfile} />
               <Route path="/profile/edit/:id" component={TeacherProfileForm} />
               <Route path="/student-search" component={StudentSearch} />
+              <Route
+                path="/student/profile/edit/:id"
+                component={StudentProfileForm}
+              />
               <Route path="/logout" component={Logout} />
             </Switch>
           </Content>

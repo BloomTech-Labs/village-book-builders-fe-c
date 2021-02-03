@@ -7,6 +7,7 @@ import authReducer from './authReducer';
 import teacherReducer from './teacherReducer';
 import programReducer from './programReducer';
 import menteeReducer from './menteeReducer';
+import resourceReducer from './resourceReducer';
 
 export default combineReducers({
   headmasterReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   teacherReducer,
   programReducer,
   menteeReducer,
+  resourceReducer,
 });

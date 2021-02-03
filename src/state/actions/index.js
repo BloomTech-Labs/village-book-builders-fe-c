@@ -161,6 +161,7 @@ export const editMenteeProfile = (id, data) => dispatch => {
 };
 
 export const fetchMenteeProfile = id => dispatch => {
+  console.log('hols');
   dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
   axiosWithAuth()
     .get(`/mentee/${id}`)
@@ -192,6 +193,20 @@ export const fetchMenteesBySearch = search => dispatch => {
         payload: err,
       })
     );
+};
+
+export const fetchStudentResources = () => dispatch => {
+  axiosWithAuth()
+    .get(`/resource`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_STUDENT_RESOURCES,
+        payload: res.data,
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 export const fetchSchools = () => dispatch => {

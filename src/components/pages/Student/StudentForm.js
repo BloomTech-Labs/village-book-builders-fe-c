@@ -32,10 +32,9 @@ function StudentForm() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div className="form-container">
       <Form form={form} onFinish={onFinish} name="register" scrollToFirstError>
-        <h1 style={{ fontSize: '2.0rem' }}>Student Registration Form</h1>{' '}
-        <br></br>
+        <h1 className="page-title">Student Registration Form</h1> <br></br>
         <Form.Item
           name="firstname"
           label="First Name"

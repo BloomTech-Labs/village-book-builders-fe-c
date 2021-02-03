@@ -1,26 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
-  .menuIcon {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    transition: 'bottom 200ms linear';
-  }
-  
-  .menuMove {
-    position: fixed;
-    bottom: 500px;
-    width: 100%;
-    transition: 'bottom 200ms linear';
-  }
-  
-  .menuButton {
-    width: 100%;
-    background: #549bea;
-    border: 1px solid #549bea;
-    height: 3rem;
-  }
-  
   #menteeTitle {
     text-align: center;
   }
@@ -56,6 +35,76 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* Dashboard Menu */
+  .menuIcon {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    transition: 'bottom 200ms linear';
+  }
+
+  .menuMove {
+    position: fixed;
+    bottom: 500px;
+    width: 100%;
+    transition: 'bottom 200ms linear';
+  }
+
+  .menuButton {
+    width: 100%;
+    background: #549bea;
+    border: 1px solid #549bea;
+    height: 3rem;
+  }
+
+  /* Profile Pages */
+  .profile-item-title {
+    font-weight: bold;
+  }
+
+  .profile-item {
+    margin: .5rem 0;
+  }
+
+  .profile-pic {
+    margin: 1rem 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  /* School List */
+  .school-container span {
+    font-weight: bold;
+  }
+
+  .school-container div {
+    line-height: 2rem;
+  }
+
+   /* Village List */
+   .village-container span {
+    font-weight: bold;
+  }
+
+  .village-container div {
+    line-height: 2rem;
+  }
+
+  .school-village-container {
+    padding: 0 2rem;
+  }
+
+  /* All Forms */
+  .form-container {
+    display: flex;
+    justify-content: center;
   }
 
   /* Mentee & Mentor Matching Component Lists Styling */

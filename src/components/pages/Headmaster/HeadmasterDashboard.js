@@ -60,7 +60,9 @@ const HeadmasterDashboard = props => {
               }}
             >
               <Avatar style={{ color: '#FF914D' }} icon={<UserOutlined />} />
-              <div style={{ padding: '1rem' }}>{profile.last_name}</div>
+              <div style={{ fontSize: '.75rem', padding: '1rem' }}>
+                {profile.last_name}
+              </div>
             </div>
             <Menu.Item key="1" icon={<HomeOutlined />}>
               <NavLink to="/dashboard">Home</NavLink>
@@ -100,20 +102,21 @@ const HeadmasterDashboard = props => {
           <PageHeader
             title={`Hello, Headmaster ${profile.last_name}`}
             extra={[
-              <Button key="1">
-                <a href="#">Go Back</a>
-              </Button>,
               <Button key="2" type="primary">
                 <a href="/logout">Logout</a>
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ padding: '5rem', backgroundColor: 'white' }}>
+          <Content style={{ padding: '2rem', backgroundColor: 'white' }}>
             <Switch>
               <Route path="/dashboard" component={HeadmasterHome} />
               <Route path="/mentor-pairings" component={Mentees} />
               <Route exact path="/profile" component={HeadmasterProfile} />
               <Route path="/profile/edit/:id" component={ProfileForm} />
+              <Route
+                path="/student/profile/edit/:id"
+                component={StudentProfileForm}
+              />
               <Route path="/student-search" component={StudentSearch} />
               <Route path="/mentor-list" component={MentorList} />
               <Route path="/studentregistration" component={StudentForm} />

@@ -8,7 +8,13 @@ const ProgramHome = ({ profile, fetchProgramProfile }) => {
   }, [fetchProgramProfile]);
   console.log(profile);
 
-  return <div></div>;
+  return (
+    <div>
+      <h1 style={{ textAlign: 'center' }} className="page-title">
+        Home
+      </h1>
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

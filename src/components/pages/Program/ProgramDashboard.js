@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import ProgramHome from './ProgramHome';
 import StudentSearch from '../Student/StudentSearch';
+import StudentProfileForm from '../Student/StudentProfileForm';
 import ProgramProfile from './ProgramProfile';
 import ProgramProfileForm from './ProgramProfileForm';
 import { fetchProgramProfile } from '../../../state/actions';
@@ -48,7 +49,9 @@ const ProgramDashboard = props => {
               }}
             >
               <Avatar style={{ color: '#FF914D' }} icon={<UserOutlined />} />
-              <div style={{ padding: '1rem' }}>{profile.name}</div>
+              <div style={{ fontSize: '.75rem', padding: '1rem' }}>
+                {profile.name}
+              </div>
             </div>
             <Menu.Item key="1" icon={<HomeOutlined />}>
               <NavLink to="/dashboard">Home</NavLink>
@@ -76,19 +79,20 @@ const ProgramDashboard = props => {
           <PageHeader
             title={`Hello, ${profile.name}`}
             extra={[
-              <Button key="1">
-                <a href="#">Go Back</a>
-              </Button>,
               <Button key="2" type="primary">
                 <a href="/logout">Logout</a>
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ padding: '5rem', backgroundColor: 'white' }}>
+          <Content style={{ padding: '2rem', backgroundColor: 'white' }}>
             <Switch>
               <Route path="/dashboard" component={ProgramHome} />
               <Route exact path="/profile" component={ProgramProfile} />
               <Route path="/profile/edit/:id" component={ProgramProfileForm} />
+              <Route
+                path="/student/profile/edit/:id"
+                component={StudentProfileForm}
+              />
               <Route path="/student-search" component={StudentSearch} />
               <Route path="/logout" component={Logout} />
             </Switch>

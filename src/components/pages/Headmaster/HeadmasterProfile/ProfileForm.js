@@ -72,186 +72,196 @@ const ProfileForm = props => {
   };
 
   return (
-    <div>
-      <Form.Item>
-        <Link to="/profile">Go Back to your Profile</Link>
-      </Form.Item>
-      <Form onFinish={handleSubmit} form={form}>
-        <Form.Item
-          label="First Name"
-          name="first_name"
-          rules={[{ required: true, message: 'First Name is required.' }]}
-        >
-          <Input
-            type="text"
+    <div className="form-container">
+      <Form>
+        <h1 className="page-title">Edit Your Profile</h1>
+        <Form.Item>
+          <Link to="/profile">Go Back</Link>
+        </Form.Item>
+        <Form onFinish={handleSubmit} form={form}>
+          <Form.Item
+            label="First Name"
             name="first_name"
-            defaultValue="Mr Headmaster" // Change this
-            value={formData.first_name}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+            rules={[{ required: true, message: 'First Name is required.' }]}
+          >
+            <Input
+              type="text"
+              name="first_name"
+              defaultValue="Mr Headmaster" // Change this
+              value={formData.first_name}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Last Name"
-          name="last_name"
-          rules={[{ required: true, message: 'Last Name is required.' }]}
-        >
-          <Input
-            type="text"
+          <Form.Item
+            label="Last Name"
             name="last_name"
-            value={formData.last_name}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+            rules={[{ required: true, message: 'Last Name is required.' }]}
+          >
+            <Input
+              type="text"
+              name="last_name"
+              value={formData.last_name}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Space direction="vertical" size={12}>
+          {/* <Space direction="vertical" size={12}>
           <DatePicker
             defaultValue={moment(`${formData.dob}`, dateFormatList[0])}
             format={dateFormat}
           />
-        </Space>
+        </Space> */}
 
-        <Form.Item
-          label="Address"
-          name="address"
-          rules={[{ required: true, message: 'Address is required.' }]}
-        >
-          <Input
-            type="text"
+          <Form.Item
+            label="Address"
             name="address"
-            value={formData.address}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+            rules={[{ required: true, message: 'Address is required.' }]}
+          >
+            <Input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Phone Number"
-          name="phone_number"
-          rules={[{ required: true, message: 'Phone Number is required.' }]}
-        >
-          <Input
-            type="text"
+          <Form.Item
+            label="Phone Number"
             name="phone_number"
-            value={formData.phone_number}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+            rules={[{ required: true, message: 'Phone Number is required.' }]}
+          >
+            <Input
+              type="text"
+              name="phone_number"
+              value={formData.phone_number}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item label="Gender" name="gender">
-          <Radio.Group onChange={onChange} value={value}>
-            <Radio value={1}>Male</Radio>
-            <Radio value={2}>Female</Radio>
-            <Radio value={3}>Other</Radio>
-          </Radio.Group>
-        </Form.Item>
+          <Form.Item label="Gender" name="gender">
+            <Radio.Group onChange={onChange} value={value}>
+              <Radio value={1}>Male</Radio>
+              <Radio value={2}>Female</Radio>
+              <Radio value={3}>Other</Radio>
+            </Radio.Group>
+          </Form.Item>
 
-        <Form.Item
-          label="Bio"
-          name="bio"
-          rules={[{ required: true, message: 'Bio is required.' }]}
-        >
-          <Input
-            type="text"
+          <Form.Item
+            label="Bio"
             name="bio"
-            value={formData.bio}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+            rules={[{ required: true, message: 'Bio is required.' }]}
+          >
+            <Input
+              type="text"
+              name="bio"
+              value={formData.bio}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Communication App"
-          name="communication_app"
-          rules={[
-            { required: true, message: 'Communication app is required.' },
-          ]}
-        >
-          <Input
-            type="text"
+          <Form.Item
+            label="Communication App"
             name="communication_app"
-            value={formData.communication_app}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+            rules={[
+              { required: true, message: 'Communication app is required.' },
+            ]}
+          >
+            <Input
+              type="text"
+              name="communication_app"
+              value={formData.communication_app}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="General Availability"
-          name="general_availability"
-          rules={[
-            { required: true, message: 'General Availability is required' },
-          ]}
-        >
-          <Input
-            type="text"
+          <Form.Item
+            label="General Availability"
             name="general_availability"
-            value={formData.general_availability}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+            rules={[
+              { required: true, message: 'General Availability is required' },
+            ]}
+          >
+            <Input
+              type="text"
+              name="general_availability"
+              value={formData.general_availability}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Mentor Program Goals"
-          name="goals_mentor_program"
-          rules={[
-            { required: true, message: 'Goals of mentor program is required.' },
-          ]}
-        >
-          <Input
-            type="text"
-            value={formData.goals_mentor_program}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+          <Form.Item
+            label="Mentor Program Goals"
+            name="goals_mentor_program"
+            rules={[
+              {
+                required: true,
+                message: 'Goals of mentor program is required.',
+              },
+            ]}
+          >
+            <Input
+              type="text"
+              value={formData.goals_mentor_program}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Personal Goals"
-          name="goals_personal"
-          rules={[{ required: true, message: 'Personal goals are required.' }]}
-        >
-          <Input
-            type="text"
-            value={formData.goals_personal}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+          <Form.Item
+            label="Personal Goals"
+            name="goals_personal"
+            rules={[
+              { required: true, message: 'Personal goals are required.' },
+            ]}
+          >
+            <Input
+              type="text"
+              value={formData.goals_personal}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="School Community Goals"
-          name="goals_school_community"
-          rules={[
-            {
-              required: true,
-              message: 'Goals for schools community are required.',
-            },
-          ]}
-        >
-          <Input
-            type="text"
-            value={formData.goals_school_community}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+          <Form.Item
+            label="School Community Goals"
+            name="goals_school_community"
+            rules={[
+              {
+                required: true,
+                message: 'Goals for schools community are required.',
+              },
+            ]}
+          >
+            <Input
+              type="text"
+              value={formData.goals_school_community}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Mentor Advisor Point of Contact"
-          name="mentor_advisor_point_of_contact"
-          rules={[
-            {
-              required: true,
-              message: 'Mentor advisor point of contact is required.',
-            },
-          ]}
-        >
-          <Input
-            type="text"
-            value={formData.mentor_advisor_point_of_contact}
-            onChange={e => handleChange(e)}
-          />
-        </Form.Item>
+          <Form.Item
+            label="Mentor Advisor Point of Contact"
+            name="mentor_advisor_point_of_contact"
+            rules={[
+              {
+                required: true,
+                message: 'Mentor advisor point of contact is required.',
+              },
+            ]}
+          >
+            <Input
+              type="text"
+              value={formData.mentor_advisor_point_of_contact}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
 
-        <Form.Item>
-          <p>Fields with * are required.</p>
-          <Button>Submit</Button>
-        </Form.Item>
+          <Form.Item>
+            <p>Fields with * are required.</p>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
       </Form>
     </div>
   );
