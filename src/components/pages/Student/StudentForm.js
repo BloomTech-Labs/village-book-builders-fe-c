@@ -1,70 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
+import { useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
 // This reusable component is strictly for the "Student" input fields
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
 
 function StudentForm() {
   const [form] = Form.useForm();
+  const [formValues, setFormValues] = useState();
+
+  const history = useHistory();
 
   const onFinish = values => {
+    addStudent(values);
     console.log(values);
     form.resetFields();
     message.success('Student succesfully registered');
   };
 
-  return (
-    <div>
-      <Form
-        {...formItemLayout}
-        {...layout}
-        form={form}
-        name="control-hooks"
-        onFinish={onFinish}
-        name="register"
-        scrollToFirstError
-      >
-        <h1>Student Registration Form</h1>
+  const addStudent = newStudent => {
+    axiosWithAuth(addStudent)
+      .post('https://vbb-mock-api.herokuapp.com/mentee', newStudent)
+      .then(response => {
+        history.push('/');
+      })
+      .catch(error => alert(error.message))
+      .finally(() => {});
+    console.log('.FINALLY --->', newStudent);
+    setFormValues();
+  };
 
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Form form={form} onFinish={onFinish} name="register" scrollToFirstError>
+        <h1 style={{ fontSize: '2.0rem' }}>Student Registration Form</h1>{' '}
+        <br></br>
         <Form.Item
           name="firstname"
           label="First Name"
@@ -77,7 +48,6 @@ function StudentForm() {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           name="lastname"
           label="Last Name"
@@ -90,7 +60,6 @@ function StudentForm() {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           name="email"
           label="Email"
@@ -107,7 +76,6 @@ function StudentForm() {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           name="password"
           label="Password"
@@ -121,7 +89,6 @@ function StudentForm() {
         >
           <Input.Password />
         </Form.Item>
-
         <Form.Item
           name="confirm"
           label="Confirm Password"
@@ -147,11 +114,9 @@ function StudentForm() {
         >
           <Input.Password />
         </Form.Item>
-
         <Form.Item name="location" label="Location">
           <Input />
         </Form.Item>
-
         <Form.Item
           name="phone"
           label="Phone Number"
@@ -180,7 +145,7 @@ function StudentForm() {
         >
           <Input type="checkbox" defaultValue="student" />
         </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Register
           </Button>

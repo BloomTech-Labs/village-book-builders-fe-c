@@ -63,7 +63,7 @@ const StudentSearch = props => {
           onChange={onLastNameChange}
         />
       </Space>
-      ,
+      <br></br>
       {/* DOB search currently not working due to JSON server having weird format for dates working on resolving
         <Space direction="vertical">
           <Search
