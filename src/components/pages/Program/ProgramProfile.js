@@ -11,7 +11,7 @@ const ProgramProfile = ({ profile, fetchProgramProfile }) => {
   // console.log(profile);
 
   return (
-    <div className="profile-container">
+    <div className="form-container">
       <div>
         <h1 className="page-title">Profile</h1>
         <div className="profile-item-title">Program Name</div>

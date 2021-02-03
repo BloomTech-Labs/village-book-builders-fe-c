@@ -51,21 +51,22 @@ const StudentSearch = props => {
   // };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <h1>Find a Student</h1>
-      <Space direction="vertical">
-        <Search
-          style={{ width: 300 }}
-          placeholder="Student Last Name"
-          allowClear
-          enterButton="Search"
-          size="large"
-          onSearch={onSubmit}
-          onChange={onLastNameChange}
-        />
-      </Space>
-      <br></br>
-      {/* DOB search currently not working due to JSON server having weird format for dates working on resolving
+    <div className="form-container">
+      <div>
+        <h1 className="page-title">Find a Student</h1>
+        <Space direction="vertical">
+          <Search
+            style={{ width: 300 }}
+            placeholder="Student Last Name"
+            allowClear
+            enterButton="Search"
+            size="large"
+            onSearch={onSubmit}
+            onChange={onLastNameChange}
+          />
+        </Space>
+        <br></br>
+        {/* DOB search currently not working due to JSON server having weird format for dates working on resolving
         <Space direction="vertical">
           <Search
             style={{ width: 300 }}
@@ -77,54 +78,55 @@ const StudentSearch = props => {
             onChange={onDobChange}
           />
         </Space>, */}
-      <div>
-        {props.isLoading ? (
-          ''
-        ) : props.searchedMentee.length === 0 ? (
-          <div>
-            <Alert
-              message="This student is not registered."
-              type="error"
-              showIcon
-            />
-            <p style={{ padding: '1rem 0' }}>
-              <Button
-                onClick={() => {
-                  history.push('/studentregistration');
-                }}
-              >
-                Register Student
-              </Button>
-            </p>
-          </div>
-        ) : (
-          props.searchedMentee.map(student => (
+        <div>
+          {props.isLoading ? (
+            ''
+          ) : props.searchedMentee.length === 0 ? (
             <div>
-              <Card
-                style={{ width: 300 }}
-                cover={<img alt="example" src={student.mentee_picture} />}
-                actions={[
-                  <EditOutlined
-                    key="edit"
-                    onClick={() =>
-                      history.push(`student/profile/edit/${student.id}`)
-                    }
-                  />,
-                ]}
-              >
-                <Meta
-                  avatar={<Avatar src={student.mentee_picture} />}
-                  title={`${student.first_name} ${student.last_name}`}
-                  description={`
+              <Alert
+                message="This student is not registered."
+                type="error"
+                showIcon
+              />
+              <p style={{ padding: '1rem 0' }}>
+                <Button
+                  onClick={() => {
+                    history.push('/studentregistration');
+                  }}
+                >
+                  Register Student
+                </Button>
+              </p>
+            </div>
+          ) : (
+            props.searchedMentee.map(student => (
+              <div>
+                <Card
+                  style={{ width: 300, padding: '1rem 0' }}
+                  cover={<img alt="example" src={student.mentee_picture} />}
+                  actions={[
+                    <EditOutlined
+                      key="edit"
+                      onClick={() =>
+                        history.push(`student/profile/edit/${student.id}`)
+                      }
+                    />,
+                  ]}
+                >
+                  <Meta
+                    avatar={<Avatar src={student.mentee_picture} />}
+                    title={`${student.first_name} ${student.last_name}`}
+                    description={`
                     Date of Birth: ${Moment(student.dob).format('YYYY-MM-DD')}
                     Gender: ${student.gender}
                     Language: ${student.primary_language}
                     `}
-                />
-              </Card>
-            </div>
-          ))
-        )}
+                  />
+                </Card>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

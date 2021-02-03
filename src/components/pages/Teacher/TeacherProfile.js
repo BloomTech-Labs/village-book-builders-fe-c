@@ -11,7 +11,7 @@ const TeacherProfile = ({ fetchTeacherProfile, profile }) => {
 
   console.log('inside the teacher edit form', profile);
   return (
-    <div className="profile-container">
+    <div className="form-container">
       <div>
         <h1 className="page-title">Profile</h1>
         <img

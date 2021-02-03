@@ -49,7 +49,9 @@ const TeacherDashboard = props => {
               }}
             >
               <Avatar style={{ color: '#FF914D' }} icon={<UserOutlined />} />
-              <div style={{ padding: '1rem' }}>{profile.last_name}</div>
+              <div style={{ fontSize: '.75rem', padding: '1rem' }}>
+                {profile.last_name}
+              </div>
             </div>
             <Menu.Item key="1" icon={<HomeOutlined />}>
               <NavLink to="/dashboard">Home</NavLink>

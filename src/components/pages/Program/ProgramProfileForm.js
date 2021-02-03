@@ -48,52 +48,55 @@ const ProgramProfileForm = ({
       {isLoading ? (
         '...loading'
       ) : (
-        <div>
-          <Form.Item>
-            <Link to="/profile">Go Back</Link>
-          </Form.Item>
-          <Form onFinish={handleSubmit} form={form}>
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[{ required: true, message: 'Name is required.' }]}
-            >
-              <Input
-                type="text"
-                name="name"
-                defaultValue="program name" // Change this
-                value={formValues.name}
-                onChange={e => handleChange(e)}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Location"
-              name="location"
-              rules={[{ required: true, message: 'Location is required.' }]}
-            >
-              <Input
-                type="text"
-                name="location"
-                value={formValues.location}
-                onChange={e => handleChange(e)}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Library ID"
-              name="libraryId"
-              rules={[{ required: true, message: 'Library ID is required.' }]}
-            >
-              <Input
-                type="text"
-                name="libraryId"
-                value={formValues.libraryId}
-                onChange={e => handleChange(e)}
-              />
-            </Form.Item>
+        <div className="form-container">
+          <Form>
+            <h1 className="page-title">Edit Your Profile</h1>
             <Form.Item>
-              <p>Fields with * are required.</p>
-              <Button>Submit</Button>
+              <Link to="/profile">Go Back</Link>
             </Form.Item>
+            <Form onFinish={handleSubmit} form={form}>
+              <Form.Item
+                label="Name"
+                name="name"
+                rules={[{ required: true, message: 'Name is required.' }]}
+              >
+                <Input
+                  type="text"
+                  name="name"
+                  defaultValue="program name" // Change this
+                  value={formValues.name}
+                  onChange={e => handleChange(e)}
+                />
+              </Form.Item>
+              <Form.Item
+                label="Location"
+                name="location"
+                rules={[{ required: true, message: 'Location is required.' }]}
+              >
+                <Input
+                  type="text"
+                  name="location"
+                  value={formValues.location}
+                  onChange={e => handleChange(e)}
+                />
+              </Form.Item>
+              <Form.Item
+                label="Library ID"
+                name="libraryId"
+                rules={[{ required: true, message: 'Library ID is required.' }]}
+              >
+                <Input
+                  type="text"
+                  name="libraryId"
+                  value={formValues.libraryId}
+                  onChange={e => handleChange(e)}
+                />
+              </Form.Item>
+              <Form.Item>
+                <p>Fields with * are required.</p>
+                <Button>Submit</Button>
+              </Form.Item>
+            </Form>
           </Form>
         </div>
       )}

@@ -57,65 +57,68 @@ const TeacherProfileForm = ({
       {!isLoading ? (
         '...loading'
       ) : (
-        <div>
-          <Form.Item>
-            <Link to="/profile">Go Back</Link>
-          </Form.Item>
-          <Form onFinish={handleSubmit} form={form}>
-            <Form.Item
-              label="First Name"
-              name="first_name"
-              rules={[{ required: true, message: 'First Name is required.' }]}
-            >
-              <Input
-                type="text"
+        <div className="form-container">
+          <Form>
+            <h1 className="page-title">Edit Your Profile</h1>
+            <Form.Item>
+              <Link to="/profile">Go Back</Link>
+            </Form.Item>
+            <Form onFinish={handleSubmit} form={form}>
+              <Form.Item
+                label="First Name"
                 name="first_name"
-                defaultValue="Mr Teacher" // Change this
-                value={formValues.first_name}
-                onChange={e => handleChange(e)}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Last Name"
-              name="last_name"
-              rules={[{ required: true, message: 'Last Name is required.' }]}
-            >
-              <Input
-                type="text"
+                rules={[{ required: true, message: 'First Name is required.' }]}
+              >
+                <Input
+                  type="text"
+                  name="first_name"
+                  defaultValue="Mr Teacher" // Change this
+                  value={formValues.first_name}
+                  onChange={e => handleChange(e)}
+                />
+              </Form.Item>
+              <Form.Item
+                label="Last Name"
                 name="last_name"
-                value={formValues.last_name}
-                onChange={e => handleChange(e)}
-              />
-            </Form.Item>
-            <Space direction="vertical" size={12}>
+                rules={[{ required: true, message: 'Last Name is required.' }]}
+              >
+                <Input
+                  type="text"
+                  name="last_name"
+                  value={formValues.last_name}
+                  onChange={e => handleChange(e)}
+                />
+              </Form.Item>
+              {/* <Space direction="vertical" size={12}>
               <DatePicker
                 defaultValue={Moment(`${formValues.dob}`, dateFormatList[0])}
                 format={dateFormat}
               />
-            </Space>
-            <Form.Item
-              label="Address"
-              name="address"
-              rules={[{ required: true, message: 'Address is required.' }]}
-            >
-              <Input
-                type="text"
+            </Space> */}
+              <Form.Item
+                label="Address"
                 name="address"
-                value={formValues.address}
-                onChange={e => handleChange(e)}
-              />
-            </Form.Item>
-            <Form.Item label="Gender" name="gender">
-              <Radio.Group onChange={onChange} value={true}>
-                <Radio value={'Male'}>Male</Radio>
-                <Radio value={'Female'}>Female</Radio>
-                <Radio value={'Other'}>Other</Radio>
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item>
-              <p>Fields with * are required.</p>
-              <Button>Submit</Button>
-            </Form.Item>
+                rules={[{ required: true, message: 'Address is required.' }]}
+              >
+                <Input
+                  type="text"
+                  name="address"
+                  value={formValues.address}
+                  onChange={e => handleChange(e)}
+                />
+              </Form.Item>
+              <Form.Item label="Gender" name="gender">
+                <Radio.Group onChange={onChange} value={true}>
+                  <Radio value={'Male'}>Male</Radio>
+                  <Radio value={'Female'}>Female</Radio>
+                  <Radio value={'Other'}>Other</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item>
+                <p>Fields with * are required.</p>
+                <Button>Submit</Button>
+              </Form.Item>
+            </Form>
           </Form>
         </div>
       )}

@@ -101,3 +101,9 @@
     padding: 0 2rem;
   }
 
+  /* All Forms */
+  .form-container {
+    display: flex;
+    justify-content: center;
+  }
+
