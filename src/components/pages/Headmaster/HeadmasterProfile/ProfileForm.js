@@ -74,7 +74,7 @@ const ProfileForm = props => {
   return (
     <div>
       <Form.Item>
-        <Link to="/profile">Go Back to your Profile</Link>
+        <Link to="/profile">Go Back</Link>
       </Form.Item>
       <Form onFinish={handleSubmit} form={form}>
         <Form.Item

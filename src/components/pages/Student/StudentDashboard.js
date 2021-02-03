@@ -66,9 +66,6 @@ const StudentDashboard = props => {
           <PageHeader
             title="Hello"
             extra={[
-              <Button key="1">
-                <a href="#">Go Back</a>
-              </Button>,
               <Button key="2" type="primary">
                 <a href="/logout">Logout</a>
               </Button>,

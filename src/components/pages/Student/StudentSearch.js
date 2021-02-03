@@ -21,6 +21,7 @@ const StudentSearch = props => {
   // const { fetchMenteesByDateSearch } = props;
 
   const onSubmit = e => {
+    console.log(lastNameSearch);
     fetchMenteesBySearch(lastNameSearch);
     setLastNameSearch('');
   };
