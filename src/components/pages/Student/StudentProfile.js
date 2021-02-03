@@ -17,7 +17,7 @@ const StudentProfile = ({ fetchMenteeProfile, profile, isLoading }) => {
       ) : (
         <div>
           <div>
-            <div className="profile-container">
+            <div>
               <h1 className="page-title">Profile</h1>
               <img
                 className="profile-pic"
