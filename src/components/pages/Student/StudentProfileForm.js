@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { Form, Input, DatePicker, Space, Radio } from 'antd';
+import { Form, Input, DatePicker, Space, Radio, Button } from 'antd';
 import Moment from 'moment';
 import {
   editMenteeProfile,
   fetchMenteeProfile,
 } from '../../../state/actions/index';
-import {
-  layout,
-  FormContainer,
-  tailLayout,
-  Required,
-} from '../../common/FormStyle';
-import Button from '../../common/Button';
 import { debugLog } from '../../../utils/debugMode';
 const dateFormat = 'MM/DD/YYYY';
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
@@ -83,7 +76,7 @@ const StudentProfileForm = ({
           <Form.Item>
             <Link to="/profile">Go Back</Link>
           </Form.Item>
-          <Form onFinish={handleSubmit} form={form} {...layout}>
+          <Form onFinish={handleSubmit} form={form}>
             <Form.Item
               label="First Name"
               name="first_name"
