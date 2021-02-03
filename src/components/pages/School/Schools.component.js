@@ -11,7 +11,7 @@ const Schools = props => {
   return (
     <div>
       <div />
-      <Divider orientation="center">Schools</Divider>
+      <Divider orientation="left">Schools</Divider>
       {props.schools.map(s => (
         <School school={s} />
       ))}
