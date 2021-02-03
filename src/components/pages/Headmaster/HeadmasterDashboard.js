@@ -107,6 +107,10 @@ const HeadmasterDashboard = props => {
               <Route path="/mentor-pairings" component={Mentees} />
               <Route exact path="/profile" component={HeadmasterProfile} />
               <Route path="/profile/edit/:id" component={ProfileForm} />
+              <Route
+                path="/student/profile/edit/:id"
+                component={StudentProfileForm}
+              />
               <Route path="/student-search" component={StudentSearch} />
               <Route path="/mentor-advisor" component={MentorList} />
               <Route path="/studentregistration" component={StudentForm} />
