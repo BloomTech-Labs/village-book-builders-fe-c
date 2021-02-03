@@ -74,8 +74,8 @@ const StudentHome = ({ fetchStudentResources, studentResource, isLoading }) => {
 
 const mapStateToProps = state => {
   return {
-    profile: state.resourceReducer.studentResources,
     isLoading: state.resourceReducer.isLoading,
+    studentResource: state.resourceReducer.studentResource,
   };
 };
 
