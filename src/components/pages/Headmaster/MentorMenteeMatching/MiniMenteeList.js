@@ -10,7 +10,6 @@ const MiniMenteeList = props => {
     fetchMentees();
   }, [fetchMentees]);
 
-  console.log('ML props', props);
   return (
     <div className="miniList">
       <h2>Mentee List</h2>

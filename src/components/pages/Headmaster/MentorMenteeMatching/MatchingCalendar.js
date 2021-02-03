@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
-import { fetchMentees } from '../../../../state/actions/index';
+import { fetchCalendar } from '../../../../state/actions/index';
 import Moment from 'moment';
 import Button from '../../../common/Button';
 
@@ -15,12 +15,21 @@ const initialState = {
 };
 
 const MatchingCalendar = props => {
-  // useEffect will eventually be used to populate list of mentees & mentors in drop menu
-  // const { fetchMentees } = props;
+  const calState = {
+    mentee: props.match.mentee,
+    mentor: '',
+    time: '',
+    date: '',
+    id: '',
+  };
 
-  // useEffect(() => {
-  //   fetchMentees();
-  // }, [fetchMentees]);
+  const [calendarData, setCalendarData] = useState(calState);
+  const { fetchCalendar } = props;
+  // console.log("props----------", calendarData)
+
+  useEffect(() => {
+    fetchCalendar();
+  }, [fetchCalendar]);
 
   //-----------------------start calendar code - https://ant.design/components/calendar/
   function dateCellRender(value) {
@@ -54,12 +63,12 @@ const MatchingCalendar = props => {
 
   function getListData(value) {
     let listData;
-    console.log('value---->', value.date());
     switch (value.date()) {
+      //data from match get would go here
       case 1:
         listData = [
           {
-            type: '',
+            type: 'success',
             content: '',
           },
         ];
@@ -72,155 +81,155 @@ const MatchingCalendar = props => {
           },
         ];
         break;
-      case 3:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 4:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 5:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 6:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 7:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 8:
-        listData = [
-          {
-            type: '',
-            content: 'Chandler Rosenbaum & Antwan Konopelski, 2pm',
-          },
-          { type: '', content: 'Marilyne Murazik & Michael Scott, 3pm' },
-        ];
-        break;
-      case 9:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 10:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 11:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 12:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 13:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 14:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 15:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 16:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 17:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 18:
-        listData = [
-          { type: 'success', content: 'Della Walker & Laverna Botsford, 9am' },
-          { type: 'success', content: 'Gunnar Johnston & Michael Scott, 10am' },
-          {
-            type: 'success',
-            content: 'Chandler Rosenbaum & Antwan Konopelski, 2pm',
-          },
-          { type: 'success', content: 'Marilyne Murazik & Michael Scott, 3pm' },
-        ];
-        break;
-      case 19:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      case 20:
-        listData = [
-          {
-            type: '',
-            content: '',
-          },
-        ];
-        break;
-      default:
+      // case 3:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 4:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 5:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 6:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 7:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 8:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: 'Chandler Rosenbaum & Antwan Konopelski, 2pm',
+      //     },
+      //     { type: '', content: 'Marilyne Murazik & Michael Scott, 3pm' },
+      //   ];
+      //   break;
+      // case 9:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 10:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 11:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 12:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 13:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 14:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 15:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 16:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 17:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 18:
+      //   listData = [
+      //     { type: 'success', content: 'Della Walker & Laverna Botsford, 9am' },
+      //     { type: 'success', content: 'Gunnar Johnston & Michael Scott, 10am' },
+      //     {
+      //       type: 'success',
+      //       content: 'Chandler Rosenbaum & Antwan Konopelski, 2pm',
+      //     },
+      //     { type: 'success', content: 'Marilyne Murazik & Michael Scott, 3pm' },
+      //   ];
+      //   break;
+      // case 19:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // case 20:
+      //   listData = [
+      //     {
+      //       type: '',
+      //       content: '',
+      //     },
+      //   ];
+      //   break;
+      // default:
     }
     return listData || [];
   }
@@ -356,10 +365,10 @@ const MatchingCalendar = props => {
           />
         </Form.Item>
       </Form>
-      <div className="miniListContainer">
+      {/* <div className="miniListContainer">
         <MiniMentorList />
         <MiniMenteeList />
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -368,7 +377,8 @@ const mapStateToProps = state => {
   return {
     isloading: state.headmasterReducer.isLoading,
     mentees: state.headmasterReducer.mentees,
+    match: state.headmasterReducer.match,
   };
 };
 
-export default connect(mapStateToProps, { fetchMentees })(MatchingCalendar);
+export default connect(mapStateToProps, { fetchCalendar })(MatchingCalendar);

@@ -10,8 +10,6 @@ const MiniMentorList = props => {
     fetchMentors();
   }, [fetchMentors]);
 
-  console.log('mentorprops------->', props);
-
   return (
     <div className="miniList">
       <h2>Mentor List</h2>
