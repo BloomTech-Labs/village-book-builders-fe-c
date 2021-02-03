@@ -57,3 +57,53 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  /* Mentee & Mentor Matching Component Lists Styling */
+.miniListContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.miniList {
+  width: 30%;
+  padding: 20px;
+  margin: 0px 20px;
+}
+
+.cascaderList {
+  width: 30%;
+  padding: 20px;
+  margin: 0px 20px;
+}
+
+/* calendar styling */
+.calStyling {
+  margin: 20px auto 20px 0px;
+  border: 2px solid orange;
+  width: 95%;
+  padding: 20px;
+}
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.events .ant-badge-status {
+  /* overflow: hidden; */
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  margin: 5px 0px;
+}
+
+.events .ant-badge-status .ant-badge-status-text {
+  font-size: 15px;
+}
+
+.notes-month {
+  text-align: center;
+  font-size: 28px;
+}
+.notes-month section {
+  font-size: 28px;
+}

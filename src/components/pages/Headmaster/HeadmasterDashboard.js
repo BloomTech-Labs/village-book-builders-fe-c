@@ -12,6 +12,7 @@ import SchoolForm from '../School/SchoolForm.js';
 import HeadmasterProfile from './HeadmasterProfile/Profile.js';
 import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 import MentorList from '../Mentor/MentorList.js';
+import MatchingCalendar from './MentorMenteeMatching/MatchingCalendar';
 import { fetchHeadmasterProfile } from '../../../state/actions';
 import Logout from '../../Logout.js';
 import Mentees from './Mentees/Mentees.js';
@@ -32,7 +33,7 @@ const HeadmasterDashboard = props => {
   useEffect(() => {
     props.fetchHeadmasterProfile(1); // change this later with login
   }, []);
-  console.log(profile);
+  // console.log(profile);
 
   const { Content, Sider } = Layout;
 
@@ -71,7 +72,10 @@ const HeadmasterDashboard = props => {
               <NavLink to="/mentor-pairings">Mentor Matching</NavLink>
             </Menu.Item>
             <Menu.Item key="4" icon={<UnorderedListOutlined />}>
-              <NavLink to="/mentor-advisor">Mentor List</NavLink>
+              <NavLink to="/mentor-list">Mentor List</NavLink>
+            </Menu.Item>
+            <Menu.Item key="8" icon={<UnorderedListOutlined />}>
+              <NavLink to="/mentor-mentee-matching">Mentor Mentee Matching</NavLink>
             </Menu.Item>
             <Menu.Item key="5" icon={<BookOutlined />}>
               <NavLink to="/school-village">School/Village</NavLink>
@@ -111,8 +115,9 @@ const HeadmasterDashboard = props => {
               <Route exact path="/profile" component={HeadmasterProfile} />
               <Route path="/profile/edit/:id" component={ProfileForm} />
               <Route path="/student-search" component={StudentSearch} />
-              <Route path="/mentor-advisor" component={MentorList} />
+              <Route path="/mentor-list" component={MentorList} />
               <Route path="/studentregistration" component={StudentForm} />
+              <Route path="/mentor-mentee-matching" component={MatchingCalendar} />
               <Route path="/school-village">
                 <Village />
                 <Schools />
