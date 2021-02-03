@@ -64,7 +64,7 @@ const StudentDashboard = props => {
         </Sider>
         <Layout>
           <PageHeader
-            title="Hello"
+            title="Welcome"
             extra={[
               <Button key="2" type="primary">
                 <a href="/logout">Logout</a>
