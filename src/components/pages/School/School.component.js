@@ -1,24 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 
 const School = props => {
   const { school } = props;
 
   return (
-    <div>
-      <p>School: {school.name}</p>
-      <p>Description: {school.school_description}</p>
-      <p>Goals: {school.school_goals}</p>
-      <p>Needs: {school.school_needs}</p>
-      <p>Student Count: {school.count_students_currently_enrolled}</p>
-      <p>Teacher Count: {school.count_teachers}</p>
-      <p>Notes: {school.notes}</p>
-
-      <Link to={`/school/edit/${school.id}`}>
-        <Button buttonText="Edit School Profile" />
-      </Link>
+    <div className="school-village-container">
+      <div className="school-container">
+        <h1>{school.name}</h1>
+        <div>
+          <span>Description:</span> {school.school_description}
+        </div>
+        <div>
+          <span>Goals:</span> {school.school_goals}
+        </div>
+        <div>
+          <span>Needs:</span> {school.school_needs}
+        </div>
+        <div>
+          <span>Student Count:</span> {school.count_students_currently_enrolled}
+        </div>
+        <div>
+          <span>Teacher Count:</span> {school.count_teachers}
+        </div>
+        <div>
+          <span>Notes:</span> {school.notes}
+        </div>
+        <Link to={`/school/edit/${school.id}`}>
+          <Button style={{ margin: '.5rem 0' }}>Edit</Button>
+        </Link>
+        <Divider></Divider>
+      </div>
     </div>
   );
 };

@@ -54,7 +54,7 @@ const VillageForm = props => {
   return (
     <div>
       <Form.Item>
-        <Link to="/school-village">Go Back to Village Profile</Link>
+        <Link to="/school-village">Go Back</Link>
       </Form.Item>
 
       <Form onFinish={handleSubmit} form={form}>
