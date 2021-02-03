@@ -212,12 +212,12 @@ const StudentProfileForm = ({
                 onChange={e => handleChange(e)}
               />
             </Form.Item>
-            <Space direction="vertical" size={12}>
+            {/* <Space direction="vertical" size={12}>
               <DatePicker
                 defaultValue={Moment(`${formValues.dob}`, dateFormatList[0])}
                 format={dateFormat}
               />
-            </Space>
+            </Space> */}
             <Form.Item label="Gender" name="gender">
               <Radio.Group onChange={onChange} value={true}>
                 <Radio value={'Male'}>Male</Radio>
