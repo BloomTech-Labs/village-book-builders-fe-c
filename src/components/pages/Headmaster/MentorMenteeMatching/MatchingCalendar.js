@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 import { fetchCalendar } from '../../../../state/actions/index';
-import Moment from 'moment';
 import Button from '../../../common/Button';
 
 const initialState = {
@@ -15,17 +14,7 @@ const initialState = {
 };
 
 const MatchingCalendar = props => {
-  const calState = {
-    mentee: props.match.mentee,
-    mentor: '',
-    time: '',
-    date: '',
-    id: '',
-  };
-
-  const [calendarData, setCalendarData] = useState(calState);
   const { fetchCalendar } = props;
-  // console.log("props----------", calendarData)
 
   useEffect(() => {
     fetchCalendar();
@@ -64,172 +53,59 @@ const MatchingCalendar = props => {
   function getListData(value) {
     let listData;
     switch (value.date()) {
-      //data from match get would go here
+      //this is how to apply props to calendar data - will need to passed through in function from the form in future builds.
+      //Per TPL here is where to start.
+      //So here's some example code:
+      // for (elem of props.match) {
+      //   let appt = {
+      //     type: 'success'
+      //   }
+      //   appt.content = `${elem.mentee} & ${elem.mentor}, ${elem.time}`
+      //   appt.date = elem.date.slice('/')[2]
+      //   console.log(appt)
+      // }
+      // that can pull from those props and turn them into appt objects that fit your format;
+      // what you would need to do is figure out how to got them into that function such that
+      // the appt.date files them into the appropriate switch statement
+
+      // That slice() function is just grabbing the data from that string as the relevant single number,
+      // you'd want to make sure to convert it to an int if necessary
+
+      //It might mean having different variables in each of those switch statements rather than using
+      // listData every time, but depends how you set it up I suppose.
       case 1:
         listData = [
           {
             type: 'success',
-            content: '',
+            content: `Mentor ${props.match[0]['mentee']} & Mentee ${props.match[0]['mentor']} @ ${props.match[0]['time']}`,
           },
         ];
         break;
-      case 2:
+      case 5:
         listData = [
           {
             type: 'success',
-            content: 'Mentor Samwise & Mentee Frodo, 2pm',
+            content: `Mentor ${props.match[0]['mentee']} & Mentee ${props.match[0]['mentor']} @ ${props.match[0]['time']}`,
           },
         ];
         break;
-      // case 3:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 4:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 5:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 6:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 7:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 8:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: 'Chandler Rosenbaum & Antwan Konopelski, 2pm',
-      //     },
-      //     { type: '', content: 'Marilyne Murazik & Michael Scott, 3pm' },
-      //   ];
-      //   break;
-      // case 9:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 10:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 11:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 12:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 13:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 14:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 15:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 16:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 17:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 18:
-      //   listData = [
-      //     { type: 'success', content: 'Della Walker & Laverna Botsford, 9am' },
-      //     { type: 'success', content: 'Gunnar Johnston & Michael Scott, 10am' },
-      //     {
-      //       type: 'success',
-      //       content: 'Chandler Rosenbaum & Antwan Konopelski, 2pm',
-      //     },
-      //     { type: 'success', content: 'Marilyne Murazik & Michael Scott, 3pm' },
-      //   ];
-      //   break;
-      // case 19:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // case 20:
-      //   listData = [
-      //     {
-      //       type: '',
-      //       content: '',
-      //     },
-      //   ];
-      //   break;
-      // default:
+      case 11:
+        listData = [
+          {
+            type: 'success',
+            content: `Mentor ${props.match[0]['mentee']} & Mentee ${props.match[0]['mentor']} @ ${props.match[0]['time']}`,
+          },
+        ];
+        break;
+      case 16:
+        listData = [
+          {
+            type: 'success',
+            content: `Mentor ${props.match[0]['mentee']} & Mentee ${props.match[0]['mentor']} @ ${props.match[0]['time']}`,
+          },
+        ];
+        break;
+      default:
     }
     return listData || [];
   }
@@ -245,13 +121,8 @@ const MatchingCalendar = props => {
     setCalValue({ ...calValue, [e.target.name]: e.target.value });
   };
 
-  // date picker handler
-  function onChange(date, dateString) {
-    console.log(date, dateString);
-  }
-
   const onFinish = calValue => {
-    getListData(calValue);
+    console.log(calValue);
   };
 
   return (
@@ -279,8 +150,9 @@ const MatchingCalendar = props => {
                 placeholder="Please select a Mentor"
                 name={calValue.content}
               >
-                <Option value="Mentor Samwise">Mentor Samwise</Option>
-                <Option value="Mentor Whistler">Mentor Whistler</Option>
+                <Option value="Mentor Michael">Mentor Michael</Option>
+                <Option value="Mentor Pam">Mentor Pam</Option>
+                <Option value="Mentor Oscar">Mentor Oscar</Option>
               </Select>
             </Form.Item>
           </Input.Group>
@@ -294,8 +166,9 @@ const MatchingCalendar = props => {
               rules={[{ required: true, message: 'Mentee is required' }]}
             >
               <Select placeholder="Please select a mentee">
-                <Option value="Mentee Frodo">Mentee Frodo</Option>
-                <Option value="Mentee Blade">Mentee Blade</Option>
+                <Option value="Mentee Scott">Mentee Scott</Option>
+                <Option value="Mentee Beasly">Mentee Beasly</Option>
+                <Option value="Mentee Martinez">Mentee Martinez</Option>
               </Select>
             </Form.Item>
           </Input.Group>
@@ -323,35 +196,21 @@ const MatchingCalendar = props => {
           </Input.Group>
         </Form.Item>
 
-        {/* <Form.Item label="Date">
-          <Input.Group large>
-            <Form.Item
-              name='date'
-              noStyle
-              rules={[{ required: true, message: 'Date is required' }]}
-              onChange={e => handleChange(e)}
-            >
-              <Select placeholder="Please select a date."
-                name={calValue.date}>
-                <Option value={Moment.day(2)}>1</Option>
-                <Option value={2021/1/31}>2</Option>
-                <Option value={31}>3</Option>
-                <Option value={1/31/2021}>4</Option>
-              </Select>
-            </Form.Item>
-          </Input.Group>
-        </Form.Item>  */}
-
+        {/* https://ant.design/components/date-picker/#header
+        default onChange
+        function onChange(date, dateString) {
+          console.log(date, dateString);
+        } */}
         <Form.Item label="Date">
           <Input.Group>
             <Form.Item
               name="date"
               noStyle
               // rules={[{ required: true, message: 'Date is required' }]}
-              onChange={e => handleChange(e)}
+              handleChange={e => handleChange(e)}
             >
               <Space direction="vertical">
-                <DatePicker name={calValue.date} onChange={onChange} />
+                <DatePicker name={calValue.date} handleChange={handleChange} />
               </Space>
             </Form.Item>
           </Input.Group>
@@ -365,10 +224,10 @@ const MatchingCalendar = props => {
           />
         </Form.Item>
       </Form>
-      {/* <div className="miniListContainer">
+      <div className="miniListContainer">
         <MiniMentorList />
         <MiniMenteeList />
-      </div> */}
+      </div>
     </div>
   );
 };

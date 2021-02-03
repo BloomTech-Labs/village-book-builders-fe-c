@@ -612,7 +612,7 @@ input {
 /* calendar styling */
 .calStyling {
   margin: 20px auto 20px 0px;
-  border: 1px solid lightgray;
+  border: 2px solid orange;
   width: 95%;
   padding: 20px;
 }

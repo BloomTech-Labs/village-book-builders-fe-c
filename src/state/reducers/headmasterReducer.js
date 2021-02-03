@@ -24,7 +24,15 @@ const initialState = {
   mentees: [],
   isLoading: true,
   mentors: [],
-  match: [],
+  match: [
+    {
+      id: null,
+      mentee: null,
+      mentor: null,
+      time: null,
+      date: null,
+    },
+  ],
 };
 // Fetch school data for headmaster
 const reducer = (state = initialState, action) => {
