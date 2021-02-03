@@ -14,7 +14,7 @@ const Village = ({ villageData, userId, fetchVillage }) => {
 
   return (
     <div className="school-village-container">
-      <Divider orientation="left">Villages</Divider>
+      <Divider orientation="center">Villages</Divider>
       <div className="village-container">
         <div>
           <span>Village Contact:</span> {villageData.village_contact_name}
