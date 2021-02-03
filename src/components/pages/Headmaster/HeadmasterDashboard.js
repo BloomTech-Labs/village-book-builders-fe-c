@@ -100,7 +100,7 @@ const HeadmasterDashboard = props => {
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ padding: '5rem', backgroundColor: 'white' }}>
+          <Content style={{ padding: '2rem 3rem', backgroundColor: 'white' }}>
             <Switch>
               <Route path="/dashboard" component={HeadmasterHome} />
               <Route path="/mentor-pairings" component={Mentees} />

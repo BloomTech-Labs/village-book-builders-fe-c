@@ -71,7 +71,7 @@ const StudentDashboard = props => {
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ padding: '5rem', backgroundColor: 'white' }}>
+          <Content style={{ padding: '2rem 3rem', backgroundColor: 'white' }}>
             <Switch>
               <Route exact path="/profile" component={StudentProfile} />
               <Route path="/profile/edit/:id" component={StudentProfileForm} />
