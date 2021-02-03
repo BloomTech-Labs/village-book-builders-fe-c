@@ -15,26 +15,18 @@ const HeadmasterProfile = props => {
 
   return (
     <div>
-      <h1>Profile</h1>
-      <img src={`${profile.headmasters_picture}`} />
-      <p>{`Name: ${profile.first_name} ${profile.last_name}`}</p>
-      <p>Gender: {profile.gender}</p>
-      <p>Address:{profile.address}</p>
-      <p>Bio: {profile.bio}</p>
-      <p>Communication App: {profile.communication_app}</p>
-      <p>DOB:{profile.dob}</p>
-      <p>General Availability: {profile.general_availability}</p>
-      <p>
-        Mentor Advisor Point of Contact:{' '}
-        {profile.mentor_advisor_point_of_contact}
-      </p>
-      <p>Mentor Program Goals: {profile.goals_mentor_program}</p>
-      <p>Personal Goals: {profile.goals_personal}</p>
-      <p>School Community Goals: {profile.goals_school_community}</p>
-      <p>Goals Mentor Program: {profile.goals_mentor_program}</p>
-      <p>Time Zone: {profile.time_zone}</p>
+      <h1 className="page-title">Profile</h1>
+      <img className="profile-pic" src={profile.headmasters_picture} />
+      <div className="profile-item-title">Name</div>
+      <div className="profile-item">
+        {profile.first_name} {profile.last_name}
+      </div>
+      <div className="profile-item-title">Gender</div>
+      <div className="profile-item">{profile.gender}</div>
+      <div className="profile-item-title">Address</div>
+      <div className="profile-item">{profile.address}</div>
       <Link to={`/profile/edit/${profile.id}`}>
-        <Button>Edit Your Profile</Button>
+        <Button style={{ margin: '.5rem 0' }}>Edit</Button>
       </Link>
     </div>
   );
