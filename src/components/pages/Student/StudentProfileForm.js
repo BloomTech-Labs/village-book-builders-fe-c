@@ -231,7 +231,9 @@ const StudentProfileForm = ({
               </Form.Item>
               <Form.Item>
                 <p>Fields with * are required.</p>
-                <Button>Submit</Button>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
               </Form.Item>
             </Form>
           </Form>
