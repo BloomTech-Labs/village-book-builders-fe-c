@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import StudentProfile from './StudentProfile';
+import StudentHome from './StudentHome';
 import StudentProfileForm from './StudentProfileForm';
 import { fetchMenteeProfile } from '../../../state/actions';
 import Logout from '../../Logout.js';
@@ -80,6 +81,7 @@ const StudentDashboard = props => {
               ></PageHeader>
               <Content style={{ padding: '2rem', backgroundColor: 'white' }}>
                 <Switch>
+                  <Route path="/dashboard" component={StudentHome} />
                   <Route exact path="/profile" component={StudentProfile} />
                   <Route
                     path="/profile/edit/:id"

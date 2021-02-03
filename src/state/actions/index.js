@@ -183,6 +183,20 @@ export const fetchMenteesBySearch = search => dispatch => {
     );
 };
 
+export const fetchStudentResources = () => dispatch => {
+  axiosWithAuth()
+    .get(`/resource`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_STUDENT_RESOURCES,
+        payload: res.data,
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
     .get(`/school`)
