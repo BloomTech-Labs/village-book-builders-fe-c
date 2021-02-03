@@ -32,6 +32,7 @@
 //   },
 // };
 
+
 // const Button = props => {
 //   return (
 //     <Btn onClick={props.onClick} className={props.classType}>
@@ -39,6 +40,7 @@
 //     </Btn>
 //   );
 // };
+
 
 // export default Button;
 

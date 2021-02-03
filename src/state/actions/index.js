@@ -89,6 +89,18 @@ export const fetchVillage = id => dispatch => {
     .catch(err => console.dir(err));
 };
 
+export const fetchCalendar = () => dispatch => {
+  dispatch({ type: actionTypes.FETCH_CALENDAR_START });
+  axiosWithAuth()
+    .get(`http://localhost:3000/match`)
+    .then(res => {
+      dispatch({ type: actionTypes.FETCH_CALENDAR_SUCCESS, payload: res.data });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_CALENDAR_FAILURE, payload: err })
+    );
+};
+
 export const editVillage = (id, data) => () => {
   axiosWithAuth()
     .put(`/village/${id}`, data)

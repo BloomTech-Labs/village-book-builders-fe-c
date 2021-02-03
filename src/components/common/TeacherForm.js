@@ -3,6 +3,7 @@ import { Form, Input, Button, message } from 'antd';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
+
 // This reusable component is strictly for the "Teacher" input feilds
 
 const initialFormValues = {
@@ -21,6 +22,7 @@ function TeacherForm() {
   const onFinish = values => {
     addTeacher(values);
     console.log(' ON FINISH', values);
+
     form.resetFields();
     message.success(
       'Thank you for registering, the Headmaster will review your request'
@@ -44,6 +46,7 @@ function TeacherForm() {
       style={{ display: 'flex', justifyContent: 'center', paddingTop: '2rem' }}
     >
       <Form form={form} onFinish={onFinish} name="register" scrollToFirstError>
+
         <h1>Teacher Registration Form</h1>
 
         <Form.Item

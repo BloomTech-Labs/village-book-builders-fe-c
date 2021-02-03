@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Form, Input, Checkbox, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
 import { login } from '../../../state/actions';
 
 const initialState = {

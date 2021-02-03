@@ -80,7 +80,7 @@ const StudentSearch = props => {
         </Space>, */}
         <div>
           {props.isLoading ? (
-            ''
+            '...Loading'
           ) : props.searchedMentee.length === 0 ? (
             <div>
               <Alert
