@@ -149,6 +149,7 @@ export const editMenteeProfile = (id, data) => dispatch => {
 };
 
 export const fetchMenteeProfile = id => dispatch => {
+  console.log('hols');
   dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
   axiosWithAuth()
     .get(`/mentee/${id}`)
