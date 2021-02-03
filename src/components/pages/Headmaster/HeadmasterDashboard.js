@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  Link,
-  NavLink,
-  // Redirect,
-  // BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { Link, NavLink, Route, Switch } from 'react-router-dom';
+import StudentProfileForm from '../../pages/Student/StudentProfileForm';
+import StudentForm from '../Student/StudentForm';
 import HeadmasterHome from './HeadmasterHome';
 import StudentSearch from '../Student/StudentSearch';
 import Village from '../Village/Village.component.js';
@@ -19,22 +14,20 @@ import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 import MentorList from '../Mentor/MentorList.js';
 import MatchingCalendar from './MentorMenteeMatching/MatchingCalendar';
 import { fetchHeadmasterProfile } from '../../../state/actions';
-import { Drawer, Button } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
-import '../../../styles/Dashboard.css';
-import {
-  menuButton,
-  menuIcon,
-  menuMove,
-  Dashboard,
-} from '../../../styles/Dashboard.style';
 import Logout from '../../Logout.js';
-import MentorPairings from './Mentees/Mentees.js';
 import Mentees from './Mentees/Mentees.js';
+import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
+import {
+  HomeOutlined,
+  UserOutlined,
+  CalendarOutlined,
+  UnorderedListOutlined,
+  BookOutlined,
+  FormOutlined,
+  LogoutOutlined,
+} from '@ant-design/icons';
 
 const HeadmasterDashboard = props => {
-  const [visible, setVisible] = useState(true);
-  const [desktop, setDesktop] = useState(true);
   const { profile } = props;
 
   useEffect(() => {
@@ -42,123 +35,109 @@ const HeadmasterDashboard = props => {
   }, []);
   // console.log(profile);
 
-  useEffect(() => {
-    if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
-      setDesktop(false);
-      setVisible(false);
-    } else {
-      setDesktop(true);
-    }
-  }, []);
-
-  const onClose = () => {
-    setVisible(false);
-  };
-
-  // Todo: this needs to be converted to a mediaquery and removed from here
-  window.addEventListener('resize', () => {
-    if (window.innerWidth <= 800 || document.documentElement.width <= 800) {
-      setDesktop(false);
-      setVisible(false);
-    } else {
-      setDesktop(true);
-      setVisible(true);
-    }
-  });
+  const { Content, Sider } = Layout;
 
   return (
     <div>
-      <Dashboard>
-        <Switch>
-          <Route path="/dashboard" component={HeadmasterHome} />
-          <Route path="/mentor-pairings" component={Mentees} />
-          <Route exact path="/profile" component={HeadmasterProfile} />
-          <Route path="/profile/edit/:id" component={ProfileForm} />
-          <Route path="/student-search" component={StudentSearch} />
-          <Route path="/mentor-advisor" component={MentorList} />
-          <Route path="/mentor-mentee-matching" component={MatchingCalendar} />
-          <Route path="/school-village">
-            <Village />
-            <Schools />
-          </Route>
-          <Route
-            exact
-            path="/village/edit/:villageId"
-            component={VillageForm}
-          />
-          <Route exact path="/school/edit/:schoolId" component={SchoolForm} />
-          <Route path="/library" />
-          <Route path="/logout" component={Logout} />
-        </Switch>
-      </Dashboard>
-
-      {desktop ? null : (
-        // inline style to force animation
-        <div style={visible ? menuMove : menuIcon}>
-          <Button
-            type="primary"
-            style={menuButton} // inline style to override Ant Design
-            onClick={() => setVisible(!visible)}
-            icon={<MenuOutlined />}
-          >
-            Menu
-          </Button>
-        </div>
-      )}
-      <div>
-        <Drawer
-          placement={desktop ? 'left' : 'bottom'}
-          closable={false}
-          onClose={onClose}
-          visible={visible}
-          mask={false}
-          width={desktop ? 300 : 500}
-          height={500}
+      <Layout>
+        <Sider
+          theme="light"
+          breakpoint="lg"
+          collapsedWidth="0"
+          onBreakpoint={broken => {
+            console.log(broken);
+          }}
+          onCollapse={(collapsed, type) => {
+            console.log(collapsed, type);
+          }}
         >
-          <img src="/images/vbb-full-logo.png" alt="VBB logo" width="200"></img>
-          <h2 style={{ padding: '2rem 0 1rem 0', fontSize: '1rem' }}>
-            Hello,{' '}
-            <span
-              style={{ color: ' #FF914D' }}
-            >{`Headmaster ${profile.last_name}`}</span>
-          </h2>
-
-          <NavLink to="/dashboard" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Home</button>
-          </NavLink>
-          <NavLink to="/profile" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Profile</button>
-          </NavLink>
-          <NavLink to={'/mentor-pairings'} onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Mentees List</button>
-          </NavLink>
-          <NavLink to="/mentor-advisor" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Mentor List</button>
-          </NavLink>
-          <NavLink
-            to="/mentor-mentee-matching"
-            onClick={() => setVisible(true)}
-          >
-            <button className="btn l2-btn menuLinks">
-              Mentor Mentee Matching
-            </button>
-          </NavLink>
-          <NavLink to="/school-village" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">School/Village</button>
-          </NavLink>
-          <NavLink to="/library" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Library</button>
-          </NavLink>
-          <NavLink to="/student-search" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">
-              Student Registration
-            </button>
-          </NavLink>
-          <Link to="/logout" onClick={() => setVisible(true)}>
-            <button className="btn l2-btn menuLinks">Logout</button>
-          </Link>
-        </Drawer>
-      </div>
+          <Menu mode="inline" defaultSelectedKeys={['4']}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '2rem 1rem',
+              }}
+            >
+              <Avatar style={{ color: '#FF914D' }} icon={<UserOutlined />} />
+              <div style={{ padding: '1rem' }}>{profile.last_name}</div>
+            </div>
+            <Menu.Item key="1" icon={<HomeOutlined />}>
+              <NavLink to="/dashboard">Home</NavLink>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<UserOutlined />}>
+              <NavLink to="/profile">Profile</NavLink>
+            </Menu.Item>
+            <Menu.Item key="3" icon={<CalendarOutlined />}>
+              <NavLink to="/mentor-pairings">Mentor Matching</NavLink>
+            </Menu.Item>
+            <Menu.Item key="4" icon={<UnorderedListOutlined />}>
+              <NavLink to="/mentor-list">Mentor List</NavLink>
+            </Menu.Item>
+            <Menu.Item key="8" icon={<UnorderedListOutlined />}>
+              <NavLink to="/mentor-mentee-matching">Mentor Mentee Matching</NavLink>
+            </Menu.Item>
+            <Menu.Item key="5" icon={<BookOutlined />}>
+              <NavLink to="/school-village">School/Village</NavLink>
+            </Menu.Item>
+            <Menu.Item key="6" icon={<FormOutlined />}>
+              <NavLink to="/student-search">Student Registration</NavLink>
+            </Menu.Item>
+            <Menu.Item key="7" icon={<LogoutOutlined />}>
+              <Link to="/logout">Logout</Link>
+            </Menu.Item>
+          </Menu>
+          <div>
+            <img
+              style={{ padding: '2rem 1rem' }}
+              src="/images/vbb-full-logo.png"
+              alt="VBB logo"
+              width="150"
+            ></img>
+          </div>
+        </Sider>
+        <Layout>
+          <PageHeader
+            title={`Hello, Headmaster ${profile.last_name}`}
+            extra={[
+              <Button key="1">
+                <a href="#">Go Back</a>
+              </Button>,
+              <Button key="2" type="primary">
+                <a href="/logout">Logout</a>
+              </Button>,
+            ]}
+          ></PageHeader>
+          <Content style={{ padding: '5rem', backgroundColor: 'white' }}>
+            <Switch>
+              <Route path="/dashboard" component={HeadmasterHome} />
+              <Route path="/mentor-pairings" component={Mentees} />
+              <Route exact path="/profile" component={HeadmasterProfile} />
+              <Route path="/profile/edit/:id" component={ProfileForm} />
+              <Route path="/student-search" component={StudentSearch} />
+              <Route path="/mentor-list" component={MentorList} />
+              <Route path="/studentregistration" component={StudentForm} />
+              <Route path="/mentor-mentee-matching" component={MatchingCalendar} />
+              <Route path="/school-village">
+                <Village />
+                <Schools />
+              </Route>
+              <Route
+                exact
+                path="/village/edit/:villageId"
+                component={VillageForm}
+              />
+              <Route
+                exact
+                path="/school/edit/:schoolId"
+                component={SchoolForm}
+              />
+              <Route path="/library" />
+              <Route path="/logout" component={Logout} />
+            </Switch>
+          </Content>
+        </Layout>
+      </Layout>
     </div>
   );
 };

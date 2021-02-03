@@ -5,6 +5,7 @@
 // Declare action TYPES at the top of the file
 import axios from 'axios';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom';
 
 import * as actionTypes from './actionTypes';
 const baseURL = process.env.REACT_APP_BASE_URL;

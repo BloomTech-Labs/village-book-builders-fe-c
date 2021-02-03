@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { Form, Input } from 'antd';
+import { Form, Input, Button } from 'antd';
 import {
   editProgramProfile,
   fetchProgramProfile,
 } from '../../../state/actions/index';
-import {
-  layout,
-  FormContainer,
-  tailLayout,
-  Required,
-} from '../../common/FormStyle';
-import Button from '../../common/Button';
 import { debugLog } from '../../../utils/debugMode';
+
 const initialState = {
   name: '',
   location: '',
@@ -30,12 +24,14 @@ const ProgramProfileForm = ({
   const params = useParams().id;
   const [form] = Form.useForm();
   const history = useHistory();
+  const pathname = useHistory().location.pathname;
 
   useEffect(() => {
-    return () => {
+    if (pathname.includes('edit')) {
       fetchProgramProfile(0);
       form.setFieldsValue(programProfile);
-    };
+      setFormValues(programProfile);
+    }
   }, [fetchProgramProfile]);
 
   const handleSubmit = e => {
@@ -52,11 +48,11 @@ const ProgramProfileForm = ({
       {isLoading ? (
         '...loading'
       ) : (
-        <FormContainer>
-          <Form.Item {...tailLayout}>
-            <Link to="/profile">Go Back to your Profile</Link>
+        <div>
+          <Form.Item>
+            <Link to="/profile">Go Back</Link>
           </Form.Item>
-          <Form onFinish={handleSubmit} form={form} {...layout}>
+          <Form onFinish={handleSubmit} form={form}>
             <Form.Item
               label="Name"
               name="name"
@@ -94,18 +90,12 @@ const ProgramProfileForm = ({
                 onChange={e => handleChange(e)}
               />
             </Form.Item>
-            <Form.Item {...tailLayout}>
-              <Button
-                className="l2-btn btn"
-                htmlType="submit"
-                buttonText="Submit Teacher Edit"
-              />
-              <Required id="requiredMsg">
-                Fields with <span id="required">&#42;</span> are required.
-              </Required>
+            <Form.Item>
+              <p>Fields with * are required.</p>
+              <Button>Submit</Button>
             </Form.Item>
           </Form>
-        </FormContainer>
+        </div>
       )}
     </div>
   );

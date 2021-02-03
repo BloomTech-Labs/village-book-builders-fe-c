@@ -3,6 +3,7 @@ import {
   FETCH_TEACHER_PROFILE,
   FETCH_TEACHER_PROFILE_SUCCESS,
   FETCH_TEACHER_PROFILE_FAILURE,
+  ADD_TEACHER,
 } from '../actions/actionTypes';
 
 import { debugLog } from '../../utils/debugMode.js';
@@ -24,6 +25,7 @@ const reducer = (state = initialState, action) => {
     case FETCH_TEACHER_PROFILE_FAILURE:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: false };
+
     default:
       return state;
   }

@@ -5,100 +5,122 @@ import {
   fetchMenteesByDateSearch,
 } from '../../../state/actions/index';
 import Moment from 'moment';
-
+import { Input, Button, Alert, Space, Card, Avatar } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { EditOutlined } from '@ant-design/icons';
+
 const StudentSearch = props => {
   const [lastNameSearch, setLastNameSearch] = useState('');
-  const [dobSearch, setDobSearch] = useState('');
+  // const [dobSearch, setDobSearch] = useState('');
   const history = useHistory();
 
+  const { Search } = Input;
+  const { Meta } = Card;
+
   const { fetchMenteesBySearch } = props;
-  const { fetchMenteesByDateSearch } = props;
+  // const { fetchMenteesByDateSearch } = props;
 
   const onSubmit = e => {
-    e.preventDefault();
     fetchMenteesBySearch(lastNameSearch);
     setLastNameSearch('');
   };
 
-  const onDateSubmit = e => {
-    /*DOB search currently not working due to JSON server having weird format for dates working on resolving 
-    need to find out how to send 
-    the date back in the same format that we received it*/
-    e.preventDefault();
-    fetchMenteesByDateSearch(dobSearch);
-    setDobSearch('');
-    console.log(dobSearch);
-  };
+  // const onDateSubmit = e => {
+  //   e.preventDefault();
+  //   fetchMenteesByDateSearch(dobSearch);
+  //   setDobSearch('');
+  // };
+
+  // const onDateSubmit = e => {
+  //   /*DOB search currently not working due to JSON server having weird format for dates working on resolving
+  //   need to find out how to send
+  //   the date back in the same format that we received it*/
+  //   e.preventDefault();
+  //   fetchMenteesByDateSearch(dobSearch);
+  //   setDobSearch('');
+  //   console.log(dobSearch);
+  // };
 
   const onLastNameChange = e => {
     setLastNameSearch(e.target.value);
   };
 
-  const onDobChange = e => {
-    setDobSearch(e.target.value);
-  };
+  // const onDobChange = e => {
+  //   setDobSearch(e.target.value);
+  // };
 
   return (
-    <div>
-      <h1>Student Search</h1>
-      <form onSubmit={onSubmit}>
-        <label>
-          Last Name
-          <input
-            type="text"
-            placeholder="Last Name"
-            value={lastNameSearch}
-            onChange={onLastNameChange}
-          />
-          <input type="submit" />
-        </label>
-      </form>
-      {/*DOB search currently not working due to JSON server having weird format for dates working on resolving */}
-      <form onSubmit={onDateSubmit}>
-        <label>
-          Date Of Birth
-          <input
-            type="date"
-            placeholder="Date Of Birth"
-            value={dobSearch}
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <h1>Find a Student</h1>
+      <Space direction="vertical">
+        <Search
+          style={{ width: 300 }}
+          placeholder="Student Last Name"
+          allowClear
+          enterButton="Search"
+          size="large"
+          onSearch={onSubmit}
+          onChange={onLastNameChange}
+        />
+      </Space>
+      <br></br>
+      {/* DOB search currently not working due to JSON server having weird format for dates working on resolving
+        <Space direction="vertical">
+          <Search
+            style={{ width: 300 }}
+            placeholder="Student Last Name"
+            allowClear
+            enterButton="Search"
+            size="large"
+            onSearch={onDateSubmit}
             onChange={onDobChange}
           />
-          <input type="submit" />
-        </label>
-      </form>
+        </Space>, */}
       <div>
         {props.isLoading ? (
-          'Search for a student!'
+          '...Loading'
         ) : props.searchedMentee.length === 0 ? (
           <div>
-            <h2>This student is not registered.</h2>
-
-            <button
-              onClick={() => {
-                history.push('/studentregistration');
-              }}
-            >
-              Register Student
-            </button>
+            <Alert
+              message="This student is not registered."
+              type="error"
+              showIcon
+            />
+            <p style={{ padding: '1rem 0' }}>
+              <Button
+                onClick={() => {
+                  history.push('/studentregistration');
+                }}
+              >
+                Register Student
+              </Button>
+            </p>
           </div>
         ) : (
           props.searchedMentee.map(student => (
             <div>
-              {/* this should all be styled in grid for easy viewing and we should consider importing cards as a styled component */}
-              <img
-                src={student.mentee_picture}
-                alt="somethings here"
-                style={{ borderRadius: '50%', width: '200px', height: '200px' }}
-              />{' '}
-              {/* temp styling */}
-              <h2>
-                {student.first_name} {student.last_name}
-              </h2>
-              <h3>Date Of Birth:{Moment(student.dob).format('YYYY-MM-DD')}</h3>
-              <h3>Gender:{student.gender}</h3>
-              <h3>Primary Language:{student.primary_language}</h3>
-              <button>Update</button>
+              <Card
+                style={{ width: 300 }}
+                cover={<img alt="example" src={student.mentee_picture} />}
+                actions={[
+                  <EditOutlined
+                    key="edit"
+                    onClick={() =>
+                      history.push(`/student/profile/edit/${student.id}`)
+                    }
+                  />,
+                ]}
+              >
+                <Meta
+                  avatar={<Avatar src={student.mentee_picture} />}
+                  title={`${student.first_name} ${student.last_name}`}
+                  description={`
+                    Date of Birth: ${Moment(student.dob).format('YYYY-MM-DD')}
+                    Gender: ${student.gender}
+                    Language: ${student.primary_language}
+                    `}
+                />
+              </Card>
             </div>
           ))
         )}
@@ -106,12 +128,14 @@ const StudentSearch = props => {
     </div>
   );
 };
+
 const mapStateToProps = state => {
   return {
     searchedMentee: state.menteeReducer.searchedMentee,
     isLoading: state.menteeReducer.isLoading,
   };
 };
+
 export default connect(mapStateToProps, {
   fetchMenteesBySearch,
   fetchMenteesByDateSearch,

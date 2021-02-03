@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MentorProfile = () => {
-  return <div className="menteeProfileWrapper">Hello!</div>;
+  return <div>Hello!</div>;
 };
 
 export default MentorProfile;

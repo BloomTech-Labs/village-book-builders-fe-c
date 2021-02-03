@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
 import { fetchTeacherProfile } from '../../../state/actions';
-import { Profile, Label } from '../../common/ProfileStyle';
-import { Button, ComponentTitle } from '../../common';
+import { Form, Input, Button } from 'antd';
 
 const TeacherProfile = ({ fetchTeacherProfile, profile }) => {
   useEffect(() => {
@@ -13,22 +11,18 @@ const TeacherProfile = ({ fetchTeacherProfile, profile }) => {
 
   console.log('inside the teacher edit form', profile);
   return (
-    <Profile>
-      <ComponentTitle titleText="Profile" />
+    <div>
+      <h1>Profile</h1>
       <img src={profile.teachers_picture} alt="the teacher of this class" />
-      <Label>Name:</Label>
-      <p>{`${profile.first_name} ${profile.last_name}`}</p>
-      <p>{profile.gender}</p>
-      <Label>Address:</Label>
-      <p>{profile.address}</p>
+      <p>Name: {`${profile.first_name} ${profile.last_name}`}</p>
+      <p>Gender: {profile.gender}</p>
+      <p>Address: {profile.address}</p>
       <div>
         <Link to={`/profile/edit/${profile.id}`}>
-          <ThemeProvider theme={{ color: '#6ac66b' }}>
-            <Button buttonText="Edit Your Profile" />
-          </ThemeProvider>
+          <Button>Edit</Button>
         </Link>
       </div>
-    </Profile>
+    </div>
   );
 };
 const mapStateToProps = state => {

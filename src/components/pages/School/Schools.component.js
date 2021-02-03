@@ -1,22 +1,21 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { fetchSchools } from '../../../state/actions/index';
-import { StyledSchools } from './School.styles';
 import School from './School.component';
-import { ComponentTitle } from '../../common';
+import { Divider } from 'antd';
 
 const Schools = props => {
   useEffect(() => {
     props.fetchSchools();
   }, []);
   return (
-    <StyledSchools>
-      <ComponentTitle titleText="Schools" />
+    <div>
+      <div />
+      <Divider orientation="left">Schools</Divider>
       {props.schools.map(s => (
         <School school={s} />
       ))}
-    </StyledSchools>
+    </div>
   );
 };
 
