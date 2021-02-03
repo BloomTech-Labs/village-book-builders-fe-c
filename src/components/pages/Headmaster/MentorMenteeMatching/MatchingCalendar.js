@@ -1,11 +1,19 @@
-import { Calendar, Badge, Form, Input, DatePicker, Select, Space } from 'antd';
+import {
+  Calendar,
+  Badge,
+  Form,
+  Input,
+  DatePicker,
+  Select,
+  Space,
+  Button,
+} from 'antd';
 import 'antd/dist/antd.css';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 import { fetchCalendar } from '../../../../state/actions/index';
-import Button from '../../../common/Button';
 
 const initialState = {
   date: '',
@@ -217,11 +225,7 @@ const MatchingCalendar = props => {
         </Form.Item>
 
         <Form.Item>
-          <Button
-            className="l2-btn btn"
-            htmlType="submit"
-            buttonText="Create calendar event"
-          />
+          <Button htmlType="submit">Submit</Button>
         </Form.Item>
       </Form>
       <div className="miniListContainer">
