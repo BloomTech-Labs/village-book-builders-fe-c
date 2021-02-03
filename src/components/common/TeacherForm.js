@@ -1,73 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 // This reusable component is strictly for the "Teacher" input feilds
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
+const initialFormValues = {
+  first_name: '',
+  last_name: '',
+  gender: '',
+  address: '',
 };
 
 function TeacherForm() {
   const [form] = Form.useForm();
+  const [formValues, setFormValues] = useState(initialFormValues);
+
+  const history = useHistory();
 
   const onFinish = values => {
-    console.log(values);
+    addTeacher(values);
+    console.log(' ON FINISH', values);
     form.resetFields();
     message.success(
       'Thank you for registering, the Headmaster will review your request'
     );
   };
 
+  const addTeacher = newTeacher => {
+    axios
+      .post('https://vbb-mock-api.herokuapp.com/teacher', newTeacher)
+      .then(response => {
+        history.push('/');
+      })
+      .catch(error => alert(error.message))
+      .finally(() => {});
+    console.log('.FINALLY --->', newTeacher);
+    setFormValues(initialFormValues);
+  };
+
   return (
-    <div>
-      <Form
-        {...formItemLayout}
-        {...layout}
-        form={form}
-        onFinish={onFinish}
-        name="control-hooks"
-        name="register"
-        scrollToFirstError
-      >
+    <div
+      style={{ display: 'flex', justifyContent: 'center', paddingTop: '2rem' }}
+    >
+      <Form form={form} onFinish={onFinish} name="register" scrollToFirstError>
         <h1>Teacher Registration Form</h1>
 
         <Form.Item
-          name="firstname"
+          name="first_name"
           label="First Name"
           rules={[
             {
@@ -80,7 +60,7 @@ function TeacherForm() {
         </Form.Item>
 
         <Form.Item
-          name="lastname"
+          name="last_name"
           label="Last Name"
           rules={[
             {
@@ -93,6 +73,32 @@ function TeacherForm() {
         </Form.Item>
 
         <Form.Item
+          name="gender"
+          label="Gender"
+          rules={[
+            {
+              required: true,
+              message: 'Gender required',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="address"
+          label="Address"
+          rules={[
+            {
+              required: true,
+              message: 'Address required',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        {/* <Form.Item
           name="email"
           label="Email"
           rules={[
@@ -107,9 +113,9 @@ function TeacherForm() {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           name="password"
           label="Password"
           rules={[
@@ -147,17 +153,17 @@ function TeacherForm() {
           ]}
         >
           <Input.Password />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item name="education" label="Education">
+        {/* <Form.Item name="education" label="Education">
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item name="location" label="Location">
+        {/* <Form.Item name="location" label="Location">
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           name="phone"
           label="Phone Number"
           rules={[
@@ -172,8 +178,8 @@ function TeacherForm() {
               width: '100%',
             }}
           />
-        </Form.Item>
-        <Form.Item
+        </Form.Item> */}
+        {/* <Form.Item
           label="Confirm Teacher Registration"
           name="role"
           value="teacher"
@@ -184,11 +190,15 @@ function TeacherForm() {
           ]}
         >
           <Input type="checkbox" defaultValue="teacher" />
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
+        </Form.Item> */}
+        <Form.Item>
           <Button type="primary" htmlType="submit">
-            Register
+            Submit
           </Button>
+        </Form.Item>
+
+        <Form.Item>
+          <a href="/login">Go Back</a>
         </Form.Item>
       </Form>
     </div>
