@@ -11,16 +11,11 @@ const StudentHome = ({ fetchStudentResources, studentResource, isLoading }) => {
 
   const listData = [];
 
-  for (let i = 0; i < 23; i++) {
+  for (let i = 0; i < studentResource.length; i++) {
     listData.push({
-      href: 'https://ant.design',
-      title: `ant design part ${i}`,
-      avatar:
-        'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-      content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+      href: studentResource.siteUrl,
+      title: studentResource.name,
+      avatar: studentResource.image_Url,
     });
   }
 
@@ -46,7 +41,7 @@ const StudentHome = ({ fetchStudentResources, studentResource, isLoading }) => {
               dataSource={listData}
               footer={
                 <div>
-                  <b>ant design</b> footer part
+                  <b>Student Resources</b>
                 </div>
               }
               renderItem={item => (
@@ -63,9 +58,7 @@ const StudentHome = ({ fetchStudentResources, studentResource, isLoading }) => {
                   <List.Item.Meta
                     avatar={<Avatar src={item.avatar} />}
                     title={<a href={item.href}>{item.title}</a>}
-                    description={item.description}
                   />
-                  {item.content}
                 </List.Item>
               )}
             />

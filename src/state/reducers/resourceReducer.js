@@ -4,7 +4,7 @@ import { FETCH_STUDENT_RESOURCES } from '../actions/actionTypes';
 import { debugLog } from '../../utils/debugMode.js';
 
 const initialState = {
-  studentResources: [],
+  studentResource: [],
   isLoading: true,
 };
 

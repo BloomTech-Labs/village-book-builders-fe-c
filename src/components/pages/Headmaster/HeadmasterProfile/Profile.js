@@ -9,7 +9,7 @@ import { Button } from 'antd';
 const HeadmasterProfile = props => {
   const { profile } = props;
   useEffect(() => {
-    props.fetchHeadmasterProfile(1); // change this later with login
+    props.fetchHeadmasterProfile(2); // change this later with login
   }, []);
   console.log(profile);
 
