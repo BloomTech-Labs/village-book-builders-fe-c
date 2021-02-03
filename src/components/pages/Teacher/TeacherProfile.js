@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchTeacherProfile } from '../../../state/actions';
-import { Form, Input, Button } from 'antd';
+import { Button } from 'antd';
 
 const TeacherProfile = ({ fetchTeacherProfile, profile }) => {
   useEffect(() => {
@@ -12,14 +12,23 @@ const TeacherProfile = ({ fetchTeacherProfile, profile }) => {
   console.log('inside the teacher edit form', profile);
   return (
     <div>
-      <h1>Profile</h1>
-      <img src={profile.teachers_picture} alt="the teacher of this class" />
-      <p>Name: {`${profile.first_name} ${profile.last_name}`}</p>
-      <p>Gender: {profile.gender}</p>
-      <p>Address: {profile.address}</p>
+      <h1 className="page-title">Profile</h1>
+      <img
+        src={profile.teachers_picture}
+        alt="the teacher of this class"
+        className="profile-pic"
+      />
+      <div className="profile-item-title">Name</div>
+      <div className="profile-item">
+        {profile.first_name} {profile.last_name}
+      </div>
+      <div className="profile-item-title">Gender</div>
+      <div className="profile-item">{profile.gender}</div>
+      <div className="profile-item-title">Address</div>
+      <div className="profile-item">{profile.address}</div>
       <div>
         <Link to={`/profile/edit/${profile.id}`}>
-          <Button>Edit</Button>
+          <Button style={{ margin: '.5rem 0' }}>Edit</Button>
         </Link>
       </div>
     </div>
