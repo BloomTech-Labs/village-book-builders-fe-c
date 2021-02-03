@@ -11,18 +11,20 @@ const ProgramProfile = ({ profile, fetchProgramProfile }) => {
   // console.log(profile);
 
   return (
-    <div>
-      <h1 className="page-title">Profile</h1>
-      <div className="profile-item-title">Program Name</div>
-      <div className="profile-item">{profile.name}</div>
-      <div className="profile-item-title">Location</div>
-      <div className="profile-item">{profile.location}</div>
-      <div className="profile-item-title">Library ID</div>
-      <div className="profile-item">{profile.libraryId}</div>
+    <div className="profile-container">
       <div>
-        <Link to={`/profile/edit/${profile.id}`}>
-          <Button style={{ margin: '.5rem 0' }}>Edit</Button>
-        </Link>
+        <h1 className="page-title">Profile</h1>
+        <div className="profile-item-title">Program Name</div>
+        <div className="profile-item">{profile.name}</div>
+        <div className="profile-item-title">Location</div>
+        <div className="profile-item">{profile.location}</div>
+        <div className="profile-item-title">Library ID</div>
+        <div className="profile-item">{profile.libraryId}</div>
+        <div>
+          <Link to={`/profile/edit/${profile.id}`}>
+            <Button style={{ margin: '.5rem 0' }}>Edit</Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
