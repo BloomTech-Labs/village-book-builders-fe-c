@@ -81,7 +81,7 @@ const ProgramDashboard = props => {
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ padding: '2rem 3rem', backgroundColor: 'white' }}>
+          <Content style={{ padding: '2rem', backgroundColor: 'white' }}>
             <Switch>
               <Route path="/dashboard" component={ProgramHome} />
               <Route exact path="/profile" component={ProgramProfile} />

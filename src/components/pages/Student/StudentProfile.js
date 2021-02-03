@@ -40,15 +40,13 @@ const StudentProfile = ({ fetchMenteeProfile, profile, isLoading }) => {
               <div className="profile-item">{profile.reading_lvl}</div>
               <div className="profile-item-title">School level</div>
               <div className="profile-item">{profile.school_lvl}</div>
-              <div className="profile-item-title">Academic Description</div>
+              <div className="profile-item-title">Academic description</div>
               <div className="profile-item">{profile.academic_description}</div>
               <div className="profile-item-title">Support needed</div>
               <div className="profile-item">{profile.support_needed}</div>
               <div>
                 <Link to={`/profile/edit/${profile.id}`}>
-                  <Button style={{ margin: '.5rem 0' }}>
-                    Edit Your Profile
-                  </Button>
+                  <Button style={{ margin: '.5rem 0' }}>Edit</Button>
                 </Link>
               </div>
             </div>
