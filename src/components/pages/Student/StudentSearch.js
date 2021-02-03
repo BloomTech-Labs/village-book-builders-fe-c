@@ -106,9 +106,7 @@ const StudentSearch = props => {
                 actions={[
                   <EditOutlined
                     key="edit"
-                    onClick={() =>
-                      history.push(`/student/profile/edit/${student.id}`)
-                    }
+                    onClick={() => history.push(`/profile/edit/${student.id}`)}
                   />,
                 ]}
               >
