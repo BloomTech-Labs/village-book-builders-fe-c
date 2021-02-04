@@ -6,6 +6,7 @@ import StudentSearch from '../Student/StudentSearch';
 import TeacherProfile from './TeacherProfile';
 import TeacherProfileForm from './TeacherProfileForm';
 import StudentProfileForm from '../Student/StudentProfileForm';
+import StudentForm from '../Student/StudentForm';
 import { fetchTeacherProfile } from '../../../state/actions';
 import Logout from '../../Logout.js';
 import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
@@ -90,6 +91,7 @@ const TeacherDashboard = props => {
               <Route exact path="/profile" component={TeacherProfile} />
               <Route path="/profile/edit/:id" component={TeacherProfileForm} />
               <Route path="/student-search" component={StudentSearch} />
+              <Route path="/studentregistration" component={StudentForm} />
               <Route
                 path="/student/profile/edit/:id"
                 component={StudentProfileForm}

@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { Form, Input, DatePicker, Radio } from 'antd';
+import { Form, Input, DatePicker, Radio, Button } from 'antd';
 import moment from 'moment';
-import {
-  layout,
-  FormContainer,
-  tailLayout,
-  Required,
-} from '../../../common/FormStyle';
-import Button from '../../../common/Button';
 import { debugLog } from '../../../../utils/debugMode';
 import { editMenteeProfile } from '../../../../state/actions';
 import '../../../../style.css';
@@ -48,9 +41,8 @@ const MenteeForm = ({ currentMentee }) => {
   };
 
   return (
-    <FormContainer>
-      <Form.Item {...tailLayout}></Form.Item>
-      <Form onFinish={handleSubmit} form={form} {...layout} fields={formData}>
+    <Form>
+      <Form onFinish={handleSubmit} form={form} fields={formData}>
         <Form.Item
           label="First Name"
           name="first_name"
@@ -293,18 +285,14 @@ const MenteeForm = ({ currentMentee }) => {
           />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
-          <Button
-            className="l2-btn btn"
-            htmlType="submit"
-            buttonText="Submit Village Edit"
-          />
-          <Required id="requiredMsg">
-            Fields with <span id="required">&#42;</span> are required.
-          </Required>
+        <Form.Item>
+          <Button htmlType="submit">Submit</Button>
+          <p>
+            Fields with <span>&#42;</span> are required.
+          </p>
         </Form.Item>
       </Form>
-    </FormContainer>
+    </Form>
   );
 };
 

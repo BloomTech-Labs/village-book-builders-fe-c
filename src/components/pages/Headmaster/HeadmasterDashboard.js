@@ -71,13 +71,15 @@ const HeadmasterDashboard = props => {
               <NavLink to="/profile">Profile</NavLink>
             </Menu.Item>
             <Menu.Item key="3" icon={<CalendarOutlined />}>
-              <NavLink to="/mentor-pairings">Mentor Matching</NavLink>
+              <NavLink to="/mentor-pairings">Mentee List</NavLink>
             </Menu.Item>
             <Menu.Item key="4" icon={<UnorderedListOutlined />}>
               <NavLink to="/mentor-list">Mentor List</NavLink>
             </Menu.Item>
             <Menu.Item key="8" icon={<UnorderedListOutlined />}>
-              <NavLink to="/mentor-mentee-matching">Mentor Mentee Matching</NavLink>
+              <NavLink to="/mentor-mentee-matching">
+                Mentor Mentee Matching
+              </NavLink>
             </Menu.Item>
             <Menu.Item key="5" icon={<BookOutlined />}>
               <NavLink to="/school-village">School/Village</NavLink>
@@ -120,7 +122,10 @@ const HeadmasterDashboard = props => {
               <Route path="/student-search" component={StudentSearch} />
               <Route path="/mentor-list" component={MentorList} />
               <Route path="/studentregistration" component={StudentForm} />
-              <Route path="/mentor-mentee-matching" component={MatchingCalendar} />
+              <Route
+                path="/mentor-mentee-matching"
+                component={MatchingCalendar}
+              />
               <Route path="/school-village">
                 <Village />
                 <Schools />

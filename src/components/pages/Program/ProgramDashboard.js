@@ -4,6 +4,7 @@ import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import ProgramHome from './ProgramHome';
 import StudentSearch from '../Student/StudentSearch';
 import StudentProfileForm from '../Student/StudentProfileForm';
+import StudentForm from '../Student/StudentForm';
 import ProgramProfile from './ProgramProfile';
 import ProgramProfileForm from './ProgramProfileForm';
 import { fetchProgramProfile } from '../../../state/actions';
@@ -94,6 +95,7 @@ const ProgramDashboard = props => {
                 component={StudentProfileForm}
               />
               <Route path="/student-search" component={StudentSearch} />
+              <Route path="/studentregistration" component={StudentForm} />
               <Route path="/logout" component={Logout} />
             </Switch>
           </Content>

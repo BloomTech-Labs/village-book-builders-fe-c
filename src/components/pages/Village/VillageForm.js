@@ -166,7 +166,9 @@ const VillageForm = props => {
           </Form.Item>
 
           <Form.Item>
-            <Button htmlType="submit" buttonText="Submit Village Edit" />
+            <Button htmlType="submit" buttonText="Submit Village Edit">
+              Submit Village Edit{' '}
+            </Button>
             <div>
               Fields with <span id="required">&#42;</span> are required.
             </div>
