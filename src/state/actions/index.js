@@ -21,9 +21,9 @@ export const checkToken = data => dispatch => {
 // AUTHORIZATION
 // -------------------------
 export const login = data => dispatch => {
-  axios
+  axiosWithAuth()
     // will need to update this to baseURL, there seems to be a link issue with the .env file
-    .post('https://vbb-mock-api.herokuapp.com/auth/login', data)
+    .post('/auth/login', data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> token', res.data);
       window.localStorage.setItem('token', res.data.access_token);
@@ -246,7 +246,7 @@ export const editSchool = (id, data) => dispatch => {
 export const fetchMentors = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTOR_START });
   axiosWithAuth()
-    .get(`https://vbb-mock-api.herokuapp.com/mentor`)
+    .get(`/mentor`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTOR_SUCCESS, payload: res.data });
     })

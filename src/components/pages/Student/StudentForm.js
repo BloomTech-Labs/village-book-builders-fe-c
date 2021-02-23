@@ -20,8 +20,8 @@ function StudentForm() {
   };
 
   const addStudent = newStudent => {
-    axiosWithAuth(addStudent)
-      .post('https://vbb-mock-api.herokuapp.com/mentee', newStudent)
+    axiosWithAuth()
+      .post('/mentee', newStudent)
       .then(response => {
         history.push('/');
       })

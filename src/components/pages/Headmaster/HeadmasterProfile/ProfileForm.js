@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import axios from 'axios';
+import { axiosWithAuth } from '../../../../utils/axiosWithAuth';
 
 import { Form, Input, DatePicker, Space, Radio } from 'antd';
 import moment from 'moment';
@@ -47,7 +47,7 @@ const ProfileForm = props => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    axios // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
+    axiosWithAuth()
       .get(`${baseURL}/headmaster/1`)
       .then(res => {
         form.setFieldsValue(res.data);
