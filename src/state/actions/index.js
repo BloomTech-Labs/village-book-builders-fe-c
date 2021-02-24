@@ -3,12 +3,10 @@
 // Actions should be focused to a single purpose.
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
-import axios from 'axios';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
-import { useHistory } from 'react-router-dom';
 
 import * as actionTypes from './actionTypes';
-const baseURL = process.env.REACT_APP_BASE_URL;
+// const baseURL = process.env.REACT_APP_BASE_URL;
 
 export const checkToken = data => dispatch => {
   dispatch({
@@ -33,11 +31,7 @@ export const login = data => dispatch => {
       });
     })
     .catch(err => {
-      console.log(
-        'LOGIN ACTION FAILURE--> with this data & baseURL:',
-        data,
-        baseURL
-      );
+      console.log('LOGIN ACTION FAILURE--> with this data:', data);
       console.dir(err);
     });
 };

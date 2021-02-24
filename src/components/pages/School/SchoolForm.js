@@ -5,7 +5,7 @@ import { Form, Input, Button } from 'antd';
 import { editSchool } from '../../../state/actions';
 import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
-const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
+// const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
 const initialState = {
   name: '',

@@ -9,7 +9,7 @@ import { editHeadmasterProfile } from '../../../../state/actions';
 import { debugLog } from '../../../../utils/debugMode';
 import { Button } from 'antd';
 
-const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
+// const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
 const initialState = {
   first_name: '',
@@ -48,7 +48,7 @@ const ProfileForm = props => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`${baseURL}/headmaster/1`)
+      .get(`/headmaster/1`)
       .then(res => {
         form.setFieldsValue(res.data);
         setFormData(res.data);
