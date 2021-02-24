@@ -1,113 +1,162 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
-  #menteeTitle {
-    text-align: center;
-  }
-  
-  .exploreWrapper {
-    margin: 0 6pt;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-  
-  .listItemWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .listItemButtonWrapper {
-    display: flex;
-    justify-content: flex-end;
-    margin: 6pt 0;
-  }
-  .listItemButton {
-    width: 90px;
-    margin-right: 10px;
-  }
-  
-  .menteeModal {
-    background-color: rgb(236, 166, 73);
-  }
-  
-  .menteeProfileWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+#menteeTitle {
+  text-align: center;
+}
 
-  /* Dashboard Menu */
-  .menuIcon {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    transition: 'bottom 200ms linear';
-  }
+.exploreWrapper {
+  margin: 0 6pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 
-  .menuMove {
-    position: fixed;
-    bottom: 500px;
-    width: 100%;
-    transition: 'bottom 200ms linear';
-  }
+.listItemWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
-  .menuButton {
-    width: 100%;
-    background: #549bea;
-    border: 1px solid #549bea;
-    height: 3rem;
-  }
+.listItemButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin: 6pt 0;
+}
+.listItemButton {
+  width: 90px;
+  margin-right: 10px;
+}
 
-  /* Profile Pages */
-  .profile-item-title {
-    font-weight: bold;
-  }
+.menteeModal {
+  background-color: rgb(236, 166, 73);
+}
 
-  .profile-item {
-    margin: .5rem 0;
-  }
+.menteeProfileWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-  .profile-pic {
-    margin: 1rem 0;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-  }
+/* Dashboard Menu */
+.menuIcon {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  transition: 'bottom 200ms linear';
+}
 
-  .page-title {
-    font-size: 1.5rem;
-  }
+.menuMove {
+  position: fixed;
+  bottom: 500px;
+  width: 100%;
+  transition: 'bottom 200ms linear';
+}
 
-  /* School List */
-  .school-container span {
-    font-weight: bold;
-  }
+.menuButton {
+  width: 100%;
+  background: #549bea;
+  border: 1px solid #549bea;
+  height: 3rem;
+}
 
-  .school-container div {
-    line-height: 2rem;
-  }
+/* Profile Pages */
+.profile-item-title {
+  font-weight: bold;
+}
 
-   /* Village List */
-   .village-container span {
-    font-weight: bold;
-  }
+.profile-item {
+  margin: 0.5rem 0;
+}
 
-  .village-container div {
-    line-height: 2rem;
-  }
+.profile-pic {
+  margin: 1rem 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
 
-  .school-village-container {
-    padding: 0 2rem;
-  }
+.page-title {
+  font-size: 1.5rem;
+  color: white;
+  /* border: 5px solid black; */
+  width: 15%;
+  height: 3vh;
+}
 
-  /* All Forms */
-  .form-container {
-    display: flex;
-    justify-content: center;
-  }
+/* Home Page */
 
-  /* Mentee & Mentor Matching Component Lists Styling */
+.home-header-image {
+  width: 50%;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+}
+
+.home-header-pic {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(236, 166, 73);
+  margin-top: -2%;
+  margin-left: -2%;
+}
+
+.profile-pic-2 {
+  margin: 1rem 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid white;
+  margin-left: 2%;
+}
+
+.home-arrow {
+  font-size: 8rem;
+}
+
+.home-h2 {
+  font-size: 3rem;
+  margin-left: 3%;
+}
+
+.home-arrow-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 30.5%;
+}
+
+/* School List */
+.school-container span {
+  font-weight: bold;
+}
+
+.school-container div {
+  line-height: 2rem;
+}
+
+/* Village List */
+.village-container span {
+  font-weight: bold;
+}
+
+.village-container div {
+  line-height: 2rem;
+}
+
+.school-village-container {
+  padding: 0 2rem;
+}
+
+/* All Forms */
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Mentee & Mentor Matching Component Lists Styling */
 .miniListContainer {
   display: flex;
   flex-direction: row;
