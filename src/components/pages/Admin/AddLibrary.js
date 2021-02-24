@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 // import axios from 'axios';
-import { axiosWithAuth } from '../../../utils/axiosWithAuth';
-import { Form, Input, Button, Divider } from 'antd';
+// import { axiosWithAuth } from '../../../utils/axiosWithAuth';
+import { Form, Input, Button } from 'antd';
 import { addLibrary } from '../../../state/actions';
 
 //? would it be faster on base-model cellphones to store library data on redux when the edit button is pushed, and then pull from the store to here, or to have the simple secondary axios request pull that specific library data.

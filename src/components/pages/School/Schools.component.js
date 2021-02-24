@@ -12,8 +12,8 @@ const Schools = props => {
     <div>
       <div />
       <Divider orientation="left">Schools</Divider>
-      {props.schools.map(s => (
-        <School school={s} />
+      {props.schools.map((s, index) => (
+        <School school={s} key={index} />
       ))}
     </div>
   );

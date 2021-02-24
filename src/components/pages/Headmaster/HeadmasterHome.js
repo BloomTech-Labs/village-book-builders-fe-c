@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { fetchHeadmasterProfile } from '../../../state/actions';
 
 const HeadmasterHome = props => {
-  const { profile } = props;
+  //const { profile } = props;
 
   useEffect(() => {
     props.fetchHeadmasterProfile(1); // change this later with login
   }, []);
-  console.log(profile);
+  //console.log(profile);
 
   return (
     <div>

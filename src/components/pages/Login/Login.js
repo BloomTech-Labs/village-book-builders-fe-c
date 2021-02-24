@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Form, Input, Checkbox, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -16,7 +16,7 @@ const Login = ({ login, loggedIn }) => {
   const [formData, setFormData] = useState(initialState);
   const [form] = Form.useForm();
 
-  const history = useHistory();
+  //const history = useHistory();
 
   const handleSubmit = async () => {
     // console.log('LOGIN COMPONENT handleSubmit --> ', formData);
