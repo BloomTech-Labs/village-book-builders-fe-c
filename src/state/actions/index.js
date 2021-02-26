@@ -21,13 +21,13 @@ export const checkToken = data => dispatch => {
 export const login = data => dispatch => {
   axiosWithAuth()
     // will need to update this to baseURL, there seems to be a link issue with the .env file
-    .post('/auth/login', data)
+    .post('/login', data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> token', res.data);
-      window.localStorage.setItem('token', res.data.access_token);
+      window.localStorage.setItem('token', res.data.accessToken);
       dispatch({
         type: actionTypes.AUTH_SUCCESS,
-        payload: res.data.access_token,
+        payload: res.data.accessToken,
       });
     })
     .catch(err => {
