@@ -3,12 +3,10 @@
 // Actions should be focused to a single purpose.
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
-import axios from 'axios';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
-import { useHistory } from 'react-router-dom';
 
 import * as actionTypes from './actionTypes';
-const baseURL = process.env.REACT_APP_BASE_URL;
+// const baseURL = process.env.REACT_APP_BASE_URL;
 
 export const checkToken = data => dispatch => {
   dispatch({
@@ -21,9 +19,9 @@ export const checkToken = data => dispatch => {
 // AUTHORIZATION
 // -------------------------
 export const login = data => dispatch => {
-  axios
+  axiosWithAuth()
     // will need to update this to baseURL, there seems to be a link issue with the .env file
-    .post('https://vbb-mock-api.herokuapp.com/auth/login', data)
+    .post('/auth/login', data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> token', res.data);
       window.localStorage.setItem('token', res.data.access_token);
@@ -33,11 +31,7 @@ export const login = data => dispatch => {
       });
     })
     .catch(err => {
-      console.log(
-        'LOGIN ACTION FAILURE--> with this data & baseURL:',
-        data,
-        baseURL
-      );
+      console.log('LOGIN ACTION FAILURE--> with this data:', data);
       console.dir(err);
     });
 };
@@ -246,7 +240,7 @@ export const editSchool = (id, data) => dispatch => {
 export const fetchMentors = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTOR_START });
   axiosWithAuth()
-    .get(`https://vbb-mock-api.herokuapp.com/mentor`)
+    .get(`/mentor`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTOR_SUCCESS, payload: res.data });
     })
