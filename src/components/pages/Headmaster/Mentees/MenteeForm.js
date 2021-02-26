@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { Form, Input, DatePicker, Radio, Button } from 'antd';
@@ -7,9 +7,9 @@ import { debugLog } from '../../../../utils/debugMode';
 import { editMenteeProfile } from '../../../../state/actions';
 import '../../../../style.css';
 
-const dateFormat = 'MM/DD/YYYY';
-const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
-const timeFormat = 'HH:mm';
+// const dateFormat = 'MM/DD/YYYY';
+// const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+// const timeFormat = 'HH:mm';
 const genders = ['Male', 'Female', 'Other'];
 
 const MenteeForm = ({ currentMentee }) => {
@@ -20,7 +20,7 @@ const MenteeForm = ({ currentMentee }) => {
   );
 
   const [formData, setFormData] = useState('');
-  const pathname = useHistory().location.pathname;
+  //const pathname = useHistory().location.pathname;
   const params = useParams().id;
   const [form] = Form.useForm();
 
@@ -33,7 +33,7 @@ const MenteeForm = ({ currentMentee }) => {
     if (moment.isMoment(e)) {
       setFormData({ ...formData, dob: moment.utc(e).format() });
       debugLog(moment.utc(e).format());
-    } else if (e.target.name == 'gender') {
+    } else if (e.target.name === 'gender') {
       setFormData({ ...formData, gender: genders[e.target.value] });
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });

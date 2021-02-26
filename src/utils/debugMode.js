@@ -1,5 +1,5 @@
 module.exports = {
-  on: true,
+  on: false,
 
   debugLog: function() {
     if (module.exports.on) {

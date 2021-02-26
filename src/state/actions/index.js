@@ -58,7 +58,7 @@ export const fetchHeadmasterProfile = id => dispatch => {
   axiosWithAuth()
     .get(`/headmaster/${id}`) // change this later
     .then(res => {
-      console.log('fetchHeadmasterProfile action --> ', res.data);
+      //console.log('fetchHeadmasterProfile action --> ', res.data);
       dispatch({
         type: actionTypes.FETCH_HEADMASTER_PROFILE,
         payload: res.data,
@@ -86,7 +86,8 @@ export const fetchVillage = id => dispatch => {
 export const fetchCalendar = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_CALENDAR_START });
   axiosWithAuth()
-    .get(`http://localhost:3000/match`)
+    //.get(`http://localhost:3000/match`)
+    .get()
     .then(res => {
       dispatch({ type: actionTypes.FETCH_CALENDAR_SUCCESS, payload: res.data });
     })
@@ -155,7 +156,7 @@ export const editMenteeProfile = (id, data) => dispatch => {
 };
 
 export const fetchMenteeProfile = id => dispatch => {
-  console.log('hols');
+  //console.log('hols');
   dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
   axiosWithAuth()
     .get(`/mentee/${id}`)
