@@ -4,7 +4,7 @@ import { fetchHeadmasterProfile } from '../../../state/actions';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
 const HeadmasterHome = props => {
-  //const { profile } = props;
+  const { profile } = props;
 
   useEffect(() => {
     props.fetchHeadmasterProfile(1); // change this later with login
