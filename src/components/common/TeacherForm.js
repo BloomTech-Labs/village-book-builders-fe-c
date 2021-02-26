@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
-import axios from 'axios';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 
 // This reusable component is strictly for the "Teacher" input feilds
@@ -30,8 +30,8 @@ function TeacherForm() {
   };
 
   const addTeacher = newTeacher => {
-    axios
-      .post('https://vbb-mock-api.herokuapp.com/teacher', newTeacher)
+    axiosWithAuth()
+      .post('/teacher', newTeacher)
       .then(response => {
         history.push('/');
       })

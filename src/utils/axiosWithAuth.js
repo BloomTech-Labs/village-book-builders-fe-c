@@ -9,6 +9,7 @@ export const axiosWithAuth = () => {
 
   return axios.create({
     baseURL: 'https://vbb-mock-api.herokuapp.com',
+    // baseURL: 'http://localhost:5000',
     headers: {
       Authorization: token,
     },

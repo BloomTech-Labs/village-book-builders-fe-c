@@ -6,7 +6,7 @@ import { Form, Input } from 'antd';
 import { editVillage } from '../../../state/actions';
 import { Button } from 'antd';
 
-const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
+// const baseURL = 'https://cors-anywhere.herokuapp.com/http://54.158.134.245/api';
 
 //! use real name when full server is developed
 const initialState = {
