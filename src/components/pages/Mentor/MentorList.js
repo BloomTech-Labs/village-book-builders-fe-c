@@ -11,7 +11,7 @@ const MentorList = props => {
     fetchMentors();
   }, [fetchMentors]);
 
-  console.log('props', props);
+  //console.log('props', props);
 
   return (
     <div className="menteeContainer">

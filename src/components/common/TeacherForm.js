@@ -14,7 +14,8 @@ const initialFormValues = {
 
 function TeacherForm() {
   const [form] = Form.useForm();
-  const [formValues, setFormValues] = useState(initialFormValues);
+  //const [formValues, setFormValues] = useState(initialFormValues);
+  const [setFormValues] = useState(initialFormValues);
 
   const history = useHistory();
 
