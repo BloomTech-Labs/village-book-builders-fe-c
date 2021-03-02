@@ -1,4 +1,4 @@
-import { List, Avatar, Divider, Skeleton, Table, Tag } from 'antd';
+import { Avatar, Divider, Skeleton, Table, Tag } from 'antd';
 import moment from 'moment';
 import React from 'react';
 import { debugLog } from '../../../../utils/debugMode';

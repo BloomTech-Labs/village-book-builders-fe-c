@@ -41,8 +41,8 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loggedIn: true,
-        userId: decoded.id,
-        role: decoded.role,
+        userId: decoded.sub,
+        role: 'headmaster',
       };
     case AUTH_LOGOUT:
       return initialState;

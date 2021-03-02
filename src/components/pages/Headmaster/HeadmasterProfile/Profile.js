@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchHeadmasterProfile } from '../../../../state/actions';
@@ -11,7 +11,7 @@ const HeadmasterProfile = props => {
   useEffect(() => {
     props.fetchHeadmasterProfile(2); // change this later with login
   }, []);
-  console.log(profile);
+  //console.log(profile);
 
   return (
     <div className="form-container">

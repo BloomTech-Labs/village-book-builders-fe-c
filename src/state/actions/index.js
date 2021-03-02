@@ -3,12 +3,10 @@
 // Actions should be focused to a single purpose.
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
-import axios from 'axios';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
-import { useHistory } from 'react-router-dom';
 
 import * as actionTypes from './actionTypes';
-const baseURL = process.env.REACT_APP_BASE_URL;
+// const baseURL = process.env.REACT_APP_BASE_URL;
 
 export const checkToken = data => dispatch => {
   dispatch({
@@ -21,23 +19,19 @@ export const checkToken = data => dispatch => {
 // AUTHORIZATION
 // -------------------------
 export const login = data => dispatch => {
-  axios
+  axiosWithAuth()
     // will need to update this to baseURL, there seems to be a link issue with the .env file
-    .post('https://vbb-mock-api.herokuapp.com/auth/login', data)
+    .post('/login', data)
     .then(res => {
       // console.log('LOGIN ACTION SUCCESS --> token', res.data);
-      window.localStorage.setItem('token', res.data.access_token);
+      window.localStorage.setItem('token', res.data.accessToken);
       dispatch({
         type: actionTypes.AUTH_SUCCESS,
-        payload: res.data.access_token,
+        payload: res.data.accessToken,
       });
     })
     .catch(err => {
-      console.log(
-        'LOGIN ACTION FAILURE--> with this data & baseURL:',
-        data,
-        baseURL
-      );
+      console.log('LOGIN ACTION FAILURE--> with this data:', data);
       console.dir(err);
     });
 };
@@ -64,7 +58,7 @@ export const fetchHeadmasterProfile = id => dispatch => {
   axiosWithAuth()
     .get(`/headmaster/${id}`) // change this later
     .then(res => {
-      console.log('fetchHeadmasterProfile action --> ', res.data);
+      //console.log('fetchHeadmasterProfile action --> ', res.data);
       dispatch({
         type: actionTypes.FETCH_HEADMASTER_PROFILE,
         payload: res.data,
@@ -92,7 +86,8 @@ export const fetchVillage = id => dispatch => {
 export const fetchCalendar = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_CALENDAR_START });
   axiosWithAuth()
-    .get(`http://localhost:3000/match`)
+    //.get(`http://localhost:3000/match`)
+    .get()
     .then(res => {
       dispatch({ type: actionTypes.FETCH_CALENDAR_SUCCESS, payload: res.data });
     })
@@ -161,7 +156,7 @@ export const editMenteeProfile = (id, data) => dispatch => {
 };
 
 export const fetchMenteeProfile = id => dispatch => {
-  console.log('hols');
+  //console.log('hols');
   dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
   axiosWithAuth()
     .get(`/mentee/${id}`)
@@ -246,7 +241,7 @@ export const editSchool = (id, data) => dispatch => {
 export const fetchMentors = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTOR_START });
   axiosWithAuth()
-    .get(`https://vbb-mock-api.herokuapp.com/mentor`)
+    .get(`/mentor`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTOR_SUCCESS, payload: res.data });
     })

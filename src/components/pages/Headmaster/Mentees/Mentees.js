@@ -27,7 +27,10 @@ const Mentees = props => {
     }
   };
 
-  const searchHandler = e => setSearch(e.target.value);
+  const searchHandler = e => {
+    setSearch(e.target.value);
+  };
+
   const moreInfoHandler = (e, menteeData) => {
     if (showModal) {
       // Closing Modal
@@ -41,13 +44,13 @@ const Mentees = props => {
     }
   };
 
-  // if (Array.isArray(menteesSelection)) {
-  //   menteesSelection = menteesSelection.filter(
-  //     item =>
-  //       item.first_name.toLowerCase().includes(search.toLowerCase()) ||
-  //       item.last_name.toLowerCase().includes(search.toLowerCase())
-  //   );
-  // }
+  if (Array.isArray(menteesSelection)) {
+    menteesSelection = menteesSelection.filter(
+      item =>
+        item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+        item.last_name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
 
   useEffect(() => {
     props.fetchMentees();
@@ -78,12 +81,9 @@ const Mentees = props => {
               <div className="listItemWrapper">
                 <div className="listItemMeta">
                   <List.Item.Meta
+                    onClick={e => moreInfoHandler(e, item)}
                     avatar={<Avatar src={item.mentee_picture} />}
-                    title={
-                      <a href="https://ant.design">
-                        {item.first_name + ' ' + item.last_name}
-                      </a>
-                    }
+                    title={<a>{item.first_name + ' ' + item.last_name}</a>}
                     description={item.academic_description}
                   />
                 </div>
