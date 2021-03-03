@@ -24,13 +24,14 @@ const initialState = {
   mentees: [],
   isLoading: true,
   mentors: [],
-  match: [
+  matches: [
     {
       id: null,
       mentee: null,
       mentor: null,
       time: null,
       date: null,
+      computerId: null,
     },
   ],
 };
@@ -85,7 +86,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        match: action.payload,
+        matches: action.payload,
       };
     case FETCH_CALENDAR_START:
       debugLog(action.type, action.payload);
