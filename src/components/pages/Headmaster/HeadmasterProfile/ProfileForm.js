@@ -81,7 +81,7 @@ const ProfileForm = props => {
           <Link to="/profile">Go Back</Link>
         </Form.Item>
         <Form onFinish={handleSubmit} form={form}>
-          <Form.Item name="upload">
+          <Form.Item>
             <Avatar shape="square" size={84} icon={<UserOutlined />} />
             <Upload>
               <Button icon={<UploadOutlined />}>Edit Profile Picture</Button>
