@@ -121,6 +121,20 @@ export const fetchMentees = () => dispatch => {
     );
 };
 
+export const addMentee = values => dispatch => {
+  console.log(values);
+  dispatch({ type: actionTypes.FETCH_MENTEE_START });
+  axiosWithAuth()
+    .post(`/mentee`, values)
+    .then(res => {
+      //dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
+      window.location.reload();
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
+    );
+};
+
 export const fetchMenteesByDateSearch = search => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_BY_DOB_START });
   axiosWithAuth()

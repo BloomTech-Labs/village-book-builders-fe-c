@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 #menteeTitle {
-  text-align: center;
+  /* text-align: center; */
+  margin-bottom: 20px;
+}
+
+.ant-row .ant-form-item {
+  margin-bottom: 12px;
 }
 
 .exploreWrapper {

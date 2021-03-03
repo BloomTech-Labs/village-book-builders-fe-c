@@ -1,12 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Divider, Input, Modal, List, Avatar, Table, Tag } from 'antd';
+import { Button, Divider, List, Input, Modal, Avatar, Table, Tag } from 'antd';
 import { connect } from 'react-redux';
 import { checkToken, fetchMentees } from '../../../../state/actions/index';
-import MenteeForm from './MenteeForm';
-import MenteeProfile from './MenteeProfile';
+//import MenteeForm from './MenteeForm';
+//import MenteeProfile from './MenteeProfile';
+import AddMenteeForm from './AddMenteeForm';
 import '../../../../style.css';
 
 const Mentees = ({ mentees, fetchMentees, userId, role }) => {
+  //let menteesSelection = [...mentees];
+  const [search, setSearch] = useState('');
+  let colors = ['red', 'blue', 'green', 'orange', 'yellow'];
+  //const [showModal, setShowModal] = useState(false);
+  //const [editing, setEditing] = useState(false);
+  //const [currentMentee, setCurrentMentee] = useState({});
+  // const [menteesDataa, setMenteesData] = useState(null);
+  // const [name, setName] = useState('');
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  useEffect(() => {
+    fetchMentees();
+  }, [fetchMentees]);
+
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
     {
@@ -16,7 +40,11 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
       render: image => <Avatar src={image} />,
     },
     { title: 'Email Address', dataIndex: 'email', key: 'email' },
-    { title: 'Timezone', dataIndex: 'timezone', key: 'timezone' },
+    {
+      title: 'Timezone',
+      render: record => record.availability.time_zone,
+      key: 'time_zone',
+    },
     {
       title: 'Primary Language',
       dataIndex: 'primary_language',
@@ -25,28 +53,23 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
     {
       title: 'Methods',
       key: 'methods',
-      dataIndex: 'methods',
-      render: methods => (
-        <>
-          {methods.map(method => {
-            let colors = ['red', 'blue', 'green'];
-            return (
-              <Tag
-                color={colors[Math.floor(Math.random() * colors.length)]}
-                key={method}
-              >
-                {method.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
+      render: record =>
+        record.availability.methods.map(method => {
+          return (
+            <Tag
+              key={method}
+              color={colors[Math.floor(Math.random() * colors.length)]}
+            >
+              {method.toUpperCase()}
+            </Tag>
+          );
+        }),
     },
     {
-      title: 'Action',
+      title: 'Actions',
       dataIndex: '',
       key: 'x',
-      render: () => (
+      render: record => (
         <div>
           <a href="/#">More Info</a> \ <a href="/#">Edit</a> \{' '}
           <a href="/#">Delete</a>
@@ -55,129 +78,83 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
     },
   ];
 
-  const data = [
-    {
-      key: 1,
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      description:
-        'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-    },
-    {
-      key: 2,
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      description:
-        'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-    },
-    {
-      key: 3,
-      name: 'Not Expandable',
-      age: 29,
-      address: 'Jiangsu No. 1 Lake Park',
-      description: 'This not expandable',
-    },
-    {
-      key: 4,
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      description:
-        'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-    },
+  let data2 = [
+    ...mentees.map(mentee => ({
+      key: mentee.id,
+      image: mentee.mentee_picture,
+      name: mentee.first_name + ' ' + mentee.last_name,
+      gender: mentee.gender,
+      dob: mentee.dob,
+      english_lvl: mentee.english_lvl,
+      math_lvl: mentee.math_lvl,
+      reading_lvl: mentee.reading_lvl,
+      school_lvl: mentee.school_lvl,
+      academic_description: mentee.academic_description,
+      support_needed: mentee.support_needed,
+      primary_language: mentee.primary_language,
+      availability: mentee.availability,
+      email: mentee.email,
+      questions: mentee.dynamic_questions,
+    })),
   ];
 
-  let menteesSelection = [...mentees];
-  const [search, setSearch] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [currentMentee, setCurrentMentee] = useState({});
-  let menteeData = mentees.map(mentee => ({
-    key: mentee.id,
-    image: mentee.mentee_picture,
-    name: mentee.first_name + ' ' + mentee.last_name,
-    gender: mentee.gender,
-    dob: mentee.dob,
-    english_lvl: mentee.english_lvl,
-    math_lvl: mentee.math_lvl,
-    reading_lvl: mentee.reading_lvl,
-    school_lvl: mentee.school_lvl,
-    academic_description: mentee.academic_description,
-    support_needed: mentee.support_needed,
-    primary_language: mentee.primary_language,
-    timezone: mentee.availability.time_zone,
-    as_early_as: mentee.availability.as_early_as,
-    as_late_as: mentee.availability.as_late_as,
-    methods: mentee.availability.methods,
-    email: mentee.email,
-    questions: mentee.dynamic_questions,
-  }));
+  console.log('metnees', mentees);
+  console.log('data2', data2);
 
-  const editingHandler = (e, menteeData) => {
-    if (showModal) {
-      // Closing Modal
-      setShowModal(false);
-      setCurrentMentee({});
-      setEditing(false);
-    } else {
-      // Opening Modal
-      setShowModal(true);
-      setCurrentMentee(menteeData);
-      setEditing(true);
-    }
-  };
+  // const editingHandler = (e, menteeData) => {
+  //   if (showModal) {
+  //     // Closing Modal
+  //     setShowModal(false);
+  //     setCurrentMentee({});
+  //     setEditing(false);
+  //   } else {
+  //     // Opening Modal
+  //     setShowModal(true);
+  //     setCurrentMentee(menteeData);
+  //     setEditing(true);
+  //   }
+  // };
+
+  // const moreInfoHandler = (e, menteeData) => {
+  //   if (showModal) {
+  //     // Closing Modal
+  //     setShowModal(false);
+  //     setCurrentMentee({});
+  //     setEditing(false);
+  //   } else {
+  //     // Opening Modal
+  //     setShowModal(true);
+  //     setCurrentMentee(menteeData);
+  //   }
+  // };
 
   const searchHandler = e => {
     setSearch(e.target.value);
   };
 
-  const moreInfoHandler = (e, menteeData) => {
-    if (showModal) {
-      // Closing Modal
-      setShowModal(false);
-      setCurrentMentee({});
-      setEditing(false);
-    } else {
-      // Opening Modal
-      setShowModal(true);
-      setCurrentMentee(menteeData);
-    }
-  };
-
-  if (Array.isArray(menteesSelection)) {
-    menteesSelection = menteesSelection.filter(
-      item =>
-        item.first_name.toLowerCase().includes(search.toLowerCase()) ||
-        item.last_name.toLowerCase().includes(search.toLowerCase())
+  if (Array.isArray(data2)) {
+    data2 = data2.filter(item =>
+      item.name.toLowerCase().includes(search.toLowerCase())
     );
   }
 
-  useEffect(() => {
-    fetchMentees();
-  }, [fetchMentees]);
-
-  console.log('mentees2', menteeData);
-
   return (
     <div className="menteeContainer">
-      <h1 id="menteeTitle">Mentees</h1>
       <div className="exploreWrapper">
-        <Button
-          style={{ width: '80%', marginBottom: '10pt', alignSelf: 'center' }}
-          align="center"
-        >
-          Add New Mentee
-        </Button>
+        <h1 id="menteeTitle">
+          Mentees{' '}
+          <Button type="primary" size="small" onClick={showModal}>
+            Add New
+          </Button>
+        </h1>
         <Input.Search
           value={search}
           placeholder="Search by Name"
-          style={{ width: '80%', alignSelf: 'center' }}
+          style={{ width: '20%', marginBottom: '10pt' }}
           onChange={searchHandler}
         />
         <Divider />
-        <List
+        {/* <List
           itemLayout="horizontal"
           dataSource={menteesSelection}
           renderItem={item => (
@@ -213,23 +190,28 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
               </div>
             </List.Item>
           )}
-        />
-        ,
+        /> */}
         <Table
           columns={columns}
           pagination={{
-            pageSizeOptions: ['15', '25', '50'],
+            pageSizeOptions: ['25', '50'],
             showSizeChanger: true,
           }}
-          // expandable={{
-          //   expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
-          //   rowExpandable: record => record.name !== 'Not Expandable',
-          // }}
-          dataSource={menteeData}
+          dataSource={data2}
         />
         ,
       </div>
       <Modal
+        title="Add Mentee"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        okButtonProps={{ style: { display: 'none' } }}
+        width={1240}
+        style={{ top: 20 }}
+      >
+        <AddMenteeForm />
+      </Modal>
+      {/* <Modal
         className="menteeModal"
         visible={showModal}
         title="Mentee Profile"
@@ -257,7 +239,7 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
         ) : (
           <MenteeProfile currentMentee={currentMentee} />
         )}
-      </Modal>
+      </Modal> */}
     </div>
   );
 };
