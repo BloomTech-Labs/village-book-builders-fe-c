@@ -58,6 +58,16 @@ const MatchingCalendar = props => {
     console.log(calValue);
   };
 
+  const [clicked, setClicked] = useState(false);
+  const [clicked2, setClicked2] = useState(false);
+
+  const handleClick = () => {
+    setClicked(!clicked);
+  };
+  const handleClick2 = () => {
+    setClicked2(!clicked2);
+  };
+
   return (
     <div>
       <h1>Mentor - Mentee Matching</h1>
@@ -153,8 +163,16 @@ const MatchingCalendar = props => {
         </Form.Item>
       </Form>
       <div className="miniListContainer">
-        <MiniMentorList />
-        <MiniMenteeList />
+        <div className="listButton1">
+          <h1>Mentor List</h1>
+          <button onClick={handleClick}>{clicked ? 'Hide' : 'Show'}</button>
+          {clicked ? <MiniMentorList /> : null}
+        </div>
+        <div className="listButton2">
+          <h1>Mentee List</h1>
+          <button onClick={handleClick2}>{clicked2 ? 'Hide' : 'Show'}</button>
+          {clicked2 ? <MiniMenteeList /> : null}
+        </div>
       </div>
     </div>
   );
