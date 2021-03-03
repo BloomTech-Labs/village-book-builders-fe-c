@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
+import MatchingModal from './MatchingModal';
 import MatchCell from './MatchCell';
 import { fetchCalendar } from '../../../../state/actions/index';
 
@@ -77,8 +78,8 @@ const MatchingCalendar = props => {
           onPanelChange={onPanelChange}
         />
       </div>
+      <MatchingModal />
       <h3>Please complete all the fields below to fill a time slot.</h3>
-
       <Form onFinish={onFinish}>
         <Form.Item label="Mentor">
           <Input.Group>
