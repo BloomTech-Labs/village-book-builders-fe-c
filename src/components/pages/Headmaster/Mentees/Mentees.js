@@ -10,7 +10,6 @@ import '../../../../style.css';
 const Mentees = ({ mentees, fetchMentees, userId, role }) => {
   //let menteesSelection = [...mentees];
   const [search, setSearch] = useState('');
-  let colors = ['red', 'blue', 'green', 'orange', 'yellow'];
   //const [showModal, setShowModal] = useState(false);
   //const [editing, setEditing] = useState(false);
   //const [currentMentee, setCurrentMentee] = useState({});
@@ -56,10 +55,7 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
       render: record =>
         record.availability.methods.map(method => {
           return (
-            <Tag
-              key={method}
-              color={colors[Math.floor(Math.random() * colors.length)]}
-            >
+            <Tag key={method} color="red">
               {method.toUpperCase()}
             </Tag>
           );

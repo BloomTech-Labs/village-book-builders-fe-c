@@ -67,6 +67,7 @@
 /* Profile Pages */
 .profile-item-title {
   font-weight: bold;
+ 
 }
 
 .profile-item {
@@ -209,4 +210,11 @@
 }
 .notes-month section {
   font-size: 28px;
+}
+.listButton2 {
+  font-size: 20px;
+  margin-left: 50%;
+}
+.listButton1 {
+  font-size: 20px;
 }
