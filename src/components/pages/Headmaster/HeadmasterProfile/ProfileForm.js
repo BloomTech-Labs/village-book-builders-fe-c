@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { axiosWithAuth } from '../../../../utils/axiosWithAuth';
 
-import { Form, Input, DatePicker, Space, Radio } from 'antd';
+import { Form, Input, DatePicker, Space, Radio, Upload, Avatar } from 'antd';
+import { UploadOutlined, UserOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { editHeadmasterProfile } from '../../../../state/actions';
 import { debugLog } from '../../../../utils/debugMode';
@@ -19,6 +20,7 @@ const initialState = {
     other: false,
   },
   address: '',
+  email: '',
   bio: '',
   communication_app: '',
   dob: '',
@@ -41,7 +43,7 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 const ProfileForm = props => {
   const [formData, setFormData] = useState(initialState);
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState('');
   const pathname = useHistory().location.pathname;
   const params = useParams().id;
   const [form] = Form.useForm();
@@ -79,6 +81,12 @@ const ProfileForm = props => {
           <Link to="/profile">Go Back</Link>
         </Form.Item>
         <Form onFinish={handleSubmit} form={form}>
+          <Form.Item>
+            <Avatar shape="square" size={84} icon={<UserOutlined />} />
+            <Upload>
+              <Button icon={<UploadOutlined />}>Edit Profile Picture</Button>
+            </Upload>
+          </Form.Item>
           <Form.Item
             label="First Name"
             name="first_name"
@@ -102,6 +110,31 @@ const ProfileForm = props => {
               type="text"
               name="last_name"
               value={formData.last_name}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: 'Email is required.' }]}
+          >
+            <Input
+              type="text"
+              name="email"
+              value={formData.email}
+              onChange={e => handleChange(e)}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Timezone"
+            name="time_zone"
+            // rules={[{ required: true, message: 'Address is required.' }]}
+          >
+            <Input
+              type="text"
+              name="timezone"
+              value={formData.time_zone}
               onChange={e => handleChange(e)}
             />
           </Form.Item>
@@ -160,7 +193,7 @@ const ProfileForm = props => {
             />
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             label="Communication App"
             name="communication_app"
             rules={[
@@ -253,7 +286,7 @@ const ProfileForm = props => {
               value={formData.mentor_advisor_point_of_contact}
               onChange={e => handleChange(e)}
             />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item>
             <p>Fields with * are required.</p>
