@@ -126,8 +126,33 @@ export const addMentee = values => dispatch => {
   axiosWithAuth()
     .post(`/mentee`, values)
     .then(res => {
-      //dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
-      window.location.reload();
+      //console.log(res);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_AFTER_POST_SUCCESS,
+        payload: { mentee: res.data, message: 'Successfully added mentee.' },
+      });
+      //window.location.reload();
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
+    );
+};
+
+export const deleteMentee = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_START });
+  axiosWithAuth()
+    .delete(`/mentee/${id}`)
+    .then(res => {
+      //console.log('id', id);
+      //console.log('res', res);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_AFTER_DELETE_SUCCESS,
+        payload: {
+          mentee: parseInt(id),
+          message: 'Successfully deleted mentee.',
+        },
+      });
+      //window.location.reload();
     })
     .catch(err =>
       dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })

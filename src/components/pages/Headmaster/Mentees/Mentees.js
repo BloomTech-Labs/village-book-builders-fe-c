@@ -1,15 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Divider, List, Input, Modal, Avatar, Table, Tag } from 'antd';
+import {
+  Button,
+  Divider,
+  List,
+  Input,
+  Modal,
+  Avatar,
+  Table,
+  Tag,
+  Alert,
+} from 'antd';
 import { connect } from 'react-redux';
-import { checkToken, fetchMentees } from '../../../../state/actions/index';
+import {
+  checkToken,
+  fetchMentees,
+  deleteMentee,
+  addMentee,
+} from '../../../../state/actions/index';
 //import MenteeForm from './MenteeForm';
-//import MenteeProfile from './MenteeProfile';
+import MenteeProfile from './MenteeProfile';
 import AddMenteeForm from './AddMenteeForm';
+
 import '../../../../style.css';
 
-const Mentees = ({ mentees, fetchMentees, userId, role }) => {
+const Mentees = ({
+  mentees,
+  fetchMentees,
+  deleteMentee,
+  addMentee,
+  userId,
+  role,
+  message,
+}) => {
   //let menteesSelection = [...mentees];
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
   //const [showModal, setShowModal] = useState(false);
   //const [editing, setEditing] = useState(false);
   //const [currentMentee, setCurrentMentee] = useState({});
@@ -17,14 +42,60 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
   // const [name, setName] = useState('');
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible1, setIsModalVisible1] = useState(false);
+  const [currentMentee, setCurrentMentee] = useState({});
 
   const showModal = () => {
     setIsModalVisible(true);
   };
 
+  const onSubmitCallback = data => {
+    //setFormState(data);
+    //console.log('data', data);
+    setLoading(true);
+    addMentee(data);
+    setTimeout(() => {
+      setLoading(false);
+      setIsModalVisible(false);
+    }, 2000);
+  };
+
+  const handleOk = () => {
+    //console.log('form', formState);
+    // setLoading(true);
+    // addMentee(formState);
+    // setTimeout(() => {
+    //   setLoading(false);
+    //   setIsModalVisible(false);
+    // }, 3000);
+  };
+
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  const handleCancel1 = () => {
+    setIsModalVisible1(false);
+  };
+
+  const { confirm } = Modal;
+
+  function showDeleteConfirm(key) {
+    confirm({
+      title: 'Are you sure delete this task?',
+      content: 'Some descriptions',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        //console.log('OK');
+        deleteMentee(key.key);
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
 
   useEffect(() => {
     fetchMentees();
@@ -34,8 +105,8 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
     { title: 'Name', dataIndex: 'name', key: 'name' },
     {
       title: '',
-      dataIndex: 'image',
-      key: 'image',
+      dataIndex: 'mentee_picture',
+      key: 'mentee_picture',
       render: image => <Avatar src={image} />,
     },
     { title: 'Email Address', dataIndex: 'email', key: 'email' },
@@ -67,8 +138,24 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
       key: 'x',
       render: record => (
         <div>
-          <a href="/#">More Info</a> \ <a href="/#">Edit</a> \{' '}
-          <a href="/#">Delete</a>
+          <Button
+            size="small"
+            onClick={() => {
+              setCurrentMentee(record);
+              setIsModalVisible1(true);
+            }}
+          >
+            More Info
+          </Button>{' '}
+          \ <a href="/#">Edit</a> \{' '}
+          <Button
+            size="small"
+            onClick={() => {
+              showDeleteConfirm(record);
+            }}
+          >
+            Delete
+          </Button>
         </div>
       ),
     },
@@ -77,7 +164,7 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
   let data2 = [
     ...mentees.map(mentee => ({
       key: mentee.id,
-      image: mentee.mentee_picture,
+      mentee_picture: mentee.mentee_picture,
       name: mentee.first_name + ' ' + mentee.last_name,
       gender: mentee.gender,
       dob: mentee.dob,
@@ -94,35 +181,9 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
     })),
   ];
 
-  console.log('metnees', mentees);
-  console.log('data2', data2);
-
-  // const editingHandler = (e, menteeData) => {
-  //   if (showModal) {
-  //     // Closing Modal
-  //     setShowModal(false);
-  //     setCurrentMentee({});
-  //     setEditing(false);
-  //   } else {
-  //     // Opening Modal
-  //     setShowModal(true);
-  //     setCurrentMentee(menteeData);
-  //     setEditing(true);
-  //   }
-  // };
-
-  // const moreInfoHandler = (e, menteeData) => {
-  //   if (showModal) {
-  //     // Closing Modal
-  //     setShowModal(false);
-  //     setCurrentMentee({});
-  //     setEditing(false);
-  //   } else {
-  //     // Opening Modal
-  //     setShowModal(true);
-  //     setCurrentMentee(menteeData);
-  //   }
-  // };
+  // console.log('metnees', mentees);
+  // console.log('data2', data2);
+  console.log('current', currentMentee);
 
   const searchHandler = e => {
     setSearch(e.target.value);
@@ -137,6 +198,17 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
   return (
     <div className="menteeContainer">
       <div className="exploreWrapper">
+        {message && (
+          <Alert
+            message={message}
+            type="success"
+            style={{
+              marginBottom: '10px',
+              borderRadius: 'unset',
+              maxWidth: '480px',
+            }}
+          />
+        )}
         <h1 id="menteeTitle">
           Mentees{' '}
           <Button type="primary" size="small" onClick={showModal}>
@@ -201,11 +273,27 @@ const Mentees = ({ mentees, fetchMentees, userId, role }) => {
         title="Add Mentee"
         visible={isModalVisible}
         onCancel={handleCancel}
+        onOk={handleOk}
+        cancelButtonProps={{ style: { display: 'none' } }}
         okButtonProps={{ style: { display: 'none' } }}
         width={1240}
         style={{ top: 20 }}
       >
-        <AddMenteeForm />
+        <AddMenteeForm onsubmit={onSubmitCallback} loading={loading} />
+      </Modal>
+      {/* Modal for mentee information */}
+      <Modal
+        title="Mentee Info"
+        visible={isModalVisible1}
+        onCancel={handleCancel1}
+        onOk={handleOk}
+        cancelButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: 'none' } }}
+        width={960}
+        style={{ top: 20 }}
+      >
+        <MenteeProfile currentMentee={currentMentee} />
+        {/* <h1>Hello world!</h1> */}
       </Modal>
       {/* <Modal
         className="menteeModal"
@@ -245,7 +333,13 @@ const mapStateToProps = state => {
     mentees: state.headmasterReducer.mentees,
     userId: state.authReducer.userId,
     role: state.authReducer.role,
+    message: state.headmasterReducer.message,
   };
 };
 
-export default connect(mapStateToProps, { checkToken, fetchMentees })(Mentees);
+export default connect(mapStateToProps, {
+  checkToken,
+  fetchMentees,
+  deleteMentee,
+  addMentee,
+})(Mentees);

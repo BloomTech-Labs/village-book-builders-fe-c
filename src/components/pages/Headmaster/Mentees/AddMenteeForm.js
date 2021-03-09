@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+//import { useParams, useHistory } from 'react-router-dom';
 import {
   Form,
   Input,
@@ -14,7 +14,6 @@ import {
 //import moment from 'moment';
 //import { debugLog } from '../../../../utils/debugMode';
 // import { editMenteeProfile } from '../../../../state/actions';
-import { addMentee } from '../../../../state/actions';
 import '../../../../style.css';
 
 // const dateFormat = 'MM/DD/YYYY';
@@ -22,71 +21,81 @@ import '../../../../style.css';
 // const timeFormat = 'HH:mm';
 // const genders = ['Male', 'Female', 'Other'];
 
-const AddMenteeForm = ({ currentMentee, addMentee }) => {
+let initialState = {
+  first_name: '',
+  last_name: '',
+  gender: '',
+  dob: '',
+  mentee_picture: 'http://placeimg.com/640/480',
+  english_lvl: '',
+  math_lvl: '',
+  reading_lvl: '',
+  school_lvl: '',
+  academic_description: '',
+  support_needed: '',
+  primary_language: '',
+  availability: {
+    time_zone: '',
+    as_early_as: '',
+    as_late_as: '',
+    methods: [],
+  },
+  email: '',
+  questions: [
+    {
+      qId: 0,
+      question: 'My favorite thing to do in my free time is',
+    },
+    {
+      qId: 1,
+      question: 'When I grow up, I want to be',
+    },
+    {
+      qId: 2,
+      question: 'Goals & Dreams Notes',
+    },
+    {
+      qId: 3,
+      question: 'Personal Struggles Notes',
+    },
+    {
+      qId: 4,
+      question: 'Other interests/hobbies',
+    },
+    {
+      qId: 5,
+      question: 'Skills Notes',
+    },
+    {
+      qId: 6,
+      question: 'Family Notes',
+    },
+    {
+      qId: 7,
+      question: 'Other Notes',
+    },
+    {
+      qId: 8,
+      question: 'Admin Notes',
+    },
+  ],
+};
+
+const AddMenteeForm = ({
+  currentMentee,
+  isLoading,
+  message,
+  onsubmit,
+  loading,
+}) => {
   //   debugLog(
   //     'Prop drilled from Mentees.js',
   //     currentMentee,
   //     moment.utc(currentMentee.dob).format('dddd, MMMM Do of YYYY')
   //   );
   const { TextArea } = Input;
-  const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    gender: '',
-    dob: '',
-    english_lvl: '',
-    math_lvl: '',
-    reading_lvl: '',
-    school_lvl: '',
-    academic_description: '',
-    support_needed: '',
-    primary_language: '',
-    availability: {
-      time_zone: '',
-      as_early_as: '',
-      as_late_as: '',
-      methods: [],
-    },
-    email: '',
-    questions: [
-      {
-        qId: 0,
-        question: 'My favorite thing to do in my free time is',
-      },
-      {
-        qId: 1,
-        question: 'When I grow up, I want to be',
-      },
-      {
-        qId: 2,
-        question: 'Goals & Dreams Notes',
-      },
-      {
-        qId: 3,
-        question: 'Personal Struggles Notes',
-      },
-      {
-        qId: 4,
-        question: 'Other interests/hobbies',
-      },
-      {
-        qId: 5,
-        question: 'Skills Notes',
-      },
-      {
-        qId: 6,
-        question: 'Family Notes',
-      },
-      {
-        qId: 7,
-        question: 'Other Notes',
-      },
-      {
-        qId: 8,
-        question: 'Admin Notes',
-      },
-    ],
-  });
+  const [form] = Form.useForm();
+  const [formData, setFormData] = useState(initialState);
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -110,23 +119,26 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
   };
 
   const handleSubmit = async e => {
-    addMentee(formData);
+    await onsubmit(formData);
+    form.resetFields();
   };
 
   return (
-    <Form onFinish={handleSubmit}>
+    <Form form={form} onFinish={handleSubmit}>
+      {/* <Form> */}
       <Row gutter={16}>
         <Col className="gutter-row" span={12}>
           <h4>Personal Information</h4>
           <Form.Item
             label="First Name"
             name="first_name"
+            value={formData.first_name}
             rules={[{ required: true, message: 'First Name is required.' }]}
           >
             <Input
               type="text"
               name="first_name"
-              fields={formData.first_name}
+              value={formData.first_name}
               onChange={e => handleChange(e)}
             />
           </Form.Item>
@@ -156,7 +168,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           <Form.Item
             label="Email Address"
             name="email"
-            rules={[{ required: true, message: 'email is required.' }]}
+            rules={[{ required: true, message: 'Email Address is required.' }]}
           >
             <Input
               type="text"
@@ -192,7 +204,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           <Form.Item
             label="English Level"
             name="english_lvl"
-            rules={[{ required: true, message: 'english level is required.' }]}
+            rules={[{ required: true, message: 'English level is required.' }]}
           >
             <Input
               type="number"
@@ -218,7 +230,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           <Form.Item
             label="Reading Level"
             name="reading_lvl"
-            rules={[{ required: true, message: 'reading level is required.' }]}
+            rules={[{ required: true, message: 'Reading level is required.' }]}
           >
             <Input
               type="number"
@@ -229,9 +241,9 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
 
           <Form.Item
-            label="school Level"
+            label="School Level"
             name="school_lvl"
-            rules={[{ required: true, message: 'school level is required.' }]}
+            rules={[{ required: true, message: 'School level is required.' }]}
           >
             <Input
               type="number"
@@ -246,7 +258,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
             rules={[
               {
                 required: true,
-                message: 'academic description level is required.',
+                message: 'Academic description level is required.',
               },
             ]}
           >
@@ -353,9 +365,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           <h4>Additional Information</h4>
           <Form.Item
             name={0}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -365,9 +375,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
           <Form.Item
             name={1}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -377,9 +385,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
           <Form.Item
             name={2}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -389,9 +395,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
           <Form.Item
             name={3}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -401,9 +405,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
           <Form.Item
             name={4}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -413,9 +415,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
           <Form.Item
             name={5}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -425,9 +425,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
           <Form.Item
             name={6}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -437,9 +435,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
           <Form.Item
             name={7}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -449,9 +445,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
           </Form.Item>
           <Form.Item
             name={8}
-            rules={[
-              { required: true, message: 'Support needed level is required.' },
-            ]}
+            rules={[{ required: true, message: 'Field is required.' }]}
           >
             <TextArea
               rows={2}
@@ -460,7 +454,7 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
             />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" loading={loading} htmlType="submit">
               Submit
             </Button>
           </Form.Item>
@@ -473,7 +467,8 @@ const AddMenteeForm = ({ currentMentee, addMentee }) => {
 const mapStateToProps = state => {
   return {
     isloading: state.headmasterReducer.isLoading,
+    message: state.headmasterReducer.message,
   };
 };
 
-export default connect(mapStateToProps, { addMentee })(AddMenteeForm);
+export default connect(mapStateToProps, {})(AddMenteeForm);
