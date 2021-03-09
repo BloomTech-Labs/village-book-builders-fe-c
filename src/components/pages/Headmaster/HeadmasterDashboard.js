@@ -85,7 +85,7 @@ const HeadmasterDashboard = props => {
               <NavLink to="/school-village">School/Village</NavLink>
             </Menu.Item>
             <Menu.Item key="6" icon={<FormOutlined />}>
-              <NavLink to="/student-search">Student Registration</NavLink>
+              <NavLink to="/student-search">Student Search</NavLink>
             </Menu.Item>
             <Menu.Item key="7" icon={<LogoutOutlined />}>
               <Link to="/logout">Logout</Link>

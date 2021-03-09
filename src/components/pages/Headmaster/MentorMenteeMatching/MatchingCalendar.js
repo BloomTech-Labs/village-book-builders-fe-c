@@ -17,10 +17,6 @@ const initialState = {
 const MatchingCalendar = props => {
   const { matches, fetchCalendar } = props;
 
-  useEffect(() => {
-    fetchCalendar();
-  }, [fetchCalendar]);
-
   //-----------------------start calendar code - https://ant.design/components/calendar/
   function dateCellRender(value) {
     const listData = getListData(value);
@@ -59,14 +55,14 @@ const MatchingCalendar = props => {
     console.log(calValue);
   };
 
-  const [clicked, setClicked] = useState(false);
-  const [clicked2, setClicked2] = useState(false);
+  const [clickMenteeList, setClickMenteeList] = useState(false);
+  const [clickMentorList, setClickMentorList] = useState(false);
 
-  const handleClick = () => {
-    setClicked(!clicked);
+  const handleClickMenteeList = () => {
+    setClickMenteeList(!clickMenteeList);
   };
-  const handleClick2 = () => {
-    setClicked2(!clicked2);
+  const handleClickMentorList = () => {
+    setClickMentorList(!clickMentorList);
   };
 
   return (
@@ -166,13 +162,17 @@ const MatchingCalendar = props => {
       <div className="miniListContainer">
         <div className="listButton1">
           <h1>Mentor List</h1>
-          <button onClick={handleClick}>{clicked ? 'Hide' : 'Show'}</button>
-          {clicked ? <MiniMentorList /> : null}
+          <button onClick={handleClickMentorList}>
+            {clickMentorList ? 'Hide' : 'Show'}
+          </button>
+          {clickMentorList ? <MiniMentorList /> : null}
         </div>
         <div className="listButton2">
           <h1>Mentee List</h1>
-          <button onClick={handleClick2}>{clicked2 ? 'Hide' : 'Show'}</button>
-          {clicked2 ? <MiniMenteeList /> : null}
+          <button onClick={handleClickMenteeList}>
+            {clickMenteeList ? 'Hide' : 'Show'}
+          </button>
+          {clickMenteeList ? <MiniMenteeList /> : null}
         </div>
       </div>
     </div>
