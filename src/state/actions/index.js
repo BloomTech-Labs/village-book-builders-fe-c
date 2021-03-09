@@ -121,7 +121,7 @@ export const fetchMentees = () => dispatch => {
 };
 
 export const addMentee = values => dispatch => {
-  console.log(values);
+  //console.log(values);
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
     .post(`/mentee`, values)
@@ -185,7 +185,10 @@ export const editMenteeProfile = (id, data) => dispatch => {
     .then(res => {
       dispatch({
         type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
-        payload: res.data,
+        payload: {
+          mentee: res.data,
+          message: 'Successfully edited mentee.',
+        },
       });
     })
     .catch(err =>

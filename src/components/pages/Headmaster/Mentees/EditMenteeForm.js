@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 //import { useParams, useHistory } from 'react-router-dom';
 import {
@@ -11,12 +11,15 @@ import {
   Row,
   Col,
 } from 'antd';
-//import moment from 'moment';
+import moment from 'moment';
 //import { debugLog } from '../../../../utils/debugMode';
-// import { editMenteeProfile } from '../../../../state/actions';
+import {
+  fetchMenteeProfile,
+  editMenteeProfile,
+} from '../../../../state/actions';
 import '../../../../style.css';
 
-// const dateFormat = 'MM/DD/YYYY';
+//const dateFormat = 'YYYY-MM-DD';
 // const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 // const timeFormat = 'HH:mm';
 // const genders = ['Male', 'Female', 'Other'];
@@ -81,11 +84,11 @@ let initialState = {
   ],
 };
 
-const AddMenteeForm = ({
+const EditMenteeForm = ({
   currentMentee,
   isLoading,
   message,
-  onsubmit,
+  onedit,
   loading,
 }) => {
   //   debugLog(
@@ -95,13 +98,43 @@ const AddMenteeForm = ({
   //   );
   const { TextArea } = Input;
   const [form] = Form.useForm();
-  const [formData, setFormData] = useState(initialState);
+  const [formData, setFormData] = useState(currentMentee);
+
+  useEffect(() => {
+    setFormData(currentMentee);
+    form.setFieldsValue({
+      first_name: currentMentee.first_name,
+      last_name: currentMentee.last_name,
+      gender: currentMentee.gender,
+      email: currentMentee.email,
+      dob: moment(currentMentee.dob),
+      english_lvl: currentMentee.english_lvl,
+      math_lvl: currentMentee.math_lvl,
+      reading_lvl: currentMentee.reading_lvl,
+      school_lvl: currentMentee.school_lvl,
+      academic_description: currentMentee.academic_description,
+      support_needed: currentMentee.academic_description,
+      primary_language: currentMentee.primary_language,
+      time_zone: currentMentee.availability.time_zone,
+      as_early_as: currentMentee.availability.as_early_as,
+      as_late_as: currentMentee.availability.as_late_as,
+      0: currentMentee.dynamic_questions[0].answer,
+      1: currentMentee.dynamic_questions[1].answer,
+      2: currentMentee.dynamic_questions[2].answer,
+      3: currentMentee.dynamic_questions[3].answer,
+      4: currentMentee.dynamic_questions[4].answer,
+      5: currentMentee.dynamic_questions[5].answer,
+      6: currentMentee.dynamic_questions[6].answer,
+      7: currentMentee.dynamic_questions[7].answer,
+      8: currentMentee.dynamic_questions[8].answer,
+    });
+  }, [currentMentee, form]);
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleCheckboxChange = e => {
+  const handleCheckboxChange = (e, i) => {
     setFormData({
       ...formData,
       availability: { ...formData.availability, methods: e },
@@ -119,26 +152,28 @@ const AddMenteeForm = ({
   };
 
   const handleSubmit = async e => {
-    await onsubmit(formData);
+    await onedit(formData);
     form.resetFields();
   };
 
+  // console.log('current in edit form', currentMentee);
+  //console.log('formData', formData);
+  //console.log('methods', currentMentee.availability.methods);
+
   return (
     <Form form={form} onFinish={handleSubmit}>
-      {/* <Form> */}
       <Row gutter={16}>
         <Col className="gutter-row" span={12}>
-          <h4>Personal Information</h4>
+          <p>{currentMentee.first_name}</p>
           <Form.Item
             label="First Name"
             name="first_name"
-            value={formData.first_name}
             rules={[{ required: true, message: 'First Name is required.' }]}
           >
             <Input
               type="text"
               name="first_name"
-              value={formData.first_name}
+              value={currentMentee ? currentMentee.first_name : ''}
               onChange={e => handleChange(e)}
             />
           </Form.Item>
@@ -288,12 +323,12 @@ const AddMenteeForm = ({
           <h4>Availability</h4>
           <Form.Item
             label="Timezone"
-            name="timezone"
+            name="time_zone"
             rules={[{ required: true, message: 'Timezone is required.' }]}
           >
             <Input
               type="text"
-              name="timezone"
+              name="time_zone"
               fields={formData.availability.time_zone}
               onChange={e =>
                 setFormData({
@@ -348,8 +383,8 @@ const AddMenteeForm = ({
           </Form.Item>
           <Form.Item label="Methods" name="method">
             <Checkbox.Group
-              name="method"
-              value={formData.method}
+              name="methods"
+              values={currentMentee.availability.methods}
               onChange={e => handleCheckboxChange(e)}
             >
               <Checkbox value="phone">Phone</Checkbox>
@@ -455,7 +490,7 @@ const AddMenteeForm = ({
           </Form.Item>
           <Form.Item>
             <Button type="primary" loading={loading} htmlType="submit">
-              Submit
+              Update
             </Button>
           </Form.Item>
         </Col>
@@ -471,4 +506,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(AddMenteeForm);
+export default connect(mapStateToProps, {})(EditMenteeForm);

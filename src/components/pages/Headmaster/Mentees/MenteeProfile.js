@@ -68,7 +68,7 @@ const MenteeProfile = ({ currentMentee }) => {
                 shape="square"
               />
               <h1 style={{ alignSelf: 'center', marginBottom: '0' }}>
-                {currentMentee.name}
+                {currentMentee.first_name + ' ' + currentMentee.last_name}
               </h1>
               <p style={{ fontStyle: 'italic', marginBottom: '0' }}>
                 {currentMentee.availability.time_zone}
@@ -116,8 +116,8 @@ const MenteeProfile = ({ currentMentee }) => {
                 Additional Information
               </p>
               <Collapse accordion>
-                {currentMentee.questions &&
-                  currentMentee.questions.map(question => {
+                {currentMentee.dynamic_questions &&
+                  currentMentee.dynamic_questions.map(question => {
                     return (
                       <Panel header={question.question} key={question.qId}>
                         <p>{question.answer}</p>

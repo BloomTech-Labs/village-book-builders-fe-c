@@ -16,10 +16,12 @@ import {
   fetchMentees,
   deleteMentee,
   addMentee,
+  editMenteeProfile,
 } from '../../../../state/actions/index';
 //import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
 import AddMenteeForm from './AddMenteeForm';
+import EditMenteeForm from './EditMenteeForm';
 
 import '../../../../style.css';
 
@@ -28,9 +30,12 @@ const Mentees = ({
   fetchMentees,
   deleteMentee,
   addMentee,
+  editMenteeProfile,
   userId,
   role,
   message,
+  editMessage,
+  isLoading,
 }) => {
   //let menteesSelection = [...mentees];
   const [search, setSearch] = useState('');
@@ -40,9 +45,9 @@ const Mentees = ({
   //const [currentMentee, setCurrentMentee] = useState({});
   // const [menteesDataa, setMenteesData] = useState(null);
   // const [name, setName] = useState('');
-
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
   const [currentMentee, setCurrentMentee] = useState({});
 
   const showModal = () => {
@@ -57,7 +62,19 @@ const Mentees = ({
     setTimeout(() => {
       setLoading(false);
       setIsModalVisible(false);
-    }, 2000);
+    }, 1500);
+  };
+
+  const onEditCallback = data => {
+    //setFormState(data);
+    //console.log('edit data', data);
+    setLoading(true);
+    editMenteeProfile(data.key, data);
+    setTimeout(() => {
+      setLoading(false);
+      setIsModalVisible2(false);
+    }, 1500);
+    window.location.reload();
   };
 
   const handleOk = () => {
@@ -76,6 +93,10 @@ const Mentees = ({
 
   const handleCancel1 = () => {
     setIsModalVisible1(false);
+  };
+
+  const handleCancel2 = () => {
+    setIsModalVisible2(false);
   };
 
   const { confirm } = Modal;
@@ -102,7 +123,11 @@ const Mentees = ({
   }, [fetchMentees]);
 
   const columns = [
-    { title: 'Name', dataIndex: 'name', key: 'name' },
+    {
+      title: 'Name',
+      key: 'last_name',
+      render: record => record.first_name + ' ' + record.last_name,
+    },
     {
       title: '',
       dataIndex: 'mentee_picture',
@@ -147,7 +172,17 @@ const Mentees = ({
           >
             More Info
           </Button>{' '}
-          \ <a href="/#">Edit</a> \{' '}
+          \{' '}
+          <Button
+            size="small"
+            onClick={() => {
+              setCurrentMentee(record);
+              setIsModalVisible2(true);
+            }}
+          >
+            Edit
+          </Button>{' '}
+          \{' '}
           <Button
             size="small"
             onClick={() => {
@@ -165,7 +200,8 @@ const Mentees = ({
     ...mentees.map(mentee => ({
       key: mentee.id,
       mentee_picture: mentee.mentee_picture,
-      name: mentee.first_name + ' ' + mentee.last_name,
+      first_name: mentee.first_name,
+      last_name: mentee.last_name,
       gender: mentee.gender,
       dob: mentee.dob,
       english_lvl: mentee.english_lvl,
@@ -177,38 +213,41 @@ const Mentees = ({
       primary_language: mentee.primary_language,
       availability: mentee.availability,
       email: mentee.email,
-      questions: mentee.dynamic_questions,
+      dynamic_questions: mentee.dynamic_questions,
     })),
   ];
 
   // console.log('metnees', mentees);
   // console.log('data2', data2);
-  console.log('current', currentMentee);
+  // console.log('current', currentMentee);
 
   const searchHandler = e => {
     setSearch(e.target.value);
   };
 
   if (Array.isArray(data2)) {
-    data2 = data2.filter(item =>
-      item.name.toLowerCase().includes(search.toLowerCase())
+    data2 = data2.filter(
+      item =>
+        item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+        item.last_name.toLowerCase().includes(search.toLowerCase())
     );
   }
 
   return (
     <div className="menteeContainer">
       <div className="exploreWrapper">
-        {message && (
-          <Alert
-            message={message}
-            type="success"
-            style={{
-              marginBottom: '10px',
-              borderRadius: 'unset',
-              maxWidth: '480px',
-            }}
-          />
-        )}
+        {message ||
+          (editMessage && (
+            <Alert
+              message={message || editMessage}
+              type="success"
+              style={{
+                marginBottom: '10px',
+                borderRadius: 'unset',
+                maxWidth: '480px',
+              }}
+            />
+          ))}
         <h1 id="menteeTitle">
           Mentees{' '}
           <Button type="primary" size="small" onClick={showModal}>
@@ -269,6 +308,7 @@ const Mentees = ({
         />
         ,
       </div>
+      {/* Modals */}
       <Modal
         title="Add Mentee"
         visible={isModalVisible}
@@ -281,7 +321,22 @@ const Mentees = ({
       >
         <AddMenteeForm onsubmit={onSubmitCallback} loading={loading} />
       </Modal>
-      {/* Modal for mentee information */}
+      <Modal
+        title="Edit Mentee"
+        visible={isModalVisible2}
+        onCancel={handleCancel2}
+        onOk={handleOk}
+        cancelButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: 'none' } }}
+        width={1240}
+        style={{ top: 20 }}
+      >
+        <EditMenteeForm
+          currentMentee={currentMentee}
+          onedit={onEditCallback}
+          loading={loading}
+        />
+      </Modal>
       <Modal
         title="Mentee Info"
         visible={isModalVisible1}
@@ -293,7 +348,6 @@ const Mentees = ({
         style={{ top: 20 }}
       >
         <MenteeProfile currentMentee={currentMentee} />
-        {/* <h1>Hello world!</h1> */}
       </Modal>
       {/* <Modal
         className="menteeModal"
@@ -334,6 +388,7 @@ const mapStateToProps = state => {
     userId: state.authReducer.userId,
     role: state.authReducer.role,
     message: state.headmasterReducer.message,
+    editMessage: state.menteeReducer.message,
   };
 };
 
@@ -342,4 +397,5 @@ export default connect(mapStateToProps, {
   fetchMentees,
   deleteMentee,
   addMentee,
+  editMenteeProfile,
 })(Mentees);
