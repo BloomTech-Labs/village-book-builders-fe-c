@@ -12,6 +12,7 @@ const Mentees = props => {
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState(false);
   const [currentMentee, setCurrentMentee] = useState({});
+  const { fetchMentees } = props;
 
   const editingHandler = (e, menteeData) => {
     if (showModal) {
@@ -53,8 +54,8 @@ const Mentees = props => {
   }
 
   useEffect(() => {
-    props.fetchMentees();
-  }, []);
+    fetchMentees();
+  }, [fetchMentees]);
 
   return (
     <div className="menteeContainer">
@@ -83,7 +84,11 @@ const Mentees = props => {
                   <List.Item.Meta
                     onClick={e => moreInfoHandler(e, item)}
                     avatar={<Avatar src={item.mentee_picture} />}
-                    title={<a>{item.first_name + ' ' + item.last_name}</a>}
+                    title={
+                      <Button type="link">
+                        {item.first_name + ' ' + item.last_name}
+                      </Button>
+                    }
                     description={item.academic_description}
                   />
                 </div>

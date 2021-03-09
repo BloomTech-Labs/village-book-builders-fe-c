@@ -36,7 +36,7 @@ const initialState = {
   ],
 };
 // Fetch school data for headmaster
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action = {}) => {
   // console.log('HEADMASTERREDUCER.js, action type & payload:', action.type, action.payload);
   switch (action.type) {
     case FETCH_HEADMASTER_SCHOOLS:

@@ -74,9 +74,9 @@ const Login = ({ login, loggedIn }) => {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="">
+          <Button type="link" className="login-form-forgot">
             Forgot password
-          </a>
+          </Button>
         </Form.Item>
 
         <Form.Item>

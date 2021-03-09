@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { Form, Input, DatePicker, Space, Radio, Button } from 'antd';
-import Moment from 'moment';
+import { Form, Input, Radio, Button } from 'antd';
 import {
   editMenteeProfile,
   fetchMenteeProfile,
 } from '../../../state/actions/index';
-import { debugLog } from '../../../utils/debugMode';
-const dateFormat = 'MM/DD/YYYY';
-const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+// import { debugLog } from '../../../utils/debugMode';
 
 const initialState = {
   first_name: '',
@@ -47,7 +44,7 @@ const StudentProfileForm = ({
       form.setFieldsValue(menteeProfile);
       setFormValues(menteeProfile);
     }
-  }, [fetchMenteeProfile]);
+  }, [fetchMenteeProfile, form, menteeProfile, pathname]);
   console.log('inside mentee profile edit form', menteeProfile);
 
   const onChange = e => {

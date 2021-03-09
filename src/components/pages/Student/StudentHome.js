@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { List, Avatar, Form } from 'antd';
+import { List, Avatar } from 'antd';
 import { fetchStudentResources } from '../../../state/actions';
 
 const StudentHome = ({ fetchStudentResources, studentResource, isLoading }) => {
   useEffect(() => {
     fetchStudentResources(1); // change this later with login
-  }, []);
+  }, [fetchStudentResources]);
   console.log('student resources:', studentResource);
 
   const listData = [];

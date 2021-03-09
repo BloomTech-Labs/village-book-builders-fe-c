@@ -18,11 +18,11 @@ import {
 } from '@ant-design/icons';
 
 const TeacherDashboard = props => {
-  const { profile } = props;
+  const { profile, fetchTeacherProfile } = props;
 
   useEffect(() => {
-    props.fetchTeacherProfile(1); // change this later with login
-  }, []);
+    fetchTeacherProfile(1); // change this later with login
+  }, [fetchTeacherProfile]);
   console.log(profile);
 
   const { Content, Sider } = Layout;

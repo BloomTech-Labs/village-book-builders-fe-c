@@ -38,10 +38,8 @@ const MatchingCalendar = props => {
   }
 
   function getListData(value) {
-    let listData;
-    const date = `${value.format('YYYY-MM-DD')}`;
-
-    return matches.filter(m => m.date === date) || [];
+    const currentDate = `${value.format('YYYY-MM-DD')}`;
+    return matches.filter(m => m.date === currentDate) || [];
   }
   //-----------------------end calendar code
 
@@ -50,13 +48,11 @@ const MatchingCalendar = props => {
 
   const [calValue, setCalValue] = useState(initialState);
 
+  const onFinish = () => {};
+
   //standard picker handler
   const handleChange = e => {
     setCalValue({ ...calValue, [e.target.name]: e.target.value });
-  };
-
-  const onFinish = calValue => {
-    console.log(calValue);
   };
 
   const [clicked, setClicked] = useState(false);

@@ -14,7 +14,7 @@ const StudentDashboard = props => {
 
   useEffect(() => {
     fetchMenteeProfile(1); // change this later with login
-  }, []);
+  }, [fetchMenteeProfile]);
   console.log('fetchMenteeProfile:', profile);
 
   const { Content, Sider } = Layout;

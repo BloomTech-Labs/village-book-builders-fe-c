@@ -28,11 +28,11 @@ import {
 } from '@ant-design/icons';
 
 const HeadmasterDashboard = props => {
-  const { profile } = props;
+  const { profile, fetchHeadmasterProfile } = props;
 
   useEffect(() => {
-    props.fetchHeadmasterProfile(1); // change this later with login
-  }, []);
+    fetchHeadmasterProfile(1); // change this later with login
+  }, [fetchHeadmasterProfile]);
   // console.log(profile);
 
   const { Content, Sider } = Layout;

@@ -18,11 +18,11 @@ import {
 } from '@ant-design/icons';
 
 const ProgramDashboard = props => {
-  const { profile } = props;
+  const { profile, fetchProgramProfile } = props;
 
   useEffect(() => {
-    props.fetchProgramProfile(1); // change this later with login
-  }, []);
+    fetchProgramProfile(1); // change this later with login
+  }, [fetchProgramProfile]);
   console.log(profile);
 
   const { Content, Sider } = Layout;

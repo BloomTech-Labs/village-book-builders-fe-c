@@ -5,14 +5,15 @@ import School from './School.component';
 import { Divider } from 'antd';
 
 const Schools = props => {
+  const { fetchSchools, schools } = props;
   useEffect(() => {
-    props.fetchSchools();
-  }, []);
+    fetchSchools();
+  }, [fetchSchools]);
   return (
     <div>
       <div />
       <Divider orientation="left">Schools</Divider>
-      {props.schools.map((s, index) => (
+      {schools.map((s, index) => (
         <School school={s} key={index} />
       ))}
     </div>

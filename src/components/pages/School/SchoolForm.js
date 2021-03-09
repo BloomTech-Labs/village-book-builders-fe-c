@@ -38,7 +38,7 @@ const SchoolForm = props => {
         })
         .catch(err => console.dir(err));
     }
-  }, []);
+  }, [form, params, pathname]);
 
   const handleSubmit = async () => {
     props.editSchool(params, formData);
