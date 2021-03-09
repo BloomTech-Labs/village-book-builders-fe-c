@@ -16,6 +16,9 @@ const initialState = {
 
 const MatchingCalendar = props => {
   const { matches, fetchCalendar } = props;
+  useEffect(() => {
+    fetchCalendar();
+  }, [fetchCalendar]);
 
   //-----------------------start calendar code - https://ant.design/components/calendar/
   function dateCellRender(value) {
