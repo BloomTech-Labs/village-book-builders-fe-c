@@ -106,14 +106,14 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 #### Commit Guidelines
 Commit message lines are capped at 100 characters. Use the types below when staging your commits. 
-- feat: A new feature
-- fix: A bug fix
-- docs: Documentation only changes
-- style: Changes that do not affect the meaning of the code (white-space, formatting, styling, missing semi-colons, etc)
-- refactor: A code change that neither fixes a bug or adds a feature
-- perf: A code change which improves performance
-- test: Adding missing tests
-- chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
+- **feat:** A new feature
+- **fix:** A bug fix
+- **docs:** Documentation only changes
+- **style:** Changes that do not affect the meaning of the code (white-space, formatting, styling, missing semi-colons, etc)
+- **refactor:** A code change that neither fixes a bug or adds a feature
+- **perf:** A code change which improves performance
+- **test:** Adding missing tests
+- **chore:** Changes to the build process or auxiliary tools and libraries such as documentation generation
 
 ## Documentation
 
