@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import axios from 'axios';
 import { axiosWithAuth } from '../../../utils/axiosWithAuth';
-import { Form, Input, Button, Divider } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { editLibrary } from '../../../state/actions';
 
 //? would it be faster on base-model cellphones to store library data on redux when the edit button is pushed, and then pull from the store to here, or to have the simple secondary axios request pull that specific library data.
@@ -22,8 +22,6 @@ const initialState = {
 function EditLibraryForm({ editLibrary }) {
   const [formData, setFormData] = useState(initialState);
 
-  const { push } = useHistory();
-
   const params = useParams().id;
   // ? Why is this console logging 4 times? It's running too much.
   // console.log(params);
@@ -31,7 +29,6 @@ function EditLibraryForm({ editLibrary }) {
   const [form] = Form.useForm();
 
   const getData = () => {
-    // ! This should later become available through axiosWithAuth() only once we figure out the Auth with Stakeholder's backend
     axiosWithAuth()
       .get(`library/${params}`)
       .then(res => {
@@ -43,15 +40,13 @@ function EditLibraryForm({ editLibrary }) {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   const handleSubmit = async () => {
-    // console.log('formData', formData);
     editLibrary(params, formData);
   };
 
   const handleCancel = () => {
-    // push('admin/libraries');
     window.location.replace('/admin/libraries');
   };
 

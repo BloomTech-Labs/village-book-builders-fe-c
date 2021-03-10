@@ -4,17 +4,21 @@ import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import StudentProfile from './StudentProfile';
 import StudentHome from './StudentHome';
 import StudentProfileForm from './StudentProfileForm';
-import { fetchMenteeProfile } from '../../../state/actions';
+import { fetchMenteeProfile as fetchMenteeProfileAction } from '../../../state/actions';
 import Logout from '../../Logout.js';
 import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
 import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 
 const StudentDashboard = props => {
-  const { profile, fetchMenteeProfile, isLoading } = props;
+  const {
+    profile,
+    fetchMenteeProfileAction: fetchMenteeProfile,
+    isLoading,
+  } = props;
 
   useEffect(() => {
     fetchMenteeProfile(1); // change this later with login
-  }, []);
+  }, [fetchMenteeProfile]);
   console.log('fetchMenteeProfile:', profile);
 
   const { Content, Sider } = Layout;
@@ -109,6 +113,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchMenteeProfile })(
+export default connect(mapStateToProps, { fetchMenteeProfileAction })(
   StudentDashboard
 );

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { Form, Input, DatePicker, Space, Radio, Button } from 'antd';
-import Moment from 'moment';
+import { Form, Input, Radio, Button } from 'antd';
 import {
-  editMenteeProfile,
-  fetchMenteeProfile,
+  editMenteeProfile as editMenteeProfileAction,
+  fetchMenteeProfile as fetchMenteeProfileAction,
 } from '../../../state/actions/index';
-import { debugLog } from '../../../utils/debugMode';
-const dateFormat = 'MM/DD/YYYY';
-const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+// import { debugLog } from '../../../utils/debugMode';
 
 const initialState = {
   first_name: '',
@@ -28,8 +25,8 @@ const initialState = {
 };
 
 const StudentProfileForm = ({
-  fetchMenteeProfile,
-  editMenteeProfile,
+  fetchMenteeProfileAction: fetchMenteeProfile,
+  editMenteeProfileAction: editMenteeProfile,
   menteeProfile,
   isLoading,
   role,
@@ -47,7 +44,7 @@ const StudentProfileForm = ({
       form.setFieldsValue(menteeProfile);
       setFormValues(menteeProfile);
     }
-  }, [fetchMenteeProfile]);
+  }, [fetchMenteeProfile, form, menteeProfile, pathname]);
   console.log('inside mentee profile edit form', menteeProfile);
 
   const onChange = e => {
@@ -250,6 +247,6 @@ const mapStateToProps = state => {
   };
 };
 export default connect(mapStateToProps, {
-  editMenteeProfile,
-  fetchMenteeProfile,
+  editMenteeProfileAction,
+  fetchMenteeProfileAction,
 })(StudentProfileForm);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {
-  fetchMenteesBySearch,
-  fetchMenteesByDateSearch,
+  fetchMenteesBySearch as fetchMenteesBySearchAction,
+  fetchMenteesByDateSearch as fetchMenteesByDateSearchAction,
 } from '../../../state/actions/index';
 import Moment from 'moment';
 import { Input, Button, Alert, Space, Card, Avatar } from 'antd';
@@ -17,8 +17,8 @@ const StudentSearch = props => {
   const { Search } = Input;
   const { Meta } = Card;
 
-  const { fetchMenteesBySearch } = props;
-  // const { fetchMenteesByDateSearch } = props;
+  const { fetchMenteesBySearchAction: fetchMenteesBySearch } = props;
+  // const { fetchMenteesByDateSearchAction: fetchMenteesByDateSearch } = props;
 
   const onSubmit = e => {
     console.log(lastNameSearch);
@@ -140,6 +140,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  fetchMenteesBySearch,
-  fetchMenteesByDateSearch,
+  fetchMenteesBySearchAction,
+  fetchMenteesByDateSearchAction,
 })(StudentSearch);

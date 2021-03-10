@@ -5,12 +5,9 @@ import { Button, Divider } from 'antd';
 import { fetchVillage } from '../../../state/actions/index';
 
 const Village = ({ villageData, userId, fetchVillage }) => {
-  // const { villageData, fetchVillage } = props;
   useEffect(() => {
-    // console.log("village component useEffect", villageData);
     fetchVillage(userId); // !This headmaster ID is being hardcoded right now
-  }, []);
-  // console.log("village component, villageData", villageData);
+  }, [fetchVillage, userId]);
 
   return (
     <div className="school-village-container">

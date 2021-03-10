@@ -1,26 +1,34 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchHeadmasterProfile } from '../../../state/actions';
+import { fetchHeadmasterProfile as fetchHeadmasterProfileAction } from '../../../state/actions';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
 const HeadmasterHome = props => {
-  const { profile } = props;
+  const {
+    profile,
+    fetchHeadmasterProfileAction: fetchHeadmasterProfile,
+  } = props;
 
   useEffect(() => {
-    props.fetchHeadmasterProfile(1); // change this later with login
-  }, []);
+    fetchHeadmasterProfile(1); // change this later with login
+  }, [fetchHeadmasterProfile]);
   //console.log(profile);
 
   return (
     <div>
       <div className="home-header-pic">
-        <img className="profile-pic-2" src={profile.headmasters_picture} />
+        <img
+          className="profile-pic-2"
+          alt="Headmaster Profile"
+          src={profile.headmasters_picture}
+        />
         <h1 style={{ textAlign: 'center' }} className="page-title">
           Welcome Back!
         </h1>
       </div>
       <img
         className="home-header-image"
+        alt="Village Book Builders"
         src="../images/vbb-full-logo.png"
       ></img>
       <div className="home-arrow-text">
@@ -39,6 +47,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchHeadmasterProfile })(
+export default connect(mapStateToProps, { fetchHeadmasterProfileAction })(
   HeadmasterHome
 );

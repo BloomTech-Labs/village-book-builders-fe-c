@@ -15,24 +15,18 @@ const initialState = {
   isLoading: true,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action = {}) => {
   // console.log('programReducer.js, action type & payload:', action.type, action.payload);
   switch (action.type) {
     case FETCH_PROGRAM_PROFILE_START:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: true };
-    case FETCH_PROGRAM_PROFILE_SUCCESS:
-      debugLog(action.type, action.payload);
-      return { ...state, programProfile: action.payload, isLoading: false };
-    case FETCH_PROGRAM_PROFILE_FAILURE:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
     case EDIT_PROGRAM_PROFILE_START:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: true };
+    case FETCH_PROGRAM_PROFILE_SUCCESS:
     case EDIT_PROGRAM_PROFILE_SUCCESS:
       debugLog(action.type, action.payload);
       return { ...state, programProfile: action.payload, isLoading: false };
+    case FETCH_PROGRAM_PROFILE_FAILURE:
     case EDIT_PROGRAM_PROFILE_FAILURE:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: false };

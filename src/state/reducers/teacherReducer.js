@@ -3,7 +3,6 @@ import {
   FETCH_TEACHER_PROFILE,
   FETCH_TEACHER_PROFILE_SUCCESS,
   FETCH_TEACHER_PROFILE_FAILURE,
-  ADD_TEACHER,
 } from '../actions/actionTypes';
 
 import { debugLog } from '../../utils/debugMode.js';
@@ -11,9 +10,12 @@ import { debugLog } from '../../utils/debugMode.js';
 const initialState = {
   teacherProfile: '',
   isLoading: true,
+  profile: {
+    name: 'Mentor',
+  },
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action = {}) => {
   // console.log('teacherReducer.js, action type & payload:', action.type, action.payload);
   switch (action.type) {
     case FETCH_TEACHER_PROFILE:
