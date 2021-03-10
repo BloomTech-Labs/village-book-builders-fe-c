@@ -80,15 +80,13 @@ const HeadmasterDashboard = props => {
               <NavLink to="/mentor-list">Mentor List</NavLink>
             </Menu.Item>
             <Menu.Item key="8" icon={<UnorderedListOutlined />}>
-              <NavLink to="/mentor-mentee-matching">
-                Mentor Mentee Matching
-              </NavLink>
+              <NavLink to="/mentor-mentee-matching">Matching Calendar</NavLink>
             </Menu.Item>
             <Menu.Item key="5" icon={<BookOutlined />}>
               <NavLink to="/school-village">School/Village</NavLink>
             </Menu.Item>
             <Menu.Item key="6" icon={<FormOutlined />}>
-              <NavLink to="/student-search">Student Registration</NavLink>
+              <NavLink to="/student-search">Student Search</NavLink>
             </Menu.Item>
             <Menu.Item key="7" icon={<LogoutOutlined />}>
               <Link to="/logout">Logout</Link>

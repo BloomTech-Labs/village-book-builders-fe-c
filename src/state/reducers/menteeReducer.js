@@ -21,6 +21,8 @@ const initialState = {
   menteeProfile: '',
   isLoading: true,
   searchedMentee: [],
+  message: '',
+  mentees: '',
 };
 
 // Fetch mentee data
@@ -35,9 +37,16 @@ const reducer = (state = initialState, action = {}) => {
     case FETCH_MENTEE_PROFILE_SUCCESS:
     case EDIT_MENTEE_PROFILE_SUCCESS:
       debugLog(action.type, action.payload);
-      return { ...state, isLoading: false, menteeProfile: action.payload };
-    case FETCH_MENTEE_PROFILE_FAILURE:
+      //return { ...state, isLoading: false, menteeProfile: action.payload };
+      console.log('payload', action.payload);
+      return {
+        ...state,
+        isLoading: false,
+        mentees: [...state.mentees, action.payload.mentee],
+        message: action.payload.message,
+      };
     case EDIT_MENTEE_PROFILE_FAILURE:
+    case FETCH_MENTEE_PROFILE_FAILURE:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: false };
     case FETCH_MENTEE_BY_DOB_SUCCESS:

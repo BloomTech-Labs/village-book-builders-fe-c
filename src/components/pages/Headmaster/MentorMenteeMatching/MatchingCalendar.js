@@ -15,8 +15,7 @@ const initialState = {
 };
 
 const MatchingCalendar = props => {
-  const { matches, fetchCalendarAction: fetchCalendar } = props;
-
+  const { matches, fetchCalendar } = props;
   useEffect(() => {
     fetchCalendar();
   }, [fetchCalendar]);
@@ -48,21 +47,23 @@ const MatchingCalendar = props => {
 
   const [calValue, setCalValue] = useState(initialState);
 
-  const onFinish = () => {};
-
   //standard picker handler
   const handleChange = e => {
     setCalValue({ ...calValue, [e.target.name]: e.target.value });
   };
 
-  const [clicked, setClicked] = useState(false);
-  const [clicked2, setClicked2] = useState(false);
-
-  const handleClick = () => {
-    setClicked(!clicked);
+  const onFinish = cValue => {
+    console.log(cValue);
   };
-  const handleClick2 = () => {
-    setClicked2(!clicked2);
+
+  const [clickMenteeList, setClickMenteeList] = useState(false);
+  const [clickMentorList, setClickMentorList] = useState(false);
+
+  const handleClickMenteeList = () => {
+    setClickMenteeList(!clickMenteeList);
+  };
+  const handleClickMentorList = () => {
+    setClickMentorList(!clickMentorList);
   };
 
   return (
@@ -162,13 +163,17 @@ const MatchingCalendar = props => {
       <div className="miniListContainer">
         <div className="listButton1">
           <h1>Mentor List</h1>
-          <button onClick={handleClick}>{clicked ? 'Hide' : 'Show'}</button>
-          {clicked ? <MiniMentorList /> : null}
+          <button onClick={handleClickMentorList}>
+            {clickMentorList ? 'Hide' : 'Show'}
+          </button>
+          {clickMentorList ? <MiniMentorList /> : null}
         </div>
         <div className="listButton2">
           <h1>Mentee List</h1>
-          <button onClick={handleClick2}>{clicked2 ? 'Hide' : 'Show'}</button>
-          {clicked2 ? <MiniMenteeList /> : null}
+          <button onClick={handleClickMenteeList}>
+            {clickMenteeList ? 'Hide' : 'Show'}
+          </button>
+          {clickMenteeList ? <MiniMenteeList /> : null}
         </div>
       </div>
     </div>
