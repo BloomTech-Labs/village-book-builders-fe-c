@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchTeacherProfile as fetchTeacherProfileAction } from '../../../state/actions';
 
 const TeacherHome = props => {
-  const { profile, fetchTeacherProfile } = props;
+  const { profile, fetchTeacherProfileAction: fetchTeacherProfile } = props;
 
   useEffect(() => {
     fetchTeacherProfile(1); // change this later with login

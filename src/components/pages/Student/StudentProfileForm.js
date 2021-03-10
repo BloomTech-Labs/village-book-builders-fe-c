@@ -25,8 +25,8 @@ const initialState = {
 };
 
 const StudentProfileForm = ({
-  fetchMenteeProfile,
-  editMenteeProfile,
+  fetchMenteeProfileAction: fetchMenteeProfile,
+  editMenteeProfileAction: editMenteeProfile,
   menteeProfile,
   isLoading,
   role,

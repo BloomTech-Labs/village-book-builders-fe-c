@@ -5,7 +5,7 @@ import School from './School.component';
 import { Divider } from 'antd';
 
 const Schools = props => {
-  const { fetchSchools, schools } = props;
+  const { fetchSchoolsAction: fetchSchools, schools } = props;
   useEffect(() => {
     fetchSchools();
   }, [fetchSchools]);

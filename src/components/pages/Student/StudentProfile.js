@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { Button } from 'antd';
 import { fetchMenteeProfile as fetchMenteeProfileAction } from '../../../state/actions';
 
-const StudentProfile = ({ fetchMenteeProfile, profile }) => {
+const StudentProfile = ({
+  fetchMenteeProfileAction: fetchMenteeProfile,
+  profile,
+}) => {
   useEffect(() => {
     fetchMenteeProfile(1); // change this later with login
   }, [fetchMenteeProfile]);

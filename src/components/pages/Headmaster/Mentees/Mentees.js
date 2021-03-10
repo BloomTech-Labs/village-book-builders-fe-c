@@ -15,7 +15,7 @@ const Mentees = props => {
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState(false);
   const [currentMentee, setCurrentMentee] = useState({});
-  const { fetchMentees } = props;
+  const { fetchMenteesAction: fetchMentees } = props;
 
   const editingHandler = (e, menteeData) => {
     if (showModal) {

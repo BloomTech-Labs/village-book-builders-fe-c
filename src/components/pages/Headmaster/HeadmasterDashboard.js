@@ -28,7 +28,10 @@ import {
 } from '@ant-design/icons';
 
 const HeadmasterDashboard = props => {
-  const { profile, fetchHeadmasterProfile } = props;
+  const {
+    profile,
+    fetchHeadmasterProfileAction: fetchHeadmasterProfile,
+  } = props;
 
   useEffect(() => {
     fetchHeadmasterProfile(1); // change this later with login

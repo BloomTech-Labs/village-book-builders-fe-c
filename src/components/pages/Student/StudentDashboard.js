@@ -10,7 +10,11 @@ import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
 import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 
 const StudentDashboard = props => {
-  const { profile, fetchMenteeProfile, isLoading } = props;
+  const {
+    profile,
+    fetchMenteeProfileAction: fetchMenteeProfile,
+    isLoading,
+  } = props;
 
   useEffect(() => {
     fetchMenteeProfile(1); // change this later with login

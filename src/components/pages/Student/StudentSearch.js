@@ -17,8 +17,8 @@ const StudentSearch = props => {
   const { Search } = Input;
   const { Meta } = Card;
 
-  const { fetchMenteesBySearch } = props;
-  // const { fetchMenteesByDateSearch } = props;
+  const { fetchMenteesBySearchAction: fetchMenteesBySearch } = props;
+  // const { fetchMenteesByDateSearchAction: fetchMenteesByDateSearch } = props;
 
   const onSubmit = e => {
     console.log(lastNameSearch);

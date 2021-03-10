@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { List, Avatar } from 'antd';
 import { fetchStudentResources as fetchStudentResourcesAction } from '../../../state/actions';
 
-const StudentHome = ({ fetchStudentResources, studentResource, isLoading }) => {
+const StudentHome = ({
+  fetchStudentResourcesAction: fetchStudentResources,
+  studentResource,
+  isLoading,
+}) => {
   useEffect(() => {
     fetchStudentResources(1); // change this later with login
   }, [fetchStudentResources]);

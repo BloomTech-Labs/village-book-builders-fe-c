@@ -4,7 +4,7 @@ import { Divider, List, Avatar } from 'antd';
 import { fetchMentees as fetchMenteesAction } from '../../../../state/actions/index';
 
 const MiniMenteeList = props => {
-  const { fetchMentees } = props;
+  const { fetchMenteesAction: fetchMentees } = props;
 
   useEffect(() => {
     fetchMentees();

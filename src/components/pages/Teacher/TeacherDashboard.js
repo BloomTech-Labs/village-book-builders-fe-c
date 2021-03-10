@@ -18,7 +18,7 @@ import {
 } from '@ant-design/icons';
 
 const TeacherDashboard = props => {
-  const { profile, fetchTeacherProfile } = props;
+  const { profile, fetchTeacherProfileAction: fetchTeacherProfile } = props;
 
   useEffect(() => {
     fetchTeacherProfile(1); // change this later with login

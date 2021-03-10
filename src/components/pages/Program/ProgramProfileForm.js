@@ -15,8 +15,8 @@ const initialState = {
 };
 
 const ProgramProfileForm = ({
-  fetchProgramProfile,
-  editProgramProfile,
+  fetchProgramProfileAction: fetchProgramProfile,
+  editProgramProfileAction: editProgramProfile,
   programProfile,
   isLoading,
 }) => {

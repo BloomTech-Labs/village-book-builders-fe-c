@@ -5,7 +5,7 @@ import Moment from 'moment';
 import { fetchMentors as fetchMentorsAction } from '../../../state/actions/index';
 
 const MentorList = props => {
-  const { fetchMentors } = props;
+  const { fetchMentorsAction: fetchMentors } = props;
 
   useEffect(() => {
     fetchMentors();

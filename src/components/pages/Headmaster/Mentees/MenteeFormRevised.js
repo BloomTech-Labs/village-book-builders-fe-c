@@ -9,13 +9,15 @@ import { useHistory } from 'react-router-dom';
 import '../../../../style.css';
 
 const MenteeFormRevised = props => {
-  const { fetchMentors } = props;
+  const {
+    fetchMentorsAction: fetchMentors,
+    editMenteeProfileAction: editMenteeProfile,
+  } = props;
   const history = useHistory();
 
   useEffect(() => {
     fetchMentors();
   }, [fetchMentors]);
-  console.log('props-->', props);
 
   //Defines data for each column in mentor table
   const columns = [

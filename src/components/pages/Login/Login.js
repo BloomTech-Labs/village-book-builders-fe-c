@@ -12,7 +12,7 @@ const initialState = {
   password: '',
 };
 
-const Login = ({ login, loggedIn }) => {
+const Login = ({ loginAction: login, loggedIn }) => {
   const [formData, setFormData] = useState(initialState);
   const [form] = Form.useForm();
 

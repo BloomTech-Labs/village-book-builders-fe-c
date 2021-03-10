@@ -18,7 +18,7 @@ import {
 } from '@ant-design/icons';
 
 const ProgramDashboard = props => {
-  const { profile, fetchProgramProfile } = props;
+  const { profile, fetchProgramProfileAction: fetchProgramProfile } = props;
 
   useEffect(() => {
     fetchProgramProfile(1); // change this later with login

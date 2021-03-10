@@ -20,8 +20,8 @@ const initialState = {
   dob: '',
 };
 const TeacherProfileForm = ({
-  fetchTeacherProfile,
-  editTeacherProfile,
+  fetchTeacherProfileAction: fetchTeacherProfile,
+  editTeacherProfileAction: editTeacherProfile,
   teacherProfile,
   isLoading,
 }) => {

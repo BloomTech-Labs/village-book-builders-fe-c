@@ -5,7 +5,10 @@ import { fetchHeadmasterProfile as fetchHeadmasterProfileAction } from '../../..
 import { Button } from 'antd';
 
 const HeadmasterProfile = props => {
-  const { profile, fetchHeadmasterProfile } = props;
+  const {
+    profile,
+    fetchHeadmasterProfileAction: fetchHeadmasterProfile,
+  } = props;
   useEffect(() => {
     fetchHeadmasterProfile(2); // change this later with login
   }, [fetchHeadmasterProfile]);

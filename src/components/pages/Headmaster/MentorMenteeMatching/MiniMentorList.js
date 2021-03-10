@@ -4,7 +4,7 @@ import { Divider, List, Avatar } from 'antd';
 import { fetchMentors as fetchMentorsAction } from '../../../../state/actions/index';
 
 const MiniMentorList = props => {
-  const { fetchMentors } = props;
+  const { fetchMentorsAction: fetchMentors } = props;
 
   useEffect(() => {
     fetchMentors();
