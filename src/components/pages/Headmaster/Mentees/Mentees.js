@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Divider, Input, Modal, List, Avatar } from 'antd';
 import { connect } from 'react-redux';
-import { checkToken, fetchMentees } from '../../../../state/actions/index';
+import {
+  checkToken,
+  fetchMentees as fetchMenteesAction,
+} from '../../../../state/actions/index';
 import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
 import '../../../../style.css';
@@ -158,4 +161,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { checkToken, fetchMentees })(Mentees);
+export default connect(mapStateToProps, { checkToken, fetchMenteesAction })(
+  Mentees
+);

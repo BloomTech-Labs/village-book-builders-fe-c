@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchTeacherProfile } from '../../../state/actions';
+import { fetchTeacherProfile as fetchTeacherProfileAction } from '../../../state/actions';
 
 const TeacherHome = props => {
   const { profile, fetchTeacherProfile } = props;
@@ -24,4 +24,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchTeacherProfile })(TeacherHome);
+export default connect(mapStateToProps, { fetchTeacherProfileAction })(
+  TeacherHome
+);

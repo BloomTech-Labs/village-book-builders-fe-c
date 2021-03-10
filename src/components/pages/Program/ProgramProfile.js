@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchProgramProfile } from '../../../state/actions';
+import { fetchProgramProfile as fetchProgramProfileAction } from '../../../state/actions';
 import { Button } from 'antd';
 
 const ProgramProfile = ({ profile, fetchProgramProfile }) => {
@@ -36,6 +36,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchProgramProfile })(
+export default connect(mapStateToProps, { fetchProgramProfileAction })(
   ProgramProfile
 );

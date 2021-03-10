@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { List, Avatar } from 'antd';
-import { fetchStudentResources } from '../../../state/actions';
+import { fetchStudentResources as fetchStudentResourcesAction } from '../../../state/actions';
 
 const StudentHome = ({ fetchStudentResources, studentResource, isLoading }) => {
   useEffect(() => {
@@ -77,4 +77,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchStudentResources })(StudentHome);
+export default connect(mapStateToProps, { fetchStudentResourcesAction })(
+  StudentHome
+);

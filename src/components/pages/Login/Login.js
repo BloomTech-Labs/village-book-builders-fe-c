@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import { Form, Input, Checkbox, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import { login } from '../../../state/actions';
+import { login as loginAction } from '../../../state/actions';
 
 const initialState = {
   email: '',
@@ -106,4 +106,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { loginAction })(Login);

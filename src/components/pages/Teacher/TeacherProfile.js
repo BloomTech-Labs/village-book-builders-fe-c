@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchTeacherProfile } from '../../../state/actions';
+import { fetchTeacherProfile as fetchTeacherProfileAction } from '../../../state/actions';
 import { Button } from 'antd';
 
 const TeacherProfile = ({ fetchTeacherProfile, profile }) => {
@@ -41,6 +41,6 @@ const mapStateToProps = state => {
     profile: state.teacherReducer.teacherProfile,
   };
 };
-export default connect(mapStateToProps, { fetchTeacherProfile })(
+export default connect(mapStateToProps, { fetchTeacherProfileAction })(
   TeacherProfile
 );

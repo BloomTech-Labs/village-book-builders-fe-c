@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {
-  fetchMenteesBySearch,
-  fetchMenteesByDateSearch,
+  fetchMenteesBySearch as fetchMenteesBySearchAction,
+  fetchMenteesByDateSearch as fetchMenteesByDateSearchAction,
 } from '../../../state/actions/index';
 import Moment from 'moment';
 import { Input, Button, Alert, Space, Card, Avatar } from 'antd';
@@ -140,6 +140,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  fetchMenteesBySearch,
-  fetchMenteesByDateSearch,
+  fetchMenteesBySearchAction,
+  fetchMenteesByDateSearchAction,
 })(StudentSearch);

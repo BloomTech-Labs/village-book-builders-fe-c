@@ -7,7 +7,7 @@ import TeacherProfile from './TeacherProfile';
 import TeacherProfileForm from './TeacherProfileForm';
 import StudentProfileForm from '../Student/StudentProfileForm';
 import StudentForm from '../Student/StudentForm';
-import { fetchTeacherProfile } from '../../../state/actions';
+import { fetchTeacherProfile as fetchTeacherProfileAction } from '../../../state/actions';
 import Logout from '../../Logout.js';
 import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
 import {
@@ -114,6 +114,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchTeacherProfile })(
+export default connect(mapStateToProps, { fetchTeacherProfileAction })(
   TeacherDashboard
 );

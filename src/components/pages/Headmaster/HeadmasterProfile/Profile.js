@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchHeadmasterProfile } from '../../../../state/actions';
+import { fetchHeadmasterProfile as fetchHeadmasterProfileAction } from '../../../../state/actions';
 import { Button } from 'antd';
 
 const HeadmasterProfile = props => {
@@ -48,6 +48,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchHeadmasterProfile })(
+export default connect(mapStateToProps, { fetchHeadmasterProfileAction })(
   HeadmasterProfile
 );

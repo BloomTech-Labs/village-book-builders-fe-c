@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
-import { fetchMenteeProfile } from '../../../state/actions';
+import { fetchMenteeProfile as fetchMenteeProfileAction } from '../../../state/actions';
 
 const StudentProfile = ({ fetchMenteeProfile, profile }) => {
   useEffect(() => {
@@ -60,4 +60,6 @@ const mapStateToProps = state => {
     profile: state.menteeReducer.menteeProfile,
   };
 };
-export default connect(mapStateToProps, { fetchMenteeProfile })(StudentProfile);
+export default connect(mapStateToProps, { fetchMenteeProfileAction })(
+  StudentProfile
+);

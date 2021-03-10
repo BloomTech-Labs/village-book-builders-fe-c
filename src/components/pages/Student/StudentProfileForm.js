@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { Form, Input, Radio, Button } from 'antd';
 import {
-  editMenteeProfile,
-  fetchMenteeProfile,
+  editMenteeProfile as editMenteeProfileAction,
+  fetchMenteeProfile as fetchMenteeProfileAction,
 } from '../../../state/actions/index';
 // import { debugLog } from '../../../utils/debugMode';
 
@@ -247,6 +247,6 @@ const mapStateToProps = state => {
   };
 };
 export default connect(mapStateToProps, {
-  editMenteeProfile,
-  fetchMenteeProfile,
+  editMenteeProfileAction,
+  fetchMenteeProfileAction,
 })(StudentProfileForm);

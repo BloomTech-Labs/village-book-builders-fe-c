@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchSchools } from '../../../state/actions/index';
+import { fetchSchools as fetchSchoolsAction } from '../../../state/actions/index';
 import School from './School.component';
 import { Divider } from 'antd';
 
@@ -26,4 +26,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchSchools })(Schools);
+export default connect(mapStateToProps, { fetchSchoolsAction })(Schools);

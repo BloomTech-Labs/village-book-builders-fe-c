@@ -6,7 +6,7 @@ import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 import MatchingModal from './MatchingModal';
 import MatchCell from './MatchCell';
-import { fetchCalendar } from '../../../../state/actions/index';
+import { fetchCalendar as fetchCalendarAction } from '../../../../state/actions/index';
 
 const initialState = {
   date: '',
@@ -183,4 +183,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchCalendar })(MatchingCalendar);
+export default connect(mapStateToProps, { fetchCalendarAction })(
+  MatchingCalendar
+);

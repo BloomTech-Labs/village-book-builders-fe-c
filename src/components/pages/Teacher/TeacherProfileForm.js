@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { Form, Input, Radio, Button } from 'antd';
 import {
-  editTeacherProfile,
-  fetchTeacherProfile,
+  editTeacherProfile as editTeacherProfileAction,
+  fetchTeacherProfile as fetchTeacherProfileAction,
 } from '../../../state/actions/index';
 // import { debugLog } from '../../../utils/debugMode';
 
@@ -131,6 +131,6 @@ const mapStateToProps = state => {
   };
 };
 export default connect(mapStateToProps, {
-  editTeacherProfile,
-  fetchTeacherProfile,
+  editTeacherProfileAction,
+  fetchTeacherProfileAction,
 })(TeacherProfileForm);

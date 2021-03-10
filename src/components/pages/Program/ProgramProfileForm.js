@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
 import {
-  editProgramProfile,
-  fetchProgramProfile,
+  editProgramProfile as editProgramProfileAction,
+  fetchProgramProfile as fetchProgramProfileAction,
 } from '../../../state/actions/index';
 // import { debugLog } from '../../../utils/debugMode';
 
@@ -112,6 +112,6 @@ const mapStateToProps = state => {
   };
 };
 export default connect(mapStateToProps, {
-  editProgramProfile,
-  fetchProgramProfile,
+  editProgramProfileAction,
+  fetchProgramProfileAction,
 })(ProgramProfileForm);

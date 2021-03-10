@@ -58,10 +58,16 @@ const reducer = (state = initialState, action = {}) => {
         isLoading: false,
         mentees: action.payload,
       };
+
+    // TODO: Make these individual cases (they all do the same right now)
     case FETCH_MENTEE_START:
+    case FETCH_MENTOR_START:
+    case FETCH_CALENDAR_START:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: true };
     case FETCH_MENTEE_FAILURE:
+    case FETCH_MENTOR_FAILURE:
+    case FETCH_CALENDAR_FAILURE:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: false };
 
@@ -72,14 +78,6 @@ const reducer = (state = initialState, action = {}) => {
         isLoading: false,
         mentors: action.payload,
       };
-    case FETCH_MENTOR_START:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: true };
-    case FETCH_MENTOR_FAILURE:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
-    default:
-      return state;
 
     case FETCH_CALENDAR_SUCCESS:
       debugLog(action.type, action.payload);
@@ -88,12 +86,9 @@ const reducer = (state = initialState, action = {}) => {
         isLoading: false,
         matches: action.payload,
       };
-    case FETCH_CALENDAR_START:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: true };
-    case FETCH_CALENDAR_FAILURE:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
+
+    default:
+      return state;
   }
 };
 

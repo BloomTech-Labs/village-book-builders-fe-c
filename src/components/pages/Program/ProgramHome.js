@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchProgramProfile } from '../../../state/actions';
+import { fetchProgramProfile as fetchProgramProfileAction } from '../../../state/actions';
 
 const ProgramHome = ({ profile, fetchProgramProfile }) => {
   useEffect(() => {
@@ -23,4 +23,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchProgramProfile })(ProgramHome);
+export default connect(mapStateToProps, { fetchProgramProfileAction })(
+  ProgramHome
+);

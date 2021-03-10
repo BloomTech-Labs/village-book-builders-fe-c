@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Divider, List, Avatar } from 'antd';
-import { fetchMentors } from '../../../../state/actions/index';
+import { fetchMentors as fetchMentorsAction } from '../../../../state/actions/index';
 
 const MiniMentorList = props => {
   const { fetchMentors } = props;
@@ -68,4 +68,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchMentors })(MiniMentorList);
+export default connect(mapStateToProps, { fetchMentorsAction })(MiniMentorList);

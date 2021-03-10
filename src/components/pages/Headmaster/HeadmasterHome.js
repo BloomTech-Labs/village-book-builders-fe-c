@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchHeadmasterProfile } from '../../../state/actions';
+import { fetchHeadmasterProfile as fetchHeadmasterProfileAction } from '../../../state/actions';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
 const HeadmasterHome = props => {
@@ -44,6 +44,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchHeadmasterProfile })(
+export default connect(mapStateToProps, { fetchHeadmasterProfileAction })(
   HeadmasterHome
 );

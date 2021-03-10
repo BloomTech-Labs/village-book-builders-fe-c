@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Divider, List, Avatar } from 'antd';
 import Moment from 'moment';
-import { fetchMentors } from '../../../state/actions/index';
+import { fetchMentors as fetchMentorsAction } from '../../../state/actions/index';
 
 const MentorList = props => {
   const { fetchMentors } = props;
@@ -75,4 +75,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchMentors })(MentorList);
+export default connect(mapStateToProps, { fetchMentorsAction })(MentorList);

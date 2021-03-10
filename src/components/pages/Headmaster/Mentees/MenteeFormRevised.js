@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Form, Input, DatePicker, Radio, Divider } from 'antd';
-import { editMenteeProfile } from '../../../../state/actions/index.js';
-import { fetchMentors } from '../../../../state/actions/index';
+import { Table, Form, Input, Radio, Divider } from 'antd';
+import {
+  fetchMentors as fetchMentorsAction,
+  editMenteeProfile as editMenteeProfileAction,
+} from '../../../../state/actions/index';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import '../../../../style.css';
@@ -271,6 +273,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchMentors, editMenteeProfile })(
-  MenteeFormRevised
-);
+export default connect(mapStateToProps, {
+  fetchMentorsAction,
+  editMenteeProfileAction,
+})(MenteeFormRevised);
