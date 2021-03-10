@@ -185,10 +185,7 @@ export const editMenteeProfile = (id, data) => dispatch => {
     .then(res => {
       dispatch({
         type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
-        payload: {
-          mentee: res.data,
-          message: 'Successfully edited mentee.',
-        },
+        payload: res.data,
       });
     })
     .catch(err =>
@@ -376,4 +373,12 @@ export const fetchProgramProfile = id => dispatch => {
         payload: err,
       })
     );
+};
+
+export const hideModal = () => dispatch => {
+  dispatch({ type: actionTypes.HIDE_MODAL });
+};
+
+export const showModal = () => dispatch => {
+  dispatch({ type: actionTypes.SHOW_MODAL });
 };
