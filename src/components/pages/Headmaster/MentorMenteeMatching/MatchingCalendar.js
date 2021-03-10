@@ -6,7 +6,7 @@ import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 import MatchingModal from './MatchingModal';
 import MatchCell from './MatchCell';
-import { fetchCalendar } from '../../../../state/actions/index';
+import { fetchCalendar as fetchCalendarAction } from '../../../../state/actions/index';
 
 const initialState = {
   date: '',
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const MatchingCalendar = props => {
-  const { matches, fetchCalendar } = props;
+  const { matches, fetchCalendarAction: fetchCalendar } = props;
   useEffect(() => {
     fetchCalendar();
   }, [fetchCalendar]);
@@ -37,10 +37,8 @@ const MatchingCalendar = props => {
   }
 
   function getListData(value) {
-    let listData;
-    const date = `${value.format('YYYY-MM-DD')}`;
-
-    return matches.filter(m => m.date === date) || [];
+    const currentDate = `${value.format('YYYY-MM-DD')}`;
+    return matches.filter(m => m.date === currentDate) || [];
   }
   //-----------------------end calendar code
 
@@ -54,8 +52,8 @@ const MatchingCalendar = props => {
     setCalValue({ ...calValue, [e.target.name]: e.target.value });
   };
 
-  const onFinish = calValue => {
-    console.log(calValue);
+  const onFinish = cValue => {
+    console.log(cValue);
   };
 
   const [clickMenteeList, setClickMenteeList] = useState(false);
@@ -190,4 +188,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchCalendar })(MatchingCalendar);
+export default connect(mapStateToProps, { fetchCalendarAction })(
+  MatchingCalendar
+);

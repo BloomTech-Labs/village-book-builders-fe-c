@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchTeacherProfile } from '../../../state/actions';
+import { fetchTeacherProfile as fetchTeacherProfileAction } from '../../../state/actions';
 
 const TeacherHome = props => {
-  const { profile } = props;
+  const { profile, fetchTeacherProfileAction: fetchTeacherProfile } = props;
 
   useEffect(() => {
-    props.fetchTeacherProfile(1); // change this later with login
-  }, []);
-  console.log(profile);
+    fetchTeacherProfile(1); // change this later with login
+  }, [fetchTeacherProfile]);
 
   return (
     <div>
       <h1 style={{ textAlign: 'center' }} className="page-title">
-        Home
+        Home {profile.name}
       </h1>
     </div>
   );
@@ -25,4 +24,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchTeacherProfile })(TeacherHome);
+export default connect(mapStateToProps, { fetchTeacherProfileAction })(
+  TeacherHome
+);

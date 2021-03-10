@@ -1,5 +1,4 @@
 import { Avatar, Collapse, Row, Col, Alert } from 'antd';
-import moment from 'moment';
 import React from 'react';
 //import { debugLog } from '../../../../utils/debugMode';
 import '../../../../style.css';

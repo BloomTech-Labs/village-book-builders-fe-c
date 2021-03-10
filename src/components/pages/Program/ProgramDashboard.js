@@ -7,7 +7,7 @@ import StudentProfileForm from '../Student/StudentProfileForm';
 import StudentForm from '../Student/StudentForm';
 import ProgramProfile from './ProgramProfile';
 import ProgramProfileForm from './ProgramProfileForm';
-import { fetchProgramProfile } from '../../../state/actions';
+import { fetchProgramProfile as fetchProgramProfileAction } from '../../../state/actions';
 import Logout from '../../Logout.js';
 import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
 import {
@@ -18,11 +18,11 @@ import {
 } from '@ant-design/icons';
 
 const ProgramDashboard = props => {
-  const { profile } = props;
+  const { profile, fetchProgramProfileAction: fetchProgramProfile } = props;
 
   useEffect(() => {
-    props.fetchProgramProfile(1); // change this later with login
-  }, []);
+    fetchProgramProfile(1); // change this later with login
+  }, [fetchProgramProfile]);
   console.log(profile);
 
   const { Content, Sider } = Layout;
@@ -114,6 +114,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchProgramProfile })(
+export default connect(mapStateToProps, { fetchProgramProfileAction })(
   ProgramDashboard
 );

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
 import {
-  editProgramProfile,
-  fetchProgramProfile,
+  editProgramProfile as editProgramProfileAction,
+  fetchProgramProfile as fetchProgramProfileAction,
 } from '../../../state/actions/index';
-import { debugLog } from '../../../utils/debugMode';
+// import { debugLog } from '../../../utils/debugMode';
 
 const initialState = {
   name: '',
@@ -15,8 +15,8 @@ const initialState = {
 };
 
 const ProgramProfileForm = ({
-  fetchProgramProfile,
-  editProgramProfile,
+  fetchProgramProfileAction: fetchProgramProfile,
+  editProgramProfileAction: editProgramProfile,
   programProfile,
   isLoading,
 }) => {
@@ -32,7 +32,7 @@ const ProgramProfileForm = ({
       form.setFieldsValue(programProfile);
       setFormValues(programProfile);
     }
-  }, [fetchProgramProfile]);
+  }, [fetchProgramProfile, setFormValues, programProfile, pathname, form]);
 
   const handleSubmit = e => {
     editProgramProfile(params, formValues);
@@ -112,6 +112,6 @@ const mapStateToProps = state => {
   };
 };
 export default connect(mapStateToProps, {
-  editProgramProfile,
-  fetchProgramProfile,
+  editProgramProfileAction,
+  fetchProgramProfileAction,
 })(ProgramProfileForm);

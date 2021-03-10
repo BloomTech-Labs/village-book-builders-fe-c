@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { Form, Input, DatePicker, Space, Radio, Button } from 'antd';
-import Moment from 'moment';
+import { Form, Input, Radio, Button } from 'antd';
 import {
-  editTeacherProfile,
-  fetchTeacherProfile,
+  editTeacherProfile as editTeacherProfileAction,
+  fetchTeacherProfile as fetchTeacherProfileAction,
 } from '../../../state/actions/index';
-import { debugLog } from '../../../utils/debugMode';
+// import { debugLog } from '../../../utils/debugMode';
 
-const dateFormat = 'MM/DD/YYYY';
-const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 const initialState = {
   first_name: '',
   last_name: '',
@@ -23,8 +20,8 @@ const initialState = {
   dob: '',
 };
 const TeacherProfileForm = ({
-  fetchTeacherProfile,
-  editTeacherProfile,
+  fetchTeacherProfileAction: fetchTeacherProfile,
+  editTeacherProfileAction: editTeacherProfile,
   teacherProfile,
   isLoading,
 }) => {
@@ -40,7 +37,7 @@ const TeacherProfileForm = ({
       form.setFieldsValue(teacherProfile);
       setFormValues(teacherProfile);
     }
-  }, [fetchTeacherProfile]);
+  }, [fetchTeacherProfile, form, pathname, teacherProfile]);
 
   const onChange = e => {
     console.log('radio checked', e.target.value);
@@ -134,6 +131,6 @@ const mapStateToProps = state => {
   };
 };
 export default connect(mapStateToProps, {
-  editTeacherProfile,
-  fetchTeacherProfile,
+  editTeacherProfileAction,
+  fetchTeacherProfileAction,
 })(TeacherProfileForm);

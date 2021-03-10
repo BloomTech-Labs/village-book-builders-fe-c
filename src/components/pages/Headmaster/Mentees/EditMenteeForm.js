@@ -14,75 +14,70 @@ import {
 import moment from 'moment';
 //import { debugLog } from '../../../../utils/debugMode';
 import {
-  fetchMenteeProfile,
-  editMenteeProfile,
+  fetchMenteeProfile as fetchMenteeProfileAction,
+  editMenteeProfile as editMenteeProfileAction,
 } from '../../../../state/actions';
 import '../../../../style.css';
 
-//const dateFormat = 'YYYY-MM-DD';
-// const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
-// const timeFormat = 'HH:mm';
-// const genders = ['Male', 'Female', 'Other'];
-
-let initialState = {
-  first_name: '',
-  last_name: '',
-  gender: '',
-  dob: '',
-  mentee_picture: 'http://placeimg.com/640/480',
-  english_lvl: '',
-  math_lvl: '',
-  reading_lvl: '',
-  school_lvl: '',
-  academic_description: '',
-  support_needed: '',
-  primary_language: '',
-  availability: {
-    time_zone: '',
-    as_early_as: '',
-    as_late_as: '',
-    methods: [],
-  },
-  email: '',
-  dynamic_questions: [
-    {
-      qId: 0,
-      question: 'My favorite thing to do in my free time is',
-    },
-    {
-      qId: 1,
-      question: 'When I grow up, I want to be',
-    },
-    {
-      qId: 2,
-      question: 'Goals & Dreams Notes',
-    },
-    {
-      qId: 3,
-      question: 'Personal Struggles Notes',
-    },
-    {
-      qId: 4,
-      question: 'Other interests/hobbies',
-    },
-    {
-      qId: 5,
-      question: 'Skills Notes',
-    },
-    {
-      qId: 6,
-      question: 'Family Notes',
-    },
-    {
-      qId: 7,
-      question: 'Other Notes',
-    },
-    {
-      qId: 8,
-      question: 'Admin Notes',
-    },
-  ],
-};
+// let initialState = {
+//   first_name: '',
+//   last_name: '',
+//   gender: '',
+//   dob: '',
+//   mentee_picture: 'http://placeimg.com/640/480',
+//   english_lvl: '',
+//   math_lvl: '',
+//   reading_lvl: '',
+//   school_lvl: '',
+//   academic_description: '',
+//   support_needed: '',
+//   primary_language: '',
+//   availability: {
+//     time_zone: '',
+//     as_early_as: '',
+//     as_late_as: '',
+//     methods: [],
+//   },
+//   email: '',
+//   dynamic_questions: [
+//     {
+//       qId: 0,
+//       question: 'My favorite thing to do in my free time is',
+//     },
+//     {
+//       qId: 1,
+//       question: 'When I grow up, I want to be',
+//     },
+//     {
+//       qId: 2,
+//       question: 'Goals & Dreams Notes',
+//     },
+//     {
+//       qId: 3,
+//       question: 'Personal Struggles Notes',
+//     },
+//     {
+//       qId: 4,
+//       question: 'Other interests/hobbies',
+//     },
+//     {
+//       qId: 5,
+//       question: 'Skills Notes',
+//     },
+//     {
+//       qId: 6,
+//       question: 'Family Notes',
+//     },
+//     {
+//       qId: 7,
+//       question: 'Other Notes',
+//     },
+//     {
+//       qId: 8,
+//       question: 'Admin Notes',
+//     },
+//   ],
+// };
 
 const EditMenteeForm = ({
   currentMentee,
@@ -506,4 +501,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(EditMenteeForm);
+export default connect(mapStateToProps, {
+  fetchMenteeProfileAction,
+  editMenteeProfileAction,
+})(EditMenteeForm);

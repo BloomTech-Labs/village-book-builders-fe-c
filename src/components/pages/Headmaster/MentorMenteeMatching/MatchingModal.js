@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-// import MiniMentorList from './MiniMentorList'; // plan to use to display data
-// import MiniMenteeList from './MiniMenteeList'; // plan to use to display data
 import { Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -87,13 +84,6 @@ const MatchingModal = props => {
       </Modal>
     </>
   );
-};
-
-const mapStateToProps = state => {
-  return {
-    isloading: state.headmasterReducer.isLoading,
-    mentees: state.headmasterReducer.mentees,
-  };
 };
 
 export default MatchingModal;

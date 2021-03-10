@@ -31,9 +31,7 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-const authReducer = (state = initialState, action) => {
-  // console.log("authReducer --> action.payload:", action.payload);
-
+const authReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case AUTH_SUCCESS:
       let decoded = parseJwt(String(action.payload));
@@ -46,6 +44,13 @@ const authReducer = (state = initialState, action) => {
       };
     case AUTH_LOGOUT:
       return initialState;
+
+    // These two were temporarily added
+    // But logic should be coded
+    case AUTH_FAIL:
+    case AUTH_START:
+      return initialState;
+
     default:
       return state;
   }
