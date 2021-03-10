@@ -120,6 +120,45 @@ export const fetchMentees = () => dispatch => {
     );
 };
 
+export const addMentee = values => dispatch => {
+  //console.log(values);
+  dispatch({ type: actionTypes.FETCH_MENTEE_START });
+  axiosWithAuth()
+    .post(`/mentee`, values)
+    .then(res => {
+      //console.log(res);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_AFTER_POST_SUCCESS,
+        payload: { mentee: res.data, message: 'Successfully added mentee.' },
+      });
+      //window.location.reload();
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
+    );
+};
+
+export const deleteMentee = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_START });
+  axiosWithAuth()
+    .delete(`/mentee/${id}`)
+    .then(res => {
+      //console.log('id', id);
+      //console.log('res', res);
+      dispatch({
+        type: actionTypes.FETCH_MENTEE_AFTER_DELETE_SUCCESS,
+        payload: {
+          mentee: parseInt(id),
+          message: 'Successfully deleted mentee.',
+        },
+      });
+      //window.location.reload();
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
+    );
+};
+
 export const fetchMenteesByDateSearch = search => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_BY_DOB_START });
   axiosWithAuth()
@@ -146,7 +185,10 @@ export const editMenteeProfile = (id, data) => dispatch => {
     .then(res => {
       dispatch({
         type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
-        payload: res.data,
+        payload: {
+          mentee: res.data,
+          message: 'Successfully edited mentee.',
+        },
       });
     })
     .catch(err =>
