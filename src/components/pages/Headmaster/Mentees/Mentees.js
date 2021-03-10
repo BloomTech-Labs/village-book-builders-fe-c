@@ -3,10 +3,10 @@ import { Button, Divider, Input, Modal, Avatar, Table, Tag, Alert } from 'antd';
 import { connect } from 'react-redux';
 import {
   checkToken,
-  fetchMenteesAction,
-  deleteMenteeAction,
-  addMenteeAction,
-  editMenteeProfileAction,
+  fetchMentees as fetchMenteesAction,
+  deleteMentee as deleteMenteeAction,
+  addMentee as addMenteeAction,
+  editMenteeProfile as editMenteeProfileAction,
 } from '../../../../state/actions/index';
 //import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
@@ -19,7 +19,7 @@ const Mentees = ({
   mentees,
   fetchMenteesAction: fetchMentees,
   deleteMentee,
-  addMentee,
+  addMenteeAction: addMentee,
   editMenteeProfile,
   userId,
   role,

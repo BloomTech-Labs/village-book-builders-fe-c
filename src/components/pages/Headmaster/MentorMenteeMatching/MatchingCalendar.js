@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const MatchingCalendar = props => {
-  const { matches, fetchCalendar } = props;
+  const { matches, fetchCalendarAction: fetchCalendar } = props;
   useEffect(() => {
     fetchCalendar();
   }, [fetchCalendar]);
