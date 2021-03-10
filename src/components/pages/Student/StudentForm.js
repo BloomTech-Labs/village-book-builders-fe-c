@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { useForm } from 'antd/lib/form/Form';
 import { useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
@@ -8,7 +7,6 @@ import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
 function StudentForm() {
   const [form] = Form.useForm();
-  const [formValues, setFormValues] = useState();
 
   const history = useHistory();
 
@@ -25,10 +23,7 @@ function StudentForm() {
       .then(response => {
         history.push('/');
       })
-      .catch(error => alert(error.message))
-      .finally(() => {});
-    console.log('.FINALLY --->', newStudent);
-    setFormValues();
+      .catch(error => alert(error.message));
   };
 
   return (

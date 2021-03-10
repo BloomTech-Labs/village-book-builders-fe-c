@@ -39,7 +39,7 @@ const initialState = {
   message: '',
 };
 // Fetch school data for headmaster
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action = {}) => {
   // console.log('HEADMASTERREDUCER.js, action type & payload:', action.type, action.payload);
   switch (action.type) {
     case FETCH_HEADMASTER_SCHOOLS:
@@ -80,9 +80,13 @@ const reducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     case FETCH_MENTEE_START:
+    case FETCH_MENTOR_START:
+    case FETCH_CALENDAR_START:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: true };
     case FETCH_MENTEE_FAILURE:
+    case FETCH_MENTOR_FAILURE:
+    case FETCH_CALENDAR_FAILURE:
       debugLog(action.type, action.payload);
       return { ...state, isLoading: false };
 
@@ -93,14 +97,6 @@ const reducer = (state = initialState, action) => {
         isLoading: false,
         mentors: action.payload,
       };
-    case FETCH_MENTOR_START:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: true };
-    case FETCH_MENTOR_FAILURE:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
-    default:
-      return state;
 
     case FETCH_CALENDAR_SUCCESS:
       debugLog(action.type, action.payload);
@@ -109,12 +105,9 @@ const reducer = (state = initialState, action) => {
         isLoading: false,
         matches: action.payload,
       };
-    case FETCH_CALENDAR_START:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: true };
-    case FETCH_CALENDAR_FAILURE:
-      debugLog(action.type, action.payload);
-      return { ...state, isLoading: false };
+
+    default:
+      return state;
   }
 };
 

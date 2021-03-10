@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function MatchCell({ match, className }) {
-  const { computerId, time, mentee, mentor, date, id } = match;
+  const { computerId, time, mentee, mentor } = match;
   const Cell = styled.div`
     width: 95%;
     margin: 0;
@@ -28,10 +28,11 @@ function MatchCell({ match, className }) {
   return (
     <Cell>
       <Header>
-        Computer # {computerId} {/*@ {time}*/}
+        Computer # {computerId} @ {time}
       </Header>
       <Option>{mentee ? mentee : '(Not Assigned)'}</Option>
       <Option>{mentor ? mentor : '(Not Assigned)'}</Option>
+      {/* onClick -- opens up modal with necessary information */}
     </Cell>
   );
 }

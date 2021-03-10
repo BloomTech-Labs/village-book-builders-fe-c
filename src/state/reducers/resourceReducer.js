@@ -8,7 +8,7 @@ const initialState = {
   isLoading: true,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case FETCH_STUDENT_RESOURCES:
       debugLog(action.type, action.payload);

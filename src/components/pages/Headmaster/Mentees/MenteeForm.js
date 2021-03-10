@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Form, Input, DatePicker, Radio, Button } from 'antd';
 import moment from 'moment';
 import { debugLog } from '../../../../utils/debugMode';

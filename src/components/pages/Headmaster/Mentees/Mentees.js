@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Divider,
-  List,
-  Input,
-  Modal,
-  Avatar,
-  Table,
-  Tag,
-  Alert,
-} from 'antd';
+import { Button, Divider, Input, Modal, Avatar, Table, Tag, Alert } from 'antd';
 import { connect } from 'react-redux';
 import {
   checkToken,
-  fetchMentees,
-  deleteMentee,
-  addMentee,
-  editMenteeProfile,
+  fetchMentees as fetchMenteesAction,
+  deleteMentee as deleteMenteeAction,
+  addMentee as addMenteeAction,
+  editMenteeProfile as editMenteeProfileAction,
 } from '../../../../state/actions/index';
 //import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
@@ -27,9 +17,9 @@ import '../../../../style.css';
 
 const Mentees = ({
   mentees,
-  fetchMentees,
+  fetchMenteesAction: fetchMentees,
   deleteMentee,
-  addMentee,
+  addMenteeAction: addMentee,
   editMenteeProfile,
   userId,
   role,
@@ -271,7 +261,11 @@ const Mentees = ({
                   <List.Item.Meta
                     onClick={e => moreInfoHandler(e, item)}
                     avatar={<Avatar src={item.mentee_picture} />}
-                    title={<a>{item.first_name + ' ' + item.last_name}</a>}
+                    title={
+                      <Button type="link">
+                        {item.first_name + ' ' + item.last_name}
+                      </Button>
+                    }
                     description={item.academic_description}
                   />
                 </div>
@@ -394,8 +388,8 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   checkToken,
-  fetchMentees,
-  deleteMentee,
-  addMentee,
-  editMenteeProfile,
+  fetchMenteesAction,
+  deleteMenteeAction,
+  addMenteeAction,
+  editMenteeProfileAction,
 })(Mentees);

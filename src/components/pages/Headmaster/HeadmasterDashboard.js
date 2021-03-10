@@ -13,7 +13,7 @@ import HeadmasterProfile from './HeadmasterProfile/Profile.js';
 import ProfileForm from './HeadmasterProfile/ProfileForm.js';
 import MentorList from '../Mentor/MentorList.js';
 import MatchingCalendar from './MentorMenteeMatching/MatchingCalendar';
-import { fetchHeadmasterProfile } from '../../../state/actions';
+import { fetchHeadmasterProfile as fetchHeadmasterProfileAction } from '../../../state/actions';
 import Logout from '../../Logout.js';
 import Mentees from './Mentees/Mentees.js';
 import { Layout, Menu, PageHeader, Button, Avatar } from 'antd';
@@ -28,11 +28,14 @@ import {
 } from '@ant-design/icons';
 
 const HeadmasterDashboard = props => {
-  const { profile } = props;
+  const {
+    profile,
+    fetchHeadmasterProfileAction: fetchHeadmasterProfile,
+  } = props;
 
   useEffect(() => {
-    props.fetchHeadmasterProfile(1); // change this later with login
-  }, []);
+    fetchHeadmasterProfile(1); // change this later with login
+  }, [fetchHeadmasterProfile]);
   // console.log(profile);
 
   const { Content, Sider } = Layout;
@@ -157,6 +160,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchHeadmasterProfile })(
+export default connect(mapStateToProps, { fetchHeadmasterProfileAction })(
   HeadmasterDashboard
 );
