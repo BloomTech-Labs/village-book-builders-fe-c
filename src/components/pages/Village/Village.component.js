@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Divider } from 'antd';
-import { fetchVillage } from '../../../state/actions/index';
+import { fetchVillage as fetchVillageAction } from '../../../state/actions/index';
 
-const Village = ({ villageData, userId, fetchVillage }) => {
+const Village = ({ villageData, fetchVillageAction: fetchVillage }) => {
   useEffect(() => {
-    fetchVillage(userId); // !This headmaster ID is being hardcoded right now
-  }, [fetchVillage, userId]);
+    fetchVillage(1); // !This headmaster ID is being hardcoded right now
+  }, [fetchVillage]);
 
   return (
     <div className="school-village-container">
@@ -45,8 +45,7 @@ const Village = ({ villageData, userId, fetchVillage }) => {
 const mapStateToProps = state => {
   return {
     villageData: state.headmasterReducer.villageData,
-    userId: state.authReducer.userId,
   };
 };
 
-export default connect(mapStateToProps, { fetchVillage })(Village);
+export default connect(mapStateToProps, { fetchVillageAction })(Village);
