@@ -241,7 +241,7 @@ export const fetchStudentResources = () => dispatch => {
 
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
-    .get(`/school`)
+    .get(`/schools`)
     .then(res => {
       // console.log("FETCH SCHOOLS:", res.data);
       dispatch({
