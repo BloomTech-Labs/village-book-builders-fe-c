@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Divider, List, Avatar } from 'antd';
+import { Divider, List, Avatar, Modal, Button } from 'antd';
 import { fetchMentees as fetchMenteesAction } from '../../../../state/actions/index';
+import styled from 'styled-components';
 
 const MiniMenteeList = props => {
   const { fetchMenteesAction: fetchMentees } = props;
@@ -9,6 +10,31 @@ const MiniMenteeList = props => {
   useEffect(() => {
     fetchMentees();
   }, [fetchMentees]);
+
+  const ModalButtonMenteeList = styled.button`
+    color: white;
+    font-weight: bold;
+    background-color: green;
+    width: 100%;
+    display: block;
+    border-radius: 0.5rem;
+    margin: 0.1rem 0;
+  `;
+
+  const [showModal, setShowModal] = useState(false);
+  const [currentMentor, setCurrentMentor] = useState({});
+
+  const handleClickModal = () => {
+    setShowModal(true);
+  };
+
+  const handleOk = () => {
+    setShowModal(true);
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className="miniList">
@@ -51,6 +77,24 @@ const MiniMenteeList = props => {
               <List.Item.Meta
                 title={<header>Primary Language</header>}
                 description={item.primary_language}
+              />
+              <ModalButtonMenteeList
+                style={{ backgroundColor: 'green' }}
+                type="primary"
+                onClick={handleClickModal}
+              >
+                Mentors
+              </ModalButtonMenteeList>
+              <Modal
+                visible={showModal}
+                onCancel={handleCancel}
+                title={item.first_name + ' ' + item.last_name}
+                email={item.email}
+                footer={[
+                  <Button key="back" onClick={handleCancel}>
+                    Return
+                  </Button>,
+                ]}
               />
             </List.Item>
           )}
