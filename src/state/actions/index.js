@@ -72,12 +72,9 @@ export const fetchHeadmasterSchool = () => dispatch => {
 };
 
 export const fetchVillage = id => dispatch => {
-  // console.log("ACTIONSindexFetchVillage --> test", process.env.REACT_APP_BASEURL)
   axiosWithAuth()
-    // .get(`${baseURL}/headmaster/village/${id}`)
     .get(`/village/${id}`)
     .then(res => {
-      // console.log('IndexActionFetchVillage -> res:', res);
       dispatch({ type: actionTypes.FETCH_VILLAGE, payload: res.data });
     })
     .catch(err => console.dir(err));
@@ -244,7 +241,7 @@ export const fetchStudentResources = () => dispatch => {
 
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
-    .get(`/school`)
+    .get(`/schools`)
     .then(res => {
       // console.log("FETCH SCHOOLS:", res.data);
       dispatch({

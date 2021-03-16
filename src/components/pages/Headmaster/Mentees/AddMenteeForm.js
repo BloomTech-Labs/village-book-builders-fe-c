@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-//import { useParams, useHistory } from 'react-router-dom';
 import {
   Form,
   Input,
@@ -11,15 +10,7 @@ import {
   Row,
   Col,
 } from 'antd';
-//import moment from 'moment';
-//import { debugLog } from '../../../../utils/debugMode';
-// import { editMenteeProfile } from '../../../../state/actions';
 import '../../../../style.css';
-
-// const dateFormat = 'MM/DD/YYYY';
-// const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
-// const timeFormat = 'HH:mm';
-// const genders = ['Male', 'Female', 'Other'];
 
 let initialState = {
   first_name: '',
@@ -81,13 +72,7 @@ let initialState = {
   ],
 };
 
-const AddMenteeForm = ({
-  currentMentee,
-  isLoading,
-  message,
-  onsubmit,
-  loading,
-}) => {
+const AddMenteeForm = ({ onsubmit, loading }) => {
   //   debugLog(
   //     'Prop drilled from Mentees.js',
   //     currentMentee,
