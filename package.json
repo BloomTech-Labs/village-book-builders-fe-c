@@ -5,7 +5,12 @@
   "license": "MIT",
   "repository": "github:Lambda-School-Labs/labs-spa-starter",
   "dependencies": {
+    "@ant-design/icons": "^4.5.0",
     "@craco/craco": "^5.6.4",
+    "@fullcalendar/daygrid": "^5.5.0",
+    "@fullcalendar/interaction": "^5.5.0",
+    "@fullcalendar/react": "^5.5.0",
+    "@fullcalendar/timegrid": "^5.5.1",
     "@okta/okta-react": "^3.0.2",
     "@okta/okta-signin-widget": "^4.1.2",
     "antd": "^4.4.3",
@@ -28,7 +33,8 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "craco start",
