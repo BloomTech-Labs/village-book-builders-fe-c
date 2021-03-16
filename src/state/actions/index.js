@@ -6,7 +6,6 @@
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 import * as actionTypes from './actionTypes';
-// const baseURL = process.env.REACT_APP_BASE_URL;
 
 export const checkToken = data => dispatch => {
   dispatch({
@@ -47,7 +46,7 @@ export const logout = () => dispatch => {
 
 export const editHeadmasterProfile = (id, data) => dispatch => {
   axiosWithAuth()
-    .put(`/headmaster/${id}`, data)
+    .put(`/headmasters/${id}`, data)
     .then(res => {
       // ? refactor all the window.location.replace's so this doesn't force a refresh. see how login does it for example.
       window.location.replace('/profile/');
@@ -56,9 +55,8 @@ export const editHeadmasterProfile = (id, data) => dispatch => {
 };
 export const fetchHeadmasterProfile = id => dispatch => {
   axiosWithAuth()
-    .get(`/headmaster/${id}`) // change this later
+    .get(`/headmasters/${id}`) // change this later
     .then(res => {
-      //console.log('fetchHeadmasterProfile action --> ', res.data);
       dispatch({
         type: actionTypes.FETCH_HEADMASTER_PROFILE,
         payload: res.data,
@@ -72,21 +70,20 @@ export const fetchHeadmasterSchool = () => dispatch => {
 };
 
 export const fetchVillage = id => dispatch => {
-  // console.log("ACTIONSindexFetchVillage --> test", process.env.REACT_APP_BASEURL)
   axiosWithAuth()
-    // .get(`${baseURL}/headmaster/village/${id}`)
-    .get(`/village/${id}`)
+    .get(`/villages/${id}`)
     .then(res => {
-      // console.log('IndexActionFetchVillage -> res:', res);
       dispatch({ type: actionTypes.FETCH_VILLAGE, payload: res.data });
     })
     .catch(err => console.dir(err));
 };
 
-export const fetchCalendar = () => dispatch => {
+export const fetchCalendar = (start, end) => dispatch => {
   dispatch({ type: actionTypes.FETCH_CALENDAR_START });
   axiosWithAuth()
-    .get(`/match`)
+    .get(
+      `/sessions?start_gte=${start}&end_lte=${end}&expand=mentee&expand=mentor&expand=village&expand=library`
+    )
     .then(res => {
       dispatch({ type: actionTypes.FETCH_CALENDAR_SUCCESS, payload: res.data });
     })
@@ -95,9 +92,25 @@ export const fetchCalendar = () => dispatch => {
     );
 };
 
+export const createCalendarEvent = event => dispatch => {
+  dispatch({ type: actionTypes.CREATE_CALENDAR_EVENT, payload: event });
+};
+
+export const editCalendarEvent = event => dispatch => {
+  dispatch({ type: actionTypes.EDIT_CALENDAR_EVENT, payload: event });
+};
+
+export const removeCalendarEvent = id => dispatch => {
+  dispatch({ type: actionTypes.REMOVE_CALENDAR_EVENT, payload: id });
+};
+
+export const addCalendarSession = eventId => dispatch => {
+  dispatch({ type: actionTypes.ADD_CALENDAR_SESSION, payload: eventId });
+};
+
 export const editVillage = (id, data) => () => {
   axiosWithAuth()
-    .put(`/village/${id}`, data)
+    .put(`/villages/${id}`, data)
     .then(() => {
       window.location.replace('/school-village/');
     })
@@ -111,7 +124,7 @@ export const editVillage = (id, data) => () => {
 export const fetchMentees = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    .get(`/mentee`)
+    .get(`/mentees`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTEE_SUCCESS, payload: res.data });
     })
@@ -121,17 +134,14 @@ export const fetchMentees = () => dispatch => {
 };
 
 export const addMentee = values => dispatch => {
-  //console.log(values);
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    .post(`/mentee`, values)
+    .post(`/mentees`, values)
     .then(res => {
-      //console.log(res);
       dispatch({
         type: actionTypes.FETCH_MENTEE_AFTER_POST_SUCCESS,
         payload: { mentee: res.data, message: 'Successfully added mentee.' },
       });
-      //window.location.reload();
     })
     .catch(err =>
       dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
@@ -141,10 +151,8 @@ export const addMentee = values => dispatch => {
 export const deleteMentee = id => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_START });
   axiosWithAuth()
-    .delete(`/mentee/${id}`)
+    .delete(`/mentees/${id}`)
     .then(res => {
-      //console.log('id', id);
-      //console.log('res', res);
       dispatch({
         type: actionTypes.FETCH_MENTEE_AFTER_DELETE_SUCCESS,
         payload: {
@@ -152,7 +160,6 @@ export const deleteMentee = id => dispatch => {
           message: 'Successfully deleted mentee.',
         },
       });
-      //window.location.reload();
     })
     .catch(err =>
       dispatch({ type: actionTypes.FETCH_MENTEE_FAILURE, payload: err })
@@ -162,7 +169,7 @@ export const deleteMentee = id => dispatch => {
 export const fetchMenteesByDateSearch = search => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_BY_DOB_START });
   axiosWithAuth()
-    .get(`/mentee?dob=${search}`)
+    .get(`/mentees?dob=${search}`)
     .then(res => {
       console.log('inside the action', res.data);
       dispatch({
@@ -181,7 +188,7 @@ export const fetchMenteesByDateSearch = search => dispatch => {
 export const editMenteeProfile = (id, data) => dispatch => {
   dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_START });
   axiosWithAuth()
-    .put(`/mentee/${id}`, data)
+    .put(`/mentees/${id}`, data)
     .then(res => {
       dispatch({
         type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
@@ -197,7 +204,7 @@ export const fetchMenteeProfile = id => dispatch => {
   //console.log('hols');
   dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
   axiosWithAuth()
-    .get(`/mentee/${id}`)
+    .get(`/mentees/${id}`)
     .then(res => {
       dispatch({
         type: actionTypes.FETCH_MENTEE_PROFILE_SUCCESS,
@@ -212,7 +219,7 @@ export const fetchMenteeProfile = id => dispatch => {
 export const fetchMenteesBySearch = search => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_START });
   axiosWithAuth()
-    .get(`/mentee?last_name=${search}`)
+    .get(`/mentees?last_name=${search}`)
     .then(res => {
       console.log('inside the action', res.data);
       dispatch({
@@ -230,7 +237,7 @@ export const fetchMenteesBySearch = search => dispatch => {
 
 export const fetchStudentResources = () => dispatch => {
   axiosWithAuth()
-    .get(`/resource`)
+    .get(`/resources`)
     .then(res => {
       dispatch({
         type: actionTypes.FETCH_STUDENT_RESOURCES,
@@ -244,7 +251,7 @@ export const fetchStudentResources = () => dispatch => {
 
 export const fetchSchools = () => dispatch => {
   axiosWithAuth()
-    .get(`/school`)
+    .get(`/schools`)
     .then(res => {
       // console.log("FETCH SCHOOLS:", res.data);
       dispatch({
@@ -260,7 +267,7 @@ export const fetchSchools = () => dispatch => {
 
 export const fetchSchool = id => dispatch => {
   axiosWithAuth()
-    .get(`/school/${id}`)
+    .get(`/schools/${id}`)
     .then(res => {
       // console.log(res.data);
     })
@@ -269,7 +276,7 @@ export const fetchSchool = id => dispatch => {
 
 export const editSchool = (id, data) => dispatch => {
   axiosWithAuth()
-    .put(`/school/${id}`, data)
+    .put(`/schools/${id}`, data)
     .then(res => {
       window.location.replace('/school-village/');
     })
@@ -279,7 +286,7 @@ export const editSchool = (id, data) => dispatch => {
 export const fetchMentors = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTOR_START });
   axiosWithAuth()
-    .get(`/mentor`)
+    .get(`/mentors`)
     .then(res => {
       dispatch({ type: actionTypes.FETCH_MENTOR_SUCCESS, payload: res.data });
     })
@@ -294,7 +301,7 @@ export const fetchMentors = () => dispatch => {
 
 export const editLibrary = (id, data) => dispatch => {
   axiosWithAuth()
-    .put(`/library/${id}`, data)
+    .put(`/libraries/${id}`, data)
     .then(() => {
       window.location.replace('/admin/libraries');
     })
@@ -303,7 +310,7 @@ export const editLibrary = (id, data) => dispatch => {
 
 export const addLibrary = (id, data) => dispatch => {
   axiosWithAuth()
-    .post(`/library`, data)
+    .post(`/libraries`, data)
     .then(() => {
       window.location.replace('/admin/libraries');
     })
@@ -316,7 +323,7 @@ export const addLibrary = (id, data) => dispatch => {
 
 export const editTeacherProfile = (id, data) => dispatch => {
   axiosWithAuth()
-    .put(`/teacher/${id}`, data)
+    .put(`/teachers/${id}`, data)
     .then(res => {
       // ? refactor all the window.location.replaces so this doesn't force a refresh. see how login does it for example.
       window.location.replace('/profile/');
@@ -326,7 +333,7 @@ export const editTeacherProfile = (id, data) => dispatch => {
 
 export const fetchTeacherProfile = id => dispatch => {
   axiosWithAuth()
-    .get(`/teacher/${id}`) // change this later
+    .get(`/teachers/${id}`) // change this later
     .then(res => {
       console.log('fetchTeacherProfile action --> ', res.data);
       dispatch({
@@ -344,7 +351,7 @@ export const fetchTeacherProfile = id => dispatch => {
 export const editProgramProfile = (id, data) => dispatch => {
   dispatch({ type: actionTypes.EDIT_PROGRAM_PROFILE_START });
   axiosWithAuth()
-    .put(`/program/${id}`, data)
+    .put(`/programs/${id}`, data)
     .then(res => {
       dispatch({
         type: actionTypes.EDIT_PROGRAM_PROFILE_SUCCESS,
@@ -359,7 +366,7 @@ export const editProgramProfile = (id, data) => dispatch => {
 export const fetchProgramProfile = id => dispatch => {
   dispatch({ type: actionTypes.FETCH_PROGRAM_PROFILE_START });
   axiosWithAuth()
-    .get(`/program/${id}`) // change this later
+    .get(`/programs/${id}`) // change this later
     .then(res => {
       console.log('fetchProgramProfile action --> ', res.data);
       dispatch({

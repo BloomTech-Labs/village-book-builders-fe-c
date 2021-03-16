@@ -90,9 +90,9 @@ const MatchingModal = props => {
 
 const mapStateToProps = state => {
   return {
-    isloading: state.headmasterReducer.isLoading,
-    matchingModal: state.headmasterReducer.matchingModal,
-    matchingModalVisible: state.headmasterReducer.matchingModalVisible,
+    isloading: state.calendarReducer.isLoading,
+    matchingModal: state.calendarReducer.matchingModal,
+    matchingModalVisible: state.calendarReducer.matchingModalVisible,
   };
 };
 
