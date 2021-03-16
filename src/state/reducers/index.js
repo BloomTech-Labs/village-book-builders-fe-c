@@ -8,10 +8,12 @@ import teacherReducer from './teacherReducer';
 import programReducer from './programReducer';
 import menteeReducer from './menteeReducer';
 import resourceReducer from './resourceReducer';
+import calendarReducer from './calendarReducer';
 
 export default combineReducers({
   headmasterReducer,
   authReducer,
+  calendarReducer,
   teacherReducer,
   programReducer,
   menteeReducer,
