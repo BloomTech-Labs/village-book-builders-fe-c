@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import { Divider, List, Avatar, Modal, Button } from 'antd';
 import { fetchMentees as fetchMenteesAction } from '../../../../state/actions/index';
 import styled from 'styled-components';
+import MiniMenteeProfile from '../Mentees/MiniMenteeProfile';
+import { useHistory } from 'react-router-dom';
 
-const MiniMenteeList = props => {
-  const { fetchMenteesAction: fetchMentees } = props;
-
+const MiniMenteeList = ({
+  mentees,
+  fetchMenteesAction: fetchMentees,
+  userId,
+}) => {
   useEffect(() => {
     fetchMentees();
   }, [fetchMentees]);
@@ -15,22 +19,29 @@ const MiniMenteeList = props => {
     color: white;
     font-weight: bold;
     background-color: green;
-    width: 100%;
+    width: 100px;
     display: block;
     border-radius: 0.5rem;
     margin: 0.1rem 0;
   `;
 
+  let history = useHistory();
+
+  const handlePushMenteeList = e => {
+    history.push('/mentee-list');
+  };
+
   const [showModal, setShowModal] = useState(false);
-  const [currentMentor, setCurrentMentor] = useState({});
+  const [currentMentee, setCurrentMentee] = useState({});
 
-  const handleClickModal = () => {
+  console.log(mentees);
+  console.log(currentMentee);
+  const handleClickModal = item => {
     setShowModal(true);
+    setCurrentMentee(item);
   };
 
-  const handleOk = () => {
-    setShowModal(true);
-  };
+  const handleOk = () => {};
 
   const handleCancel = () => {
     setShowModal(false);
@@ -38,17 +49,17 @@ const MiniMenteeList = props => {
 
   return (
     <div className="miniList">
-      <h2>Mentee List</h2>
       <div>
         <Divider />
         <List
           itemLayout="vertical"
-          dataSource={props.mentees}
+          dataSource={mentees}
           renderItem={item => (
-            <List.Item>
+            <List.Item key={item.id}>
               <List.Item.Meta
-                avatar={<Avatar src={item.mentor_picture} />}
+                avatar={<Avatar src={item.mentee_picture} />}
                 title={item.first_name + ' ' + item.last_name}
+                id={item.id}
               />
               {/* <List.Item.Meta
                 title={<header>Email Address</header>}
@@ -79,23 +90,30 @@ const MiniMenteeList = props => {
                 description={item.primary_language}
               />
               <ModalButtonMenteeList
-                style={{ backgroundColor: 'green' }}
+                style={{ backgroundColor: 'orange' }}
                 type="primary"
-                onClick={handleClickModal}
+                onClick={() => handleClickModal(item)}
+                dataSource={mentees}
               >
-                Mentors
+                Info
               </ModalButtonMenteeList>
               <Modal
                 visible={showModal}
                 onCancel={handleCancel}
-                title={item.first_name + ' ' + item.last_name}
-                email={item.email}
+                onOk={handleOk}
+                title={currentMentee.first_name + ' ' + currentMentee.last_name}
+                id={currentMentee.id}
                 footer={[
+                  <Button type="button" onClick={handlePushMenteeList}>
+                    More Info
+                  </Button>,
                   <Button key="back" onClick={handleCancel}>
                     Return
                   </Button>,
                 ]}
-              />
+              >
+                <MiniMenteeProfile currentMentee={currentMentee} />
+              </Modal>
             </List.Item>
           )}
         />
@@ -107,6 +125,7 @@ const MiniMenteeList = props => {
 
 const mapStateToProps = state => {
   return {
+    userId: state.authReducer.userId,
     isloading: state.headmasterReducer.isLoading,
     mentees: state.headmasterReducer.mentees,
   };

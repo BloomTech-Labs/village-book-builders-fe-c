@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Divider, List, Avatar, Button, Modal } from 'antd';
+import { Divider, List, Avatar, Modal, Button } from 'antd';
 import { fetchMentors as fetchMentorsAction } from '../../../../state/actions/index';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import MiniMentorProfile from '../../Mentor/MiniMentorProfile';
 
-const MiniMentorList = props => {
-  const { fetchMentorsAction: fetchMentors } = props;
-
+const MiniMentorList = ({
+  mentors,
+  fetchMentorsAction: fetchMentors,
+  userId,
+}) => {
   useEffect(() => {
     fetchMentors();
   }, [fetchMentors]);
@@ -15,17 +19,26 @@ const MiniMentorList = props => {
     color: white;
     font-weight: bold;
     background-color: green;
-    width: 100%;
+    width: 100px;
     display: block;
     border-radius: 0.5rem;
     margin: 0.1rem 0;
   `;
 
-  const [showModal, setShowModal] = useState(false);
-  const [currentMentee, setCurrentMentee] = useState({});
+  let history = useHistory();
 
-  const handleClickModal = () => {
+  const handlePushMentorList = e => {
+    history.push('/mentor-list');
+  };
+
+  const [showModal, setShowModal] = useState(false);
+  const [currentMentor, setCurrentMentor] = useState({});
+
+  console.log(mentors);
+
+  const handleClickModal = item => {
     setShowModal(true);
+    setCurrentMentor(item);
   };
 
   const handleOk = () => {
@@ -36,16 +49,13 @@ const MiniMentorList = props => {
     setShowModal(false);
   };
 
-  const matchingModalVisible = props.matchingModalVisible;
-
   return (
     <div className="miniList">
-      <h2>Mentor List</h2>
       <div>
         <Divider />
         <List
           itemLayout="vertical"
-          dataSource={props.mentors}
+          dataSource={mentors}
           renderItem={item => (
             <List.Item>
               <List.Item.Meta
@@ -81,23 +91,30 @@ const MiniMentorList = props => {
                 description={item.primary_language}
               />
               <ModalButtonMentorList
-                style={{ backgroundColor: 'green' }}
+                style={{ backgroundColor: 'orange' }}
                 type="primary"
-                onClick={handleClickModal}
+                onClick={() => handleClickModal(item)}
+                dataSource={mentors}
               >
-                Mentors
+                Info
               </ModalButtonMentorList>
               <Modal
                 visible={showModal}
                 onCancel={handleCancel}
-                title={item.first_name + ' ' + item.last_name}
-                email={item.email}
+                onOk={handleOk}
+                title={currentMentor.first_name + ' ' + currentMentor.last_name}
+                id={currentMentor.id}
                 footer={[
+                  <Button type="button" onClick={handlePushMentorList}>
+                    More Info
+                  </Button>,
                   <Button key="back" onClick={handleCancel}>
                     Return
                   </Button>,
                 ]}
-              />
+              >
+                <MiniMentorProfile currentMentor={currentMentor} />
+              </Modal>
             </List.Item>
           )}
         />
@@ -109,6 +126,7 @@ const MiniMentorList = props => {
 
 const mapStateToProps = state => {
   return {
+    userId: state.authReducer.userId,
     isloading: state.headmasterReducer.isLoading,
     mentors: state.headmasterReducer.mentors,
   };
