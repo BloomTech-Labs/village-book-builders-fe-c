@@ -8,7 +8,6 @@ import {
   addMentee as addMenteeAction,
   editMenteeProfile as editMenteeProfileAction,
 } from '../../../../state/actions/index';
-//import MenteeForm from './MenteeForm';
 import MenteeProfile from './MenteeProfile';
 import AddMenteeForm from './AddMenteeForm';
 import EditMenteeForm from './EditMenteeForm';
@@ -20,7 +19,7 @@ const Mentees = ({
   fetchMenteesAction: fetchMentees,
   deleteMentee,
   addMenteeAction: addMentee,
-  editMenteeProfile,
+  editMenteeProfileAction: editMenteeProfile,
   userId,
   role,
   message,
@@ -30,11 +29,6 @@ const Mentees = ({
   //let menteesSelection = [...mentees];
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
-  //const [showModal, setShowModal] = useState(false);
-  //const [editing, setEditing] = useState(false);
-  //const [currentMentee, setCurrentMentee] = useState({});
-  // const [menteesDataa, setMenteesData] = useState(null);
-  // const [name, setName] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
   const [isModalVisible2, setIsModalVisible2] = useState(false);
@@ -45,7 +39,6 @@ const Mentees = ({
   };
 
   const onSubmitCallback = data => {
-    //setFormState(data);
     //console.log('data', data);
     setLoading(true);
     addMentee(data);
@@ -56,7 +49,6 @@ const Mentees = ({
   };
 
   const onEditCallback = data => {
-    //setFormState(data);
     //console.log('edit data', data);
     setLoading(true);
     editMenteeProfile(data.key, data);
@@ -99,7 +91,6 @@ const Mentees = ({
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        //console.log('OK');
         deleteMentee(key.key);
       },
       onCancel() {
@@ -162,7 +153,6 @@ const Mentees = ({
           >
             More Info
           </Button>{' '}
-          \{' '}
           <Button
             size="small"
             onClick={() => {
@@ -172,7 +162,6 @@ const Mentees = ({
           >
             Edit
           </Button>{' '}
-          \{' '}
           <Button
             size="small"
             onClick={() => {
@@ -251,47 +240,6 @@ const Mentees = ({
           onChange={searchHandler}
         />
         <Divider />
-        {/* <List
-          itemLayout="horizontal"
-          dataSource={menteesSelection}
-          renderItem={item => (
-            <List.Item>
-              <div className="listItemWrapper">
-                <div className="listItemMeta">
-                  <List.Item.Meta
-                    onClick={e => moreInfoHandler(e, item)}
-                    avatar={<Avatar src={item.mentee_picture} />}
-                    title={
-                      <Button type="link">
-                        {item.first_name + ' ' + item.last_name}
-                      </Button>
-                    }
-                    description={item.academic_description}
-                  />
-                </div>
-                <div className="listItemButtonWrapper">
-                  <Button
-                    onClick={e => moreInfoHandler(e, item)}
-                    className="listItemButton"
-                    size="middle"
-                    type="default"
-                  >
-                    More Info
-                  </Button>
-                  <Button
-                    onClick={e => editingHandler(e, item)}
-                    className="listItemButton"
-                    danger
-                    size="middle"
-                    type="default"
-                  >
-                    Edit
-                  </Button>
-                </div>
-              </div>
-            </List.Item>
-          )}
-        /> */}
         <Table
           columns={columns}
           pagination={{
@@ -343,35 +291,6 @@ const Mentees = ({
       >
         <MenteeProfile currentMentee={currentMentee} />
       </Modal>
-      {/* <Modal
-        className="menteeModal"
-        visible={showModal}
-        title="Mentee Profile"
-        onCancel={moreInfoHandler}
-        maskClosable
-        destroyOnClose
-        okText="Submit"
-        footer={[
-          <Button
-            key="back"
-            onClick={editing ? editingHandler : moreInfoHandler}
-          >
-            Return
-          </Button>,
-          <Button
-            key="submit"
-            onClick={editing ? editingHandler : moreInfoHandler}
-          >
-            Submit
-          </Button>,
-        ]}
-      >
-        {editing ? (
-          <MenteeForm currentMentee={currentMentee} />
-        ) : (
-          <MenteeProfile currentMentee={currentMentee} />
-        )}
-      </Modal> */}
     </div>
   );
 };
