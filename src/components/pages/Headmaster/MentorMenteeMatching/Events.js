@@ -1,5 +1,4 @@
 import React from 'react';
-import { PlusCircleOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 const EventWrapper = styled.div`
@@ -46,12 +45,6 @@ const Option = styled.span`
   margin: 0.1rem 0;
 `;
 
-const Icon = styled(PlusCircleOutlined)`
-  font-size: 40px;
-  color: green;
-  justify-self: flex-end;
-`;
-
 // const Header = styled.h4``;
 
 function Events({ event, addSession, removeSession, removeEvent }) {
@@ -82,7 +75,6 @@ function Events({ event, addSession, removeSession, removeEvent }) {
           </Option>
         </Cell>
       ))}
-      {/* <Icon onClick={() => addSession(event)} /> */}
     </EventWrapper>
   );
 }

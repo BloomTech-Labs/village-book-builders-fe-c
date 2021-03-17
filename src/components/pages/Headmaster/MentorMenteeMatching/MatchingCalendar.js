@@ -7,7 +7,6 @@ import moment from 'moment-timezone';
 import 'antd/dist/antd.css';
 import React, { createRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Avatar } from 'antd';
 import Events from './Events';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
@@ -179,7 +178,6 @@ const MatchingCalendar = props => {
             slotLaneContent={renderSlotLane}
             slotDuration={{ minutes: 30 }}
             slotMinTime={'08:00:00'}
-            droppable={true}
             drop={onDrop}
           />
         </div>
