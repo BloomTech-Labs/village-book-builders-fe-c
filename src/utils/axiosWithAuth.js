@@ -1,15 +1,11 @@
 import axios from 'axios';
 
 export const axiosWithAuth = () => {
-  // console.log('axios with auth ran here');
   const token = window.localStorage.getItem('token');
-
-  // console.log("AxiosAuth --> baseURL:", process.env.REACT_APP_BASEURL);
-  // console.log("AxiosAuth --> token:", token);
+  const baseURL = process.env.REACT_APP_BASE_URL || 'http://localhost:5000';
 
   return axios.create({
-    // baseURL: 'https://vbb-mock-api.herokuapp.com',
-    baseURL: 'http://localhost:5000',
+    baseURL,
     headers: {
       Authorization: token,
     },
