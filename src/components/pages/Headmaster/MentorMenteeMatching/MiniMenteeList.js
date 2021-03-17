@@ -27,7 +27,7 @@ const MiniMenteeList = ({
   let history = useHistory();
 
   const handlePushMenteeList = e => {
-    history.push('/mentee-list');
+    history.push('/mentor-pairings');
   };
 
   const [showModal, setShowModal] = useState(false);

@@ -74,7 +74,7 @@ const HeadmasterDashboard = props => {
               <NavLink to="/profile">Profile</NavLink>
             </Menu.Item>
             <Menu.Item key="3" icon={<CalendarOutlined />}>
-              <NavLink to="/mentee-list">Mentee List</NavLink>
+              <NavLink to="/mentor-pairings">Mentee List</NavLink>
             </Menu.Item>
             <Menu.Item key="4" icon={<UnorderedListOutlined />}>
               <NavLink to="/mentor-list">Mentor List</NavLink>
