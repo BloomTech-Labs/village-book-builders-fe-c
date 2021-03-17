@@ -1,6 +1,7 @@
 import { Avatar, Collapse, Row, Col, Alert } from 'antd';
 import React from 'react';
 //import { debugLog } from '../../../../utils/debugMode';
+import { CarryOutOutlined, UserOutlined } from '@ant-design/icons';
 import '../../../../style.css';
 
 const MenteeProfile = ({ currentMentee }) => {
@@ -35,6 +36,24 @@ const MenteeProfile = ({ currentMentee }) => {
               />
               <h1 style={{ alignSelf: 'center', marginBottom: '0' }}>
                 {currentMentee.first_name + ' ' + currentMentee.last_name}
+                <span style={{ marginRight: '3px', marginLeft: '5px' }}>
+                  {currentMentee.hasAssignedMenter ? (
+                    <UserOutlined
+                      style={{ fontSize: '17px', color: '#f5222d' }}
+                    />
+                  ) : (
+                    ''
+                  )}
+                </span>
+                <span>
+                  {currentMentee.hasAppointment ? (
+                    <CarryOutOutlined
+                      style={{ fontSize: '17px', color: '#2d3eff' }}
+                    />
+                  ) : (
+                    ''
+                  )}
+                </span>
               </h1>
               <p style={{ fontStyle: 'italic', marginBottom: '0' }}>
                 {currentMentee.availability.time_zone}

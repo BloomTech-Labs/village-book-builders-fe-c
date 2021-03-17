@@ -18,6 +18,8 @@ let initialState = {
   gender: '',
   dob: '',
   mentee_picture: 'http://placeimg.com/640/480',
+  hasAssignedMentor: false,
+  hasAppointment: false,
   english_lvl: '',
   math_lvl: '',
   reading_lvl: '',
