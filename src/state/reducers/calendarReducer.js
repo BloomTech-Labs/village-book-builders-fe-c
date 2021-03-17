@@ -16,27 +16,9 @@ import {
 
 import { v4 as uuid } from 'uuid';
 
-// import { debugLog } from '../../utils/debugMode';
 const initialState = {
   isLoading: false,
   events: [],
-  // each event looks like this:
-  // id: (uuid),
-  // title,
-  // start: selectInfo.startStr,
-  // end: moment(selectInfo.startStr).add(1, 'hour'),
-  // allDay: selectInfo.allDay,
-  // extendedProps: {
-  //
-  // sessions: [
-  //   {
-  //     id: (uuid)
-  //     mentors: [],
-  //     mentees: [],
-  //     computerId: 1,
-  //   },
-  // }
-  // ],
   matchingModalVisible: false,
   matchingModal: {
     date: null,
@@ -50,12 +32,12 @@ const initialState = {
 
 const blankSession = {
   id: null,
-  mentors: [],
-  mentees: [],
+  mentor: [],
+  mentee: [],
   computerId: null,
 };
 
-const sessionsToEvents = sessions => {
+const sessionsToEventsArray = sessions => {
   const map = {};
 
   sessions.forEach(session => {
@@ -84,22 +66,13 @@ const sessionsToEvents = sessions => {
   return events;
 };
 
-const eventToSession = event => {
-  let newEvent = {};
-  newEvent.start = event.start;
-  newEvent.end = event.end;
-  newEvent.id = event.id;
-  newEvent.sessions = [...event.extendedProps.sessions];
-  return { ...newEvent };
-};
-
 const calendarReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case FETCH_CALENDAR_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        events: [...sessionsToEvents(action.payload)],
+        events: [...sessionsToEventsArray(action.payload)],
       };
     case FETCH_CALENDAR_START:
       return { ...state, isLoading: true };
@@ -107,26 +80,29 @@ const calendarReducer = (state = initialState, action = {}) => {
       return { ...state, isLoading: false };
 
     case CREATE_CALENDAR_EVENT:
-      const { title, start, id, extendedProps, end } = action.payload;
-      const { sessions } = extendedProps;
+      const { title, start, id, end, sessions } = action.payload;
+      const newSessions = !sessions
+        ? [{ ...blankSession, id: uuid(), computerId: 1 }]
+        : sessions;
+      const newEvent = { title, start, end, id, sessions: newSessions };
       return {
         ...state,
-        events: [...state.events, { title, start, end, id, sessions }],
+        events: [...state.events, newEvent],
       };
     case EDIT_CALENDAR_EVENT:
       return {
         ...state,
         events: state.events.map(event => {
-          if (event.id === action.payload.id)
-            event = eventToSession(action.payload);
-
+          if (event.id === action.payload.id) event = action.payload;
           return event;
         }),
       };
     case REMOVE_CALENDAR_EVENT:
       return {
         ...state,
-        events: state.events.filter(session => session.id !== action.payload),
+        events: state.events.filter(
+          session => session.id !== action.payload.id
+        ),
       };
 
     case ADD_CALENDAR_SESSION:
