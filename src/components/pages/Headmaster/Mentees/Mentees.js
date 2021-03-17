@@ -11,7 +11,7 @@ import {
 import MenteeProfile from './MenteeProfile';
 import AddMenteeForm from './AddMenteeForm';
 import EditMenteeForm from './EditMenteeForm';
-
+import { CarryOutOutlined, UserOutlined } from '@ant-design/icons';
 import '../../../../style.css';
 
 const Mentees = ({
@@ -107,7 +107,30 @@ const Mentees = ({
     {
       title: 'Name',
       key: 'last_name',
-      render: record => record.first_name + ' ' + record.last_name,
+      //render: record => record.first_name + ' ' + record.last_name + ' ' + <UserOutlined /> + ((record.hasAppointment === true) ? <CarryOutOutlined /> : ''),
+      render: record => {
+        return (
+          <p>
+            {record.first_name + ' ' + record.last_name}{' '}
+            <span style={{ marginRight: '3px' }}>
+              {record.hasAssignedMenter ? (
+                <UserOutlined style={{ fontSize: '17px', color: '#f5222d' }} />
+              ) : (
+                ''
+              )}
+            </span>
+            <span>
+              {record.hasAppointment ? (
+                <CarryOutOutlined
+                  style={{ fontSize: '17px', color: '#2d3eff' }}
+                />
+              ) : (
+                ''
+              )}
+            </span>
+          </p>
+        );
+      },
     },
     {
       title: '',
@@ -187,6 +210,8 @@ const Mentees = ({
       math_lvl: mentee.math_lvl,
       reading_lvl: mentee.reading_lvl,
       school_lvl: mentee.school_lvl,
+      hasAssignedMenter: mentee.hasAssignedMentor,
+      hasAppointment: mentee.hasAppointment,
       academic_description: mentee.academic_description,
       support_needed: mentee.support_needed,
       primary_language: mentee.primary_language,
@@ -248,7 +273,14 @@ const Mentees = ({
           }}
           dataSource={data2}
         />
-        ,
+        <p style={{ marginBottom: '0', fontSize: '12px' }}>
+          <UserOutlined style={{ fontSize: '12px', color: '#f5222d' }} /> has
+          mentor
+        </p>
+        <p style={{ marginBottom: '0', fontSize: '12px' }}>
+          <CarryOutOutlined style={{ fontSize: '12px', color: '#2d3eff' }} />{' '}
+          has appointment
+        </p>
       </div>
       {/* Modals */}
       <Modal
