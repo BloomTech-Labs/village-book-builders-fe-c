@@ -93,7 +93,7 @@ export const fetchCalendar = (start, end) => dispatch => {
 };
 
 export const createCalendarEvent = event => dispatch => {
-  dispatch({ type: actionTypes.CREATE_CALENDAR_EVENT, payload: event });
+  return dispatch({ type: actionTypes.CREATE_CALENDAR_EVENT, payload: event });
 };
 
 export const editCalendarEvent = event => dispatch => {
@@ -201,7 +201,6 @@ export const editMenteeProfile = (id, data) => dispatch => {
 };
 
 export const fetchMenteeProfile = id => dispatch => {
-  //console.log('hols');
   dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
   axiosWithAuth()
     .get(`/mentees/${id}`)
@@ -219,7 +218,7 @@ export const fetchMenteeProfile = id => dispatch => {
 export const fetchMenteesBySearch = search => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTEE_BY_LAST_NAME_START });
   axiosWithAuth()
-    .get(`/mentees?last_name=${search}`)
+    .get(`/mentees?last_name_like=${search}`)
     .then(res => {
       console.log('inside the action', res.data);
       dispatch({
@@ -253,14 +252,12 @@ export const fetchSchools = () => dispatch => {
   axiosWithAuth()
     .get(`/schools`)
     .then(res => {
-      // console.log("FETCH SCHOOLS:", res.data);
       dispatch({
         type: actionTypes.FETCH_HEADMASTER_SCHOOLS,
         payload: res.data,
       });
     })
     .catch(err => {
-      // console.log("FETCHSCHOOLS Failed")
       console.dir(err);
     });
 };
@@ -268,9 +265,7 @@ export const fetchSchools = () => dispatch => {
 export const fetchSchool = id => dispatch => {
   axiosWithAuth()
     .get(`/schools/${id}`)
-    .then(res => {
-      // console.log(res.data);
-    })
+    .then(res => {})
     .catch(err => console.dir(err));
 };
 

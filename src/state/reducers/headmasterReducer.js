@@ -52,7 +52,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isLoading: false,
-        mentors: action.payload,
+        mentors: [...action.payload],
       };
     case FETCH_MENTOR_START:
       return { ...state, isLoading: true };
