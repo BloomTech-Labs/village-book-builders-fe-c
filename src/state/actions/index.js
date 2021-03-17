@@ -93,7 +93,7 @@ export const fetchCalendar = (start, end) => dispatch => {
 };
 
 export const createCalendarEvent = event => dispatch => {
-  dispatch({ type: actionTypes.CREATE_CALENDAR_EVENT, payload: event });
+  return dispatch({ type: actionTypes.CREATE_CALENDAR_EVENT, payload: event });
 };
 
 export const editCalendarEvent = event => dispatch => {

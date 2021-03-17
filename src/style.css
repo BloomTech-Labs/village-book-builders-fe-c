@@ -67,7 +67,6 @@
 /* Profile Pages */
 .profile-item-title {
   font-weight: bold;
- 
 }
 
 .profile-item {
@@ -181,6 +180,29 @@
 }
 
 /* calendar styling */
+section.calendarSection {
+  display: flex;
+  align-items: stretch;
+}
+
+aside.mentorList {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  margin: 10rem 3rem 0 0.5rem;
+  user-select: none;
+}
+
+aside.mentorList div.draggableItem {
+  margin-bottom: 2rem;
+  color: white;
+  font-weight: bold;
+  background-color: cadetblue;
+  border-radius: 1rem;
+  text-align: center;
+  width: 10rem;
+}
+
 .sessionsEvent {
   background: inherit !important;
   display: flex !important;
@@ -207,6 +229,7 @@ span.sessionsBadge {
 }
 
 div.fc-event-main {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
