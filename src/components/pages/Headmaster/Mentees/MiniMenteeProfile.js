@@ -93,7 +93,7 @@ const MiniMenteeProfile = ({ currentMentee }) => {
                 </p>
                 <p>
                   <h2 style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                    Available Times :
+                    Available Times
                   </h2>
                   <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
                     From
