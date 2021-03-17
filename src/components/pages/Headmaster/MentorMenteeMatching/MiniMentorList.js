@@ -18,8 +18,7 @@ const MiniMentorList = ({
   const ModalButtonMentorList = styled.button`
     color: white;
     font-weight: bold;
-    background-color: green;
-    width: 100px;
+    width: 50px;
     display: block;
     border-radius: 0.5rem;
     margin: 0.1rem 0;
@@ -104,6 +103,7 @@ const MiniMentorList = ({
                 onOk={handleOk}
                 title={currentMentor.first_name + ' ' + currentMentor.last_name}
                 id={currentMentor.id}
+                width={460}
                 footer={[
                   <Button type="button" onClick={handlePushMentorList}>
                     More Info

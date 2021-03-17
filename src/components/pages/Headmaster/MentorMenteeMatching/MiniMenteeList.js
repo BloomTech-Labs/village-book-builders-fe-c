@@ -18,8 +18,7 @@ const MiniMenteeList = ({
   const ModalButtonMenteeList = styled.button`
     color: white;
     font-weight: bold;
-    background-color: green;
-    width: 100px;
+    width: 50px;
     display: block;
     border-radius: 0.5rem;
     margin: 0.1rem 0;
@@ -103,6 +102,7 @@ const MiniMenteeList = ({
                 onOk={handleOk}
                 title={currentMentee.first_name + ' ' + currentMentee.last_name}
                 id={currentMentee.id}
+                width={460}
                 footer={[
                   <Button type="button" onClick={handlePushMenteeList}>
                     More Info

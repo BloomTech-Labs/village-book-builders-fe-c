@@ -166,16 +166,16 @@ const MatchingCalendar = props => {
         <MatchingModal />
       </Draggable> */}
       <div className="miniListContainer">
-        <div className="listButton1">
+        <div className="miniMentorList">
           <h1>Mentor List</h1>
-          <button onClick={handleClickMentorList}>
+          <button className="miniMentorButton" onClick={handleClickMentorList}>
             {clickMentorList ? 'Hide' : 'Show'}
           </button>
           {clickMentorList ? <MiniMentorList /> : null}
         </div>
-        <div className="listButton2">
+        <div className="miniMenteeList">
           <h1>Mentee List</h1>
-          <button onClick={handleClickMenteeList}>
+          <button className="miniMenteeButton" onClick={handleClickMenteeList}>
             {clickMenteeList ? 'Hide' : 'Show'}
           </button>
           {clickMenteeList ? <MiniMenteeList /> : null}

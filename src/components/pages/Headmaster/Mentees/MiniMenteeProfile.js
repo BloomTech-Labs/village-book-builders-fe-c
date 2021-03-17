@@ -61,43 +61,50 @@ const MiniMenteeProfile = ({ currentMentee }) => {
         <>
           <Row gutter={16} style={{ width: '100%' }}>
             <Col className="gutter-row" span={8}>
-              <Avatar
-                src={currentMentee.mentee_picture}
-                size={250}
-                style={{ alignSelf: 'center', borderRadius: 'unset' }}
-                shape="square"
-              />
-              <h1 style={{ alignSelf: 'center', marginBottom: '0' }}>
-                {currentMentee.first_name + ' ' + currentMentee.last_name}
-              </h1>
-              <p style={{ fontStyle: 'italic', marginBottom: '0' }}>
-                {currentMentee.availability.time_zone}
-              </p>
-              <p>{currentMentee.email}</p>
-              <p style={{ marginBottom: '0', marginTop: '15px' }}>
-                <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                  Primary Language
-                </span>
-                : {currentMentee.primary_language}
-              </p>
-              <p>
-                <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                  English
-                </span>
-                : {currentMentee.english_lvl},{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                  Math
-                </span>
-                : {currentMentee.math_lvl},{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                  Reading
-                </span>
-                : {currentMentee.reading_lvl},{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                  School
-                </span>
-                : {currentMentee.school_lvl}
-              </p>
+              <div className="miniMenteeAvatar">
+                <Avatar
+                  src={currentMentee.mentee_picture}
+                  size={250}
+                  style={{ alignSelf: 'center', borderRadius: 'unset' }}
+                  shape="square"
+                />
+              </div>
+              <div className="miniMenteeModalText">
+                <div className="miniMenteeNameText">
+                  <h1 style={{ alignSelf: 'center', marginBottom: '0' }}>
+                    {currentMentee.first_name + ' ' + currentMentee.last_name}
+                  </h1>
+                </div>
+                <h2 style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                  Time Zone
+                </h2>
+                <p style={{ fontStyle: 'italic', marginBottom: '0' }}>
+                  {currentMentee.availability.time_zone}
+                </p>
+                <h2 style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                  Email
+                </h2>
+                <p>{currentMentee.email}</p>
+                <p style={{ marginBottom: '0', marginTop: '15px' }}>
+                  <h2 style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                    Primary Language
+                  </h2>
+                  {currentMentee.primary_language}
+                </p>
+                <p>
+                  <h2 style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                    Available Times :
+                  </h2>
+                  <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                    From
+                  </span>
+                  : {currentMentee.availability.as_early_as}{' '}
+                  <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                    To
+                  </span>
+                  : {currentMentee.availability.as_late_as}{' '}
+                </p>
+              </div>
             </Col>
             <Col className="gutter-row" span={16}>
               {/* <p>

@@ -41,6 +41,22 @@
   flex-direction: column;
   align-items: flex-start;
 }
+.miniMentorAvatar{
+  margin-left: 70px;
+
+}
+.miniMenteeAvatar{
+  margin-left: 70px;
+
+}
+.miniMenteeNameText{
+margin-left: 109px;
+width: 250px
+}
+.miniMentorNameText{
+margin-left: 109px;
+width: 250px
+}
 
 /* Dashboard Menu */
 .menuIcon {
@@ -212,3 +228,32 @@ div.fc-event-main {
   justify-content: center;
   align-items: center;
 }
+
+.miniMentorList{
+font-size: 20px;
+}
+.miniMenteeList{
+  font-size: 20px;
+  margin-left: 1000px;
+}
+.miniMenteeButton{
+  color: white;
+  font-weight: bold;
+  background-color: orange;
+  width: 100px;
+  display: block;
+  border-radius: 0.5rem;
+  margin: 0.1rem 0;
+}
+
+.miniMentorButton{
+  color: white;
+  font-weight: bold;
+  background-color: orange;
+  width: 100px;
+  display: block;
+  border-radius: 0.5rem;
+  margin: 0.1rem 0;
+}
+
+
