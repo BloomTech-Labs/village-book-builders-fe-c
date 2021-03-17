@@ -32,8 +32,8 @@ const initialState = {
 
 const blankSession = {
   id: null,
-  mentors: [],
-  mentees: [],
+  mentor: [],
+  mentee: [],
   computerId: null,
 };
 
@@ -80,9 +80,11 @@ const calendarReducer = (state = initialState, action = {}) => {
       return { ...state, isLoading: false };
 
     case CREATE_CALENDAR_EVENT:
-      const { title, start, id, end } = action.payload;
-      const sessions = [{ ...blankSession }];
-      const newEvent = { title, start, end, id, sessions };
+      const { title, start, id, end, sessions } = action.payload;
+      const newSessions = !sessions
+        ? [{ ...blankSession, id: uuid(), computerId: 1 }]
+        : sessions;
+      const newEvent = { title, start, end, id, sessions: newSessions };
       return {
         ...state,
         events: [...state.events, newEvent],

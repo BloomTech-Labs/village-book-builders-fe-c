@@ -185,15 +185,20 @@ section.calendarSection {
   align-items: stretch;
 }
 
-aside.mentorList {
+aside.mentorList,
+aside.menteeList {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   margin: 10rem 3rem 0 0.5rem;
   user-select: none;
 }
 
-aside.mentorList div.draggableItem {
+aside.menteeList {
+  margin: 3rem 3rem 0 0.5rem;
+}
+
+aside.mentorList div.draggableMentor,
+aside.menteeList div.draggableMentee {
   margin-bottom: 2rem;
   color: white;
   font-weight: bold;
@@ -210,10 +215,6 @@ aside.mentorList div.draggableItem {
   justify-content: center;
   align-items: center;
 }
-
-/* .fc-v-event:last-child() {
-  display: none;
-} */
 
 a.sessionShow span.anticon-plus-circle {
   visibility: visible;

@@ -18,12 +18,14 @@ import {
   editCalendarEvent,
   removeCalendarEvent,
   fetchMentors,
+  fetchMentees,
 } from '../../../../state/actions/index';
 
 const MatchingCalendar = props => {
   const dispatch = useDispatch();
   const events = useSelector(state => state.calendarReducer.events);
   const mentors = useSelector(state => state.headmasterReducer.mentors);
+  const mentees = useSelector(state => state.headmasterReducer.mentees);
   const [clickMenteeList, setClickMenteeList] = useState(false);
   const [clickMentorList, setClickMentorList] = useState(false);
 
@@ -31,9 +33,15 @@ const MatchingCalendar = props => {
 
   useEffect(() => {
     if (!mentors || mentors.length === 0) return;
-    const draggableItems = document.getElementsByClassName('draggableItem');
+    const draggableItems = document.getElementsByClassName('draggableMentor');
     for (let item of draggableItems) new Draggable(item);
   }, [mentors]);
+
+  useEffect(() => {
+    if (!mentees || mentees.length === 0) return;
+    const draggableItems = document.getElementsByClassName('draggableMentee');
+    for (let item of draggableItems) new Draggable(item);
+  }, [mentees]);
 
   useEffect(() => {
     const startOfWeek = moment()
@@ -44,6 +52,7 @@ const MatchingCalendar = props => {
       .toISOString(true);
     dispatch(fetchCalendar(startOfWeek, endOfWeek));
     dispatch(fetchMentors());
+    dispatch(fetchMentees());
   }, [dispatch]);
 
   const handleSelectClick = selectInfo => {
@@ -85,7 +94,10 @@ const MatchingCalendar = props => {
   };
 
   const handleEventChange = changeInfo => {
-    dispatch(editCalendarEvent(changeInfo.event.toPlainObject()));
+    const newEvent = { ...changeInfo.event.toPlainObject() };
+    newEvent.sessions = [...newEvent.extendedProps.sessions];
+    delete newEvent.extendedProps;
+    dispatch(editCalendarEvent(newEvent));
   };
 
   const renderSlotLane = _ => {
@@ -110,47 +122,130 @@ const MatchingCalendar = props => {
     );
   };
 
-  const handleDragDrop = dropInfo => {
-    console.log(dropInfo);
-  };
+  // This gets called when an event is going to be dropped
+  // into the calendar.
+  const handleEventReceive = dropInfo => {
+    console.log(`Running`);
+    // Check if there's no events in that slot already
+    let eventInSlot = events.filter(
+      event => event.start === dropInfo.event.startStr
+    );
 
-  const onDrop = dropInfo => {
-    console.log(dropInfo.dateStr);
+    // if there aren't, then create a new event with this information
+    if (eventInSlot.length === 0) {
+      const sessions = [...dropInfo.event.extendedProps.sessions].map(
+        session => {
+          session.id = uuid();
+          session.start = dropInfo.event.startStr;
+          session.end = dropInfo.event.endStr;
+          return session;
+        }
+      );
+      dispatch(
+        createCalendarEvent({
+          ...dropInfo.event.toPlainObject(),
+          id: uuid(),
+          sessions,
+        })
+      );
+    } else {
+      // There are events in this slot.
+      // What type of event is trying to be added?
+      eventInSlot = eventInSlot[0];
+      const typeToAdd = dropInfo.event.extendedProps.dropping;
+      const newEvent = { ...eventInSlot };
+      let allSlotsWereFull = true;
+      newEvent.sessions = eventInSlot.sessions.map(session => {
+        if (session[typeToAdd].length === 0) {
+          session[typeToAdd] =
+            dropInfo.event.extendedProps.sessions[0][typeToAdd];
+          allSlotsWereFull = false;
+        }
+        session.id = uuid();
+        session.start = dropInfo.event.startStr;
+        session.end = dropInfo.event.endStr;
+        return session;
+      });
+
+      const other = typeToAdd === 'mentor' ? 'mentee' : 'mentor';
+
+      if (allSlotsWereFull)
+        newEvent.sessions.push({
+          id: uuid(),
+          start: dropInfo.event.startStr,
+          end: dropInfo.event.endStr,
+          [typeToAdd]: dropInfo.event.extendedProps.sessions[0][typeToAdd],
+          [other]: [],
+        });
+
+      console.log(newEvent);
+      dispatch(editCalendarEvent(newEvent));
+    }
+    dropInfo.revert();
   };
 
   return (
     <div>
       <h1>Mentor - Mentee Matching</h1>
       <section className="calendarSection">
-        <aside className="mentorList">
-          <h3>Mentors</h3>
-          {mentors &&
-            mentors.map(mentorInfo => (
-              <div
-                className="draggableItem"
-                key={mentorInfo.id}
-                data-event={JSON.stringify({
-                  title: 'Session',
-                  duration: '01:00',
-                  sessions: [
-                    {
-                      mentor: [
-                        {
-                          id: mentorInfo.id,
-                          first_name: mentorInfo.first_name,
-                          last_name: mentorInfo.last_name,
-                        },
-                      ],
-                      mentee: [],
-                    },
-                  ],
-                })}
-              >
-                {mentorInfo.first_name} ({mentorInfo.availability.as_early_as} -{' '}
-                {mentorInfo.availability.as_late_as})
-              </div>
-            ))}
-        </aside>
+        <section>
+          <aside className="mentorList">
+            <h3>Mentors</h3>
+            {mentors &&
+              mentors.map(mentorInfo => (
+                <div
+                  className="draggableMentor"
+                  key={mentorInfo.id}
+                  data-event={JSON.stringify({
+                    title: 'Session',
+                    duration: '01:00',
+                    dropping: 'mentor',
+                    sessions: [
+                      {
+                        mentor: [
+                          {
+                            ...mentorInfo,
+                          },
+                        ],
+                        mentee: [],
+                      },
+                    ],
+                  })}
+                >
+                  {mentorInfo.first_name} ({mentorInfo.availability.as_early_as}{' '}
+                  - {mentorInfo.availability.as_late_as})
+                </div>
+              ))}
+          </aside>
+          <aside className="menteeList">
+            <h3>Mentees</h3>
+            {mentees &&
+              mentees.map(menteeInfo => (
+                <div
+                  className="draggableMentee"
+                  key={menteeInfo.id}
+                  data-event={JSON.stringify({
+                    title: 'Session',
+                    duration: '01:00',
+                    dropping: 'mentee',
+                    sessions: [
+                      {
+                        mentee: [
+                          {
+                            ...menteeInfo,
+                          },
+                        ],
+                        mentor: [],
+                      },
+                    ],
+                  })}
+                >
+                  {menteeInfo.first_name} ({menteeInfo.availability.as_early_as}{' '}
+                  - {menteeInfo.availability.as_late_as})
+                </div>
+              ))}
+          </aside>
+        </section>
         <div className="calStyling">
           <FullCalendar
             ref={calendar}
@@ -170,7 +265,7 @@ const MatchingCalendar = props => {
             eventContent={renderEventContent}
             eventAdd={handleEventAdd}
             events={events}
-            eventReceive={handleDragDrop}
+            eventReceive={handleEventReceive}
             eventChange={handleEventChange}
             eventRemove={handleEventRemove}
             slotLabelClassNames={['slotRow']}
@@ -178,7 +273,6 @@ const MatchingCalendar = props => {
             slotLaneContent={renderSlotLane}
             slotDuration={{ minutes: 30 }}
             slotMinTime={'08:00:00'}
-            drop={onDrop}
           />
         </div>
       </section>
