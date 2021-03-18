@@ -78,11 +78,13 @@ export const fetchVillage = id => dispatch => {
     .catch(err => console.dir(err));
 };
 
-export const fetchCalendar = (start, end) => dispatch => {
+// params : { start, end, computerId, villageId, schooldId, libraryId }
+export const fetchCalendar = params => dispatch => {
+  const { start, end, computerId, villageId, schoolId, libraryId } = params;
   dispatch({ type: actionTypes.FETCH_CALENDAR_START });
   axiosWithAuth()
     .get(
-      `/sessions?start_gte=${start}&end_lte=${end}&expand=mentee&expand=mentor&expand=village&expand=library`
+      `/sessions?start_gte=${start}&end_lte=${end}&computerId=${computerId}&villageId=${villageId}&schoolId=${schoolId}&libraryId=${libraryId}&expand=mentee&expand=mentor&expand=village&expand=library`
     )
     .then(res => {
       dispatch({ type: actionTypes.FETCH_CALENDAR_SUCCESS, payload: res.data });
@@ -104,8 +106,20 @@ export const removeCalendarEvent = id => dispatch => {
   dispatch({ type: actionTypes.REMOVE_CALENDAR_EVENT, payload: id });
 };
 
-export const addCalendarSession = eventId => dispatch => {
-  dispatch({ type: actionTypes.ADD_CALENDAR_SESSION, payload: eventId });
+export const saveCalendar = sessions => dispatch => {
+  dispatch({ type: actionTypes.SAVE_CALENDAR_START });
+  axiosWithAuth()
+    .get(`/sessions`, sessions)
+    .then(res => {
+      dispatch({ type: actionTypes.SAVE_CALENDAR_SUCESS });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.SAVE_CALENDAR_FAILURE, payload: err })
+    );
+};
+
+export const changeSelectedComputer = computerId => dispatch => {
+  dispatch({ type: actionTypes.CHANGE_SELECTED_COMPUTER, payload: computerId });
 };
 
 export const editVillage = (id, data) => () => {

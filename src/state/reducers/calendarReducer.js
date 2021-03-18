@@ -7,18 +7,19 @@ import {
   CREATE_CALENDAR_EVENT,
   EDIT_CALENDAR_EVENT,
   REMOVE_CALENDAR_EVENT,
-  ADD_CALENDAR_SESSION,
-  EDIT_CALENDAR_SESSION,
-  REMOVE_CALENDAR_SESSION,
+  CHANGE_SELECTED_COMPUTER,
+  SAVE_CALENDAR_START,
+  SAVE_CALENDAR_SUCESS,
+  SAVE_CALENDAR_FAILURE,
   SHOW_MODAL,
   HIDE_MODAL,
 } from '../actions/actionTypes';
 
-import { v4 as uuid } from 'uuid';
-
 const initialState = {
   isLoading: false,
+  changesMade: false,
   events: [],
+  selectedComputerId: 1,
   matchingModalVisible: false,
   matchingModal: {
     date: null,
@@ -28,42 +29,7 @@ const initialState = {
     mentee: null,
     computerId: null,
   },
-};
-
-const blankSession = {
-  id: null,
-  mentor: [],
-  mentee: [],
-  computerId: null,
-};
-
-const sessionsToEventsArray = sessions => {
-  const map = {};
-
-  sessions.forEach(session => {
-    if (!(session.start in map)) {
-      delete session.mentorId;
-      delete session.menteeId;
-      map[session.start] = {
-        id: uuid(),
-        title: 'Session',
-        start: session.start,
-        end: session.end,
-        sessions: [
-          {
-            ...session,
-          },
-        ],
-      };
-    } else {
-      map[session.start].sessions.push(session);
-    }
-  });
-
-  const events = [];
-  Object.keys(map).forEach(key => events.push(map[key]));
-
-  return events;
+  errors: {},
 };
 
 const calendarReducer = (state = initialState, action = {}) => {
@@ -72,26 +38,38 @@ const calendarReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isLoading: false,
-        events: [...sessionsToEventsArray(action.payload)],
+        events: [...action.payload],
       };
     case FETCH_CALENDAR_START:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, changesMade: false };
     case FETCH_CALENDAR_FAILURE:
-      return { ...state, isLoading: false };
+      return {
+        ...state,
+        isLoading: false,
+        changesMade: false,
+        errors: action.payload,
+      };
 
     case CREATE_CALENDAR_EVENT:
-      const { title, start, id, end, sessions } = action.payload;
-      const newSessions = !sessions
-        ? [{ ...blankSession, id: uuid(), computerId: 1 }]
-        : sessions;
-      const newEvent = { title, start, end, id, sessions: newSessions };
+      const { title, start, id, end, mentor, mentee } = action.payload;
+      const newEvent = {
+        title,
+        start,
+        end,
+        id,
+        mentor,
+        mentee,
+        computerId: state.selectedComputerId,
+      };
       return {
         ...state,
         events: [...state.events, newEvent],
+        changesMade: true,
       };
     case EDIT_CALENDAR_EVENT:
       return {
         ...state,
+        changesMade: true,
         events: state.events.map(event => {
           if (event.id === action.payload.id) event = action.payload;
           return event;
@@ -100,24 +78,34 @@ const calendarReducer = (state = initialState, action = {}) => {
     case REMOVE_CALENDAR_EVENT:
       return {
         ...state,
+        changesMade: true,
         events: state.events.filter(
           session => session.id !== action.payload.id
         ),
       };
 
-    case ADD_CALENDAR_SESSION:
+    case CHANGE_SELECTED_COMPUTER:
       return {
         ...state,
-        events: state.events.map(event => {
-          if (event.id === action.payload.id) {
-            const newSession = { ...blankSession };
-            newSession.id = uuid();
-            newSession.computerId = 1; // HARDCODED CHANGE LATER
-            event.sessions = [...event.sessions, newSession];
-          }
-          delete event.extendedProps;
-          return event;
-        }),
+        selectedComputerId: action.payload,
+      };
+
+    case SAVE_CALENDAR_SUCESS:
+      return {
+        ...state,
+        changesMade: false,
+        isLoading: false,
+      };
+    case SAVE_CALENDAR_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case SAVE_CALENDAR_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: action.payload,
       };
 
     case SHOW_MODAL:
@@ -125,8 +113,6 @@ const calendarReducer = (state = initialState, action = {}) => {
     case HIDE_MODAL:
       return { ...state, matchingModalVisible: false };
 
-    case EDIT_CALENDAR_SESSION:
-    case REMOVE_CALENDAR_SESSION:
     default:
       return state;
   }
