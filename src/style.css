@@ -41,21 +41,19 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.miniMentorAvatar{
+.miniMentorAvatar {
   margin-left: 70px;
-
 }
-.miniMenteeAvatar{
+.miniMenteeAvatar {
   margin-left: 70px;
-
 }
-.miniMenteeNameText{
-margin-left: 109px;
-width: 250px
+.miniMenteeNameText {
+  margin-left: 109px;
+  width: 250px;
 }
-.miniMentorNameText{
-margin-left: 109px;
-width: 250px
+.miniMentorNameText {
+  margin-left: 109px;
+  width: 250px;
 }
 
 /* Dashboard Menu */
@@ -253,14 +251,14 @@ div.fc-event-main {
   align-items: center;
 }
 
-.miniMentorList{
-font-size: 20px;
+.miniMentorList {
+  font-size: 20px;
 }
-.miniMenteeList{
+.miniMenteeList {
   font-size: 20px;
   margin-left: 1000px;
 }
-.miniMenteeButton{
+.miniMenteeButton {
   color: white;
   font-weight: bold;
   background-color: orange;
@@ -270,7 +268,7 @@ font-size: 20px;
   margin: 0.1rem 0;
 }
 
-.miniMentorButton{
+.miniMentorButton {
   color: white;
   font-weight: bold;
   background-color: orange;
@@ -280,4 +278,6 @@ font-size: 20px;
   margin: 0.1rem 0;
 }
 
-
+.timeSlotRow {
+  height: 30px;
+}
