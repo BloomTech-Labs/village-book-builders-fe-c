@@ -1,31 +1,40 @@
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import { v4 as uuid } from 'uuid';
-import moment from 'moment-timezone';
-import 'antd/dist/antd.css';
 import React, { createRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+import moment from 'moment-timezone';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
+import { Button } from 'antd';
 import Events from './Events';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 // import MatchingModal from './MatchingModal';
 import {
   fetchCalendar,
-  addCalendarSession,
+  saveCalendar,
   createCalendarEvent,
   editCalendarEvent,
   removeCalendarEvent,
   fetchMentors,
   fetchMentees,
 } from '../../../../state/actions/index';
+import ComputerDropdown from './ComputerDropdown';
 
 const MatchingCalendar = props => {
   const dispatch = useDispatch();
   const events = useSelector(state => state.calendarReducer.events);
+  const changesMade = useSelector(state => state.calendarReducer.changesMade);
+  const isLoading = useSelector(state => state.calendarReducer.isLoading);
+  const selectedComputerId = useSelector(
+    state => state.calendarReducer.selectedComputerId
+  );
   const mentors = useSelector(state => state.headmasterReducer.mentors);
   const mentees = useSelector(state => state.headmasterReducer.mentees);
+  const headmasterProfile = useSelector(
+    state => state.headmasterReducer.headmasterProfile
+  );
   const [clickMenteeList, setClickMenteeList] = useState(false);
   const [clickMentorList, setClickMentorList] = useState(false);
 
@@ -43,17 +52,31 @@ const MatchingCalendar = props => {
     for (let item of draggableItems) new Draggable(item);
   }, [mentees]);
 
+  const startOfWeek = moment()
+    .startOf('week')
+    .toISOString(true);
+  const endOfWeek = moment()
+    .endOf('week')
+    .toISOString(true);
+
   useEffect(() => {
-    const startOfWeek = moment()
-      .startOf('week')
-      .toISOString(true);
-    const endOfWeek = moment()
-      .endOf('week')
-      .toISOString(true);
-    dispatch(fetchCalendar(startOfWeek, endOfWeek));
-    dispatch(fetchMentors());
     dispatch(fetchMentees());
+    dispatch(fetchMentors());
   }, [dispatch]);
+
+  // params : { start, end, computerId, villageId, schooldId, libraryId }
+  useEffect(() => {
+    if (changesMade || headmasterProfile.villageId === undefined) return;
+    const params = {
+      start: startOfWeek,
+      end: endOfWeek,
+      computerId: selectedComputerId,
+      villageId: headmasterProfile.villageId,
+      libraryId: headmasterProfile.libraryId,
+      schoolId: headmasterProfile.schoolId,
+    };
+    dispatch(fetchCalendar(params));
+  }, [dispatch, headmasterProfile, changesMade, selectedComputerId]);
 
   const handleSelectClick = selectInfo => {
     const title = 'Session';
@@ -71,7 +94,8 @@ const MatchingCalendar = props => {
           .toISOString(true),
         allDay: selectInfo.allDay,
         extendedProps: {
-          sessions: [],
+          mentor: [],
+          mentee: [],
         },
       },
       true
@@ -89,19 +113,20 @@ const MatchingCalendar = props => {
     setClickMentorList(!clickMentorList);
   };
 
-  const addSessionToEvent = event => {
-    dispatch(addCalendarSession(event));
-  };
-
   const handleEventChange = changeInfo => {
     const newEvent = { ...changeInfo.event.toPlainObject() };
-    newEvent.sessions = [...newEvent.extendedProps.sessions];
+    newEvent.mentor = newEvent.extendedProps.mentor
+      ? [...newEvent.extendedProps.mentor]
+      : [];
+    newEvent.mentee = newEvent.extendedProps.mentee
+      ? [...newEvent.extendedProps.mentee]
+      : [];
     delete newEvent.extendedProps;
     dispatch(editCalendarEvent(newEvent));
   };
 
   const renderSlotLane = _ => {
-    return <div style={{ height: '76px' }}></div>;
+    return <div className="timeSlotRow"></div>;
   };
 
   const removeEvent = event => {
@@ -113,19 +138,12 @@ const MatchingCalendar = props => {
   };
 
   const renderEventContent = ({ event }) => {
-    return (
-      <Events
-        event={event}
-        addSession={addSessionToEvent}
-        removeEvent={removeEvent}
-      />
-    );
+    return <Events event={event} removeEvent={removeEvent} />;
   };
 
   // This gets called when an event is going to be dropped
   // into the calendar.
   const handleEventReceive = dropInfo => {
-    console.log(`Running`);
     // Check if there's no events in that slot already
     let eventInSlot = events.filter(
       event => event.start === dropInfo.event.startStr
@@ -133,52 +151,26 @@ const MatchingCalendar = props => {
 
     // if there aren't, then create a new event with this information
     if (eventInSlot.length === 0) {
-      const sessions = [...dropInfo.event.extendedProps.sessions].map(
-        session => {
-          session.id = uuid();
-          session.start = dropInfo.event.startStr;
-          session.end = dropInfo.event.endStr;
-          return session;
-        }
-      );
       dispatch(
         createCalendarEvent({
           ...dropInfo.event.toPlainObject(),
           id: uuid(),
-          sessions,
+          mentor: [...dropInfo.event.extendedProps.mentor],
+          mentee: [...dropInfo.event.extendedProps.mentee],
         })
       );
     } else {
-      // There are events in this slot.
-      // What type of event is trying to be added?
+      // There is an event in this slot.
       eventInSlot = eventInSlot[0];
+      // What type of event is trying to be added?
       const typeToAdd = dropInfo.event.extendedProps.dropping;
+      const otherType = typeToAdd === 'mentor' ? 'mentee' : 'mentor';
       const newEvent = { ...eventInSlot };
-      let allSlotsWereFull = true;
-      newEvent.sessions = eventInSlot.sessions.map(session => {
-        if (session[typeToAdd].length === 0) {
-          session[typeToAdd] =
-            dropInfo.event.extendedProps.sessions[0][typeToAdd];
-          allSlotsWereFull = false;
-        }
-        session.id = uuid();
-        session.start = dropInfo.event.startStr;
-        session.end = dropInfo.event.endStr;
-        return session;
-      });
-
-      const other = typeToAdd === 'mentor' ? 'mentee' : 'mentor';
-
-      if (allSlotsWereFull)
-        newEvent.sessions.push({
-          id: uuid(),
-          start: dropInfo.event.startStr,
-          end: dropInfo.event.endStr,
-          [typeToAdd]: dropInfo.event.extendedProps.sessions[0][typeToAdd],
-          [other]: [],
-        });
+      newEvent[typeToAdd] = dropInfo.event.extendedProps[typeToAdd];
+      newEvent[otherType] = eventInSlot[otherType];
 
       console.log(newEvent);
+
       dispatch(editCalendarEvent(newEvent));
     }
     dropInfo.revert();
@@ -189,6 +181,17 @@ const MatchingCalendar = props => {
       <h1>Mentor - Mentee Matching</h1>
       <section className="calendarSection">
         <section>
+          <ComputerDropdown />
+          <div>
+            <Button
+              type="primary"
+              onClick={() => dispatch(saveCalendar(events))}
+              disabled={!changesMade}
+              loading={isLoading}
+            >
+              Save
+            </Button>
+          </div>
           <aside className="mentorList">
             <h3>Mentors</h3>
             {mentors &&
@@ -200,16 +203,12 @@ const MatchingCalendar = props => {
                     title: 'Session',
                     duration: '01:00',
                     dropping: 'mentor',
-                    sessions: [
+                    mentor: [
                       {
-                        mentor: [
-                          {
-                            ...mentorInfo,
-                          },
-                        ],
-                        mentee: [],
+                        ...mentorInfo,
                       },
                     ],
+                    mentee: [],
                   })}
                 >
                   {mentorInfo.first_name} ({mentorInfo.availability.as_early_as}{' '}
@@ -228,16 +227,12 @@ const MatchingCalendar = props => {
                     title: 'Session',
                     duration: '01:00',
                     dropping: 'mentee',
-                    sessions: [
+                    mentee: [
                       {
-                        mentee: [
-                          {
-                            ...menteeInfo,
-                          },
-                        ],
-                        mentor: [],
+                        ...menteeInfo,
                       },
                     ],
+                    mentor: [],
                   })}
                 >
                   {menteeInfo.first_name} ({menteeInfo.availability.as_early_as}{' '}
