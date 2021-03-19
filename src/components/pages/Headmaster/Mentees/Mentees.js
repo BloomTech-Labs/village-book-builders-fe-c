@@ -17,7 +17,7 @@ import '../../../../style.css';
 const Mentees = ({
   mentees,
   fetchMenteesAction: fetchMentees,
-  deleteMentee,
+  deleteMenteeAction: deleteMentee,
   addMenteeAction: addMentee,
   editMenteeProfileAction: editMenteeProfile,
   userId,
@@ -240,18 +240,17 @@ const Mentees = ({
   return (
     <div className="menteeContainer">
       <div className="exploreWrapper">
-        {message ||
-          (editMessage && (
-            <Alert
-              message={message || editMessage}
-              type="success"
-              style={{
-                marginBottom: '10px',
-                borderRadius: 'unset',
-                maxWidth: '480px',
-              }}
-            />
-          ))}
+        {(message || editMessage) && (
+          <Alert
+            message={message || editMessage}
+            type="success"
+            style={{
+              marginBottom: '10px',
+              borderRadius: 'unset',
+              maxWidth: '480px',
+            }}
+          />
+        )}
         <h1 id="menteeTitle">
           Mentees{' '}
           <Button type="primary" size="small" onClick={showModal}>
