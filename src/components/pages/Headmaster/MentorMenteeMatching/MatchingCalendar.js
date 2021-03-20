@@ -5,7 +5,7 @@ import moment from 'moment-timezone';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
+import interactionPlugin from '@fullcalendar/interaction';
 import { Button } from 'antd';
 import Events from './Events';
 import MiniMentorList from './MiniMentorList';
@@ -17,21 +17,20 @@ import {
   createCalendarEvent,
   editCalendarEvent,
   removeCalendarEvent,
-  fetchMentors,
-  fetchMentees,
 } from '../../../../state/actions/index';
 import ComputerDropdown from './ComputerDropdown';
+import DraggableMenuLists from './DraggableMenuLists';
 
 const MatchingCalendar = props => {
   const dispatch = useDispatch();
   const events = useSelector(state => state.calendarReducer.events);
   const changesMade = useSelector(state => state.calendarReducer.changesMade);
   const isLoading = useSelector(state => state.calendarReducer.isLoading);
+
   const selectedComputerId = useSelector(
     state => state.calendarReducer.selectedComputerId
   );
-  const mentors = useSelector(state => state.headmasterReducer.mentors);
-  const mentees = useSelector(state => state.headmasterReducer.mentees);
+
   const headmasterProfile = useSelector(
     state => state.headmasterReducer.headmasterProfile
   );
@@ -40,29 +39,12 @@ const MatchingCalendar = props => {
 
   let calendar = createRef();
 
-  useEffect(() => {
-    if (!mentors || mentors.length === 0) return;
-    const draggableItems = document.getElementsByClassName('draggableMentor');
-    for (let item of draggableItems) new Draggable(item);
-  }, [mentors]);
-
-  useEffect(() => {
-    if (!mentees || mentees.length === 0) return;
-    const draggableItems = document.getElementsByClassName('draggableMentee');
-    for (let item of draggableItems) new Draggable(item);
-  }, [mentees]);
-
   const startOfWeek = moment()
     .startOf('week')
     .toISOString(true);
   const endOfWeek = moment()
     .endOf('week')
     .toISOString(true);
-
-  useEffect(() => {
-    dispatch(fetchMentees());
-    dispatch(fetchMentors());
-  }, [dispatch]);
 
   // params : { start, end, computerId, villageId, schooldId, libraryId }
   useEffect(() => {
@@ -169,11 +151,44 @@ const MatchingCalendar = props => {
       newEvent[typeToAdd] = dropInfo.event.extendedProps[typeToAdd];
       newEvent[otherType] = eventInSlot[otherType];
 
-      console.log(newEvent);
-
       dispatch(editCalendarEvent(newEvent));
     }
     dropInfo.revert();
+  };
+
+  const handleEventAllow = (dropInfo, draggedEvent) => {
+    const { startStr, endStr } = dropInfo;
+    const start = moment(startStr);
+    const end = moment(endStr);
+    const day = start.format('dddd');
+    const startTime = start.format('HH:mm');
+    const { dropping, mentor, mentee } = draggedEvent.extendedProps;
+    let canBeDropped = true;
+    if (dropping === 'mentor') {
+      mentor.forEach(person => {
+        if (
+          person.availability.day !== day ||
+          person.availability.time !== startTime
+        )
+          canBeDropped = false;
+      });
+      return canBeDropped;
+    } else if (dropping === 'mentee') {
+      mentee.forEach(person => {
+        const startOfDay = start.startOf('day');
+        if (
+          start.isBefore(
+            startOfDay.add(moment(person.availability.as_early_as, 'HH:mm'))
+          ) ||
+          end.isAfter(
+            startOfDay.add(moment(person.availability.as_late_as, 'HH:mm'))
+          )
+        ) {
+          canBeDropped = false;
+        }
+      });
+      return canBeDropped;
+    } else return true;
   };
 
   return (
@@ -182,64 +197,7 @@ const MatchingCalendar = props => {
       <section className="calendarSection">
         <section>
           <ComputerDropdown />
-          <div>
-            <Button
-              type="primary"
-              onClick={() => dispatch(saveCalendar(events))}
-              disabled={!changesMade}
-              loading={isLoading}
-            >
-              Save
-            </Button>
-          </div>
-          <aside className="mentorList">
-            <h3>Mentors</h3>
-            {mentors &&
-              mentors.map(mentorInfo => (
-                <div
-                  className="draggableMentor"
-                  key={mentorInfo.id}
-                  data-event={JSON.stringify({
-                    title: 'Session',
-                    duration: '01:00',
-                    dropping: 'mentor',
-                    mentor: [
-                      {
-                        ...mentorInfo,
-                      },
-                    ],
-                    mentee: [],
-                  })}
-                >
-                  {mentorInfo.first_name} ({mentorInfo.availability.as_early_as}{' '}
-                  - {mentorInfo.availability.as_late_as})
-                </div>
-              ))}
-          </aside>
-          <aside className="menteeList">
-            <h3>Mentees</h3>
-            {mentees &&
-              mentees.map(menteeInfo => (
-                <div
-                  className="draggableMentee"
-                  key={menteeInfo.id}
-                  data-event={JSON.stringify({
-                    title: 'Session',
-                    duration: '01:00',
-                    dropping: 'mentee',
-                    mentee: [
-                      {
-                        ...menteeInfo,
-                      },
-                    ],
-                    mentor: [],
-                  })}
-                >
-                  {menteeInfo.first_name} ({menteeInfo.availability.as_early_as}{' '}
-                  - {menteeInfo.availability.as_late_as})
-                </div>
-              ))}
-          </aside>
+          <DraggableMenuLists />
         </section>
         <div className="calStyling">
           <FullCalendar
@@ -261,6 +219,7 @@ const MatchingCalendar = props => {
             eventAdd={handleEventAdd}
             events={events}
             eventReceive={handleEventReceive}
+            eventAllow={handleEventAllow}
             eventChange={handleEventChange}
             eventRemove={handleEventRemove}
             slotLabelClassNames={['slotRow']}

@@ -1,15 +1,19 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Menu, Dropdown, message } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Menu, Dropdown, Button, message } from 'antd';
+import { DownOutlined, LaptopOutlined } from '@ant-design/icons';
 
-import { changeSelectedComputer } from '../../../../state/actions/index';
+import {
+  changeSelectedComputer,
+  saveCalendar,
+} from '../../../../state/actions/index';
 
 const ComputerDropdown = () => {
   const selectedComputerId = useSelector(
     state => state.calendarReducer.selectedComputerId
   );
   const changesMade = useSelector(state => state.calendarReducer.changesMade);
+  const isLoading = useSelector(state => state.calendarReducer.isLoading);
   const dispatch = useDispatch();
 
   const onClick = ({ key }) => {
@@ -35,11 +39,26 @@ const ComputerDropdown = () => {
   );
 
   return (
-    <Dropdown overlay={menu}>
-      <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-        Selected: Computer #{selectedComputerId} <DownOutlined />
-      </a>
-    </Dropdown>
+    <>
+      <Dropdown overlay={menu}>
+        <a
+          className="ant-dropdown-link"
+          style={{ fontSize: '1.1rem' }}
+          onClick={e => e.preventDefault()}
+        >
+          <LaptopOutlined /> Computer #{selectedComputerId} <DownOutlined />
+        </a>
+      </Dropdown>
+      <Button
+        type="primary"
+        style={{ marginLeft: '1rem' }}
+        disabled={!changesMade}
+        loading={isLoading}
+        onClick={() => dispatch(saveCalendar())}
+      >
+        Save
+      </Button>
+    </>
   );
 };
 
