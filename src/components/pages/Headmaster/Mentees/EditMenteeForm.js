@@ -151,14 +151,235 @@ const EditMenteeForm = ({
           <Form.Item
             label="Primary Language"
             name="primary_language"
-            rules={[{ required: true, message: 'Phone Number is required.' }]}
+            rules={[
+              { required: true, message: 'Primary Language is required.' },
+            ]}
           >
-            <Input
+            {/* <Input
               type="text"
               name="primary_language"
               value={formData.primary_language}
               onChange={e => handleChange(e)}
-            />
+            /> */}
+            <Select
+              // showSearch
+              // optionFilterProp="children"
+              // filterOption={(input, option) =>
+              //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              // }
+              onChange={e =>
+                setFormData({
+                  ...formData,
+                  primary_language: e,
+                })
+              }
+            >
+              <Option></Option>
+              <Option value="Abkhazian">Abkhazian</Option>
+              <Option value="Afar">Afar</Option>
+              <Option value="Afrikaans">Afrikaans</Option>
+              <Option value="Akan">Akan</Option>
+              <Option value="Albanian">Albanian</Option>
+              <Option value="Amharic">Amharic</Option>
+              <Option value="Arabic">Arabic</Option>
+              <Option value="Aragonese">Aragonese</Option>
+              <Option value="Armenian">Armenian</Option>
+              <Option value="Assamese">Assamese</Option>
+              <Option value="Avaric">Avaric</Option>
+              <Option value="Avestan">Avestan</Option>
+              <Option value="Aymara">Aymara</Option>
+              <Option value="Azerbaijani">Azerbaijani</Option>
+              <Option value="Bambara">Bambara</Option>
+              <Option value="Bashkir">Bashkir</Option>
+              <Option value="Basque">Basque</Option>
+              <Option value="Belarusian">Belarusian</Option>
+              <Option value="Bengali">Bengali</Option>
+              <Option value="Bihari">Bihari languages</Option>
+              <Option value="Bislama">Bislama</Option>
+              <Option value="Bosnian">Bosnian</Option>
+              <Option value="Breton">Breton</Option>
+              <Option value="Bulgarian">Bulgarian</Option>
+              <Option value="Burmese">Burmese</Option>
+              <Option value="Catalan, Valencian">Catalan, Valencian</Option>
+              <Option value="Khmer">Central Khmer</Option>
+              <Option value="Chamorro">Chamorro</Option>
+              <Option value="Chechen">Chechen</Option>
+              <Option value="Chichewa, Chewa, Nyanja">
+                Chichewa, Chewa, Nyanja
+              </Option>
+              <Option value="Chinese">Chinese</Option>
+              <Option value="Church Slavonic, Old Bulgarian, Old Church Slavonic">
+                Church Slavonic, Old Bulgarian, Old Church Slavonic
+              </Option>
+              <Option value="Chuvash">Chuvash</Option>
+              <Option value="Cornish">Cornish</Option>
+              <Option value="Corsican">Corsican</Option>
+              <Option value="Cree">Cree</Option>
+              <Option value="Croatian">Croatian</Option>
+              <Option value="Czech">Czech</Option>
+              <Option value="Danish">Danish</Option>
+              <Option value="Divehi, Dhivehi, Maldivian">
+                Divehi, Dhivehi, Maldivian
+              </Option>
+              <Option value="Dutch, Flemish">Dutch, Flemish</Option>
+              <Option value="Dzongkha">Dzongkha</Option>
+              <Option value="English">English</Option>
+              <Option value="Esperanto">Esperanto</Option>
+              <Option value="Estonian">Estonian</Option>
+              <Option value="Ewe">Ewe</Option>
+              <Option value="Faroese">Faroese</Option>
+              <Option value="Fijian">Fijian</Option>
+              <Option value="Finnish">Finnish</Option>
+              <Option value="French">French</Option>
+              <Option value="Fulah">Fulah</Option>
+              <Option value="Gaelic, Scottish Gaelic">
+                Gaelic, Scottish Gaelic
+              </Option>
+              <Option value="Galician">Galician</Option>
+              <Option value="Ganda">Ganda</Option>
+              <Option value="Georgian">Georgian</Option>
+              <Option value="German">German</Option>
+              <Option value="Gikuyu, Kikuy">Gikuyu, Kikuyu</Option>
+              <Option value="Greek">Greek (Modern)</Option>
+              <Option value="Greenlandic, Kalaallisut">
+                Greenlandic, Kalaallisut
+              </Option>
+              <Option value="gGuaranin">Guarani</Option>
+              <Option value="Gujarati">Gujarati</Option>
+              <Option value="Haitian, Haitian Creole">
+                Haitian, Haitian Creole
+              </Option>
+              <Option value="Hausa">Hausa</Option>
+              <Option value="Hebrew">Hebrew</Option>
+              <Option value="Herero">Herero</Option>
+              <Option value="Hindi">Hindi</Option>
+              <Option value="Hiri Mot">Hiri Motu</Option>
+              <Option value="Hungarian">Hungarian</Option>
+              <Option value="Icelandic">Icelandic</Option>
+              <Option value="Ido">Ido</Option>
+              <Option value="Igbo">Igbo</Option>
+              <Option value="Indonesian">Indonesian</Option>
+              <Option value="Interlingua">
+                Interlingua (International Auxiliary Language Association)
+              </Option>
+              <Option value="Interlingue">Interlingue</Option>
+              <Option value="Inuktitut">Inuktitut</Option>
+              <Option value="Inupiaq">Inupiaq</Option>
+              <Option value="Irish">Irish</Option>
+              <Option value="Italian">Italian</Option>
+              <Option value="Japanese">Japanese</Option>
+              <Option value="Javanese">Javanese</Option>
+              <Option value="Kannada">Kannada</Option>
+              <Option value="Kanuri">Kanuri</Option>
+              <Option value="Kashmiri">Kashmiri</Option>
+              <Option value="Kazakh">Kazakh</Option>
+              <Option value="Kinyarwanda">Kinyarwanda</Option>
+              <Option value="kKomiv">Komi</Option>
+              <Option value="Kongo">Kongo</Option>
+              <Option value="Korean">Korean</Option>
+              <Option value="Kwanyama, Kuanyama">Kwanyama, Kuanyama</Option>
+              <Option value="Kurdish">Kurdish</Option>
+              <Option value="Kyrgyz">Kyrgyz</Option>
+              <Option value="Lao">Lao</Option>
+              <Option value="Latin">Latin</Option>
+              <Option value="Latvian">Latvian</Option>
+              <Option value="Letzeburgesch, Luxembourgish">
+                Letzeburgesch, Luxembourgish
+              </Option>
+              <Option value="Limburgish, Limburgan, Limburge">
+                Limburgish, Limburgan, Limburger
+              </Option>
+              <Option value="Lingala">Lingala</Option>
+              <Option value="Lithuanian">Lithuanian</Option>
+              <Option value="Luba-Katanga">Luba-Katanga</Option>
+              <Option value="Macedonian">Macedonian</Option>
+              <Option value="Malagasy">Malagasy</Option>
+              <Option value="Malay">Malay</Option>
+              <Option value="Malayalam">Malayalam</Option>
+              <Option value="Maltese">Maltese</Option>
+              <Option value="Manx">Manx</Option>
+              <Option value="Maori">Maori</Option>
+              <Option value="Marathi">Marathi</Option>
+              <Option value="Marshallese">Marshallese</Option>
+              <Option value="Moldovan, Moldavian, Romania">
+                Moldovan, Moldavian, Romanian
+              </Option>
+              <Option value="Mongolian">Mongolian</Option>
+              <Option value="Nauru">Nauru</Option>
+              <Option value="Navajo, Navah">Navajo, Navaho</Option>
+              <Option value="Northern Ndebele">Northern Ndebele</Option>
+              <Option value="Ndonga">Ndonga</Option>
+              <Option value="Nepali">Nepali</Option>
+              <Option value="Northern Sami">Northern Sami</Option>
+              <Option value="Norwegian">Norwegian</Option>
+              <Option value=">Norwegian Bokmål">Norwegian Bokmål</Option>
+              <Option value="Norwegian Nynorsk">Norwegian Nynorsk</Option>
+              <Option value="Nuosu, Sichuan Yi">Nuosu, Sichuan Yi</Option>
+              <Option value="Occitan">Occitan (post 1500)</Option>
+              <Option value="Ojibwa">Ojibwa</Option>
+              <Option value="Oriya">Oriya</Option>
+              <Option value="Oromo">Oromo</Option>
+              <Option value="Ossetian, Ossetic">Ossetian, Ossetic</Option>
+              <Option value="Pali">Pali</Option>
+              <Option value="Panjabi, Punjabi">Panjabi, Punjabi</Option>
+              <Option value="Pashto, Pushto">Pashto, Pushto</Option>
+              <Option value="Persian">Persian</Option>
+              <Option value="Polish">Polish</Option>
+              <Option value="Portuguese">Portuguese</Option>
+              <Option value="Quechua">Quechua</Option>
+              <Option value="Romansh">Romansh</Option>
+              <Option value="Rundi">Rundi</Option>
+              <Option value="Russian">Russian</Option>
+              <Option value="Samoan">Samoan</Option>
+              <Option value="Sango">Sango</Option>
+              <Option value="Sanskrit">Sanskrit</Option>
+              <Option value="Sardinian">Sardinian</Option>
+              <Option value="Serbian">Serbian</Option>
+              <Option value="Shona">Shona</Option>
+              <Option value="Sindhi">Sindhi</Option>
+              <Option value="Sinhala, Sinhalese">Sinhala, Sinhalese</Option>
+              <Option value="Slovak">Slovak</Option>
+              <Option value="Slovenian">Slovenian</Option>
+              <Option value="Somali">Somali</Option>
+              <Option value="Sotho, Southern">Sotho, Southern</Option>
+              <Option value="South Ndebele">South Ndebele</Option>
+              <Option value="Spanish, Castilian">Spanish, Castilian</Option>
+              <Option value="Sundanese">Sundanese</Option>
+              <Option value="Swahili">Swahili</Option>
+              <Option value="Swati">Swati</Option>
+              <Option value="Swedish">Swedish</Option>
+              <Option value="Tagalog">Tagalog</Option>
+              <Option value="Tahitian">Tahitian</Option>
+              <Option value="Tajik">Tajik</Option>
+              <Option value="Tamil">Tamil</Option>
+              <Option value="Tatar">Tatar</Option>
+              <Option value="Telugu">Telugu</Option>
+              <Option value="Thai">Thai</Option>
+              <Option value="Tibetan">Tibetan</Option>
+              <Option value="Tigrinya">Tigrinya</Option>
+              <Option value="Tonga">Tonga (Tonga Islands)</Option>
+              <Option value="Tsonga">Tsonga</Option>
+              <Option value="Tswana">Tswana</Option>
+              <Option value="Turkish">Turkish</Option>
+              <Option value="Turkmen">Turkmen</Option>
+              <Option value="Twi">Twi</Option>
+              <Option value="Uighur, Uyghur">Uighur, Uyghur</Option>
+              <Option value="Ukrainian">Ukrainian</Option>
+              <Option value="Urdu">Urdu</Option>
+              <Option value="uUzbekz">Uzbek</Option>
+              <Option value="Venda">Venda</Option>
+              <Option value="Vietnamese">Vietnamese</Option>
+              <Option value="Volap_k">Volap_k</Option>
+              <Option value="Walloon">Walloon</Option>
+              <Option value="Welsh">Welsh</Option>
+              <Option value="Western Frisian">Western Frisian</Option>
+              <Option value="Wolof">Wolof</Option>
+              <Option value="Xhosa">Xhosa</Option>
+              <Option value="Yiddish">Yiddish</Option>
+              <Option value="Yoruba">Yoruba</Option>
+              <Option value="Zhuang, Chuang">Zhuang, Chuang</Option>
+              <Option value="Zulu">Zulu</Option>
+            </Select>
           </Form.Item>
           <Form.Item
             label="Date of Birth"
