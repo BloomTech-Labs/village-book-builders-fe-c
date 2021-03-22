@@ -85,8 +85,7 @@ const Mentees = ({
 
   function showDeleteConfirm(key) {
     confirm({
-      title: 'Are you sure delete this task?',
-      content: 'Some descriptions',
+      title: 'Are you sure delete this mentee?',
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
