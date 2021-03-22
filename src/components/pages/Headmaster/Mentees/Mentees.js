@@ -56,7 +56,7 @@ const Mentees = ({
       setLoading(false);
       setIsModalVisible2(false);
     }, 1500);
-    window.location.reload();
+    //window.location.reload();
   };
 
   const handleOk = () => {
