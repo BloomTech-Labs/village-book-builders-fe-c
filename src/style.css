@@ -41,6 +41,20 @@
   flex-direction: column;
   align-items: flex-start;
 }
+.miniMentorAvatar {
+  margin-left: 70px;
+}
+.miniMenteeAvatar {
+  margin-left: 70px;
+}
+.miniMenteeNameText {
+  margin-left: 109px;
+  width: 250px;
+}
+.miniMentorNameText {
+  margin-left: 109px;
+  width: 250px;
+}
 
 /* Dashboard Menu */
 .menuIcon {
@@ -67,7 +81,6 @@
 /* Profile Pages */
 .profile-item-title {
   font-weight: bold;
- 
 }
 
 .profile-item {
@@ -181,40 +194,90 @@
 }
 
 /* calendar styling */
-.calStyling {
-  margin: 20px auto 20px 0px;
-  border: 2px solid orange;
-  width: 95%;
-  padding: 20px;
-}
-.events {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.events .ant-badge-status {
-  /* overflow: hidden; */
-  white-space: nowrap;
-  width: 100%;
-  text-overflow: ellipsis;
-  margin: 5px 0px;
+section.calendarSection {
+  display: flex;
+  align-items: stretch;
 }
 
-.events .ant-badge-status .ant-badge-status-text {
-  font-size: 15px;
+aside.mentorList,
+aside.menteeList {
+  display: flex;
+  flex-direction: column;
+  margin: 10rem 3rem 0 0.5rem;
+  user-select: none;
 }
 
-.notes-month {
+aside.menteeList {
+  margin: 3rem 3rem 0 0.5rem;
+}
+
+aside.mentorList div.draggableMentor,
+aside.menteeList div.draggableMentee {
+  margin-bottom: 2rem;
+  color: white;
+  font-weight: bold;
+  background-color: cadetblue;
+  border-radius: 1rem;
   text-align: center;
-  font-size: 28px;
+  width: 10rem;
 }
-.notes-month section {
-  font-size: 28px;
+
+.sessionsEvent {
+  background: inherit !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.listButton2 {
+
+a.sessionShow span.anticon-plus-circle {
+  visibility: visible;
+}
+
+a.sessionHide span.anticon-plus-circle {
+  visibility: hidden;
+}
+
+span.sessionsBadge {
+  color: white;
+  background-color: green;
+}
+
+div.fc-event-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.miniMentorList {
   font-size: 20px;
-  margin-left: 50%;
 }
-.listButton1 {
+.miniMenteeList {
   font-size: 20px;
+  margin-left: 1000px;
+}
+.miniMenteeButton {
+  color: white;
+  font-weight: bold;
+  background-color: orange;
+  width: 100px;
+  display: block;
+  border-radius: 0.5rem;
+  margin: 0.1rem 0;
+}
+
+.miniMentorButton {
+  color: white;
+  font-weight: bold;
+  background-color: orange;
+  width: 100px;
+  display: block;
+  border-radius: 0.5rem;
+  margin: 0.1rem 0;
+}
+
+.timeSlotRow {
+  height: 30px;
 }

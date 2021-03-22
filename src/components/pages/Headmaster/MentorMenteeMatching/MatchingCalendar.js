@@ -1,63 +1,110 @@
-import { Calendar, Form, Input, DatePicker, Select, Space, Button } from 'antd';
-import 'antd/dist/antd.css';
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { createRef, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+import moment from 'moment-timezone';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
+import { Button } from 'antd';
+import Events from './Events';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
-import MatchingModal from './MatchingModal';
-import MatchCell from './MatchCell';
-import { fetchCalendar as fetchCalendarAction } from '../../../../state/actions/index';
-
-const initialState = {
-  date: '',
-  type: 'success',
-  content: '',
-};
+// import MatchingModal from './MatchingModal';
+import {
+  fetchCalendar,
+  saveCalendar,
+  createCalendarEvent,
+  editCalendarEvent,
+  removeCalendarEvent,
+  fetchMentors,
+  fetchMentees,
+} from '../../../../state/actions/index';
+import ComputerDropdown from './ComputerDropdown';
 
 const MatchingCalendar = props => {
-  const { matches, fetchCalendarAction: fetchCalendar } = props;
-  useEffect(() => {
-    fetchCalendar();
-  }, [fetchCalendar]);
-
-  //-----------------------start calendar code - https://ant.design/components/calendar/
-  function dateCellRender(value) {
-    const listData = getListData(value);
-    return (
-      <div className="scheduleMatch">
-        {listData.map(match => (
-          <MatchCell key={match.id} match={match} />
-        ))}
-      </div>
-    );
-  }
-
-  function onPanelChange(value, mode) {
-    console.log(value.format('YYYY-MM-DD'), mode);
-  }
-
-  function getListData(value) {
-    const currentDate = `${value.format('YYYY-MM-DD')}`;
-    return matches.filter(m => m.date === currentDate) || [];
-  }
-  //-----------------------end calendar code
-
-  //set selection type for standard drop menu in form
-  const { Option } = Select;
-
-  const [calValue, setCalValue] = useState(initialState);
-
-  //standard picker handler
-  const handleChange = e => {
-    setCalValue({ ...calValue, [e.target.name]: e.target.value });
-  };
-
-  const onFinish = cValue => {
-    console.log(cValue);
-  };
-
+  const dispatch = useDispatch();
+  const events = useSelector(state => state.calendarReducer.events);
+  const changesMade = useSelector(state => state.calendarReducer.changesMade);
+  const isLoading = useSelector(state => state.calendarReducer.isLoading);
+  const selectedComputerId = useSelector(
+    state => state.calendarReducer.selectedComputerId
+  );
+  const mentors = useSelector(state => state.headmasterReducer.mentors);
+  const mentees = useSelector(state => state.headmasterReducer.mentees);
+  const headmasterProfile = useSelector(
+    state => state.headmasterReducer.headmasterProfile
+  );
   const [clickMenteeList, setClickMenteeList] = useState(false);
   const [clickMentorList, setClickMentorList] = useState(false);
+
+  let calendar = createRef();
+
+  useEffect(() => {
+    if (!mentors || mentors.length === 0) return;
+    const draggableItems = document.getElementsByClassName('draggableMentor');
+    for (let item of draggableItems) new Draggable(item);
+  }, [mentors]);
+
+  useEffect(() => {
+    if (!mentees || mentees.length === 0) return;
+    const draggableItems = document.getElementsByClassName('draggableMentee');
+    for (let item of draggableItems) new Draggable(item);
+  }, [mentees]);
+
+  const startOfWeek = moment()
+    .startOf('week')
+    .toISOString(true);
+  const endOfWeek = moment()
+    .endOf('week')
+    .toISOString(true);
+
+  useEffect(() => {
+    dispatch(fetchMentees());
+    dispatch(fetchMentors());
+  }, [dispatch]);
+
+  // params : { start, end, computerId, villageId, schooldId, libraryId }
+  useEffect(() => {
+    if (changesMade || headmasterProfile.villageId === undefined) return;
+    const params = {
+      start: startOfWeek,
+      end: endOfWeek,
+      computerId: selectedComputerId,
+      villageId: headmasterProfile.villageId,
+      libraryId: headmasterProfile.libraryId,
+      schoolId: headmasterProfile.schoolId,
+    };
+    dispatch(fetchCalendar(params));
+  }, [dispatch, headmasterProfile, changesMade, selectedComputerId]);
+
+  const handleSelectClick = selectInfo => {
+    const title = 'Session';
+    let calendarAPI = calendar.current.getApi();
+
+    calendarAPI.unselect();
+
+    calendarAPI.addEvent(
+      {
+        id: uuid(),
+        title,
+        start: selectInfo.startStr,
+        end: moment(selectInfo.startStr)
+          .add(1, 'hour')
+          .toISOString(true),
+        allDay: selectInfo.allDay,
+        extendedProps: {
+          mentor: [],
+          mentee: [],
+        },
+      },
+      true
+    );
+  };
+
+  const handleEventAdd = addInfo => {
+    dispatch(createCalendarEvent(addInfo.event.toPlainObject()));
+  };
 
   const handleClickMenteeList = () => {
     setClickMenteeList(!clickMenteeList);
@@ -66,111 +113,176 @@ const MatchingCalendar = props => {
     setClickMentorList(!clickMentorList);
   };
 
+  const handleEventChange = changeInfo => {
+    const newEvent = { ...changeInfo.event.toPlainObject() };
+    newEvent.mentor = newEvent.extendedProps.mentor
+      ? [...newEvent.extendedProps.mentor]
+      : [];
+    newEvent.mentee = newEvent.extendedProps.mentee
+      ? [...newEvent.extendedProps.mentee]
+      : [];
+    delete newEvent.extendedProps;
+    dispatch(editCalendarEvent(newEvent));
+  };
+
+  const renderSlotLane = _ => {
+    return <div className="timeSlotRow"></div>;
+  };
+
+  const removeEvent = event => {
+    event.remove();
+  };
+
+  const handleEventRemove = removeInfo => {
+    dispatch(removeCalendarEvent(removeInfo.event.toPlainObject()));
+  };
+
+  const renderEventContent = ({ event }) => {
+    return <Events event={event} removeEvent={removeEvent} />;
+  };
+
+  // This gets called when an event is going to be dropped
+  // into the calendar.
+  const handleEventReceive = dropInfo => {
+    // Check if there's no events in that slot already
+    let eventInSlot = events.filter(
+      event => event.start === dropInfo.event.startStr
+    );
+
+    // if there aren't, then create a new event with this information
+    if (eventInSlot.length === 0) {
+      dispatch(
+        createCalendarEvent({
+          ...dropInfo.event.toPlainObject(),
+          id: uuid(),
+          mentor: [...dropInfo.event.extendedProps.mentor],
+          mentee: [...dropInfo.event.extendedProps.mentee],
+        })
+      );
+    } else {
+      // There is an event in this slot.
+      eventInSlot = eventInSlot[0];
+      // What type of event is trying to be added?
+      const typeToAdd = dropInfo.event.extendedProps.dropping;
+      const otherType = typeToAdd === 'mentor' ? 'mentee' : 'mentor';
+      const newEvent = { ...eventInSlot };
+      newEvent[typeToAdd] = dropInfo.event.extendedProps[typeToAdd];
+      newEvent[otherType] = eventInSlot[otherType];
+
+      console.log(newEvent);
+
+      dispatch(editCalendarEvent(newEvent));
+    }
+    dropInfo.revert();
+  };
+
   return (
     <div>
       <h1>Mentor - Mentee Matching</h1>
-      <div className="calStyling">
-        <Calendar
-          dateCellRender={dateCellRender}
-          onPanelChange={onPanelChange}
-        />
-      </div>
-      <MatchingModal />
-      <h3>Please complete all the fields below to fill a time slot.</h3>
-      <Form onFinish={onFinish}>
-        <Form.Item label="Mentor">
-          <Input.Group>
-            <Form.Item
-              name="content"
-              noStyle
-              rules={[{ required: true, message: 'Mentor is required' }]}
-              onChange={e => handleChange(e)}
+      <section className="calendarSection">
+        <section>
+          <ComputerDropdown />
+          <div>
+            <Button
+              type="primary"
+              onClick={() => dispatch(saveCalendar(events))}
+              disabled={!changesMade}
+              loading={isLoading}
             >
-              <Select
-                placeholder="Please select a Mentor"
-                name={calValue.content}
-              >
-                <Option value="Mentor Michael">Mentor Michael</Option>
-                <Option value="Mentor Pam">Mentor Pam</Option>
-                <Option value="Mentor Oscar">Mentor Oscar</Option>
-              </Select>
-            </Form.Item>
-          </Input.Group>
-        </Form.Item>
+              Save
+            </Button>
+          </div>
+          <aside className="mentorList">
+            <h3>Mentors</h3>
+            {mentors &&
+              mentors.map(mentorInfo => (
+                <div
+                  className="draggableMentor"
+                  key={mentorInfo.id}
+                  data-event={JSON.stringify({
+                    title: 'Session',
+                    duration: '01:00',
+                    dropping: 'mentor',
+                    mentor: [
+                      {
+                        ...mentorInfo,
+                      },
+                    ],
+                    mentee: [],
+                  })}
+                >
+                  {mentorInfo.first_name} ({mentorInfo.availability.as_early_as}{' '}
+                  - {mentorInfo.availability.as_late_as})
+                </div>
+              ))}
+          </aside>
+          <aside className="menteeList">
+            <h3>Mentees</h3>
+            {mentees &&
+              mentees.map(menteeInfo => (
+                <div
+                  className="draggableMentee"
+                  key={menteeInfo.id}
+                  data-event={JSON.stringify({
+                    title: 'Session',
+                    duration: '01:00',
+                    dropping: 'mentee',
+                    mentee: [
+                      {
+                        ...menteeInfo,
+                      },
+                    ],
+                    mentor: [],
+                  })}
+                >
+                  {menteeInfo.first_name} ({menteeInfo.availability.as_early_as}{' '}
+                  - {menteeInfo.availability.as_late_as})
+                </div>
+              ))}
+          </aside>
+        </section>
+        <div className="calStyling">
+          <FullCalendar
+            ref={calendar}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            headerToolbar={{
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay',
+            }}
+            initialView="timeGridWeek"
+            editable={true}
+            selectable={true}
+            droppable={true}
+            expandRows={true}
+            contentHeight="auto"
+            select={handleSelectClick}
+            eventContent={renderEventContent}
+            eventAdd={handleEventAdd}
+            events={events}
+            eventReceive={handleEventReceive}
+            eventChange={handleEventChange}
+            eventRemove={handleEventRemove}
+            slotLabelClassNames={['slotRow']}
+            eventClassNames={['sessionsEvent']}
+            slotLaneContent={renderSlotLane}
+            slotDuration={{ minutes: 30 }}
+            slotMinTime={'08:00:00'}
+          />
+        </div>
+      </section>
 
-        <Form.Item label="Mentee">
-          <Input.Group>
-            <Form.Item
-              name="mentee"
-              noStyle
-              rules={[{ required: true, message: 'Mentee is required' }]}
-            >
-              <Select placeholder="Please select a mentee">
-                <Option value="Mentee Scott">Mentee Scott</Option>
-                <Option value="Mentee Beasly">Mentee Beasly</Option>
-                <Option value="Mentee Martinez">Mentee Martinez</Option>
-              </Select>
-            </Form.Item>
-          </Input.Group>
-        </Form.Item>
-
-        <Form.Item id="form_label" label="Time slot">
-          <Input.Group>
-            <Form.Item
-              name="slot"
-              noStyle
-              rules={[{ required: true, message: 'Time slot is required' }]}
-            >
-              <Select placeholder="Please select a time slot.">
-                <Option value="9am">9am</Option>
-                <Option value="10am">10am</Option>
-                <Option value="11am">11am</Option>
-                <Option value="12pm">12pm</Option>
-                <Option value="1pm">1pm</Option>
-                <Option value="2pm">2pm</Option>
-                <Option value="3pm">3pm</Option>
-                <Option value="4pm">4pm</Option>
-                <Option value="5pm">5pm</Option>
-              </Select>
-            </Form.Item>
-          </Input.Group>
-        </Form.Item>
-
-        {/* https://ant.design/components/date-picker/#header
-        default onChange
-        function onChange(date, dateString) {
-          console.log(date, dateString);
-        } */}
-        <Form.Item label="Date">
-          <Input.Group>
-            <Form.Item
-              name="date"
-              noStyle
-              // rules={[{ required: true, message: 'Date is required' }]}
-              handleChange={e => handleChange(e)}
-            >
-              <Space direction="vertical">
-                <DatePicker name={calValue.date} handleChange={handleChange} />
-              </Space>
-            </Form.Item>
-          </Input.Group>
-        </Form.Item>
-
-        <Form.Item>
-          <Button htmlType="submit">Submit</Button>
-        </Form.Item>
-      </Form>
       <div className="miniListContainer">
-        <div className="listButton1">
+        <div className="miniMentorList">
           <h1>Mentor List</h1>
-          <button onClick={handleClickMentorList}>
+          <button className="miniMentorButton" onClick={handleClickMentorList}>
             {clickMentorList ? 'Hide' : 'Show'}
           </button>
           {clickMentorList ? <MiniMentorList /> : null}
         </div>
-        <div className="listButton2">
+        <div className="miniMenteeList">
           <h1>Mentee List</h1>
-          <button onClick={handleClickMenteeList}>
+          <button className="miniMenteeButton" onClick={handleClickMenteeList}>
             {clickMenteeList ? 'Hide' : 'Show'}
           </button>
           {clickMenteeList ? <MiniMenteeList /> : null}
@@ -180,14 +292,4 @@ const MatchingCalendar = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    isloading: state.headmasterReducer.isLoading,
-    mentees: state.headmasterReducer.mentees,
-    matches: state.headmasterReducer.matches,
-  };
-};
-
-export default connect(mapStateToProps, { fetchCalendarAction })(
-  MatchingCalendar
-);
+export default MatchingCalendar;
