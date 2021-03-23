@@ -18,11 +18,19 @@ const MentorProfile = ({ currentMentor }) => {
       ) : (
         <>
           <Row gutter={16} style={{ width: '100%' }}>
-            <Col className="gutter-row" span={8}>
+            <Col
+              className="gutter-row"
+              span={8}
+              style={{ textAlign: 'center' }}
+            >
               <Avatar
-                src={currentMentor.mentee_picture}
+                src={currentMentor.mentor_picture}
                 size={250}
-                style={{ alignSelf: 'center', borderRadius: 'unset' }}
+                style={{
+                  alignSelf: 'center',
+                  borderRadius: 'unset',
+                  textAlign: 'center',
+                }}
                 shape="square"
               />
             </Col>

@@ -12,6 +12,9 @@ import {
   FETCH_MENTOR_SUCCESS,
   FETCH_MENTOR_FAILURE,
   FETCH_MENTOR_START,
+  FETCH_MENTOR_AFTER_POST_SUCCESS,
+  FETCH_MENTOR_AFTER_DELETE_SUCCESS,
+  EDIT_MENTOR_PROFILE_SUCCESS,
 } from '../actions/actionTypes';
 
 // import { debugLog } from '../../utils/debugMode.js';
@@ -76,7 +79,30 @@ const reducer = (state = initialState, action = {}) => {
       return { ...state, isLoading: true };
     case FETCH_MENTOR_FAILURE:
       return { ...state, isLoading: false };
-
+    case FETCH_MENTOR_AFTER_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        mentors: [...state.mentors, action.payload.mentor],
+        message: action.payload.message,
+      };
+    case FETCH_MENTOR_AFTER_DELETE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        mentors: state.mentors.filter(
+          mentor => mentor.id !== action.payload.mentor
+        ),
+        message: action.payload.message,
+      };
+    case EDIT_MENTOR_PROFILE_SUCCESS:
+      //debugLog(action.type, action.payload);
+      //return { ...state, isLoading: false, menteeProfile: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        message: action.payload,
+      };
     default:
       return state;
   }

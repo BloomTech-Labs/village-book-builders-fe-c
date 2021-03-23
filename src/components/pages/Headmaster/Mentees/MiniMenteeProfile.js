@@ -1,10 +1,10 @@
-import { Avatar, Collapse, Row, Col, Alert } from 'antd';
+import { Avatar, Row, Col, Alert } from 'antd';
 import React from 'react';
 //import { debugLog } from '../../../../utils/debugMode';
 import '../../../../style.css';
 
 const MiniMenteeProfile = ({ currentMentee }) => {
-  const { Panel } = Collapse;
+  //const { Panel } = Collapse;
   console.log(currentMentee);
   // debugLog(
   //   'Prop drilled from Mentees.js',

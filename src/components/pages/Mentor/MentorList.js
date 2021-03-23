@@ -1,18 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Divider, Table, Input, Avatar, Tag, Button, Modal } from 'antd';
+import { Divider, Table, Input, Avatar, Tag, Button, Modal, Alert } from 'antd';
 import moment from 'moment';
-import { fetchMentors as fetchMentorsAction } from '../../../state/actions/index';
+import {
+  fetchMentors as fetchMentorsAction,
+  deleteMentor as deleteMentorAction,
+  addMentor as addMentorAction,
+  editMentorProfile as editMentorProfileAction,
+} from '../../../state/actions/index';
 import MentorProfile from './MentorProfile';
+import AddMentorForm from './AddMentorForm';
+import EditMentorForm from './EditMentorForm';
 
-const MentorList = ({ mentors, fetchMentorsAction: fetchMentors }) => {
+const MentorList = ({
+  mentors,
+  fetchMentorsAction: fetchMentors,
+  deleteMentorAction: deleteMentor,
+  addMentorAction: addMentor,
+  editMentorProfileAction: editMentorProfile,
+  message,
+}) => {
   const [search, setSearch] = useState('');
-  const [isModalVisible1, setIsModalVisible1] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [currentMentor, setCurrentMentor] = useState({});
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible1, setIsModalVisible1] = useState(false);
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
 
-  useEffect(() => {
-    fetchMentors();
-  }, [fetchMentors]);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const onSubmitCallback = data => {
+    //console.log('data', data);
+    setLoading(true);
+    addMentor(data);
+    setTimeout(() => {
+      setLoading(false);
+      setIsModalVisible(false);
+    }, 1500);
+  };
+
+  const onEditCallback = data => {
+    //console.log('edit data', data);
+    setLoading(true);
+    editMentorProfile(data.key, data);
+    setTimeout(() => {
+      setLoading(false);
+      setIsModalVisible2(false);
+    }, 1500);
+    //window.location.reload();
+  };
 
   const handleOk = () => {
     //console.log('form', formState);
@@ -24,9 +62,40 @@ const MentorList = ({ mentors, fetchMentorsAction: fetchMentors }) => {
     // }, 3000);
   };
 
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   const handleCancel1 = () => {
     setIsModalVisible1(false);
   };
+
+  const handleCancel2 = () => {
+    setIsModalVisible2(false);
+  };
+
+  const { confirm } = Modal;
+
+  function showDeleteConfirm(key) {
+    confirm({
+      title: 'Are you sure delete this mentor?',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        deleteMentor(key.key);
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
+
+  useEffect(() => {
+    fetchMentors();
+  }, [fetchMentors]);
+
+  //console.log('mentors', mentors);
 
   const columns = [
     {
@@ -36,8 +105,8 @@ const MentorList = ({ mentors, fetchMentorsAction: fetchMentors }) => {
     },
     {
       title: '',
-      dataIndex: 'mentee_picture',
-      key: 'mentee_picture',
+      dataIndex: 'mentor_picture',
+      key: 'mentor_picture',
       render: image => <Avatar src={image} />,
     },
     { title: 'Email Address', dataIndex: 'email', key: 'email' },
@@ -77,6 +146,23 @@ const MentorList = ({ mentors, fetchMentorsAction: fetchMentors }) => {
             }}
           >
             More Info
+          </Button>{' '}
+          <Button
+            size="small"
+            onClick={() => {
+              setCurrentMentor(record);
+              setIsModalVisible2(true);
+            }}
+          >
+            Edit
+          </Button>{' '}
+          <Button
+            size="small"
+            onClick={() => {
+              showDeleteConfirm(record);
+            }}
+          >
+            Delete
           </Button>
         </div>
       ),
@@ -86,7 +172,7 @@ const MentorList = ({ mentors, fetchMentorsAction: fetchMentors }) => {
   let data2 = [
     ...mentors.map(mentor => ({
       key: mentor.id,
-      mentee_picture: mentor.mentor_picture,
+      mentor_picture: mentor.mentor_picture,
       first_name: mentor.first_name,
       last_name: mentor.last_name,
       gender: mentor.gender,
@@ -114,7 +200,23 @@ const MentorList = ({ mentors, fetchMentorsAction: fetchMentors }) => {
   return (
     <div className="menteeContainer">
       <div className="exploreWrapper">
-        <h1 id="menteeTitle">Mentors</h1>
+        {message && (
+          <Alert
+            message={message}
+            type="success"
+            style={{
+              marginBottom: '10px',
+              borderRadius: 'unset',
+              maxWidth: '480px',
+            }}
+          />
+        )}
+        <h1 id="menteeTitle">
+          Mentees{' '}
+          <Button type="primary" size="small" onClick={showModal}>
+            Add New
+          </Button>
+        </h1>
         <Input.Search
           value={search}
           placeholder="Search by Name"
@@ -144,6 +246,34 @@ const MentorList = ({ mentors, fetchMentorsAction: fetchMentors }) => {
       >
         <MentorProfile currentMentor={currentMentor} />
       </Modal>
+      <Modal
+        title="Edit Mentee"
+        visible={isModalVisible2}
+        onCancel={handleCancel2}
+        onOk={handleOk}
+        cancelButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: 'none' } }}
+        width={680}
+        style={{ top: 20 }}
+      >
+        <EditMentorForm
+          currentMentor={currentMentor}
+          onedit={onEditCallback}
+          loading={loading}
+        />
+      </Modal>
+      <Modal
+        title="Add Mentee"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        onOk={handleOk}
+        cancelButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: 'none' } }}
+        width={680}
+        style={{ top: 20 }}
+      >
+        <AddMentorForm onsubmit={onSubmitCallback} loading={loading} />
+      </Modal>
     </div>
   );
 };
@@ -152,7 +282,13 @@ const mapStateToProps = state => {
   return {
     isloading: state.headmasterReducer.isLoading,
     mentors: state.headmasterReducer.mentors,
+    message: state.headmasterReducer.message,
   };
 };
 
-export default connect(mapStateToProps, { fetchMentorsAction })(MentorList);
+export default connect(mapStateToProps, {
+  fetchMentorsAction,
+  deleteMentorAction,
+  addMentorAction,
+  editMentorProfileAction,
+})(MentorList);
