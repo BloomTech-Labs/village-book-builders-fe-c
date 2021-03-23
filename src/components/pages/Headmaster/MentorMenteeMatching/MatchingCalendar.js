@@ -11,6 +11,7 @@ import Events from './Events';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 import PersonInfoModal from './PersonInfoModal';
+import DraggableMenuLists from './DraggableMenuLists';
 
 import {
   fetchCalendar,
@@ -185,66 +186,7 @@ const MatchingCalendar = props => {
       <section className="calendarSection">
         <section>
           <ComputerDropdown />
-          <div>
-            <Button
-              type="primary"
-              onClick={() => dispatch(saveCalendar(events))}
-              disabled={!changesMade}
-              loading={isLoading}
-            >
-              Save
-            </Button>
-          </div>
-          <aside className="mentorList">
-            <h3>Mentors</h3>
-            {mentors &&
-              mentors.map(mentorInfo => (
-                <div
-                  className="draggableMentor"
-                  key={mentorInfo.id}
-                  onClick={() => dispatch(showModal(mentorInfo))}
-                  data-event={JSON.stringify({
-                    title: 'Session',
-                    duration: '01:00',
-                    dropping: 'mentor',
-                    mentor: [
-                      {
-                        ...mentorInfo,
-                      },
-                    ],
-                    mentee: [],
-                  })}
-                >
-                  {mentorInfo.first_name} ({mentorInfo.availability.as_early_as}{' '}
-                  - {mentorInfo.availability.as_late_as})
-                </div>
-              ))}
-          </aside>
-          <aside className="menteeList">
-            <h3>Mentees</h3>
-            {mentees &&
-              mentees.map(menteeInfo => (
-                <div
-                  className="draggableMentee"
-                  key={menteeInfo.id}
-                  onClick={() => dispatch(showModal(menteeInfo))}
-                  data-event={JSON.stringify({
-                    title: 'Session',
-                    duration: '01:00',
-                    dropping: 'mentee',
-                    mentee: [
-                      {
-                        ...menteeInfo,
-                      },
-                    ],
-                    mentor: [],
-                  })}
-                >
-                  {menteeInfo.first_name} ({menteeInfo.availability.as_early_as}{' '}
-                  - {menteeInfo.availability.as_late_as})
-                </div>
-              ))}
-          </aside>
+          <DraggableMenuLists />
         </section>
         <div className="calStyling">
           <FullCalendar
