@@ -10,17 +10,15 @@ import Events from './Events';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 import PersonInfoModal from './PersonInfoModal';
+import ComputerDropdown from './ComputerDropdown';
+import DraggableMenuLists from './DraggableMenuLists';
 
 import {
   fetchCalendar,
   createCalendarEvent,
   editCalendarEvent,
   removeCalendarEvent,
-  fetchMentors,
-  fetchMentees,
 } from '../../../../state/actions/index';
-import ComputerDropdown from './ComputerDropdown';
-import DraggableMenuLists from './DraggableMenuLists';
 
 const MatchingCalendar = props => {
   const dispatch = useDispatch();
@@ -34,6 +32,7 @@ const MatchingCalendar = props => {
   const headmasterProfile = useSelector(
     state => state.headmasterReducer.headmasterProfile
   );
+
   const [clickMenteeList, setClickMenteeList] = useState(false);
   const [clickMentorList, setClickMentorList] = useState(false);
 
@@ -48,7 +47,7 @@ const MatchingCalendar = props => {
 
   // params : { start, end, computerId, villageId, schooldId, libraryId }
   useEffect(() => {
-    if (changesMade || headmasterProfile.villageId === undefined) return;
+    if (changesMade || headmasterProfile === '') return;
     const params = {
       start: startOfWeek,
       end: endOfWeek,
@@ -85,7 +84,14 @@ const MatchingCalendar = props => {
   };
 
   const handleEventAdd = addInfo => {
-    dispatch(createCalendarEvent(addInfo.event.toPlainObject()));
+    const newEvent = { ...addInfo.event.toPlainObject() };
+    const { villageId, schoolId, libraryId } = headmasterProfile;
+    newEvent.villageId = villageId;
+    newEvent.schoolId = schoolId;
+    newEvent.libraryId = libraryId;
+    newEvent.computerId = selectedComputerId;
+    newEvent.locationId = 1; // HARDCODED CHANGE LATER
+    dispatch(createCalendarEvent(newEvent));
   };
 
   const handleClickMenteeList = () => {
@@ -97,6 +103,12 @@ const MatchingCalendar = props => {
 
   const handleEventChange = changeInfo => {
     const newEvent = { ...changeInfo.event.toPlainObject() };
+    const { villageId, schoolId, libraryId } = headmasterProfile;
+    newEvent.villageId = villageId;
+    newEvent.schoolId = schoolId;
+    newEvent.libraryId = libraryId;
+    newEvent.computerId = selectedComputerId;
+    newEvent.locationId = 1; // HARDCODED CHANGE LATER
     newEvent.mentor = newEvent.extendedProps.mentor
       ? [...newEvent.extendedProps.mentor]
       : [];
@@ -131,6 +143,8 @@ const MatchingCalendar = props => {
       event => event.start === dropInfo.event.startStr
     );
 
+    const { villageId, schoolId, libraryId } = headmasterProfile;
+
     // if there aren't, then create a new event with this information
     if (eventInSlot.length === 0) {
       dispatch(
@@ -139,6 +153,11 @@ const MatchingCalendar = props => {
           id: uuid(),
           mentor: [...dropInfo.event.extendedProps.mentor],
           mentee: [...dropInfo.event.extendedProps.mentee],
+          villageId,
+          schoolId,
+          libraryId,
+          computerId: selectedComputerId,
+          locationId: 1, // HARDCODED CHANGE LATER
         })
       );
     } else {
@@ -150,12 +169,19 @@ const MatchingCalendar = props => {
       const newEvent = { ...eventInSlot };
       newEvent[typeToAdd] = dropInfo.event.extendedProps[typeToAdd];
       newEvent[otherType] = eventInSlot[otherType];
+      newEvent.villageId = villageId;
+      newEvent.schoolId = schoolId;
+      newEvent.libraryId = libraryId;
+      newEvent.computerId = selectedComputerId;
+      newEvent.locationId = 1; // HARDCODED CHANGE LATER
 
       dispatch(editCalendarEvent(newEvent));
     }
     dropInfo.revert();
   };
 
+  // this function checks if an event CAN be dropped in the
+  // hovered spot. true = it can be, false = it cannot
   const handleEventAllow = (dropInfo, draggedEvent) => {
     const { startStr, endStr } = dropInfo;
     const start = moment(startStr);
