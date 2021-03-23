@@ -17,7 +17,7 @@ import '../../../../style.css';
 const Mentees = ({
   mentees,
   fetchMenteesAction: fetchMentees,
-  deleteMentee,
+  deleteMenteeAction: deleteMentee,
   addMenteeAction: addMentee,
   editMenteeProfileAction: editMenteeProfile,
   userId,
@@ -56,7 +56,7 @@ const Mentees = ({
       setLoading(false);
       setIsModalVisible2(false);
     }, 1500);
-    window.location.reload();
+    //window.location.reload();
   };
 
   const handleOk = () => {
@@ -85,8 +85,7 @@ const Mentees = ({
 
   function showDeleteConfirm(key) {
     confirm({
-      title: 'Are you sure delete this task?',
-      content: 'Some descriptions',
+      title: 'Are you sure delete this mentee?',
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
@@ -240,18 +239,17 @@ const Mentees = ({
   return (
     <div className="menteeContainer">
       <div className="exploreWrapper">
-        {message ||
-          (editMessage && (
-            <Alert
-              message={message || editMessage}
-              type="success"
-              style={{
-                marginBottom: '10px',
-                borderRadius: 'unset',
-                maxWidth: '480px',
-              }}
-            />
-          ))}
+        {(message || editMessage) && (
+          <Alert
+            message={message || editMessage}
+            type="success"
+            style={{
+              marginBottom: '10px',
+              borderRadius: 'unset',
+              maxWidth: '480px',
+            }}
+          />
+        )}
         <h1 id="menteeTitle">
           Mentees{' '}
           <Button type="primary" size="small" onClick={showModal}>

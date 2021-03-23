@@ -204,10 +204,18 @@ export const editMenteeProfile = (id, data) => dispatch => {
   axiosWithAuth()
     .put(`/mentees/${id}`, data)
     .then(res => {
-      dispatch({
-        type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
-        payload: res.data,
-      });
+      axiosWithAuth()
+        .get(`/mentees`)
+        .then(res => {
+          dispatch({
+            type: actionTypes.EDIT_MENTEE_PROFILE_SUCCESS,
+            payload: 'Successfully edited mentee.',
+          });
+          dispatch({
+            type: actionTypes.FETCH_MENTEE_SUCCESS,
+            payload: res.data,
+          });
+        });
     })
     .catch(err =>
       dispatch({ type: actionTypes.EDIT_MENTEE_PROFILE_FAILURE, payload: err })

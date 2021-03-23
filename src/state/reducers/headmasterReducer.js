@@ -1,6 +1,8 @@
 // Reducer file for Headmaster & Mentee
 
 import {
+  FETCH_MENTEE_AFTER_POST_SUCCESS,
+  FETCH_MENTEE_AFTER_DELETE_SUCCESS,
   FETCH_HEADMASTER_SCHOOLS,
   FETCH_VILLAGE,
   FETCH_HEADMASTER_PROFILE,
@@ -42,6 +44,22 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         isLoading: false,
         mentees: action.payload,
+      };
+    case FETCH_MENTEE_AFTER_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        mentees: [...state.mentees, action.payload.mentee],
+        message: action.payload.message,
+      };
+    case FETCH_MENTEE_AFTER_DELETE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        mentees: state.mentees.filter(
+          mentee => mentee.id !== action.payload.mentee
+        ),
+        message: action.payload.message,
       };
     case FETCH_MENTEE_START:
       return { ...state, isLoading: true };

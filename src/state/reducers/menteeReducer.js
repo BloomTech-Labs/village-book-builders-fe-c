@@ -35,7 +35,6 @@ const reducer = (state = initialState, action = {}) => {
       debugLog(action.type, action.payload);
       return { ...state, isLoading: true };
     case FETCH_MENTEE_PROFILE_SUCCESS:
-    case EDIT_MENTEE_PROFILE_SUCCESS:
       debugLog(action.type, action.payload);
       //return { ...state, isLoading: false, menteeProfile: action.payload };
       console.log('payload', action.payload);
@@ -44,6 +43,14 @@ const reducer = (state = initialState, action = {}) => {
         isLoading: false,
         mentees: [...state.mentees, action.payload.mentee],
         message: action.payload.message,
+      };
+    case EDIT_MENTEE_PROFILE_SUCCESS:
+      //debugLog(action.type, action.payload);
+      //return { ...state, isLoading: false, menteeProfile: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        message: action.payload,
       };
     case EDIT_MENTEE_PROFILE_FAILURE:
     case FETCH_MENTEE_PROFILE_FAILURE:
