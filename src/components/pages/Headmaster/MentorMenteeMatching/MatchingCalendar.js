@@ -9,12 +9,15 @@ import interactionPlugin from '@fullcalendar/interaction';
 import Events from './Events';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
-// import MatchingModal from './MatchingModal';
+import PersonInfoModal from './PersonInfoModal';
+
 import {
   fetchCalendar,
   createCalendarEvent,
   editCalendarEvent,
   removeCalendarEvent,
+  fetchMentors,
+  fetchMentees,
 } from '../../../../state/actions/index';
 import ComputerDropdown from './ComputerDropdown';
 import DraggableMenuLists from './DraggableMenuLists';
@@ -190,6 +193,7 @@ const MatchingCalendar = props => {
 
   return (
     <div>
+      <PersonInfoModal />
       <h1>Mentor - Mentee Matching</h1>
       <section className="calendarSection">
         <section>
