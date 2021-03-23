@@ -60,14 +60,10 @@ function Events({ event, addSession, removeSession, removeEvent }) {
       }}
     >
       <Option mentee={mentee} mentor={mentor}>
-        {mentor && mentor.length > 0
-          ? mentor[0].first_name + ' (M)'
-          : '(Not Assigned)'}
+        {mentor && mentor.length > 0 ? mentor[0].first_name + ' (M)' : '(N/A)'}
       </Option>
       <Option mentee={mentee} mentor={mentor}>
-        {mentee && mentee.length > 0
-          ? mentee[0].first_name + ' (S)'
-          : '(Not Assigned)'}
+        {mentee && mentee.length > 0 ? mentee[0].first_name + ' (S)' : '(N/A)'}
       </Option>
     </Cell>
   );
