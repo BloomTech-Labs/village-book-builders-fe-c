@@ -10,7 +10,8 @@ import { Button } from 'antd';
 import Events from './Events';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
-// import MatchingModal from './MatchingModal';
+import PersonInfoModal from './PersonInfoModal';
+
 import {
   fetchCalendar,
   saveCalendar,
@@ -19,6 +20,7 @@ import {
   removeCalendarEvent,
   fetchMentors,
   fetchMentees,
+  showModal,
 } from '../../../../state/actions/index';
 import ComputerDropdown from './ComputerDropdown';
 
@@ -178,6 +180,7 @@ const MatchingCalendar = props => {
 
   return (
     <div>
+      <PersonInfoModal />
       <h1>Mentor - Mentee Matching</h1>
       <section className="calendarSection">
         <section>
@@ -199,6 +202,7 @@ const MatchingCalendar = props => {
                 <div
                   className="draggableMentor"
                   key={mentorInfo.id}
+                  onClick={() => dispatch(showModal(mentorInfo))}
                   data-event={JSON.stringify({
                     title: 'Session',
                     duration: '01:00',

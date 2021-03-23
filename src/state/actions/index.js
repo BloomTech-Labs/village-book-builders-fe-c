@@ -395,6 +395,6 @@ export const hideModal = () => dispatch => {
   dispatch({ type: actionTypes.HIDE_MODAL });
 };
 
-export const showModal = () => dispatch => {
-  dispatch({ type: actionTypes.SHOW_MODAL });
+export const showModal = personInfo => dispatch => {
+  dispatch({ type: actionTypes.SHOW_MODAL, payload: personInfo });
 };

@@ -109,9 +109,13 @@ const calendarReducer = (state = initialState, action = {}) => {
       };
 
     case SHOW_MODAL:
-      return { ...state, matchingModalVisible: true };
+      return {
+        ...state,
+        personInfoModalVisible: true,
+        PersonInfoModal: action.payload,
+      };
     case HIDE_MODAL:
-      return { ...state, matchingModalVisible: false };
+      return { ...state, personInfoModalVisible: false };
 
     default:
       return state;
