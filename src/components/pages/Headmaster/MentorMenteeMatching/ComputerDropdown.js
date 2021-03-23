@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Button } from 'antd';
 import { DownOutlined, LaptopOutlined, SyncOutlined } from '@ant-design/icons';
 
 import { changeSelectedComputer } from '../../../../state/actions/index';
@@ -36,13 +36,14 @@ const ComputerDropdown = () => {
   return (
     <>
       <Dropdown overlay={menu}>
-        <a
+        <Button
           className="ant-dropdown-link"
           style={{ fontSize: '1.1rem' }}
+          type="link"
           onClick={e => e.preventDefault()}
         >
           <LaptopOutlined /> Computer #{selectedComputerId} <DownOutlined />
-        </a>
+        </Button>
       </Dropdown>
       {isLoading && (
         <SyncOutlined style={{ marginLeft: '1rem', color: 'orange' }} spin />

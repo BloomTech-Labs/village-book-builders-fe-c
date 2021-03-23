@@ -57,7 +57,14 @@ const MatchingCalendar = props => {
       schoolId: headmasterProfile.schoolId,
     };
     dispatch(fetchCalendar(params));
-  }, [dispatch, headmasterProfile, changesMade, selectedComputerId]);
+  }, [
+    dispatch,
+    headmasterProfile,
+    changesMade,
+    selectedComputerId,
+    endOfWeek,
+    startOfWeek,
+  ]);
 
   const handleSelectClick = selectInfo => {
     const title = 'Session';
