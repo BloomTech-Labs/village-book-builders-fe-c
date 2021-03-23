@@ -6,14 +6,12 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { Button } from 'antd';
 import Events from './Events';
 import MiniMentorList from './MiniMentorList';
 import MiniMenteeList from './MiniMenteeList';
 // import MatchingModal from './MatchingModal';
 import {
   fetchCalendar,
-  saveCalendar,
   createCalendarEvent,
   editCalendarEvent,
   removeCalendarEvent,
@@ -25,7 +23,6 @@ const MatchingCalendar = props => {
   const dispatch = useDispatch();
   const events = useSelector(state => state.calendarReducer.events);
   const changesMade = useSelector(state => state.calendarReducer.changesMade);
-  const isLoading = useSelector(state => state.calendarReducer.isLoading);
 
   const selectedComputerId = useSelector(
     state => state.calendarReducer.selectedComputerId
