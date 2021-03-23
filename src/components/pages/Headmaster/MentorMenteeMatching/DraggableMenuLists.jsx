@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Draggable } from '@fullcalendar/interaction';
 import { Menu } from 'antd';
-import { fetchMentors, fetchMentees } from '../../../../state/actions/index';
+import {
+  fetchMentors,
+  fetchMentees,
+  showModal,
+} from '../../../../state/actions/index';
 import {
   CheckSquareTwoTone,
   SelectOutlined,
@@ -34,13 +38,12 @@ function DraggableMenuLists() {
     dispatch(fetchMentees());
   }, [dispatch]);
 
-  const handleClick = event => {
-    console.log('stuff');
+  const openModal = person => {
+    dispatch(showModal(person));
   };
 
   return (
     <Menu
-      onClick={handleClick}
       style={{ width: 300 }}
       defaultSelectedKeys={['1']}
       defaultOpenKeys={['mentors', 'mentees']}
@@ -53,6 +56,7 @@ function DraggableMenuLists() {
               <Menu.Item
                 className="draggableMentee"
                 key={`mentee-${menteeInfo.id}`}
+                onClick={() => openModal(menteeInfo)}
                 data-event={JSON.stringify({
                   title: 'Session',
                   duration: '01:00',
@@ -87,6 +91,7 @@ function DraggableMenuLists() {
               <Menu.Item
                 className="draggableMentor"
                 key={`mentor-${mentorInfo.id}`}
+                onClick={() => openModal(mentorInfo)}
                 data-event={JSON.stringify({
                   title: 'Session',
                   duration: '01:00',
