@@ -227,6 +227,7 @@ const MatchingCalendar = props => {
                 <div
                   className="draggableMentee"
                   key={menteeInfo.id}
+                  onClick={() => dispatch(showModal(menteeInfo))}
                   data-event={JSON.stringify({
                     title: 'Session',
                     duration: '01:00',

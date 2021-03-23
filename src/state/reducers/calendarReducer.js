@@ -21,13 +21,13 @@ const initialState = {
   events: [],
   selectedComputerId: 1,
   matchingModalVisible: false,
-  matchingModal: {
-    date: null,
-    time: null,
-    duration: '1hr',
-    mentor: null,
-    mentee: null,
-    computerId: null,
+  PersonInfoModal: {
+    first_name: null,
+    last_name: null,
+    gender: null,
+    primary_language: null,
+    dob: null,
+    academic_description: null,
   },
   errors: {},
 };
