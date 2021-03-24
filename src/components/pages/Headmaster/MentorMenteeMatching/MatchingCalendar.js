@@ -2,6 +2,7 @@ import React, { createRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import moment from 'moment-timezone';
+import { message } from 'antd';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -24,6 +25,7 @@ const MatchingCalendar = props => {
   const dispatch = useDispatch();
   const events = useSelector(state => state.calendarReducer.events);
   const changesMade = useSelector(state => state.calendarReducer.changesMade);
+  const errors = useSelector(state => state.calendarReducer.errors);
 
   const selectedComputerId = useSelector(
     state => state.calendarReducer.selectedComputerId
@@ -65,6 +67,10 @@ const MatchingCalendar = props => {
     endOfWeek,
     startOfWeek,
   ]);
+
+  useEffect(() => {
+    if (errors.message) message.error(errors.message);
+  }, [errors]);
 
   const handleSelectClick = selectInfo => {
     const title = 'Session';

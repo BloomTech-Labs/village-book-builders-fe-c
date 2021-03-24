@@ -30,8 +30,7 @@ export const login = data => dispatch => {
       });
     })
     .catch(err => {
-      console.log('LOGIN ACTION FAILURE--> with this data:', data);
-      console.dir(err);
+      dispatch({ type: actionTypes.AUTH_FAIL, payload: err });
     });
 };
 
@@ -174,7 +173,7 @@ export const removeCalendarEvent = event => dispatch => {
     })
     .catch(err =>
       dispatch({
-        type: actionTypes.REMOVE_CALENDAR_EVENT_SUCCESS,
+        type: actionTypes.REMOVE_CALENDAR_EVENT_FAIL,
         payload: err,
       })
     );
