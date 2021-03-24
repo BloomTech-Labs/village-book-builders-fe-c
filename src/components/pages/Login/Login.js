@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Form, Input, Checkbox, Button } from 'antd';
+import { Form, Input, Checkbox, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import { login as loginAction } from '../../../state/actions';
+import { login } from '../../../state/actions';
 
 const initialState = {
   email: '',
   password: '',
 };
 
-const Login = ({ loginAction: login, loggedIn }) => {
+const Login = props => {
+  const dispatch = useDispatch();
+  const loggedIn = useSelector(state => state.authReducer.loggedIn);
+  const errors = useSelector(state => state.authReducer.errors);
+  const isLoading = useSelector(state => state.authReducer.isLoading);
   const [formData, setFormData] = useState(initialState);
   const [form] = Form.useForm();
 
   //const history = useHistory();
 
   const handleSubmit = async () => {
-    // console.log('LOGIN COMPONENT handleSubmit --> ', formData);
-    login(formData);
+    dispatch(login(formData));
   };
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (errors.message) message.error(errors.message);
+  }, [errors]);
 
   return loggedIn ? (
     <Redirect to="/dashboard" />
@@ -84,6 +91,7 @@ const Login = ({ loginAction: login, loggedIn }) => {
             type="primary"
             htmlType="submit"
             className="login-form-button"
+            loading={isLoading}
           >
             Log In
           </Button>
@@ -98,12 +106,4 @@ const Login = ({ loginAction: login, loggedIn }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    loggedIn: state.authReducer.loggedIn,
-    userId: state.authReducer.userId,
-    role: state.authReducer.role,
-  };
-};
-
-export default connect(mapStateToProps, { loginAction })(Login);
+export default Login;

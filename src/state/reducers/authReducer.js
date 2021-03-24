@@ -12,6 +12,7 @@ const initialState = {
   loggedIn: false,
   userId: 'blank',
   role: 'blank',
+  errors: {},
 };
 
 //! Temporarily decoding JWT here on behalf of the backend. Lets us work with mock-backend and test out private routing.
@@ -48,6 +49,10 @@ const authReducer = (state = initialState, action = {}) => {
     // These two were temporarily added
     // But logic should be coded
     case AUTH_FAIL:
+      return {
+        ...state,
+        errors: action.payload,
+      };
     case AUTH_START:
       return initialState;
 

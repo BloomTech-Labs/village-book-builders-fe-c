@@ -8,7 +8,6 @@ const PersonInfoModal = props => {
   const personInfoModalVisible = useSelector(
     state => state.calendarReducer.personInfoModalVisible
   );
-  const isLoading = useSelector(state => state.calendarReducer.isLoading);
   const PersonInfoModal = useSelector(
     state => state.calendarReducer.PersonInfoModal
   );

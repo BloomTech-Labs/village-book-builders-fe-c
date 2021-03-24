@@ -30,8 +30,7 @@ export const login = data => dispatch => {
       });
     })
     .catch(err => {
-      console.log('LOGIN ACTION FAILURE--> with this data:', data);
-      console.dir(err);
+      dispatch({ type: actionTypes.AUTH_FAIL, payload: err });
     });
 };
 
@@ -94,27 +93,89 @@ export const fetchCalendar = params => dispatch => {
     );
 };
 
+const eventToSession = event => {
+  const {
+    title,
+    start,
+    end,
+    mentor,
+    mentee,
+    id,
+    libraryId,
+    computerId,
+    villageId,
+    locationId,
+    schoolId,
+    topic,
+  } = event;
+  const mentorId = mentor ? mentor.map(person => person.id) : [];
+  const menteeId = mentee ? mentee.map(person => person.id) : [];
+  return {
+    title,
+    start,
+    end,
+    mentorId,
+    menteeId,
+    id,
+    libraryId,
+    computerId,
+    villageId,
+    locationId,
+    schoolId,
+    topic,
+  };
+};
+
 export const createCalendarEvent = event => dispatch => {
-  return dispatch({ type: actionTypes.CREATE_CALENDAR_EVENT, payload: event });
+  dispatch({ type: actionTypes.CREATE_CALENDAR_EVENT_START });
+  axiosWithAuth()
+    .post(`/sessions`, eventToSession(event))
+    .then(res => {
+      // if this is successful, then we can just use the event object and not have to
+      // re-parse the data and transform it because it would be the same
+      dispatch({
+        type: actionTypes.CREATE_CALENDAR_EVENT_SUCCESS,
+        payload: event,
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.CREATE_CALENDAR_EVENT_FAIL, payload: err })
+    );
 };
 
 export const editCalendarEvent = event => dispatch => {
-  dispatch({ type: actionTypes.EDIT_CALENDAR_EVENT, payload: event });
-};
-
-export const removeCalendarEvent = id => dispatch => {
-  dispatch({ type: actionTypes.REMOVE_CALENDAR_EVENT, payload: id });
-};
-
-export const saveCalendar = sessions => dispatch => {
-  dispatch({ type: actionTypes.SAVE_CALENDAR_START });
+  dispatch({ type: actionTypes.EDIT_CALENDAR_EVENT_START });
   axiosWithAuth()
-    .get(`/sessions`, sessions)
+    .put(`/sessions/${event.id}`, eventToSession(event))
     .then(res => {
-      dispatch({ type: actionTypes.SAVE_CALENDAR_SUCESS });
+      dispatch({
+        type: actionTypes.EDIT_CALENDAR_EVENT_SUCCESS,
+        payload: event,
+      });
     })
     .catch(err =>
-      dispatch({ type: actionTypes.SAVE_CALENDAR_FAILURE, payload: err })
+      dispatch({
+        type: actionTypes.EDIT_CALENDAR_EVENT_FAIL,
+        payload: err,
+      })
+    );
+};
+
+export const removeCalendarEvent = event => dispatch => {
+  dispatch({ type: actionTypes.REMOVE_CALENDAR_EVENT_START });
+  axiosWithAuth()
+    .delete(`/sessions/${event.id}`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.REMOVE_CALENDAR_EVENT_SUCCESS,
+        payload: event,
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: actionTypes.REMOVE_CALENDAR_EVENT_FAIL,
+        payload: err,
+      })
     );
 };
 
