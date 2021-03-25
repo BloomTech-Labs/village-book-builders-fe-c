@@ -361,6 +361,10 @@ export const editSchool = (id, data) => dispatch => {
     .catch(err => console.dir(err));
 };
 
+// ----------------
+// MENTORS
+// ----------------
+
 export const fetchMentors = () => dispatch => {
   dispatch({ type: actionTypes.FETCH_MENTOR_START });
   axiosWithAuth()
@@ -370,6 +374,62 @@ export const fetchMentors = () => dispatch => {
     })
     .catch(err =>
       dispatch({ type: actionTypes.FETCH_MENTOR_FAILURE, payload: err })
+    );
+};
+
+export const addMentor = values => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTOR_START });
+  axiosWithAuth()
+    .post(`/mentors`, values)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_MENTOR_AFTER_POST_SUCCESS,
+        payload: { mentor: res.data, message: 'Successfully added mentor.' },
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTOR_FAILURE, payload: err })
+    );
+};
+
+export const deleteMentor = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTOR_START });
+  axiosWithAuth()
+    .delete(`/mentors/${id}`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_MENTOR_AFTER_DELETE_SUCCESS,
+        payload: {
+          mentor: parseInt(id),
+          message: 'Successfully deleted mentor.',
+        },
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTOR_FAILURE, payload: err })
+    );
+};
+
+export const editMentorProfile = (id, data) => dispatch => {
+  dispatch({ type: actionTypes.EDIT_MENTOR_PROFILE_START });
+  axiosWithAuth()
+    .put(`/mentors/${id}`, data)
+    .then(res => {
+      axiosWithAuth()
+        .get(`/mentors`)
+        .then(res => {
+          dispatch({
+            type: actionTypes.EDIT_MENTOR_PROFILE_SUCCESS,
+            payload: 'Successfully edited mentor.',
+          });
+          dispatch({
+            type: actionTypes.FETCH_MENTOR_SUCCESS,
+            payload: res.data,
+          });
+        });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.EDIT_MENTOR_PROFILE_FAILURE, payload: err })
     );
 };
 
@@ -407,6 +467,21 @@ export const editTeacherProfile = (id, data) => dispatch => {
       window.location.replace('/profile/');
     })
     .catch(err => console.dir(err));
+};
+
+export const fetchMentorProfile = id => dispatch => {
+  dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_START });
+  axiosWithAuth()
+    .get(`/mentors/${id}`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.FETCH_MENTOR_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err =>
+      dispatch({ type: actionTypes.FETCH_MENTEE_PROFILE_FAILURE, payload: err })
+    );
 };
 
 export const fetchTeacherProfile = id => dispatch => {

@@ -4,7 +4,7 @@ import React from 'react';
 import '../../../style.css';
 
 const MiniMentorProfile = ({ currentMentor }) => {
-  // const { Panel } = Collapse;
+  //const { Panel } = Collapse;
   // debugLog(
   //   'Prop drilled from Mentees.js',
   //   currentMentee,

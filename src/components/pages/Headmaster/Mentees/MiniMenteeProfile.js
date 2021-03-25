@@ -4,8 +4,8 @@ import React from 'react';
 import '../../../../style.css';
 
 const MiniMenteeProfile = ({ currentMentee }) => {
-  // const { Panel } = Collapse;
-  // console.log(currentMentee);
+  //const { Panel } = Collapse;
+  console.log(currentMentee);
   // debugLog(
   //   'Prop drilled from Mentees.js',
   //   currentMentee,
