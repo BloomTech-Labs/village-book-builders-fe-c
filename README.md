@@ -5,7 +5,7 @@ For steps on how to work with this repository [please see here](https://docs.lab
 
 # Village Book Builders
 
-You can find the deployed project at [VBB-Deployment](main.d364h8tamcqe39.amplifyapp.com).
+You can find the deployed project at [VBB-Deployment](https://main.d2issmgbafq2az.amplifyapp.com/).
 
 ## Contributors
 
@@ -26,6 +26,7 @@ You can find the deployed project at [VBB-Deployment](main.d364h8tamcqe39.amplif
 
 - run: `npm install` to download all dependencies.
 - run: `npm start` to start your local development server.
+- make sure to remove any existing "token" from LocalStorage
 
 > When using Okta for authentication, the app will need to run locally on port 3000.
 
